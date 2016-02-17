@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/log.png</file>
+        <file>images/help_browser.png</file>
+        <file>images/about.png</file>
+    </qresource>
+</RCC>

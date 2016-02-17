@@ -1,0 +1,88 @@
+<!--
+  Copyright © 2016 by IT Center, RWTH Aachen University
+
+  This file is part of EffortLog, a tool for collecting software
+  development effort.
+
+  EffortLog is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  EffortLog is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with EffortLog.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<html lang="en">
+  <head>
+    <title>Format and structure of the log file - EffortLog</title>
+    <meta http-equiv="Content-Type" content="text/html">
+    <meta name="description" content="EffortLog">
+    <link title="Top" rel="start" href="index.html#Top">
+    <link rel="up" href="logfile.html#logfile" title="logfile">
+    <link rel="prev" href="logfile.html#logfile" title="logfile">
+    <link rel="next" href="logfile_handling.html#logfile_handling" title="logfile_handling">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <style type="text/css"><!--
+      pre.display { font-family:inherit }
+      pre.format  { font-family:inherit }
+      pre.smalldisplay { font-family:inherit; font-size:smaller }
+      pre.smallformat  { font-family:inherit; font-size:smaller }
+      pre.smallexample { font-size:smaller }
+      pre.smalllisp    { font-size:smaller }
+      span.sc    { font-variant:small-caps }
+      span.roman { font-family:serif; font-weight:normal; }
+      span.sansserif { font-family:sans-serif; font-weight:normal; }
+    --></style>
+    </head>
+    <body>
+    <div class="node">
+    <a name="privileges"></a>
+    <p>
+    Next:&nbsp;<a rel="next" accesskey="n" href="logfile_handling.html#logfile_handling">Handling of the log file</a>,
+    Previous:&nbsp;<a rel="previous" accesskey="p" href="logfile.html#logfile">Log file</a>,
+    Up:&nbsp;<a rel="up" accesskey="u" href="logfile.html#logfile">Log file</a>
+    <hr>
+    </div>
+
+    <h3 class="section">5.1 Format and structure of the log file</h3>
+
+    The log file is formatted in JSON. It contains of the following entries:
+    <ul>
+      <li>"UserName": The user's name. This was specified during the configuration wizard.</li>
+      <li>"ProjectTitle": The title of the project. This was specified during the configuration wizard.</li>
+      <li>"ProjectStage": The current development stage of the project. This was specified during the configuration wizard. The choices for the stage include:
+      <ul>
+        <li>Scratch</li>
+        <li>Working serial version</li>
+        <li>Tuned serial version</li>
+        <li>Working parallel version</li>
+        <li>Tuned parallel version</li>
+      </ul></li>
+      <li>"ActivityType": The chosen type of activity. The user is provided with a list of the following activities:
+      <ul>
+        <li>Break</li>
+        <li>Thinking</li>
+        <li>Serial</li>
+        <li>Parallelizing</li>
+        <li>Testing</li>
+        <li>Debugging</li>
+        <li>Tuning</li>
+        <li>Experimenting</li>
+        <li>Other</li>
+      </ul></li>
+      <li>"Comment": Contains a comment on the current activity. If the user did not enter any comment this field is empty.</li>
+      <li>"CurLoggingTime": The time when the user finished the questionnaire.</li>
+      <li>"Interval": The time in minutes since the last stored logging event.</li>
+      <li>"LastLoggingTime": The time when the user finished the questionnaire the time before the current event.</li>
+      <li>"LoggingInterval": The specified logging interval. This was specified during the configuration wizard.</li>
+      <li>"NoEvents": A count of the number of events logged during the current session.</li>
+    </ul>
+    Note that provided interface to JSON files in Qt does not guarantee writing in a specific order. Therefore the ordering of the entries above can differ.
+  </body>
+</html>

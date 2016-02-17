@@ -1,0 +1,38 @@
+<RCC>
+    <qresource prefix="/">
+        <file>dialog.html</file>
+        <file>index.html</file>
+        <file>logfile.html</file>
+        <file>main.html</file>
+        <file>wizard.html</file>
+        <file>help.html</file>
+        <file>privileges.html</file>
+        <file>main_window.html</file>
+        <file>dialog_window.html</file>
+        <file>wizard_window.html</file>
+        <file>settings.html</file>
+        <file>answer.html</file>
+        <file>about.html</file>
+        <file>history.html</file>
+        <file>logfile_format.html</file>
+        <file>logfile_handling.html</file>
+        <file>images/dialog_activity_chooser.png</file>
+        <file>images/dialog_buttons.png</file>
+        <file>images/dialog_comment.png</file>
+        <file>images/dialog_main.png</file>
+        <file>images/dialog_statusbar.png</file>
+        <file>images/help.png</file>
+        <file>images/helpmenu.png</file>
+        <file>images/main_menubar.png</file>
+        <file>images/main_statusbar.png</file>
+        <file>images/main_timer.png</file>
+        <file>images/append.png</file>
+        <file>images/conf.png</file>
+        <file>images/main.png</file>
+        <file>license.html</file>
+        <file>development.html</file>
+        <file>images/new_pw.png</file>
+        <file>images/pw.png</file>
+        <file>images/new_pro.png</file>
+    </qresource>
+</RCC>

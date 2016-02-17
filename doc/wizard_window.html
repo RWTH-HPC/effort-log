@@ -1,0 +1,102 @@
+<!--
+  Copyright © 2016 by IT Center, RWTH Aachen University
+
+  This file is part of EffortLog, a tool for collecting software
+  development effort.
+
+  EffortLog is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  EffortLog is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with EffortLog.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<html lang="en">
+  <head>
+    <title>Elements of the configuration dialog - EffortLog</title>
+    <meta http-equiv="Content-Type" content="text/html">
+    <meta name="description" content="EffortLog">
+    <link title="Top" rel="start" href="index.html#Top">
+    <link rel="up" href="wizard.html#wizard" title="wizard">
+    <link rel="prev" href="wizard.html#wizard" title="wizard">
+    <link rel="next" href="settings.html#settings" title="settings">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <style type="text/css"><!--
+      pre.display { font-family:inherit }
+      pre.format  { font-family:inherit }
+      pre.smalldisplay { font-family:inherit; font-size:smaller }
+      pre.smallformat  { font-family:inherit; font-size:smaller }
+      pre.smallexample { font-size:smaller }
+      pre.smalllisp    { font-size:smaller }
+      span.sc    { font-variant:small-caps }
+      span.roman { font-family:serif; font-weight:normal; }
+      span.sansserif { font-family:sans-serif; font-weight:normal; }
+    --></style>
+    </head>
+    <body>
+    <div class="node">
+    <a name="wizard_window"></a>
+    <p>
+    Next:&nbsp;<a rel="next" accesskey="n" href="settings.html#settings">Global settings</a>,
+    Previous:&nbsp;<a rel="previous" accesskey="p" href="wizard.html#wizard">Configuration dialog</a>,
+    Up:&nbsp;<a rel="up" accesskey="u" href="wizard.html#wizard">Configuration dialog</a>
+    <hr>
+    </div>
+
+    <h3 class="section">2.1 Elements of the dialog</h3>
+
+    The configuration dialog consists of one unified window which provides acces to all user-input needed. The dialog consists of a vertical list of entries. Each of these entries is divided into a label explaining the expected input, a filed for the input and optional a button for easier access to the expected input. The user can browse through the input fields by hitting "tab" on the keyboard.
+    <br>
+    In the lower area of the dialog are two buttons. The button labeled "Close" will close the configuration dialog and exit the main program. To the right of it is a button labeled "OK". This button will be enable if the user input is valid for all required fields of input. This button will close the configuration dialog and raise the focus on the main program. Additionally, the main program will start the timer for logging events with the user-specified interval. The status of the main program will therefore be "running".
+    <br>
+    The main window is divided into four distinct areas which will be explained in detail in the folling section.
+
+    <div class="block-image"><img src="images/conf.png" alt="images/conf.png"></div>
+
+    <h4 class="subheading">Project setup</h4>
+    This part of the dialog lets the user specify the user name and project title. Both of these inputs are expected to be any string of characters. None of these fields can be empty on executing the main program.
+
+    <h4 class="subheading">Logging setup</h4>
+    This part of the dialog lets the user specify general information about the planned logging. The program will write to a log file in JSON-format. The first input is the location of this file. This defaults to the directory where the executable of the program is stored. The second input is the log file's name. This defaults to the project's title with the ending ".json". The logging interval is an integer number between 1 and 180. None of these fields can be empty on executing the main program.
+
+    <h4 class="subheading">Development stage of the project</h4>
+    This part of the dialog lets the user specify the current development stage of the program. The choices of the stage include:
+    <ul>
+      <li>Scratch</li>
+      <li>Working serial version</li>
+      <li>Tuned serial version</li>
+      <li>Working parallel version</li>
+      <li>Tuned parallel version</li>
+    </ul>
+    The default value is "Scratch".
+
+    <div class="block-image"><img src="images/new_pro.png" alt="images/new_pro.png"></div>
+
+    <h4 class="subheading">Appendix</h4>
+    This part of the dialog lets the user append to the current log file. This is helpful if the user has worked on a project before executing the program. The Button "Append..." opens the general questionnaire and lets the user specify the logging event. In contrary to the interval-based questionnaires, the appending questionnaire lets the user specify the duration of the current event in minutes.
+
+    <div class="block-image"><img src="images/append.png" alt="images/append.png"></div>
+
+    <h4 class="subheading">Encryption</h4>
+    EffortLog encrypts all user related files to ensure the safety and privacy of its users. All project files and log files are encrypted with a strong 256-bit AES encryption. The user sets a password for each project on project-setup. To manually encrypt the log files a current version of OpenSSL (https://www.openssl.org)  is required. Encryption can be done via command-line with the following command:
+        openssl enc -aes-256-cbc -d -in <decrypted file>.json -out encrypted_file
+    Note: Choosing a complex and unique password for each project is crucial to ensure privacy!
+    Note: As of January 2016, changing passwords for a project is not possible once the password is set.
+
+    If the user specifies a new project a dialog will pop up which lets the user specify a password for this project. This password is then used to encrypt all log files.
+
+    <div class="block-image"><img src="images/new_pw.png" alt="images/new_pw.png"></div>
+
+    If the user specifies an existing project a dialog will pop up which asks the user for the password of given project. This password is then used to decrypt the project and log file to read in all data. After exiting the program this password is used to encrypt both files before writing them to disk.
+
+    <div class="block-image"><img src="images/pw.png" alt="images/pw.png"></div>
+
+  </body>
+</html>

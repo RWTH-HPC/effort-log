@@ -1,0 +1,86 @@
+<!--
+  Copyright © 2016 by IT Center, RWTH Aachen University
+
+  This file is part of EffortLog, a tool for collecting software
+  development effort.
+
+  EffortLog is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  EffortLog is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with EffortLog.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<html lang="en">
+  <head>
+    <title>Elements of the main program - EffortLog</title>
+    <meta http-equiv="Content-Type" content="text/html">
+    <meta name="description" content="EffortLog">
+    <link title="Top" rel="start" href="index.html#Top">
+    <link rel="up" href="main.html#main" title="main">
+    <link rel="prev" href="main.html#main" title="main">
+    <link rel="next" href="dialog.html#dialog" title="dialog">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <style type="text/css"><!--
+      pre.display { font-family:inherit }
+      pre.format  { font-family:inherit }
+      pre.smalldisplay { font-family:inherit; font-size:smaller }
+      pre.smallformat  { font-family:inherit; font-size:smaller }
+      pre.smallexample { font-size:smaller }
+      pre.smalllisp    { font-size:smaller }
+      span.sc    { font-variant:small-caps }
+      span.roman { font-family:serif; font-weight:normal; }
+      span.sansserif { font-family:sans-serif; font-weight:normal; }
+    --></style>
+    </head>
+    <body>
+    <div class="node">
+    <a name="main_window"></a>
+    <p>
+    Next:&nbsp;<a rel="next" accesskey="n" href="dialog.html#dialog">Interval-based questionnaire</a>,
+    Previous:&nbsp;<a rel="previous" accesskey="p"  href="main.html#main">Main program</a>,
+    Up:&nbsp;<a rel="up" accesskey="u" href="main.html#main">Main program</a>
+    <hr>
+    </div>
+
+    <h3 class="section">3.1 Elements of the main window</h3>
+
+    The main window in EffortLog consists of various elements which described in detail below. Its main purpose is to maintain a simple interface to provide the user about the current project he or she is logging to and when the next scheduled logging event will be. Except of the menubar and the toolbar, there are no elements which need user interaction. The main window looks like the following image.
+
+    <div class="block-image"><img src="images/main.png" alt="images/main.png"></div>
+
+    <h4 class="subheading">Menubar</h4>
+
+    <p>A simple menubar provides the user with information about the program
+
+    <h5 class="subsubheading">File</h5>
+    <dl>
+    <dt><strong>Read current log file</strong><dd>      Opens the current log file for quickly reading through it.
+    </dl>
+    <h5 class="subsubheading">Help</h5>
+    <dl>
+    <dt><strong>About</strong><dd>      Display information about EffortLog including the version and author of the program.
+    <br><dt><strong>Help</strong><dd>      Open the help window displaying the contents of the EffortLog help.
+    </dl>
+
+    <p>A simple toolbar provides quick access to to functions of the menubar and information about the currently active project.
+
+    <h4 class="subheading">Statusbar</h4>
+
+    <p>A statusbar in the lower part of the main window provides the user with information about the running program. The statusbar displays a message with the following information:
+    <ul>
+      <li>Indicator if the program is running.</li>
+      <li>A timer in form of a progress bar until the next event.</li>
+      <li>The time of the next scheduled logging event.</li>
+    </ul>
+    This message can be overwritten by tooltips when hovering with the mouse pointer over a button.
+
+  </body>
+</html>
