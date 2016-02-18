@@ -8,6 +8,57 @@ EffortLog is mainly developed for research purposes on development efforts of so
 
 EffortLog captures various metrics about programming efforts through interval-based questionnaires. The time span of the interval is specified at program startup. A popup window guides the user through several input fields of various information (see next section) on the developer's activity during the last interval. Additionally, the user can specify information on a project milestone which may be reached during the last interval.
 
+## Binaries
+
+You can download the binaries from [Github releases](https://github.com/julianmi/effort-log/releases). There are currently four different binaries distributed:
+
+* EffortLog_VERSION_osx.dmg: For Mac OS X 10.7 and higher
+* EffortLog_VERSION_osx_encrypted.dmg: For Mac OS X 10.7 and higher with enabled encryption of log files
+* EffortLog_VERSION_win32.zip: 32-bit version for Windows
+* EffortLog_VERSION_win32_encrypted.zip: 32-bit version for Windows with enabled encryption of log files
+
+## Building from source
+
+You can download the sources from [Github releases](https://github.com/julianmi/effort-log/releases).
+
+Prerequisites:
+
+* Qt 5.4.0 or later
+* On Windows: MinGW with g++ 4.7 or Visual Studio 2013 Update 2 or later
+* On Mac OS X: latest Xcode
+* On Linux: g++ 4.7 or later
+* Latest OpenSSL
+
+You can build EffortLog with
+
+    cd $EFFORTLOG_DIRECTORY
+    qmake
+    make (or mingw32-make on Windows)
+
+Installation ("make install") is not needed. To specify the installation directory use
+
+    qmake PREFIX=$INSTALL_DIRECTORY
+
+To compile the release version use
+
+    qmake -config release
+
+To compile the debug version use
+
+    qmake -config debug
+
+To compile the release version with encryption of use
+
+    qmake -config release -config crypt
+
+To compile the debug version with encryption of use
+
+    qmake -config debug -config crypt
+
+To create the *Doxygen* documentation use
+
+    make doxygen
+
 ## Information gathered by EffortLog
 * Project file \*.pro (JSON format)
 
@@ -58,47 +109,6 @@ Notes:
 * Encryption is disabled by default. Add `-config crypt` to your qmake flags to enable encryption.
 * Choosing a complex and unique password for each project is crucial to ensure privacy!
 * As of January 2016, changing passwords for a project is not possible once the password is set.
-
-
-## Installation from Source
-
-Prerequisites:
-
-* Qt 5.4.0 or later
-* On Windows: MinGW with g++ 4.7 or Visual Studio 2013 Update 2 or later
-* On Mac OS X: latest Xcode
-* On Linux: g++ 4.7 or later
-* Latest OpenSSL
-
-You can build EffortLog with
-
-    cd $EFFORTLOG_DIRECTORY
-    qmake
-    make (or mingw32-make on Windows)
-
-Installation ("make install") is not needed. To specify the installation directory use
-
-    qmake PREFIX=$INSTALL_DIRECTORY
-
-To compile the release version use
-
-    qmake -config release
-
-To compile the debug version use
-
-    qmake -config debug
-
-To compile the release version with encryption of use
-
-    qmake -config release -config crypt
-
-To compile the debug version with encryption of use
-
-    qmake -config debug -config crypt
-
-To create the *Doxygen* documentation use
-
-    make doxygen
 
 ## Developing and Contributing to EffortLog
 
