@@ -4,14 +4,21 @@ environment:
   VSVER: 12.0
   matrix:
     - QTDIR: C:\Qt\5.5\mingw492_32
+      CRYPT:  
+    - QTDIR: C:\Qt\5.5\mingw492_32
+      CRYPT: CRYPT
     - QTDIR: C:\Qt\5.5\msvc2013
+      CRYPT:
+    - QTDIR: C:\Qt\5.5\msvc2013
+      CRYPT: Crypt
     - QTDIR: C:\Qt\5.5\msvc2013_64
+      CRYPT: 
+    - QTDIR: C:\Qt\5.5\msvc2013_64
+      CRYPT: Crypt
 
 configuration:
-  - "debug"
-  - "debug crypt"
-  - "release"
-  - "release crypt"
+  - debug
+  - release
 
 install:
   - '%QTDIR%\bin\qtenv2.bat'
@@ -21,7 +28,7 @@ install:
   - if not %QTDIR:msvc=%==%QTDIR% set make=nmake.exe
 
 before_build:
-  - qmake CONFIG+=%CONFIGURATION% EffortLog.pro
+  - qmake CONFIG+=%CONFIGURATION% CONFIG+=%CRYPT%
 
 build_script:
   - '%make%'
