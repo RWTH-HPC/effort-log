@@ -49,6 +49,27 @@ RCC_DIR = $$DESTDIR/.qrc
 UI_DIR = $$DESTDIR/.u
 QMAKE_DISTCLEAN += -rf build
 
+# OS X
+macx {
+  HEADERS += src/appnap.h
+  OBJECTIVE_SOURCES += src/appnap.mm
+  LIBS += -framework Foundation \
+          -framework ApplicationServices
+
+  CONFIG += app_bundle
+  QMAKE_INFO_PLIST = $$PWD/resources/Info.plist
+  INFO_PLIST_PATH = $$shell_quote($${DESTDIR}/$${TARGET}.app/Contents/Info.plist)
+  QMAKE_POST_LINK += /usr/libexec/PlistBuddy -c \"Set :CFBundleGetInfoString Version $${VERSION} IT Center RWTH Achen University\" $${INFO_PLIST_PATH};
+  QMAKE_POST_LINK += /usr/libexec/PlistBuddy -c \"Set :CFBundleLongVersionString Version $${VERSION} IT Center RWTH Achen University\" $${INFO_PLIST_PATH};
+  QMAKE_POST_LINK +=  /usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString $${VERSION}\" $${INFO_PLIST_PATH};
+  QMAKE_POST_LINK += /usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $${VERSION}\" $${INFO_PLIST_PATH};
+}
+
+# Linux
+unix:!macx {
+  CONFIG += static
+}
+
 # Support for encryption
 CONFIG(crypt) {
   message(Configuring EffortLog to be build with encryption.)
@@ -78,22 +99,6 @@ CONFIG(crypt) {
     INCLUDEPATH += $${SSL_WIN}\\include
     LIBS += -L$${SSL_WIN}\\bin -leay32
   }
-}
-
-# OS X
-macx {
-  CONFIG += app_bundle
-  QMAKE_INFO_PLIST = $$PWD/resources/Info.plist
-  INFO_PLIST_PATH = $$shell_quote($${DESTDIR}/$${TARGET}.app/Contents/Info.plist)
-  QMAKE_POST_LINK += /usr/libexec/PlistBuddy -c \"Set :CFBundleGetInfoString Version $${VERSION} IT Center RWTH Achen University\" $${INFO_PLIST_PATH};
-  QMAKE_POST_LINK += /usr/libexec/PlistBuddy -c \"Set :CFBundleLongVersionString Version $${VERSION} IT Center RWTH Achen University\" $${INFO_PLIST_PATH};
-  QMAKE_POST_LINK +=  /usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString $${VERSION}\" $${INFO_PLIST_PATH};
-  QMAKE_POST_LINK += /usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $${VERSION}\" $${INFO_PLIST_PATH};
-}
-
-# Linux
-unix:!macx {
-  CONFIG += static
 }
 
 # Doxygen

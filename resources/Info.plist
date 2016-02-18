@@ -2,29 +2,40 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
-	<key>CFBundleExecutable</key>
-	<string>EffortLog</string>
-	<key>CFBundleGetInfoString</key>
-	<string>Version 0.4 IT Center RWTH Achen University</string>
-	<key>CFBundleIconFile</key>
-	<string></string>
-	<key>CFBundleIdentifier</key>
-	<string>de.rwth-aachen.itc.effortlog</string>
-	<key>CFBundleLongVersionString</key>
-	<string>Version 0.5 IT Center RWTH Achen University</string>
-	<key>CFBundleName</key>
-	<string>EffortLog</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleShortVersionString</key>
-	<string>0.5</string>
-	<key>CFBundleSignature</key>
-	<string>APPL</string>
-	<key>CFBundleVersion</key>
-	<string>0.5</string>
-	<key>NSPrincipalClass</key>
-	<string>NSApplication</string>
+  <key>CFBundleDevelopmentRegion</key>
+    <string>en</string>
+
+  <key>CFBundleExecutable</key>
+    <string>EffortLog</string>
+
+  <key>CFBundleGetInfoString</key>
+    <string>Version 0.7 IT Center RWTH Achen University</string>
+
+  <key>CFBundleIconFile</key>
+    <string></string>
+
+  <key>CFBundleIdentifier</key>
+    <string>de.rwth-aachen.itc.effortlog</string>
+
+  <key>CFBundleLongVersionString</key>
+    <string>Version 0.7 IT Center RWTH Achen University</string>
+
+  <key>CFBundleName</key>
+    <string>EffortLog</string>
+
+  <key>CFBundlePackageType</key>
+    <string>APPL</string>
+
+  <key>CFBundleShortVersionString</key>
+    <string>0.7</string>
+
+  <key>CFBundleSignature</key>
+    <string>EITC</string>
+
+  <key>CFBundleVersion</key>
+    <string>0.7</string>
+
+  <key>NSPrincipalClass</key>
+    <string>NSApplication</string>
 </dict>
 </plist>

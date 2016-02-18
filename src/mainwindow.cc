@@ -21,6 +21,7 @@
 #include "definitions.h"
 #include "questionnairedialog.h"
 #include "mainwindow.h"
+#include "appnap.h"
 
 #include <QDebug>
 #include <QFileDialog>
@@ -32,6 +33,7 @@ MainWindow::MainWindow() : QMainWindow() {
   CreateActions();
   CreateConnections();
   CreateMenus();
+  disableAppNap();
 }
 
 MainWindow::MainWindow(Crypt *crypt) : QMainWindow() {
@@ -41,6 +43,7 @@ MainWindow::MainWindow(Crypt *crypt) : QMainWindow() {
   CreateActions();
   CreateConnections();
   CreateMenus();
+  disableAppNap();
 }
 
 void MainWindow::closeEvent (QCloseEvent *event) {
@@ -196,18 +199,22 @@ void MainWindow::NextAnimationFrame() {
 }
 
 void MainWindow::CreateMenus() {
-  // TODO: Display encrypted log files
-//  QMenu *file_menu = new QMenu(tr("&File"), this);
-//  file_menu->addAction(log_action_);
   QMenu *help_menu = new QMenu(tr("&Help"), this);
   help_menu->addAction(help_action_);
   help_menu->addAction(about_action_);
-//  menuBar()->addMenu(file_menu);
+#ifndef CRYPT
+  // TODO: Display encrypted log files
+  QMenu *file_menu = new QMenu(tr("&File"), this);
+  file_menu->addAction(log_action_);
+  menuBar()->addMenu(file_menu);
+#endif
   menuBar()->addMenu(help_menu);
 
   QWidget* spacer = new QWidget();
   spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-//  tool_bar_->addAction(log_action_);
+#ifndef CRYPT
+  tool_bar_->addAction(log_action_);
+#endif
   tool_bar_->addAction(help_action_);
   tool_bar_->addAction(about_action_);
   tool_bar_->addWidget(spacer);
