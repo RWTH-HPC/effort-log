@@ -184,8 +184,8 @@ void QuestionnaireDialog::CreateConnections() {
   countdown_timer->start(60000);
   connect(skip_button_, SIGNAL(released()), this, SLOT(reject()));
   connect(finish_button_, SIGNAL(released()), this, SLOT(accept()));
-  connect(m_group_, SIGNAL(buttonClicked(QAbstractButton*)), this,
-          SLOT(OnPressedMButton(QAbstractButton*)));
+  //connect(m_group_, SIGNAL(buttonClicked(QAbstractButton*)), this,
+  //        SLOT(OnPressedMButton(QAbstractButton*)));
   return;
 }
 
@@ -230,13 +230,18 @@ void QuestionnaireDialog::accept() {
   activity_->SetComment(comment_box_->toPlainText());
 
   if (m_group_->checkedId() != -1) {
-    Milestone *m = new Milestone;
-    MilestoneDialog dialog(m);
-    dialog.exec();
-    m->SetTitle(m_group_->checkedButton()->text());
-    m->SetTime(QDateTime::currentDateTime());
-    m->SetEventId(project_->GetNoActivities());
-    project_->AddMilestone(m);
+    QList<QAbstractButton *> buttons  = m_group_->buttons();
+    foreach ( QAbstractButton *b, buttons) {
+      if (b->isChecked() == true ) {
+        Milestone *m = new Milestone;
+        MilestoneDialog dialog(m);
+        dialog.exec();
+        m->SetTitle(b->text());
+        m->SetTime(QDateTime::currentDateTime());
+        m->SetEventId(project_->GetNoActivities());
+        project_->AddMilestone(m);
+      }
+    }
   }
 
   if (VERBOSE) {

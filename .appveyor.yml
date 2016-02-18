@@ -1,0 +1,27 @@
+version : 0.7.{build}
+
+environment:
+  VSVER: 12.0
+  matrix:
+    - QTDIR: C:\Qt\5.5\mingw492_32
+    - QTDIR: C:\Qt\5.5\msvc2013
+    - QTDIR: C:\Qt\5.5\msvc2013_64
+
+configuration:
+  - "debug"
+  - "debug crypt"
+  - "release"
+  - "release crypt"
+
+install:
+  - '%QTDIR%\bin\qtenv2.bat'
+  - if %QTDIR:_64=%==%QTDIR% ( set ARCH=x86 ) else set ARCH=x64
+  - if %QTDIR:msvc=%==%QTDIR% set make=mingw32-make.exe
+  - if not %QTDIR:msvc=%==%QTDIR% call "%ProgramFiles(x86)%\Microsoft Visual Studio %VSVER%\VC\vcvarsall.bat" %ARCH%
+  - if not %QTDIR:msvc=%==%QTDIR% set make=nmake.exe
+
+before_build:
+  - qmake CONFIG+=%CONFIGURATION% EffortLog.pro
+
+build_script:
+  - '%make%'

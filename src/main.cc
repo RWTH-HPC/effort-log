@@ -19,10 +19,14 @@
  */
 
 #include <QApplication>
+#include <QCoreApplication>
 #include <QLibraryInfo>
 #include <QLocale>
 #include <QSettings>
 #include <QTranslator>
+
+#include <signal.h>
+#include <unistd.h>
 
 #include "definitions.h"
 #include "questionnairedialog.h"
@@ -36,12 +40,6 @@
 #include "crypt.h"
 #endif
 
-#include <QDebug>
-
-#include <QCoreApplication>
-
-#include <signal.h>
-#include <unistd.h>
 
 MainWindow *window;
 
