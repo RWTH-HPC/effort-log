@@ -21,7 +21,9 @@
 #include "definitions.h"
 #include "questionnairedialog.h"
 #include "mainwindow.h"
+#ifdef __APPLE__
 #include "appnap.h"
+#endif
 
 #include <QDebug>
 #include <QFileDialog>
@@ -33,7 +35,9 @@ MainWindow::MainWindow() : QMainWindow() {
   CreateActions();
   CreateConnections();
   CreateMenus();
+#ifdef __APPLE__
   disableAppNap();
+#endif
 }
 
 MainWindow::MainWindow(Crypt *crypt) : QMainWindow() {
@@ -43,7 +47,9 @@ MainWindow::MainWindow(Crypt *crypt) : QMainWindow() {
   CreateActions();
   CreateConnections();
   CreateMenus();
+#ifdef __APPLE__
   disableAppNap();
+#endif
 }
 
 void MainWindow::closeEvent (QCloseEvent *event) {

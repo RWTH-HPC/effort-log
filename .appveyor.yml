@@ -11,10 +11,6 @@ environment:
       CRYPT:
     - QTDIR: C:\Qt\5.5\msvc2013
       CRYPT: Crypt
-    - QTDIR: C:\Qt\5.5\msvc2013_64
-      CRYPT: 
-    - QTDIR: C:\Qt\5.5\msvc2013_64
-      CRYPT: Crypt
 
 configuration:
   - debug
@@ -22,13 +18,13 @@ configuration:
 
 install:
   - '%QTDIR%\bin\qtenv2.bat'
-  - if %QTDIR:_64=%==%QTDIR% ( set ARCH=x86 ) else set ARCH=x64
+  - set ARCH=x86
   - if %QTDIR:msvc=%==%QTDIR% set make=mingw32-make.exe
   - if not %QTDIR:msvc=%==%QTDIR% call "%ProgramFiles(x86)%\Microsoft Visual Studio %VSVER%\VC\vcvarsall.bat" %ARCH%
   - if not %QTDIR:msvc=%==%QTDIR% set make=nmake.exe
 
 before_build:
-  - qmake CONFIG+=%CONFIGURATION% CONFIG+=%CRYPT%
+  - qmake CONFIG+=%CONFIGURATION% CONFIG+=%CRYPT% .
 
 build_script:
   - '%make%'
