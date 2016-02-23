@@ -32,7 +32,7 @@ Prerequisites:
 You can build EffortLog with
 
     cd $EFFORTLOG_DIRECTORY
-    qmake
+    qmake (or qmake-qt5)
     make (or mingw32-make on Windows)
 
 Installation ("make install") is not needed. To specify the installation directory use

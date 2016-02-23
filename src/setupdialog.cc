@@ -245,7 +245,6 @@ void SetupDialog::accept() {
   fileName.replace( " ", "_" );  // Remove blanks in file name
   settings_.setValue("conf/logFile", fileName);
   settings_.setValue("conf/logInterval", log_interval_spin_box_->value());
-  qDebug() << log_interval_spin_box_->value();
   settings_.setValue("conf/confAccepted", true);
   settings_.setValue("lastLogTime", QDateTime::currentDateTime());
 
@@ -260,7 +259,6 @@ void SetupDialog::accept() {
         return;
       }
 #endif
-      qDebug() << log_interval_spin_box_->value();
       ProInitDialog d(project_);
       if (d.exec() == QDialog::Rejected){
         return;
@@ -272,7 +270,6 @@ void SetupDialog::accept() {
       project_->SetLogDir(log_file_dir_line_edit_->text());
       project_->SetLogFile(log_file_name_line_edit_->text());
     }
-    qDebug() << log_interval_spin_box_->value();
 
     if (!project_dir_.isEmpty()) {
       QStringList tmp = project_->GetContributor();
@@ -286,7 +283,6 @@ void SetupDialog::accept() {
       if (QString::compare(project_->GetTitle(),
                            project_title_line_edit_->text()) != 0)
         project_->AddContributor(project_title_line_edit_->text());
-      qDebug() << log_interval_spin_box_->value();
       if (project_->GetInterval() != log_interval_spin_box_->value())
         project_->SetInterval(log_interval_spin_box_->value());
       project_->Save(project_dir_);

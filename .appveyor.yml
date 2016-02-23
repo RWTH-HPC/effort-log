@@ -24,7 +24,8 @@ install:
   - if not %QTDIR:msvc=%==%QTDIR% set make=nmake.exe
 
 before_build:
-  - qmake CONFIG+=%CONFIGURATION% CONFIG+=%CRYPT% .
+  - cd %APPVEYOR_BUILD_FOLDER%
+  - qmake CONFIG+=%CONFIGURATION% CONFIG+=%CRYPT% %APPVEYOR_BUILD_FOLDER%\EffortLog.pro
 
 build_script:
   - '%make%'
