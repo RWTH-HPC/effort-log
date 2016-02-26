@@ -31,11 +31,17 @@ build_script:
   - '%make%'
 
 after_build:
-  - if %QTDIR:msvc=%==%QTDIR% C:\projects\effort-log\tools\windows_deploy.bat
-  - if %CRYPT%==CRYPT C:\projects\effort-log\tools\windows_deploy_encrypted.bat
+  - ps: |
+      if($env:CONFIGURATION -eq "release"){
+        if($env:CRYPT  -eq "CRYPT"){
+          C:\projects\effort-log\tools\windows_deploy_encrypted.bat
+        } else{
+          C:\projects\effort-log\tools\windows_deploy.bat
+        }
+      }
 
 artifacts:
-  - path: effort-log*.exe
+  - path: build\release\effort-log*.exe
     name: effort-log
 
 deploy:
