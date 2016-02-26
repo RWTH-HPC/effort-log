@@ -29,11 +29,10 @@ SSL_WIN = "C:\\OpenSSL-Win32"
 
 # Compiler flags
 CONFIG += c++11
-QMAKE_CXXFLAGS += -fno-exceptions
 CONFIG(debug, debug|release) {
-  QMAKE_CXXFLAGS += -Werror
-  QMAKE_CXXFLAGS += -Wextra
-  QMAKE_CXXFLAGS += -Wpedantic
+  CONFIG += warn_on
+  win32-msvc*:QMAKE_CXXFLAGS += /WX
+  else:       QMAKE_CXXFLAGS += -Werror -Wextra -Wpedantic
 }
 
 # Build directory
@@ -107,26 +106,6 @@ doxygen.commands = doxygen Doxyfile
 QMAKE_EXTRA_TARGETS += doxygen
 QMAKE_CLEAN += -r doxygen
 
-# Deployment
-CONFIG(release, debug|release) {
-  mac {
-    QMAKE_POST_LINK += cd $${DESTDIR};
-    QMAKE_POST_LINK += $$[QT_INSTALL_BINS]/macdeployqt $${TARGET}.app -dmg;
-    crypt {
-      QMAKE_POST_LINK += mv $${TARGET}.dmg $${TARGET}_v$${VERSION}_encrypted.dmg;
-    } else {
-      QMAKE_POST_LINK += mv $${TARGET}.dmg $${TARGET}_v$${VERSION}.dmg;
-    }
-  }
-  win32 {
-    QMAKE_POST_LINK += $$[QT_INSTALL_BINS]/windeployqt $$shell_quote($$DESTDIR/$$TARGET.exe) \
-                       & cd $${DESTDIR} \
-                       & copy $${SSL_WIN}\\libeay32.dll libeay32.dll \
-                       & copy $${SSL_WIN}\\libssl32.dll libssl32.dll \
-                       & copy $${SSL_WIN}\\ssleay32.dll ssleay32.dll
-  }
-}
-
 SOURCES += \
   src/activity.cc \
   src/appenddialog.cc \
@@ -159,3 +138,8 @@ OTHER_FILES += \
   resources/Info.plist \
   Doxyfile \
   README.md
+
+DISTFILES += \
+    tools/mac_osx_deploy.sh \
+    tools/windows_deploy.bat \
+    tools/windows_deploy_encrypted.bat

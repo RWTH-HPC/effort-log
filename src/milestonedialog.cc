@@ -21,8 +21,9 @@
 #include "milestonedialog.h"
 
 #include <QDebug>
-MilestoneDialog::MilestoneDialog(Milestone *m) : QDialog() {
+MilestoneDialog::MilestoneDialog(Milestone *m, QString msg) : QDialog() {
   ms_ = m;
+  msg_ = msg;
   Setup();
   CreateConnections();
 }
@@ -48,6 +49,7 @@ void MilestoneDialog::accept() {
 }
 
 void MilestoneDialog::reject() {
+
   QDialog::reject();
 }
 
@@ -180,7 +182,7 @@ void MilestoneDialog::Setup() {
   main_layout_->addLayout(button_layout);
 
   setLayout(main_layout_);
-  setWindowTitle("Specify milestone");
+  setWindowTitle("Milestone: " + msg_);
 }
 
 void MilestoneDialog::CreateConnections() {

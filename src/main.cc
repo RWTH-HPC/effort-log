@@ -59,7 +59,6 @@ int main(int argc, char *argv[]) {
 
   QSettings settings;
   settings.setValue("noLoggedActivities", 0);
-
 #ifdef CRYPT
   Crypt *crypt = new Crypt();
   window = new MainWindow(crypt);

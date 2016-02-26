@@ -4,13 +4,13 @@ environment:
   VSVER: 12.0
   matrix:
     - QTDIR: C:\Qt\5.5\mingw492_32
-      CRYPT:  
+      CRYPT:
     - QTDIR: C:\Qt\5.5\mingw492_32
       CRYPT: CRYPT
     - QTDIR: C:\Qt\5.5\msvc2013
       CRYPT:
     - QTDIR: C:\Qt\5.5\msvc2013
-      CRYPT: Crypt
+      CRYPT: CRYPT
 
 configuration:
   - debug
@@ -29,3 +29,21 @@ before_build:
 
 build_script:
   - '%make%'
+
+after_build:
+  - if %QTDIR:msvc=%==%QTDIR% ..\tools\windows_deploy.bat
+  - if %CRYPT%==CRYPT ..\tools\windows_deploy_encrypted.bat
+
+artifacts:
+  - path: %APPVEYOR_BUILD_FOLDER%\effort-log*.exe
+    name: effort-log
+
+deploy:
+  - provider: GitHub
+    artifact: effort-log
+    draft: true
+    prerelease: false
+    auth_token:
+      secure: Fgg1YNvCvhz8eHvfWofM9Z4kumoEpzvhQ53yEuW4Iw3KJbDZ8HxacFyq7pV6Pc32
+    on:
+      branch: master

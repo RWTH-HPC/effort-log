@@ -46,7 +46,7 @@ public:
   /*!
    * \param[in] m A pointer to the milestone to be created
    */
-  MilestoneDialog(Milestone *m);
+  MilestoneDialog(Milestone *m, QString msg);
   //! Overrides the default accept() member.
   /*!
    * accept() is executed on successfully quitting the dialog.
@@ -116,6 +116,7 @@ private:
   QDoubleSpinBox *perf_spin_;  /**< Lets user specify the performance.*/
   QSpinBox *threads_spin_;  /**< Lets user specify count of nodes, threads,
                                  etc.*/
+  QString msg_;  /**< Specifies the used milestone.*/
   QComboBox *perf_box_;  /**< Lets user specify the performance metric.*/
   QComboBox *threads_box_;  /**< Lets user specify the metric for counting
                                  nodes, threads, etc.*/
