@@ -31,8 +31,8 @@ build_script:
   - '%make%'
 
 after_build:
-  - if %QTDIR:msvc=%==%QTDIR% ..\tools\windows_deploy.bat
-  - if %CRYPT%==CRYPT ..\tools\windows_deploy_encrypted.bat
+  - if %QTDIR:msvc=%==%QTDIR% ..\..\tools\windows_deploy.bat
+  - if %CRYPT%==CRYPT ..\..\tools\windows_deploy_encrypted.bat
 
 artifacts:
   - path: effort-log*.exe
