@@ -28,7 +28,6 @@ before_install:
   fi
 
 before_script:
-- if [ "$TRAVIS_OS_NAME" == "linux" ]; then . /opt/qt$SHORT_VER/bin/qt$SHORT_VER-env.sh;
 - qmake CONFIG+=$CONFIG CONFIG+=$CRYPT
 
 script:

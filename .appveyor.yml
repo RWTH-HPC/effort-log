@@ -41,7 +41,7 @@ after_build:
       }
 
 artifacts:
-  - path: build\release\effort-log*.exe
+  - path: effort-log_v*.zip
     name: effort-log
 
 deploy:
