@@ -35,7 +35,7 @@ after_build:
   - if %CRYPT%==CRYPT ..\tools\windows_deploy_encrypted.bat
 
 artifacts:
-  - path: %APPVEYOR_BUILD_FOLDER%\effort-log*.exe
+  - path: effort-log*.exe
     name: effort-log
 
 deploy:
