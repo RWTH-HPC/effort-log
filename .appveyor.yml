@@ -7,10 +7,6 @@ environment:
       CRYPT:
     - QTDIR: C:\Qt\5.5\mingw492_32
       CRYPT: CRYPT
-    - QTDIR: C:\Qt\5.5\msvc2013
-      CRYPT:
-    - QTDIR: C:\Qt\5.5\msvc2013
-      CRYPT: CRYPT
 
 configuration:
   - debug
@@ -19,16 +15,15 @@ configuration:
 install:
   - '%QTDIR%\bin\qtenv2.bat'
   - set ARCH=x86
-  - if %QTDIR:msvc=%==%QTDIR% set make=mingw32-make.exe
-  - if not %QTDIR:msvc=%==%QTDIR% call "%ProgramFiles(x86)%\Microsoft Visual Studio %VSVER%\VC\vcvarsall.bat" %ARCH%
-  - if not %QTDIR:msvc=%==%QTDIR% set make=nmake.exe
+  - appveyor DownloadFile https://slproweb.com/download/Win32OpenSSL_Light-1_0_2f.exe
+  - Win32OpenSSL_Light-1_0_2f.exe /silent /verysilent /sp- /suppressmsgboxes
 
 before_build:
   - cd %APPVEYOR_BUILD_FOLDER%
   - qmake CONFIG+=%CONFIGURATION% CONFIG+=%CRYPT% %APPVEYOR_BUILD_FOLDER%\EffortLog.pro
 
 build_script:
-  - '%make%'
+  - mingw32-make.exe
 
 after_build:
   - ps: |

@@ -5,7 +5,8 @@ sudo: required
 dist: trusty
 
 env:
-  - QT_BASE=55
+  global:
+    - QT_BASE=55
 
 matrix:
   fast_finish: true

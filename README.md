@@ -24,7 +24,7 @@ You can download the sources from [Github releases](https://github.com/julianmi/
 Prerequisites:
 
 * Qt 5.4.0 or later
-* On Windows: MinGW with g++ 4.7 or Visual Studio 2013 Update 2 or later
+* On Windows: MinGW with g++ 4.7 or later
 * On Mac OS X: latest Xcode
 * On Linux: g++ 4.7 or later
 * Latest OpenSSL
