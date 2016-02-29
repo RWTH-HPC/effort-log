@@ -4,28 +4,67 @@ sudo: required
 
 dist: trusty
 
-os:
-- linux
-- osx
-
-compiler:
-- gcc
-- clang
-
 env:
-  matrix:
-  - QT_BASE=551 CONFIG=debug
-  - QT_BASE=551 CONFIG=release
-  - QT_BASE=551 CONFIG=debug CRYPT=CRYPT
-  - QT_BASE=551 CONFIG=release CRYPT=CRYPT
+  - QT_BASE=55
+
+matrix:
+  fast_finish: true
+  include:
+    - os: linux
+      compiler: gcc
+      env: COMPILER=gcc CONFIG=debug
+    - os: linux
+      compiler: gcc
+      env: COMPILER=gcc CONFIG=release
+    - os: linux
+      compiler: gcc
+      env: COMPILER=gcc CONFIG=debug CRYPT=CRYPT
+    - os: linux
+      compiler: gcc
+      env: COMPILER=gcc CONFIG=release CRYPT=CRYPT
+    - os: linux
+      compiler: clang
+      env: COMPILER=clang CONFIG=debug
+    - os: linux
+      compiler: clang
+      env: COMPILER=clang CONFIG=release
+    - os: linux
+      compiler: clang
+      env: COMPILER=clang CONFIG=debug CRYPT=CRYPT
+    - os: linux
+      compiler: clang
+      env: COMPILER=clang CONFIG=release CRYPT=CRYPT
+    - os: osx
+      compiler: gcc
+      env: COMPILER=gcc CONFIG=debug
+    - os: osx
+      compiler: gcc
+      env: COMPILER=gcc CONFIG=release
+    - os: osx
+      compiler: gcc
+      env: COMPILER=gcc CONFIG=debug CRYPT=CRYPT
+    - os: osx
+      compiler: gcc
+      env: COMPILER=gcc CONFIG=release CRYPT=CRYPT
+    - os: osx
+      compiler: clang
+      env: COMPILER=clang CONFIG=debug
+    - os: osx
+      compiler: clang
+      env: COMPILER=clang CONFIG=release DEPLOY=true
+    - os: osx
+      compiler: clang
+      env: COMPILER=clang CONFIG=debug CRYPT=CRYPT
+    - os: osx
+      compiler: clang
+      env: COMPILER=clang CONFIG=release CRYPT=CRYPT DEPLOY=true
 
 before_install:
-- export SHORT_VER=`echo $QT_BASE | cut -b1-2`
 - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo add-apt-repository --yes ppa:beineri/opt-qt${QT_BASE}-trusty
-  && sudo apt-get update -qq && sudo apt-get install -y -qq qt${SHORT_VER}base qt${SHORT_VER}script
-  qt${SHORT_VER}tools; fi
-- if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update; brew install qt5; PATH="/usr/local/opt/qt5/bin:$PATH";
-  fi
+  && sudo apt-get update -qq
+  && sudo apt-get install -y -qq qt${QT_BASE}base qt${QT_BASE}script qt${QT_BASE}tools
+  && source /opt/qt${QT_BASE}/bin/qt${QT_BASE}-env.sh; fi
+- if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update; brew install qt5; PATH="/usr/local/opt/qt5/bin:$PATH"; fi
 
 before_script:
 - qmake CONFIG+=$CONFIG CONFIG+=$CRYPT
@@ -39,5 +78,6 @@ deploy:
     secure: LaEzMGIx0sjcO33/NwJOrAXMI9CWZD7JqVZHZNLj76Frwnj6haqMPt1QnAblg1wg+S37AXtDxghT/mt0fJHUgySR9Zl04/5VWEkA87qNr9FHr5VjFkrc5y9++1PSUmhA4N/r7vOquGShcxk18wdAyKpXZY2FBHws8aCAwyjacvVCJM6vACPXAOTU3/4R4GpiXjAyQmhMxLhMWJ0mngB3v/al/jrXsExVsfnB1mr0pN0rFcphHZP8MX8X1og72b3XIO0sUEBSE/j5Gd9BMb5iS4zsCgE6QKkcUxNc8eSBdhA7oeNJQ51UcW12NueE5+u4RdpLkMZWxIq/jofLef6ex/KBLEyM8bW6/Djktky9Bte7TGiVvKTgRwicYCeAI4rTJPdvLV2K+tx8i+0Cyzhsp2+4yze6A6+wGQ8kJUVHuKT6hOGxRvN5hy0MHfP24cVDNzb+lN3/IkCerwhyoz2IXEUB9CxoQkuLeQ/ysLyunjB8oWMqDsbbgO2E/a6SH8TwF1MM6CqA96bcCuK084X5vGnTXXAZewPW7te0WMch8yv+qjYvZ+dJQZvWgHJG5V9ZpS02EI6rHNcdm7+Vp4dCXJsXV1Vo2uR9sr1SFW09imMsWhh2933PkCI8vNTYt6pwk9QyiN/w51jMQQ0fBVq75QslmFrDWrvt41ViTc104DA=
   file:
     - build/release/EffortLog*.dmg
+  skip_cleanup: true
   on:
-    condition: "$TRAVIS_OS_NAME = osx && $CONFIG = release"
+    condition: "$DEPLOY = true"
