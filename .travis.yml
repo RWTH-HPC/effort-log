@@ -85,4 +85,5 @@ deploy:
     - ${TRAVIS_BUILD_DIR}/build/release/EffortLog*.dmg
   skip_cleanup: true
   on:
+    all_branches: true
     condition: "$DEPLOY = true"
