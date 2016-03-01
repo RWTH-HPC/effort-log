@@ -1,4 +1,4 @@
-version : 0.7.1
+version : 0.7.{build}
 
 environment:
   VSVER: 12.0
@@ -39,10 +39,13 @@ artifacts:
 
 deploy:
   - provider: GitHub
+    release: $(APPVEYOR_REPO_TAG_NAME)
+    description: ''
     artifact: effort-log
-    draft: true
+    draft: false
     prerelease: false
     auth_token:
       secure: Fgg1YNvCvhz8eHvfWofM9Z4kumoEpzvhQ53yEuW4Iw3KJbDZ8HxacFyq7pV6Pc32
     on:
       branch: master
+      appveyor_repo_tag: true
