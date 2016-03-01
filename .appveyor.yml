@@ -1,4 +1,4 @@
-version : 0.7.{build}
+version : 0.7.1
 
 environment:
   VSVER: 12.0

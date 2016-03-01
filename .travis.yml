@@ -6,7 +6,7 @@ dist: trusty
 
 env:
   global:
-    - QT_BASE=55 QT_LONG=551
+    - QT_BASE=55 QT_LONG=551 VERSION=0.7.1
 
 matrix:
   fast_finish: true
@@ -74,7 +74,8 @@ script:
 - make
 
 before_deploy:
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then . ${TRAVIS_BUILD_DIR}/tools/mac_osx_deploy.sh $TRAVIS_TAG $CRYPT; fi
+  - cd ${TRAVIS_BUILD_DIR}/build/release
+  - ${TRAVIS_BUILD_DIR}/tools/mac_osx_deploy.sh $VERSION $CRYPT; fi
 
 deploy:
   provider: releases
