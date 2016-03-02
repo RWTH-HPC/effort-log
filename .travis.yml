@@ -74,8 +74,8 @@ script:
 - make
 
 before_deploy:
-  - cd ${TRAVIS_BUILD_DIR}/build/release
-  - ${TRAVIS_BUILD_DIR}/tools/mac_osx_deploy.sh $TRAVIS_TAG $CRYPT
+  - if [ "$DEPLOY" = "true" ]; then echo "Deployment for tag $TRAVIS_TAG $CRYPT"; fi
+  - if [ "$DEPLOY" = "true" ]; then cd ${TRAVIS_BUILD_DIR}/build/release && ${TRAVIS_BUILD_DIR}/tools/mac_osx_deploy.sh $TRAVIS_TAG $CRYPT; fi
 
 deploy:
   provider: releases
@@ -86,4 +86,5 @@ deploy:
   skip_cleanup: true
   on:
     all_branches: true
+    tags: true
     condition: "$DEPLOY = true"
