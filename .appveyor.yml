@@ -18,7 +18,6 @@ install:
 
 before_build:
   - cd %APPVEYOR_BUILD_FOLDER%
-  - qmake CONFIG+=%CONFIGURATION% CONFIG+=%CRYPT% %APPVEYOR_BUILD_FOLDER%\EffortLog.pro
   - ps: |
       if($env:CRYPT  -eq "true") {
         qmake CONFIG+=%CONFIGURATION% CONFIG+=CRYPT %APPVEYOR_BUILD_FOLDER%\EffortLog.pro
