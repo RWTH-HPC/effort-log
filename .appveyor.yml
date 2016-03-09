@@ -4,9 +4,9 @@ environment:
   VSVER: 12.0
   matrix:
     - QTDIR: C:\Qt\5.5\mingw492_32
-      CRYPT:
+      CRYPT: false
     - QTDIR: C:\Qt\5.5\mingw492_32
-      CRYPT: CRYPT
+      CRYPT: true
 
 configuration:
   - debug
@@ -19,16 +19,22 @@ install:
 before_build:
   - cd %APPVEYOR_BUILD_FOLDER%
   - qmake CONFIG+=%CONFIGURATION% CONFIG+=%CRYPT% %APPVEYOR_BUILD_FOLDER%\EffortLog.pro
+  - ps: |
+      if($env:CRYPT  -eq "true") {
+        qmake CONFIG+=%CONFIGURATION% CONFIG+=CRYPT %APPVEYOR_BUILD_FOLDER%\EffortLog.pro
+      } else {
+        qmake CONFIG+=%CONFIGURATION% %APPVEYOR_BUILD_FOLDER%\EffortLog.pro
+      }
 
 build_script:
   - mingw32-make.exe
 
 after_build:
   - ps: |
-      if($env:CONFIGURATION -eq "release"){
-        if($env:CRYPT  -eq "CRYPT"){
+      if($env:CONFIGURATION -eq "release") {
+        if($env:CRYPT  -eq "CRYPT") {
           C:\projects\effort-log\tools\windows_deploy_encrypted.bat
-        } else{
+        } else {
           C:\projects\effort-log\tools\windows_deploy.bat
         }
       }
