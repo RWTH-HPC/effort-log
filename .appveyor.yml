@@ -18,12 +18,8 @@ install:
 
 before_build:
   - cd %APPVEYOR_BUILD_FOLDER%
-  - ps: |
-      if($env:CRYPT  -eq "true") {
-        qmake CONFIG+=%CONFIGURATION% CONFIG+=CRYPT %APPVEYOR_BUILD_FOLDER%\EffortLog.pro
-      } else {
-        qmake CONFIG+=%CONFIGURATION% %APPVEYOR_BUILD_FOLDER%\EffortLog.pro
-      }
+  - if %CRYPT%==false (qmake CONFIG+=%CONFIGURATION% %APPVEYOR_BUILD_FOLDER%\EffortLog.pro)
+  - if %CRYPT%==true (qmake CONFIG+=%CONFIGURATION% CONFIG+=CRYPT %APPVEYOR_BUILD_FOLDER%\EffortLog.pro)
 
 build_script:
   - mingw32-make.exe
