@@ -234,12 +234,20 @@ void QuestionnaireDialog::accept() {
     foreach ( QAbstractButton *b, buttons) {
       if (b->isChecked() == true ) {
         Milestone *m = new Milestone;
+        if (project_->GetNoMilestones() > 0) {
+          *m = project_->GetMilestone(project_->GetNoMilestones()-1);
+          m->SetMsId(-1);
+        } else {
+          m->SetMsId(0);
+        }
         MilestoneDialog dialog(m, b->text());
         if (dialog.exec()) {
           m->SetTitle(b->text());
           m->SetTime(QDateTime::currentDateTime());
           m->SetEventId(project_->GetNoActivities());
           project_->AddMilestone(m);
+        } else {
+          free(m);
         }
       }
     }

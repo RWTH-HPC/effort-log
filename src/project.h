@@ -211,6 +211,11 @@ public:
    * \return A milestones from milestones_
    */
   Milestone GetMilestone(int n);
+  //! Gets the number of milestones in the current project
+  /*!
+   * \return The number of milestones in the current project.
+   */
+  int GetNoMilestones();
   //! Gets the number of activities in the current project
   /*!
    * \return The number of activities in the current project.

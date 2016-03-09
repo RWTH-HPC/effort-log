@@ -212,6 +212,10 @@ Milestone Project::GetMilestone(int n) {
   return milestones_->at(n);
 }
 
+int Project::GetNoMilestones() {
+  return milestones_->length();
+}
+
 int Project::GetNoActivities() {
   return activities_->length();
 }

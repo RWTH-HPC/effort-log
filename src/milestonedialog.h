@@ -104,6 +104,13 @@ private:
    *  - skip_button_ -> reject(): execute reject() if rejected() is pressed
    */
   void CreateConnections();
+  //! Loads values from previous milestones
+  /*!
+   * This method sets the dialog to keys used in the previous milestones (if
+   * existent). If this is the first milestone of a project this method does
+   * nothing.
+   */
+  void LoadPreviousMS();
 
   Milestone *ms_;  /**< A pointer to the associate milestone \see Milestone.*/
   QPushButton *finish_button_;  /**< Button to exit the dialog after finishing

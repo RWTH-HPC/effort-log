@@ -21,11 +21,14 @@
 #include "milestonedialog.h"
 
 #include <QDebug>
+#include <QMessageBox>
+
 MilestoneDialog::MilestoneDialog(Milestone *m, QString msg) : QDialog() {
   ms_ = m;
   msg_ = msg;
   Setup();
   CreateConnections();
+  LoadPreviousMS();
 }
 
 void MilestoneDialog::accept() {
@@ -49,8 +52,14 @@ void MilestoneDialog::accept() {
 }
 
 void MilestoneDialog::reject() {
-
-  QDialog::reject();
+  QMessageBox::StandardButton button;
+  button = QMessageBox::question(this, msg_,tr("Are you sure you want to "
+                                                    "skip this log?\n"),
+                                 QMessageBox::No | QMessageBox::Yes,
+                                 QMessageBox::Yes);
+  if (button != QMessageBox::No) {
+    QDialog::reject();
+  }
 }
 
 void MilestoneDialog::Setup() {
@@ -290,5 +299,44 @@ void MilestoneDialog::CheckInput() {
 
   if (std::accumulate(is_empty, is_empty + 5, 0) == 0) {
     finish_button_->setEnabled(true);
+  }
+}
+
+void MilestoneDialog::LoadPreviousMS() {
+  if (ms_->GetMsId() == -1) {
+    QString perf = ms_->GetPerfMetric();
+    if (perf.contains("Execution time in seconds", Qt::CaseInsensitive)) {
+      perf_box_->setCurrentIndex(0);
+      PerfInputChanged(0);
+    } else if (perf.contains("Execution time in minutes", Qt::CaseInsensitive)) {
+      perf_box_->setCurrentIndex(1);
+      PerfInputChanged(1);
+    } else if (perf.contains("Execution time in hours", Qt::CaseInsensitive)) {
+      perf_box_->setCurrentIndex(2);
+      PerfInputChanged(2);
+    } else if (perf.contains("Throughput in GFlop/s", Qt::CaseInsensitive)) {
+      perf_box_->setCurrentIndex(3);
+      PerfInputChanged(3);
+    } else if (perf.contains("Speedup", Qt::CaseInsensitive)) {
+      perf_box_->setCurrentIndex(4);
+      PerfInputChanged(4);
+    } else if (perf.contains("Other", Qt::CaseInsensitive)) {
+      perf_box_->setCurrentIndex(5);
+      PerfInputChanged(5);
+    }
+    QString threads = ms_->GetThreadsType();
+    if (threads.contains("Number of threads", Qt::CaseInsensitive)) {
+      threads_box_->setCurrentIndex(0);
+      ThreadsInputChanged(0);
+    } else if (threads.contains("Number of nodes", Qt::CaseInsensitive)) {
+      threads_box_->setCurrentIndex(1);
+      ThreadsInputChanged(1);
+    } else if (threads.contains("Other", Qt::CaseInsensitive)) {
+      threads_box_->setCurrentIndex(2);
+      ThreadsInputChanged(2);
+    }
+    compiler_comment_->setText(ms_->GetCompiler());
+    model_comment_->setText(ms_->GetModel());
+    arc_comment_->setText(ms_->GetArc());
   }
 }
