@@ -27,7 +27,7 @@ build_script:
 after_build:
   - ps: |
       if($env:CONFIGURATION -eq "release") {
-        if($env:CRYPT  -eq "crypt") {
+        if($env:CRYPT  -eq "true") {
           C:\projects\effort-log\tools\windows_deploy_encrypted.bat
         } else {
           C:\projects\effort-log\tools\windows_deploy.bat
