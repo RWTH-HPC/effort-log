@@ -130,3 +130,11 @@ void Milestone::SetModel(QString m) {
 QString Milestone::GetModel() const {
   return model_;
 }
+
+void Milestone::SetDataSize(QString d) {
+  data_size_ = d;
+}
+
+QString Milestone::GetDataSize() const {
+  return data_size_;
+}

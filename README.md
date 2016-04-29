@@ -103,8 +103,8 @@ Notes on anonymity:
 * The project file (\*.pro) may contain the username of the system you are currently logged in. Please check this file before sharing it.
 
 ## How this information is stored safely by EffortLog
-EffortLog can be configured to encrypt all user related files to ensure the safety and privacy of its users. All project files and log files are then encrypted with a strong 256-bit AES encryption. The user sets a password for each project on project-setup. To manually encrypt the log files a current version of [OpenSSL](https://www.openssl.org)  is required. Encryption can be done via command-line with the following command:
-    `openssl enc -aes-256-cbc -d -in <decrypted file>.json -out encrypted_file`
+EffortLog can be configured to encrypt all user related files to ensure the safety and privacy of its users. All project files and log files are then encrypted with a strong 256-bit AES encryption. The user sets a password for each project on project-setup. To manually decrypt the log files a current version of [OpenSSL](https://www.openssl.org)  is required. Decryption can be done via command-line with the following command:
+    `openssl enc -aes-256-cbc -d -in <encrypted log file>.json -out <decrypted log file>`
 Notes:
 * Encryption is disabled by default. Add `-config crypt` to your qmake flags to enable encryption.
 * Choosing a complex and unique password for each project is crucial to ensure privacy!

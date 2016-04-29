@@ -135,6 +135,8 @@ private:
                                    model.*/
   QLineEdit *comment_;  /**< Lets user specify a general comment about the
                              milestone.*/
+  QLineEdit *data_size_;  /**< Lets user specify the data size of the
+                                       milestone.*/
 };
 
 #endif // MILESTONEDIALOG_H

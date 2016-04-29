@@ -3,9 +3,9 @@ version : 0.7.{build}
 environment:
   VSVER: 12.0
   matrix:
-    - QTDIR: C:\Qt\5.5\mingw492_32
+    - QTDIR: C:\Qt\5.6\mingw492_32
       CRYPT: false
-    - QTDIR: C:\Qt\5.5\mingw492_32
+    - QTDIR: C:\Qt\5.6\mingw492_32
       CRYPT: true
 
 configuration:
@@ -19,7 +19,7 @@ install:
 before_build:
   - cd %APPVEYOR_BUILD_FOLDER%
   - if %CRYPT%==false (qmake CONFIG+=%CONFIGURATION% %APPVEYOR_BUILD_FOLDER%\EffortLog.pro)
-  - if %CRYPT%==true (qmake CONFIG+=%CONFIGURATION% CONFIG+=CRYPT %APPVEYOR_BUILD_FOLDER%\EffortLog.pro)
+  - if %CRYPT%==true (qmake CONFIG+=%CONFIGURATION% CONFIG+=crypt %APPVEYOR_BUILD_FOLDER%\EffortLog.pro)
 
 build_script:
   - mingw32-make.exe

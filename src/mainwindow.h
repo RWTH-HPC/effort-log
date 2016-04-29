@@ -160,6 +160,7 @@ private slots:
    * \see MainWindow::help_action_
    */
   void Help();
+  void ExecQuestionnaireDialog();
 
  private:
   //! Sets up the actions of the main program
@@ -193,6 +194,7 @@ private slots:
    * \see MainWindow::main_layout_
    */
   void Setup();
+
   Crypt *crypt_;
   QAction *about_action_;  /**< The action upon hitting the "about" button of
                                 the main menu.*/
@@ -210,6 +212,8 @@ private slots:
   QAction *log_action_;  /**< The action upon hitting the "Browse file" button
                               of the main menu.*/
   QVBoxLayout *main_layout_;  /**< The main layout of the main window.*/
+  QAction *new_action_;  /**< The action upon hitting the "new" button of
+                                the main menu.*/
   QSettings settings_;  /**< Holds a copy of the global settings of the
                              application.*/
   QLabel *time_label_;  /**< The label holding info_string_.*/

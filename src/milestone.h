@@ -156,6 +156,16 @@ public:
    * \return A string containing model_
    */
   QString GetModel() const;
+  //! Setter for data_size_
+  /*!
+   * \param[in] d The data size used during the milestone
+   */
+  void SetDataSize(QString d);
+  //! Getter for data_size_
+  /*!
+   * \return A string containing data_size_
+   */
+  QString GetDataSize() const;
 
 private:
   int milestone_id_;  /**< The id of the milestone.*/
@@ -173,6 +183,7 @@ private:
                                   nodes, threads, etc.*/
   QString compiler_;  /**< The compiler used during the milestone.*/
   QString model_;  /**< The programming model used for the milestone.*/
+  QString data_size_;  /**< The data size used during the milestone.*/
 };
 
 #endif // MILESTONE_H

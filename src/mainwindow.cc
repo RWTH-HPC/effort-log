@@ -115,20 +115,24 @@ void MainWindow::CreateActions() {
                             this);
   log_action_->setShortcut(QKeySequence::Open);
   log_action_->setStatusTip(tr("Open the current log file"));
-  help_action_ = new QAction(QIcon(":/images/help_browser.png"), tr("&Help"),
-                             this);
+  new_action_ = new QAction(QIcon(":/images/new.png"),
+                            tr("&Log current effort"), this);
+  new_action_->setShortcut(QKeySequence::New);
+  new_action_->setStatusTip(tr("Create a new logging event"));
+  help_action_ = new QAction(tr("&Help"), this);
   help_action_->setShortcut(QKeySequence::HelpContents);
   help_action_->setStatusTip(tr("Open the help file"));
-  about_action_ = new QAction(QIcon(":/images/about.png"), tr("&About"), this);
+  about_action_ = new QAction(tr("&About"), this);
   about_action_->setStatusTip(tr("About this program"));
 }
-
 
 void MainWindow::CreateConnections() {
   countdown_timer_ = new QTimer();  // Countdown until the next event
   connect(countdown_timer_, SIGNAL(timeout()), this,
           SLOT(NextAnimationFrame()));
   connect(log_action_, SIGNAL(triggered()), this, SLOT(LogView()));
+  connect(new_action_, SIGNAL(triggered()), this,
+          SLOT(ExecQuestionnaireDialog()));
   connect(help_action_, SIGNAL(triggered()), this, SLOT(Help()));
   connect(about_action_, SIGNAL(triggered()), this, SLOT(About()));
 }
@@ -177,10 +181,7 @@ void MainWindow::QuitOnSignal() {
         && cur_interval > (settings_.value("conf/logInterval").toInt()
                            * 60000 * LOG_ON_EXIT_THRESHOLD)) {
       countdown_timer_->stop();
-      QuestionnaireDialog dialog(this);
-      dialog.exec();
-      dialog.show();
-      dialog.setWindowModality(Qt::WindowModal);
+      ExecQuestionnaireDialog();
     }
     project_->StoreLog(settings_.value("conf/logFile").toString());
   }
@@ -221,8 +222,9 @@ void MainWindow::CreateMenus() {
 #ifndef CRYPT
   tool_bar_->addAction(log_action_);
 #endif
-  tool_bar_->addAction(help_action_);
-  tool_bar_->addAction(about_action_);
+  tool_bar_->addAction(new_action_);
+//  tool_bar_->addAction(help_action_);
+//  tool_bar_->addAction(about_action_);
   tool_bar_->addWidget(spacer);
   tool_bar_->addWidget(project_label_);
 }
@@ -283,4 +285,11 @@ void MainWindow::ReadLog() {
 
 void MainWindow::SetProject(Project *p) {
   project_ = p;
+}
+
+void MainWindow::ExecQuestionnaireDialog() {
+  QuestionnaireDialog dialog(this);
+  dialog.exec();
+  dialog.show();
+  dialog.setWindowModality(Qt::WindowModal);
 }

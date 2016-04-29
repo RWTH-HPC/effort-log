@@ -181,7 +181,8 @@ QString Project::GetStageComment() const {
 void Project::AddMilestone(int e_id, QString title, QDateTime time,
                            QString comment, QString arc, QString threads_type,
                            QString threads, QString compiler, QString model,
-                           QString perf_metric, QString perf_comment) {
+                           QString perf_metric, QString perf_comment,
+                           QString data_size) {
   int m_id = milestones_->length();
   milestones_->append(Milestone());
   milestones_->last().SetMsId(m_id);
@@ -196,6 +197,7 @@ void Project::AddMilestone(int e_id, QString title, QDateTime time,
   milestones_->last().SetThreadsType(threads_type);
   milestones_->last().SetThreadsComment(threads);
   milestones_->last().SetCompiler(compiler);
+  milestones_->last().SetDataSize(data_size);
 }
 
 void Project::AddMilestone(Milestone *m) {
@@ -257,6 +259,7 @@ bool Project::StoreLog(QString f) {
     obj["NoThreadsNodes"] = ms.GetThreadsComment();
     obj["Compiler"] = ms.GetCompiler();
     obj["Architecture"] = ms.GetArc();
+    obj["DataSize"] = ms.GetDataSize();
     milestones_array.append(obj);
   }
   json["InitialProjectStage"] = stage_;
@@ -313,6 +316,7 @@ bool Project::ReadLog(QString f) {
     ms.SetThreadsComment(o["NoThreadsNodes"].toString());
     ms.SetCompiler(o["Compiler"].toString());
     ms.SetArc(o["Architecture"].toString());
+    ms.SetArc(o["DataSize"].toString());
     milestones_->append(ms);
   }
   QJsonArray activities_array = json["LoggingEvents"].toArray();

@@ -48,6 +48,7 @@ void MilestoneDialog::accept() {
   } else {
     ms_->SetThreadsComment(threads_spin_->text());
   }
+  ms_->SetDataSize(data_size_->text());
   QDialog::accept();
 }
 
@@ -127,8 +128,15 @@ void MilestoneDialog::Setup() {
                                 "during this milestone"));
   model_comment_->setPlaceholderText(tr("E.g. OpenMP"));
 
+  // Data size
+  QLabel *data_size_label = new QLabel(tr("6. Data size"));
+  data_size_label->setWordWrap(true);
+  data_size_ = new QLineEdit;
+  data_size_->setToolTip(tr("Information on the size of the used data set"));
+  data_size_->setPlaceholderText(tr("E.g. changes to the data size"));
+
   // General comments
-  QLabel *comment_label = new QLabel(tr("6. Other comments"));
+  QLabel *comment_label = new QLabel(tr("7. Other comments"));
   comment_label->setWordWrap(true);
   comment_ = new QLineEdit;
   comment_->setToolTip(tr("Any other comment not fitting the categories above"));
@@ -150,8 +158,8 @@ void MilestoneDialog::Setup() {
   finish_button_->setEnabled(false);
 
   // Separators
-  QFrame *sep_line[7];
-  for (int i = 0; i < 7; i++) {
+  QFrame *sep_line[8];
+  for (int i = 0; i < 8; i++) {
     sep_line[i] = new QFrame();
     sep_line[i]->setGeometry(QRect(/* ... */));
     sep_line[i]->setFrameShape(QFrame::HLine);
@@ -185,9 +193,12 @@ void MilestoneDialog::Setup() {
   main_layout_->addWidget(model_label);
   main_layout_->addWidget(model_comment_);
   main_layout_->addWidget(sep_line[5]);
+  main_layout_->addWidget(data_size_label);
+  main_layout_->addWidget(data_size_);
+  main_layout_->addWidget(sep_line[6]);
   main_layout_->addWidget(comment_label);
   main_layout_->addWidget(comment_);
-  main_layout_->addWidget(sep_line[6]);
+  main_layout_->addWidget(sep_line[7]);
   main_layout_->addLayout(button_layout);
 
   setLayout(main_layout_);
@@ -338,5 +349,6 @@ void MilestoneDialog::LoadPreviousMS() {
     compiler_comment_->setText(ms_->GetCompiler());
     model_comment_->setText(ms_->GetModel());
     arc_comment_->setText(ms_->GetArc());
+    data_size_->setText(ms_->GetDataSize());
   }
 }

@@ -6,7 +6,7 @@ dist: trusty
 
 env:
   global:
-    - QT_BASE=55 QT_LONG=551
+    - QT_BASE=56 QT_LONG=560
 
 matrix:
   fast_finish: true
@@ -19,10 +19,10 @@ matrix:
       env: COMPILER=gcc CONFIG=release
     - os: linux
       compiler: gcc
-      env: COMPILER=gcc CONFIG=debug CRYPT=CRYPT
+      env: COMPILER=gcc CONFIG=debug CRYPT=crypt
     - os: linux
       compiler: gcc
-      env: COMPILER=gcc CONFIG=release CRYPT=CRYPT
+      env: COMPILER=gcc CONFIG=release CRYPT=crypt
     - os: linux
       compiler: clang
       env: COMPILER=clang CONFIG=debug
@@ -31,10 +31,10 @@ matrix:
       env: COMPILER=clang CONFIG=release
     - os: linux
       compiler: clang
-      env: COMPILER=clang CONFIG=debug CRYPT=CRYPT
+      env: COMPILER=clang CONFIG=debug CRYPT=crypt
     - os: linux
       compiler: clang
-      env: COMPILER=clang CONFIG=release CRYPT=CRYPT
+      env: COMPILER=clang CONFIG=release CRYPT=crypt
     - os: osx
       compiler: gcc
       env: COMPILER=gcc CONFIG=debug
@@ -43,10 +43,10 @@ matrix:
       env: COMPILER=gcc CONFIG=release
     - os: osx
       compiler: gcc
-      env: COMPILER=gcc CONFIG=debug CRYPT=CRYPT
+      env: COMPILER=gcc CONFIG=debug CRYPT=crypt
     - os: osx
       compiler: gcc
-      env: COMPILER=gcc CONFIG=release CRYPT=CRYPT
+      env: COMPILER=gcc CONFIG=release CRYPT=crypt
     - os: osx
       compiler: clang
       env: COMPILER=clang CONFIG=debug
@@ -55,10 +55,10 @@ matrix:
       env: COMPILER=clang CONFIG=release DEPLOY=true
     - os: osx
       compiler: clang
-      env: COMPILER=clang CONFIG=debug CRYPT=CRYPT
+      env: COMPILER=clang CONFIG=debug CRYPT=crypt
     - os: osx
       compiler: clang
-      env: COMPILER=clang CONFIG=release CRYPT=CRYPT DEPLOY=true
+      env: COMPILER=clang CONFIG=release CRYPT=crypt DEPLOY=true
 
 before_install:
 - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo add-apt-repository --yes ppa:beineri/opt-qt${QT_LONG}-trusty

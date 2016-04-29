@@ -265,6 +265,7 @@ void QuestionnaireDialog::accept() {
     qDebug() << "No of saved events:" << activity_->GetSavedEvents();
   }
   project_->AddActivity(*activity_);
+  project_->StoreLog(settings.value("conf/logFile").toString());
   main_window_->SetupAnimation();
   QDialog::accept();
   return;

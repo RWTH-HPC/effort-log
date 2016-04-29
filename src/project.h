@@ -190,11 +190,12 @@ public:
    * \param[in] perf_metric The metric for measuring the performance of the
    * milestone
    * \param[in] perf_comment A comment about the performance of the milestone.
+   * \param[in] data_size A comment about the data size of the milestone.
    */
   void AddMilestone(int e_id, QString title, QDateTime time, QString comment,
                     QString arc, QString threads_type, QString threads,
                     QString compiler, QString model, QString perf_metric,
-                    QString perf_comment);
+                    QString perf_comment, QString data_size);
   //! Add a milestone to the project
   /*!
    * \param[in] m The milestone to be added to the porject.
