@@ -81,6 +81,8 @@ LogView::LogView(Project *pro) : QDialog() {
         no_ms_matches++;
       }
     }
+    if (no_ms_matches == 0)
+      current->appendRow(item_list);
   }
   model->setHeaderData(0, Qt::Horizontal, QObject::tr("Date"));
   model->setHeaderData(1, Qt::Horizontal, QObject::tr("Id"));

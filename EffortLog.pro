@@ -21,11 +21,15 @@
 TARGET = effort-log
 macx:TARGET = EffortLog
 TEMPLATE = app
-VERSION = 0.7
+VERSION = 0.8
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 QT += core gui
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-SSL_WIN = "C:\\OpenSSL-Win32"
+
+isEqual(QT_MAJOR_VERSION, 5) {
+  QT += widgets
+} else {
+  error("Qt5 required!")
+}
 
 # Compiler flags
 CONFIG += c++11
@@ -52,8 +56,7 @@ QMAKE_DISTCLEAN += -rf build
 macx {
   HEADERS += src/appnap.h
   OBJECTIVE_SOURCES += src/appnap.mm
-  LIBS += -framework Foundation \
-          -framework ApplicationServices
+  LIBS += -framework Foundation -framework ApplicationServices
 
   CONFIG += app_bundle
   QMAKE_INFO_PLIST = $$PWD/resources/Info.plist
@@ -95,6 +98,7 @@ CONFIG(crypt) {
   }
   win32 {
     # Adapt 'C:\OpenSSL-Win32' to your local path
+    SSL_WIN = "C:\\OpenSSL-Win32"
     INCLUDEPATH += $${SSL_WIN}\\include
     LIBS += -L$${SSL_WIN}\\bin -leay32
   }
@@ -117,7 +121,7 @@ SOURCES += \
   src/setupdialog.cc \
   src/proinitdialog.cc \
   src/questionnairedialog.cc \
-    src/logview.cc
+  src/logview.cc
 
 HEADERS +=  \
   src/activity.h \
@@ -130,7 +134,7 @@ HEADERS +=  \
   src/setupdialog.h \
   src/proinitdialog.h \
   src/questionnairedialog.h \
-    src/logview.h
+  src/logview.h
 
 RESOURCES += \
   doc/doc.qrc \
@@ -142,6 +146,6 @@ OTHER_FILES += \
   README.md
 
 DISTFILES += \
-    tools/mac_osx_deploy.sh \
-    tools/windows_deploy.bat \
-    tools/windows_deploy_encrypted.bat
+  tools/mac_osx_deploy.sh \
+  tools/windows_deploy.bat \
+  tools/windows_deploy_encrypted.bat

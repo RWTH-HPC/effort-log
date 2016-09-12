@@ -211,7 +211,6 @@ void MainWindow::CreateMenus() {
   help_menu->addAction(help_action_);
   help_menu->addAction(about_action_);
 #ifndef CRYPT
-  // TODO: Display encrypted log files
   QMenu *file_menu = new QMenu(tr("&File"), this);
   file_menu->addAction(log_action_);
   menuBar()->addMenu(file_menu);
@@ -220,12 +219,8 @@ void MainWindow::CreateMenus() {
 
   QWidget* spacer = new QWidget();
   spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-#ifndef CRYPT
   tool_bar_->addAction(log_action_);
-#endif
   tool_bar_->addAction(new_action_);
-//  tool_bar_->addAction(help_action_);
-//  tool_bar_->addAction(about_action_);
   tool_bar_->addWidget(spacer);
   tool_bar_->addWidget(project_label_);
 }

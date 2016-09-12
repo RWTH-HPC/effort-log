@@ -135,7 +135,7 @@ private slots:
    * This method is called if the user executes log_action_, meaning the user
    * hits the "Browse current log file" button in the main menu of the program
    * located under "File". This methods lets the user specify a log file which
-   * is displayed in plian text.
+   * is displayed in plain text.
    *
    * \see MainWindow::log_action_
    */
