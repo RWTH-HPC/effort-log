@@ -24,6 +24,7 @@
 #ifdef __APPLE__
 #include "appnap.h"
 #endif
+#include "logview.h"
 
 #include <QDebug>
 #include <QFileDialog>
@@ -238,14 +239,9 @@ void MainWindow::SetTimeLabel(QString s) {
 }
 
 void MainWindow::LogView() {
-  QFile file(settings_.value("conf/logFile").toString());
-  file.open(QFile::ReadOnly | QFile::Text);
-  QTextStream ReadFile(&file);
-  QTextEdit * textEdit = new QTextEdit;
-  textEdit->setText(ReadFile.readAll());
-  textEdit->resize(400, 500);
-  textEdit->setWindowTitle(settings_.value("conf/logFile").toString());
-  textEdit->show();
+  LogView::LogView view(project_);
+  view.resize(450, 300);
+  view.exec();
 }
 
 void MainWindow::About() {

@@ -116,7 +116,8 @@ SOURCES += \
   src/project.cc \
   src/setupdialog.cc \
   src/proinitdialog.cc \
-  src/questionnairedialog.cc
+  src/questionnairedialog.cc \
+    src/logview.cc
 
 HEADERS +=  \
   src/activity.h \
@@ -128,7 +129,8 @@ HEADERS +=  \
   src/project.h \
   src/setupdialog.h \
   src/proinitdialog.h \
-  src/questionnairedialog.h
+  src/questionnairedialog.h \
+    src/logview.h
 
 RESOURCES += \
   doc/doc.qrc \
