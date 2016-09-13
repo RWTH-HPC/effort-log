@@ -107,3 +107,10 @@ QString Activity::GetComment() const {
 void Activity::SetComment(const QString &comment) {
   comment_ = comment;
 }
+
+int Activity::GetScheduler() const {
+  return scheduler_;
+}
+void Activity::SetScheduler(const int scheduler) {
+  scheduler_ = scheduler;
+}

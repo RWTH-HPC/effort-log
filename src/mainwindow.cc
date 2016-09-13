@@ -77,7 +77,7 @@ void MainWindow::closeEvent (QCloseEvent *event) {
             && cur_interval > (settings_.value("conf/logInterval").toInt()
                                * 60000 * LOG_ON_EXIT_THRESHOLD)) {
           countdown_timer_->stop();
-          QuestionnaireDialog dialog(this);
+          QuestionnaireDialog dialog(this, 3);
           dialog.exec();
           dialog.show();
           dialog.setWindowModality(Qt::WindowModal);
@@ -182,7 +182,10 @@ void MainWindow::QuitOnSignal() {
         && cur_interval > (settings_.value("conf/logInterval").toInt()
                            * 60000 * LOG_ON_EXIT_THRESHOLD)) {
       countdown_timer_->stop();
-      ExecQuestionnaireDialog();
+      QuestionnaireDialog dialog(this, 3);
+      dialog.exec();
+      dialog.show();
+      dialog.setWindowModality(Qt::WindowModal);
     }
     project_->StoreLog(settings_.value("conf/logFile").toString());
   }
@@ -191,7 +194,7 @@ void MainWindow::QuitOnSignal() {
 void MainWindow::NextAnimationFrame() {
   if ((countdown_time_.hour() == 0) && (countdown_time_.minute() == 0)
        && (countdown_time_.second() == 0)) {
-    QuestionnaireDialog dialog(this);
+    QuestionnaireDialog dialog(this,0);
     dialog.exec();
     dialog.show();
     dialog.setWindowModality(Qt::WindowModal);
@@ -240,24 +243,27 @@ void MainWindow::LogView() {
 }
 
 void MainWindow::About() {
-  QMessageBox about_box;
-  QSpacerItem* horizontalSpacer = new QSpacerItem(300, 0, QSizePolicy::Minimum,
-                                                  QSizePolicy::Expanding);
-  about_box.setText(tr("<center>%1 %2</center>").arg(APP_NAME)
-                       .arg(APP_VERSION));
-  about_box.setInformativeText("Copyright © 2016 by IT Center\n"
-                               "Group: High Performance Computing\n"
-                               "Division: Computational Science and Engineering"
-                               "\nRWTH Aachen University\n"
-                               "Seffenter Weg 23\n"
-                               "52074 Aachen, Germany");
+  QString msg;
+  msg.append(tr("<h1>%1 %2</h1>").arg(APP_NAME).arg(APP_VERSION));
+  msg.append("<br/>Copyright © 2016 by IT Center");
+  msg.append("<br/>Group: High Performance Computing");
+  msg.append("<br/>Division: Computational Science and Engineering");
+  msg.append("<br/>RWTH Aachen University");
+  msg.append("<br/>Seffenter Weg 23");
+  msg.append("<br/>52074 Aachen, Germany");
+  msg.append("<br/><a href='www.hpc.rwth-aachen.de/research/tco/'>www.hpc.rwth-aachen.de/research/tco</a>");
+
+  QMessageBox about_box(this);
+  about_box.setText(msg);
+  about_box.setTextFormat(Qt::RichText);
+  about_box.setTextInteractionFlags(Qt::TextBrowserInteraction);
+  QFont font = about_box.font();
+  font.setPointSize(11);
+  font.setBold(0);
+  about_box.setFont(font);
   about_box.setStandardButtons(QMessageBox::Close);
   about_box.setDefaultButton(QMessageBox::Close);
   about_box.setWindowTitle("About Effort Log");
-  // Add space to increae the box size
-  QGridLayout* layout = (QGridLayout*)about_box.layout();
-  layout->addItem(horizontalSpacer, layout->rowCount(), 0, 1,
-                  layout->columnCount());
   about_box.exec();
 }
 
@@ -279,7 +285,14 @@ void MainWindow::SetProject(Project *p) {
 }
 
 void MainWindow::ExecQuestionnaireDialog() {
-  QuestionnaireDialog dialog(this);
+  QuestionnaireDialog dialog(this,2);
+  dialog.exec();
+  dialog.show();
+  dialog.setWindowModality(Qt::WindowModal);
+}
+
+void MainWindow::ExecScheduledQuestionnaireDialog() {
+  QuestionnaireDialog dialog(this,0);
   dialog.exec();
   dialog.show();
   dialog.setWindowModality(Qt::WindowModal);

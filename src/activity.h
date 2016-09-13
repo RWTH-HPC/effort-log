@@ -21,12 +21,12 @@
 #ifndef ACTIVITY_H
 #define ACTIVITY_H
 
+#include <QFile>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QSettings>
 #include <QString>
 #include <QTime>
-#include <QJsonObject>
-#include <QFile>
-#include <QSettings>
-#include <QJsonDocument>
 
 #include "definitions.h"
 
@@ -37,7 +37,7 @@
  * save an activity to such file.
  */
 class Activity {
- public:
+public:
   //! An array of strings containing the different types of the activities.
   /*!
    * Can be accessed with kActivityType[0] to kActivityType[NUM_ACTIVITIES - 1]
@@ -142,7 +142,7 @@ class Activity {
   void SetIntervalTime(const int &time);
   //! Getter for comment_
   /*!
-   * \return A string containing _comment
+   * \return A string containing comment_
    */
   QString GetComment() const;
   //! Setter for comment_
@@ -151,24 +151,39 @@ class Activity {
    * user
    */
   void SetComment(const QString &comment);
+  //! Getter for scheduler_
+  /*!
+   * \return An integer containing scheduler_
+   */
+  int GetScheduler() const;
+  //! Setter for scheduler_
+  /*!
+   * \param[in] scheduler An integer which specifies how the event was created
+   */
+  void SetScheduler(const int scheduler);
 
- private:
-  QString type_;  /**< A string which holds the type of activity.*/
-  int id_; /**< Holds the ID of Activity::type_*/
-  int saved_events_;  /**< An integer value which holds a count of saved
-                            events.*/
-  QString project_title_;  /**< A string which holds the project's title.*/
-  QString user_name_;  /**< A string which holds the user's name.*/
-  int log_interval_;  /**< An integer value which holds the logging interval in
-                            minutes.*/
-  QDateTime cur_time_;  /**< A variable of type QDateTime which holds current
-                             date and time.*/
-  QDateTime last_time_;  /**< A variable of type QDateTime which holds the time
-                              when the last logging event happend.*/
-  int interval_time_;  /**< An integer value which holds the actual logging
-                            interval in minutes (cur_time_ - last_time_).*/
-  QString comment_;  /**< A string which holds an user-specified comment on his
-                          or her activty.*/
+private:
+  QString type_;          /**< A string which holds the type of activity.*/
+  int id_;                /**< Holds the ID of Activity::type_*/
+  int saved_events_;      /**< An integer value which holds a count of saved
+                                events.*/
+  QString project_title_; /**< A string which holds the project's title.*/
+  QString user_name_;     /**< A string which holds the user's name.*/
+  int log_interval_;   /**< An integer value which holds the logging interval in
+                             minutes.*/
+  QDateTime cur_time_; /**< A variable of type QDateTime which holds current
+                            date and time.*/
+  QDateTime last_time_; /**< A variable of type QDateTime which holds the time
+                             when the last logging event happend.*/
+  int interval_time_;   /**< An integer value which holds the actual logging
+                             interval in minutes (cur_time_ - last_time_).*/
+  QString comment_; /**< A string which holds an user-specified comment on his
+                         or her activty.*/
+  int scheduler_; /**< Stores how the event was created. 0 denotes an undefined
+                   value, 1 denotes an
+                   interval-based event , 2 an appeneded event, 3 a manual
+                   event executed through the GUI, and 4 an event on closing the
+                   program.*/
 };
 
 #endif // ACTIVITY

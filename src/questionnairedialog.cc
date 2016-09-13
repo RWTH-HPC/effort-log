@@ -18,17 +18,18 @@
  * along with EffortLog.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "definitions.h"
 #include "questionnairedialog.h"
+#include "definitions.h"
 #include "milestonedialog.h"
 
 #include <QDebug>
 #include <QtMath>
 
-
-QuestionnaireDialog::QuestionnaireDialog(MainWindow *window) : QDialog() {
+QuestionnaireDialog::QuestionnaireDialog(MainWindow *window, int scheduler)
+    : QDialog() {
   main_window_ = window;
   project_ = window->project_;
+  scheduler_ = scheduler;
   Setup();
   CreateConnections();
   UpdateUI();
@@ -46,38 +47,38 @@ void QuestionnaireDialog::Setup() {
   activity_button_group_ = new QButtonGroup;
   QRadioButton *activity_switcher_buttons[NUM_ACTIVITIES];
   for (int i = 0; i < NUM_ACTIVITIES; i++) {
-    activity_switcher_buttons[i] = new QRadioButton(
-          activity_->kActivityType[i]);
-    activity_button_group_->addButton(activity_switcher_buttons[i],i);
+    activity_switcher_buttons[i] =
+        new QRadioButton(activity_->kActivityType[i]);
+    activity_button_group_->addButton(activity_switcher_buttons[i], i);
   }
   activity_switcher_buttons[0]->setShortcut(QKeySequence(Qt::Key_B));
   activity_switcher_buttons[0]->setToolTip(
-        tr("Choose activity <font color='gray'>B</font>"));
+      tr("Choose activity <font color='gray'>B</font>"));
   activity_switcher_buttons[1]->setShortcut(QKeySequence(Qt::Key_H));
   activity_switcher_buttons[1]->setToolTip(
-        tr("Choose activity <font color='gray'>H</font>"));
+      tr("Choose activity <font color='gray'>H</font>"));
   activity_switcher_buttons[2]->setShortcut(QKeySequence(Qt::Key_S));
   activity_switcher_buttons[2]->setToolTip(
-        tr("Choose activity <font color='gray'>S</font>"));
+      tr("Choose activity <font color='gray'>S</font>"));
   activity_switcher_buttons[3]->setShortcut(QKeySequence(Qt::Key_P));
   activity_switcher_buttons[3]->setToolTip(
-        tr("Choose activity <font color='gray'>P</font>"));
+      tr("Choose activity <font color='gray'>P</font>"));
   activity_switcher_buttons[4]->setShortcut(QKeySequence(Qt::Key_T));
   activity_switcher_buttons[4]->setToolTip(
-        tr("Choose activity <font color='gray'>T</font>"));
+      tr("Choose activity <font color='gray'>T</font>"));
   activity_switcher_buttons[5]->setShortcut(QKeySequence(Qt::Key_D));
   activity_switcher_buttons[5]->setToolTip(
-        tr("Choose activity <font color='gray'>D</font>"));
+      tr("Choose activity <font color='gray'>D</font>"));
   activity_switcher_buttons[6]->setShortcut(QKeySequence(Qt::Key_U));
   activity_switcher_buttons[6]->setToolTip(
-        tr("Choose activity <font color='gray'>U</font>"));
+      tr("Choose activity <font color='gray'>U</font>"));
   activity_switcher_buttons[7]->setShortcut(QKeySequence(Qt::Key_E));
-  activity_switcher_buttons[7]->setToolTip
-      (tr("Choose activity <font color='gray'>E</font>"));
+  activity_switcher_buttons[7]->setToolTip(
+      tr("Choose activity <font color='gray'>E</font>"));
   activity_switcher_buttons[8]->setShortcut(QKeySequence(Qt::Key_O));
   activity_switcher_buttons[8]->setToolTip(
-        tr("Choose activity <font color='gray'>O</font>"));
-  activity_switcher_buttons[0]->setChecked(true);  // Set default button
+      tr("Choose activity <font color='gray'>O</font>"));
+  activity_switcher_buttons[0]->setChecked(true); // Set default button
 
   // Comment field (right part of the dialog)
   QLabel *comment_label = new QLabel("Comment on this activity:");
@@ -119,15 +120,15 @@ void QuestionnaireDialog::Setup() {
   finish_button_->setShortcut(QKeySequence(Qt::Key_F));
 
   // Separator
-  QFrame* vline1 = new QFrame();
+  QFrame *vline1 = new QFrame();
   vline1->setGeometry(QRect(/* ... */));
   vline1->setFrameShape(QFrame::VLine);
   vline1->setFrameShadow(QFrame::Sunken);
-  QFrame* vline2 = new QFrame();
+  QFrame *vline2 = new QFrame();
   vline2->setGeometry(QRect(/* ... */));
   vline2->setFrameShape(QFrame::VLine);
   vline2->setFrameShadow(QFrame::Sunken);
-  QFrame* botton_line = new QFrame();
+  QFrame *botton_line = new QFrame();
   botton_line->setGeometry(QRect(/* ... */));
   botton_line->setFrameShape(QFrame::HLine);
   botton_line->setFrameShadow(QFrame::Sunken);
@@ -170,9 +171,10 @@ void QuestionnaireDialog::Setup() {
   main_layout_->addLayout(button_layout);
   setLayout(main_layout_);
 
-  QString title_string = QString("Logging event #%1:   %2 - now")
-      .arg(no_logged_activities_ + 1)
-      .arg(settings.value("lastLogTime").toDateTime().toString("hh:mm ap"));
+  QString title_string =
+      QString("Logging event #%1:   %2 - now")
+          .arg(no_logged_activities_ + 1)
+          .arg(settings.value("lastLogTime").toDateTime().toString("hh:mm ap"));
   group_activities_->setFocus();
   setWindowTitle(title_string);
   return;
@@ -184,7 +186,7 @@ void QuestionnaireDialog::CreateConnections() {
   countdown_timer->start(60000);
   connect(skip_button_, SIGNAL(released()), this, SLOT(reject()));
   connect(finish_button_, SIGNAL(released()), this, SLOT(accept()));
-  //connect(m_group_, SIGNAL(buttonClicked(QAbstractButton*)), this,
+  // connect(m_group_, SIGNAL(buttonClicked(QAbstractButton*)), this,
   //        SLOT(OnPressedMButton(QAbstractButton*)));
   return;
 }
@@ -192,13 +194,13 @@ void QuestionnaireDialog::CreateConnections() {
 void QuestionnaireDialog::UpdateUI() {
   QSettings settings;
   int interval = QTime::currentTime().msecsSinceStartOfDay() -
-      settings.value("lastLogTime").toTime().msecsSinceStartOfDay();
+                 settings.value("lastLogTime").toTime().msecsSinceStartOfDay();
   interval /= (1000 * 60);
   if (interval == 1) {
     info_string_ = QString("What did you do the last minute?");
   } else {
-    info_string_ = QString("What did you do the last %1 minutes?")
-        .arg(interval);
+    info_string_ =
+        QString("What did you do the last %1 minutes?").arg(interval);
   }
   activity_label_->setText(info_string_);
   activity_label_->update();
@@ -222,7 +224,8 @@ void QuestionnaireDialog::accept() {
   //  activity_->GetCurTime().time().msecsSinceStartOfDay()
   //  - activity_->GetLastTime().time().msecsSinceStartOfDay()) / 60000.0));
   // activity_->SetIntervalTime(qCeil(cur_time.secsTo(activity_->GetLastTime()))/-60.0);
-  activity_->SetIntervalTime(qCeil(cur_time.secsTo(activity_->GetLastTime())/-60.0));
+  activity_->SetIntervalTime(
+      qCeil(cur_time.secsTo(activity_->GetLastTime()) / -60.0));
   activity_->SetSavedEvents(no_logged_activities_);
   activity_->SetType(activity_button_group_->checkedButton()->text());
   settings.setValue("lastLogTime", QDateTime::currentDateTime());
@@ -230,14 +233,27 @@ void QuestionnaireDialog::accept() {
   activity_->SetUserName(settings.value("conf/userName").toString());
   activity_->SetLogInterval(settings.value("conf/logInterval").toInt());
   activity_->SetComment(comment_box_->toPlainText());
+  switch (scheduler_) {
+  case 0:
+    activity_->SetScheduler(1);
+    break;
+  case 2:
+    activity_->SetScheduler(3);
+    break;
+  case 3:
+    activity_->SetScheduler(4);
+    break;
+  default:
+    activity_->SetScheduler(0);
+  }
 
   if (m_group_->checkedId() != -1) {
-    QList<QAbstractButton *> buttons  = m_group_->buttons();
-    foreach ( QAbstractButton *b, buttons) {
-      if (b->isChecked() == true ) {
+    QList<QAbstractButton *> buttons = m_group_->buttons();
+    foreach (QAbstractButton *b, buttons) {
+      if (b->isChecked() == true) {
         Milestone *m = new Milestone;
         if (project_->GetNoMilestones() > 0) {
-          *m = project_->GetMilestone(project_->GetNoMilestones()-1);
+          *m = project_->GetMilestone(project_->GetNoMilestones() - 1);
           m->SetMsId(-1);
         } else {
           m->SetMsId(0);
@@ -276,7 +292,7 @@ void QuestionnaireDialog::accept() {
 void QuestionnaireDialog::reject() {
   QMessageBox::StandardButton button;
   button = QMessageBox::question(this, APP_NAME, tr("Are you sure you want to "
-                                 "skip this log?\n"),
+                                                    "skip this log?\n"),
                                  QMessageBox::No | QMessageBox::Yes,
                                  QMessageBox::Yes);
   if (button != QMessageBox::No) {
@@ -288,11 +304,9 @@ void QuestionnaireDialog::reject() {
   return;
 }
 
-void QuestionnaireDialog::OnPressedMButton(QAbstractButton * btn) {
-  QList<QAbstractButton *> buttons  = m_group_->buttons();
-  foreach ( QAbstractButton *b, buttons) {
-    b->setChecked(false);
-  }
+void QuestionnaireDialog::OnPressedMButton(QAbstractButton *btn) {
+  QList<QAbstractButton *> buttons = m_group_->buttons();
+  foreach (QAbstractButton *b, buttons) { b->setChecked(false); }
   if (btn != last_m_button_ || m_button_pressed_ == false) {
     btn->setChecked(true);
     m_button_pressed_ = true;

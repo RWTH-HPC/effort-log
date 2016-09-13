@@ -23,29 +23,28 @@
 
 #include <QAction>
 #include <QFrame>
+#include <QHeaderView>
+#include <QLCDNumber>
 #include <QLabel>
 #include <QLayout>
-#include <QLCDNumber>
 #include <QMainWindow>
 #include <QMenu>
 #include <QMenuBar>
 #include <QProgressBar>
 #include <QSettings>
+#include <QSplitter>
+#include <QStandardItemModel>
 #include <QStatusBar>
 #include <QString>
+#include <QTableView>
 #include <QTextBrowser>
 #include <QTime>
 #include <QTimer>
 #include <QToolBar>
 #include <QUrl>
-#include <QStandardItemModel>
-#include <QSplitter>
-#include <QTableView>
-#include <QHeaderView>
 
-#include "project.h"
 #include "crypt.h"
-
+#include "project.h"
 
 //! Class for dislaying the main window
 /*!
@@ -98,7 +97,8 @@ public:
   void SetupAnimation();
   //! Sets status_label_time_
   /*!
-   * This method is sets the variable status_label_time_ with the given QString s.
+   * This method is sets the variable status_label_time_ with the given QString
+   * s.
    * \param[in] s Time to display in the statusbar
    * \see MainWindow::status_label_time_
    */
@@ -113,7 +113,8 @@ public:
   void ReadLog();
   //! Sets project_
   /*!
-   * This method is sets the variable status_label_time_ with the given QString s.
+   * This method is sets the variable status_label_time_ with the given QString
+   * s.
    * \param[in] p Pointer to a Project
    * \see Project
    */
@@ -160,9 +161,22 @@ private slots:
    * \see MainWindow::help_action_
    */
   void Help();
+  //! Manually executes the questionnaire
+  /*!
+   * This method is called if the user executes new_action_, meaning the user
+   * hits the "new" button in the toolbar of the program. A new questionnaire is
+   * executed in form of a dialog.
+   */
   void ExecQuestionnaireDialog();
+  //! Executes the questionnaire based on the set interval
+  /*!
+   * This method is called if the user executes new_action_, meaning the user
+   * hits the "new" button in the toolbar of the program. A new questionnaire is
+   * executed in form of a popup dialog.
+   */
+  void ExecScheduledQuestionnaireDialog();
 
- private:
+private:
   //! Sets up the actions of the main program
   /*!
    * This method is called to initialize the actions in the menu of the program.
@@ -196,43 +210,42 @@ private slots:
   void Setup();
 
   Crypt *crypt_;
-  QAction *about_action_;  /**< The action upon hitting the "about" button of
-                                the main menu.*/
-  QWidget *central_widget_;  /**< The main widget of the main window.*/
-  QTime countdown_time_;  /**< Holds the time until the next logging event. Is
-                               updated every second.*/
-  QTimer *countdown_timer_;  /**< The countdown timer holding the value of
-                                 countdown_time_.*/
-  QAction *help_action_;  /**< The action upon hitting the "help" button of
-                               the main menu.*/
-  QLabel *info_label_;  /**< The label holding info_string_.*/
-  QString info_string_;  /**< The user-provided information about the running
-                             logging.*/
-  QLCDNumber *lcd_;  /**< The display of the countdown timer in a LCD .*/
-  QAction *log_action_;  /**< The action upon hitting the "Browse file" button
-                              of the main menu.*/
-  QVBoxLayout *main_layout_;  /**< The main layout of the main window.*/
-  QAction *new_action_;  /**< The action upon hitting the "new" button of
-                                the main menu.*/
-  QSettings settings_;  /**< Holds a copy of the global settings of the
-                             application.*/
-  QLabel *time_label_;  /**< The label holding info_string_.*/
-  QHBoxLayout *time_layout_;  /**< Holds time_label_ and lcd_.*/
-  QString timer_string_;  /**< Holds a string of the time until the nex logging
-                               event.*/
-  QFrame* top_seperator_;  /**< A vertical line acting as a seperator.*/
+  QAction *about_action_;   /**< The action upon hitting the "about" button of
+                                 the main menu.*/
+  QWidget *central_widget_; /**< The main widget of the main window.*/
+  QTime countdown_time_;    /**< Holds the time until the next logging event. Is
+                                 updated every second.*/
+  QTimer *countdown_timer_; /**< The countdown timer holding the value of
+                                countdown_time_.*/
+  QAction *help_action_;    /**< The action upon hitting the "help" button of
+                                 the main menu.*/
+  QLabel *info_label_;      /**< The label holding info_string_.*/
+  QString info_string_;     /**< The user-provided information about the running
+                                logging.*/
+  QLCDNumber *lcd_;         /**< The display of the countdown timer in a LCD .*/
+  QAction *log_action_; /**< The action upon hitting the "Browse file" button
+                             of the main menu.*/
+  QVBoxLayout *main_layout_; /**< The main layout of the main window.*/
+  QAction *new_action_;      /**< The action upon hitting the "new" button of
+                                    the main menu.*/
+  QSettings settings_;       /**< Holds a copy of the global settings of the
+                                  application.*/
+  QLabel *time_label_;       /**< The label holding info_string_.*/
+  QHBoxLayout *time_layout_; /**< Holds time_label_ and lcd_.*/
+  QString timer_string_;   /**< Holds a string of the time until the nex logging
+                                event.*/
+  QFrame *top_seperator_;  /**< A vertical line acting as a seperator.*/
   QLabel *version_label_;  /**< Contains the versioning number of the program.*/
-  QStatusBar *status_bar_;  /**< Status bar on the bottom of the window.*/
-  QLabel *status_label_running_;  /**< Indicator if the program is running.*/
-  QLabel *status_label_time_;  /**< Holds the time until the next scheduled
-                                    logging event.*/
-  QProgressBar *status_progress_bar_;  /**< A progress bar indicating the time
-                                            until the next scheduled logging
-                                            event.*/
-  bool log_running_;  /**< True if the program is running, false if not.*/
-  QToolBar *tool_bar_;  /**< The main tool bar*/
-  QLabel *project_label_;  /**< Holds the title of the project.*/
+  QStatusBar *status_bar_; /**< Status bar on the bottom of the window.*/
+  QLabel *status_label_running_; /**< Indicator if the program is running.*/
+  QLabel *status_label_time_;    /**< Holds the time until the next scheduled
+                                      logging event.*/
+  QProgressBar *status_progress_bar_; /**< A progress bar indicating the time
+                                           until the next scheduled logging
+                                           event.*/
+  bool log_running_;      /**< True if the program is running, false if not.*/
+  QToolBar *tool_bar_;    /**< The main tool bar*/
+  QLabel *project_label_; /**< Holds the title of the project.*/
 };
-
 
 #endif // MAINWINDOW

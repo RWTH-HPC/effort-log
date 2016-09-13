@@ -43,7 +43,6 @@
 #include "mainwindow.h"
 #include "project.h"
 
-
 //! Class to handle interval-based user input
 /*!
  * This class implements an interval-based questionnaire in form of a pop-up.
@@ -53,9 +52,9 @@
  */
 class QuestionnaireDialog : public QDialog {
   Q_OBJECT
- public:
+public:
   //! The main constructor.
-  QuestionnaireDialog(MainWindow *window);
+  QuestionnaireDialog(MainWindow *window, int scheduler);
   //! Overrides the default accept() member.
   /*!
    * accept() is executed on successfully quitting the dialog. This function
@@ -74,7 +73,7 @@ class QuestionnaireDialog : public QDialog {
    */
   void reject() Q_DECL_OVERRIDE;
 
- private slots:
+private slots:
   //! Updates the view of the dialog
   /*!
    * This method is called every minute to update the displayed message of
@@ -89,9 +88,9 @@ class QuestionnaireDialog : public QDialog {
    * on a button when there is another active button will set the current
    * active button to inactive and activates the clicked button.
    */
-  void OnPressedMButton(QAbstractButton * btn);
+  void OnPressedMButton(QAbstractButton *btn);
 
- private:
+private:
   //! Takes care of all connections
   /*!
    * This method sets up the needed connections of the dialog. Theser are:
@@ -110,28 +109,31 @@ class QuestionnaireDialog : public QDialog {
    * \see Dialog::main_layout_
    */
   void Setup();
-  Activity *activity_;  /**< An object of type Activity which holds the matching
-                            activity to the dialog.*/
-  bool m_button_pressed_;  /**< Indicates if a button is pressed or not.*/
-  QAbstractButton *last_m_button_;  /**< The lastly clicked button.*/
-  QButtonGroup *activity_button_group_;  /**< Holds all buttons for choosing an
-                                              activity.*/
+  Activity *activity_; /**< An object of type Activity which holds the matching
+                           activity to the dialog.*/
+  bool m_button_pressed_; /**< Indicates if a button is pressed or not.*/
+  QAbstractButton *last_m_button_;      /**< The lastly clicked button.*/
+  QButtonGroup *activity_button_group_; /**< Holds all buttons for choosing an
+                                             activity.*/
   QButtonGroup *m_group_;  /**< Holds all buttons for choosing a milestone.*/
-  QLabel *activity_label_;  /**< Holds a message containing the minutes since
-                                  the last logging event.*/
-  QPlainTextEdit *comment_box_;  /**< A box to input comments on an activity.*/
-  QGroupBox *group_activities_;  /**< Holds activity_button_group_ with the
-                                      label info_string_.*/
+  QLabel *activity_label_; /**< Holds a message containing the minutes since
+                                 the last logging event.*/
+  QPlainTextEdit *comment_box_; /**< A box to input comments on an activity.*/
+  QGroupBox *group_activities_; /**< Holds activity_button_group_ with the
+                                     label info_string_.*/
   QPushButton *finish_button_;  /**< Button to exit the dialog after finishing
                                      all mandatory input.*/
-  QString info_string_;  /**< Holds the question on what the user was working
-                              on. Is updated every 60 seconds.*/
-  QVBoxLayout *main_layout_;  /**< The main layout of the dialog.*/
+  QString info_string_; /**< Holds the question on what the user was working
+                             on. Is updated every 60 seconds.*/
+  QVBoxLayout *main_layout_; /**< The main layout of the dialog.*/
   MainWindow *main_window_;  /**< Holds a pointer to the main window.*/
-  int no_logged_activities_;  /**< The number of successfully logged events.*/
-  QPushButton *skip_button_;  /**< Button to exit the dialog without logging the
-                                   event to the log file (skipping this event)*/
+  int no_logged_activities_; /**< The number of successfully logged events.*/
+  QPushButton *skip_button_; /**< Button to exit the dialog without logging the
+                                  event to the log file (skipping this event)*/
   Project *project_; /**< Holds a pointer to the current project. \see Project*/
+  int scheduler_; /**< Denotes if the questionnaire was scheduled by the
+                          set interval (=0), was manually executed (=2), or was
+                          executed on closing the program (=3)*/
 };
 
 #endif // DIALOG

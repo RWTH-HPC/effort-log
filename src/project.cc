@@ -242,6 +242,7 @@ bool Project::StoreLog(QString f) {
     obj["UserName"] = a.GetUserName();
     obj["ProjectTitle"] = a.GetProjectTitle();
     obj["ActivityType"] = a.GetType();
+    obj["Scheduler"] = a.GetScheduler();
     activities_array.append(obj);
   }
   QJsonArray milestones_array;
@@ -339,6 +340,10 @@ bool Project::ReadLog(QString f) {
       qDebug() << a.GetId();
     a.SetSavedEvents(o["NoEventsCurrentSession"].toInt());
     a.SetComment(o["Comment"].toString());
+    if (o["Scheduler"].isUndefined())
+      a.SetScheduler(0);
+    else
+      a.SetScheduler(o["Scheduler"].toInt());
     activities_->append(a);
   }
   return status;

@@ -166,6 +166,7 @@ void AppendDialog::accept() {
   activity_->SetUserName(settings_.value("conf/userName").toString());
   activity_->SetLogInterval(settings_.value("conf/logInterval").toInt());
   activity_->SetComment(comment_box_->toPlainText());
+  activity_->SetScheduler(2);
 
   if (VERBOSE) {
     qDebug() << "\nActivity type:" << activity_->GetType();
