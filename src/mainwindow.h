@@ -140,7 +140,7 @@ private slots:
    *
    * \see MainWindow::log_action_
    */
-  void LogView();
+  void LogViewer();
   //! Sets up a about message in the main menu of the program
   /*!
    * This method is called if the user executes about_action_, meaning the user

@@ -236,7 +236,7 @@ void MainWindow::SetTimeLabel(QString s) {
   status_label_time_->setText(s);
 }
 
-void MainWindow::LogView() {
+void MainWindow::LogViewer() {
   LogView view(project_);
   view.resize(450, 300);
   view.exec();

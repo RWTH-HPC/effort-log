@@ -14,7 +14,8 @@
 class LogView : public QDialog {
   Q_OBJECT
 public:
-  explicit LogView(Project *pro);
+  //! The main constructor.
+  LogView(Project *pro);
 };
 
 #endif // LOGVIEW_H
