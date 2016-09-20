@@ -6,7 +6,7 @@ dist: trusty
 
 env:
   global:
-    - QT_BASE=56 QT_LONG=56
+    - QT_BASE=56 QT_LONG=561
 
 matrix:
   fast_finish: true

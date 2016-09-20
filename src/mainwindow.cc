@@ -237,7 +237,7 @@ void MainWindow::SetTimeLabel(QString s) {
 }
 
 void MainWindow::LogView() {
-  LogView::LogView view(project_);
+  LogView view(project_);
   view.resize(450, 300);
   view.exec();
 }
