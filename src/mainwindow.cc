@@ -272,7 +272,7 @@ void MainWindow::Help() {
   browser->setSource(QUrl("qrc:///index.html"));
   browser->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
   browser->setWindowTitle(tr("%1 help").arg(APP_NAME));
-  browser->resize(400, 500);
+  browser->resize(600, 800);
   browser->show();
 }
 

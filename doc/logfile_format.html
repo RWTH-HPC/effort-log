@@ -54,9 +54,7 @@
 
     The log file is formatted in JSON. It contains of the following entries:
     <ul>
-      <li>"UserName": The user's name. This was specified during the configuration wizard.</li>
-      <li>"ProjectTitle": The title of the project. This was specified during the configuration wizard.</li>
-      <li>"ProjectStage": The current development stage of the project. This was specified during the configuration wizard. The choices for the stage include:
+      <li>"InitialProjectStage": The initial development stage of the project. This was specified during the configuration wizard. The choices for the stage are:
       <ul>
         <li>Scratch</li>
         <li>Working serial version</li>
@@ -64,25 +62,66 @@
         <li>Working parallel version</li>
         <li>Tuned parallel version</li>
       </ul></li>
-      <li>"ActivityType": The chosen type of activity. The user is provided with a list of the following activities:
+      <li>"InitialProjectStageComment": A user-provieded comment on the above development stage.
+      <li>"LoggingEvents": A list of the logging events sorted by the occurance. Each entry consists of the following keys:
       <ul>
-        <li>Break</li>
-        <li>Thinking</li>
-        <li>Serial</li>
-        <li>Parallelizing</li>
-        <li>Testing</li>
-        <li>Debugging</li>
-        <li>Tuning</li>
-        <li>Experimenting</li>
-        <li>Other</li>
+        <li>"ID": A unique identifier of the event. The first event holds id 0 and all following events are then consecutively numbered.</li>
+        <li>"UserName": The user's name. This was specified during the configuration wizard.</li>
+        <li>"ProjectTitle": The title of the project. This was specified during the configuration wizard.</li>
+        <li>"ProjectStage": The current development stage of the project. This was specified during the configuration wizard. The choices for the stage are:
+        <ul>
+          <li>Scratch</li>
+          <li>Working serial version</li>
+          <li>Tuned serial version</li>
+          <li>Working parallel version</li>
+          <li>Tuned parallel version</li>
+        </ul></li>
+        <li>"ActivityType": The chosen type of activity. The user is provided with a list of the following activities:
+        <ul>
+          <li>Break</li>
+          <li>Thinking</li>
+          <li>Serial</li>
+          <li>Parallelizing</li>
+          <li>Testing</li>
+          <li>Debugging</li>
+          <li>Tuning</li>
+          <li>Experimenting</li>
+          <li>Other</li>
+        </ul></li>
+        <li>"Comment": Contains a comment on the activity. If the user did not enter any comment this field is empty.</li>
+        <li>"CurLoggingTime": The time when the user finished the questionnaire.</li>
+        <li>"Interval": The time in minutes since the last stored logging event.</li>
+        <li>"LastLoggingTime": The time when the user finished the questionnaire the time before the current event.</li>
+        <li>"LoggingInterval": The specified logging interval. This was specified during the configuration wizard.</li>
+        <li>"NoEventsCurrentSession": A count of the number of events logged during the current session.</li>
+        <li>"Scheduler": Specifies how the event was triggered. 0 denotes an unknown or undefined event, 1 denotes an interval-based event , 2 an appeneded event, 3 a manual event executed through the GUI, and 4 an event on closing the
+        program.</li>
       </ul></li>
-      <li>"Comment": Contains a comment on the current activity. If the user did not enter any comment this field is empty.</li>
-      <li>"CurLoggingTime": The time when the user finished the questionnaire.</li>
-      <li>"Interval": The time in minutes since the last stored logging event.</li>
-      <li>"LastLoggingTime": The time when the user finished the questionnaire the time before the current event.</li>
-      <li>"LoggingInterval": The specified logging interval. This was specified during the configuration wizard.</li>
-      <li>"NoEvents": A count of the number of events logged during the current session.</li>
+      <li>"Milestones": A list of the milestones sorted by the occurance. Each entry consists of the following keys:
+      <ul>
+        <li>"Architecture": The architecture used for executing the performance measurements of the milestone.</li>
+        <li>"Comment":  Contains a comment on the milestone. If the user did not enter any comment this field is empty.</li>
+        <li>"Compiler": The compiler used for generating the binary which was executed for the performance measurements of the milestone.</li>
+        <li>"DataSize": The problem size used during the performance measurements of the milestone.</li>
+        <li>"ID": A unique identifier of the milestone. The first event holds id 0 and all following events are then consecutively numbered.</li>
+        <li>"MatchingActivityID": The identifier of the according event where the milestone was specified.</li>
+        <li>"NoThreadsNodes": The number of threads/nodes which were utilized for the performance measurements of the milestone.</li>
+        <li>"PerfComment": The obtained performance measure.</li>
+        <li>"PerfMetric": The performance metric used.</li>
+        <li>"ProgrammingModel": The programming model used during the development of the milestone.</li>
+        <li>"ThreadsNodes": Distinguishes if threads or nodes are used for the key NoThreadsNodes.</li>
+        <li>"Time": The time when the milestone was recorded.</li>
+        <li>"Title": The type of milestone. The choices are:
+        <ul>
+          <li>Working serial version</li>
+          <li>Tuned serial version</li>
+          <li>Working parallel version</li>
+          <li>Tuned parallel version</li>
+          <li>Other</li>
+        </ul></li>
+      </ul></li>
     </ul>
-    Note that provided interface to JSON files in Qt does not guarantee writing in a specific order. Therefore the ordering of the entries above can differ.
+    Note: The JSON keys are typically alphabetically ordered by the Qt JSON library.
+    Note 2: The tool expects unaltered JSON files. Do not change the log files manually!
   </body>
 </html>

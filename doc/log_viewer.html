@@ -20,11 +20,13 @@
 
 <html lang="en">
   <head>
-    <title>Development - EffortLog</title>
+    <title>Log file viewer - EffortLog</title>
     <meta http-equiv="Content-Type" content="text/html">
     <meta name="description" content="EffortLog">
     <link title="Top" rel="start" href="index.html#Top">
-    <link rel="prev" href="license.html#license" title="license">
+    <link rel="up" href="main.html#main" title="main">
+    <link rel="prev" href="main_window.html#main_window" title="main_window">
+    <link rel="next" href="dialog.html#dialog" title="dialog">
     <meta http-equiv="Content-Style-Type" content="text/css">
     <style type="text/css"><!--
       pre.display { font-family:inherit }
@@ -40,18 +42,25 @@
     </head>
     <body>
     <div class="node">
-    <a name="main"></a>
+    <a name="main_window"></a>
     <p>
-    Previous:&nbsp;<a rel="previous" accesskey="p" href="license.html#license">License</a>,
-    Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+    Next:&nbsp;<a rel="next" accesskey="n" href="dialog.html#dialog">Interval-based questionnaire</a>,
+    Previous:&nbsp;<a rel="previous" accesskey="p"  href="main.html#main">Main program</a>,
+    Up:&nbsp;<a rel="up" accesskey="u" href="main.html#main">Main program</a>
     <hr>
     </div>
 
-    <h2 class="chapter">6.4 Help the development of EffortLog</h2>
-    For more information on the research done with EffortLog and general questions, please see <i>www.hpc.rwth-aachen.de/research/tco</i> or contact
-    Sandra Wienke (wienke@itc.rwth-aachen.de) or Julian Miller (miller@itc.rwth-aachen.de).
-    <p>
-    For information regarding the development of EffortLog, please see the readme file on Github (<i>https://github.com/julianmi/effort-log#developing-and-contributing-to-effortlog</i>) or contact Julian Miller (miller@itc.rwth-aachen.de).
+    <h3 class="section">3.1 Elements of the log file viewer</h3>
+
+    The log file viewer consists of a convenient tree view to allow for a quick overview over preject's activities and milestones during the active development. It can be used to review the main development efforts and performance improvements.
+
+    The activities are grouped by date and hold their identifier, comment, activity, development duration in minutes and if available the according milestone(s). If a milestone exists for the activity, the type of milestone with the respective performance measure is displayed.
+
+    The respective activities of a date can be viewed by clicking on the date in the first column of the viewer and can be hidden by clicking it again. A close button is located in the lower right of the window.
+
+    Note that this window holds a viewer only. No changes to the underlying log file can be made.
+
+   <center><img src="images/log_viewer.png"></center>
 
   </body>
 </html>

@@ -52,9 +52,17 @@
 
     <h3 class="section">6.1 History of EffortLog</h3>
 
-    EffortLog was started in 2015 at the IT Center of RWTH Aachen University. Its main purpose is to provide a simple program to aid developers by logging their programming efforts. The gained data can than be evaluated for researching purposes on programming effort analysis.<br>
-    <br>
+    EffortLog was started in 2015 at the IT Center of RWTH Aachen University. Its main purpose is to provide a simple program to aid developers in tracking their programming efforts. The gained data can than be evaluated for researching purposes on programming effort analysis. Please see <i>www.hpc.rwth-aachen.de/research/tco</i> for more information on the research done with EffortLog.<br>
+    <br>Change log:
     <ul>
+      <li>0.8 (September 2016):<ul>
+        <li>Added a convenient view of the current log file sorted by dates</li>
+        <li>Can now handle development sessions spanning multiple days</li></ul>
+      </li>
+      <li>0.7 (February 2016):<ul>
+        <li>Encryption is disabled by default. Add `-config crypt` to your qmake flags to enable encryption</li>
+        <li>Fixed a bug leading to empty time stemps in the log files</li></ul>
+      </li>
       <li>0.6 (January 2016):<ul>
         <li>Fixed a bug in the interval length of the first logging event</li>
         <li>Added full 256-bit AES encryption of all project and log files</li>

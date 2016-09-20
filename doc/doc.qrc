@@ -16,16 +16,9 @@
         <file>history.html</file>
         <file>logfile_format.html</file>
         <file>logfile_handling.html</file>
-        <file>images/dialog_activity_chooser.png</file>
-        <file>images/dialog_buttons.png</file>
-        <file>images/dialog_comment.png</file>
         <file>images/dialog_main.png</file>
-        <file>images/dialog_statusbar.png</file>
         <file>images/help.png</file>
-        <file>images/helpmenu.png</file>
-        <file>images/main_menubar.png</file>
         <file>images/main_statusbar.png</file>
-        <file>images/main_timer.png</file>
         <file>images/append.png</file>
         <file>images/conf.png</file>
         <file>images/main.png</file>
@@ -34,5 +27,7 @@
         <file>images/new_pw.png</file>
         <file>images/pw.png</file>
         <file>images/new_pro.png</file>
+        <file>images/ms.png</file>
+        <file>log_viewer.html</file>
     </qresource>
 </RCC>
