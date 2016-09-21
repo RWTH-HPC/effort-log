@@ -146,6 +146,8 @@ OTHER_FILES += \
   README.md
 
 DISTFILES += \
+  tools/mac_osx_install.sh \
   tools/mac_osx_deploy.sh \
   tools/windows_deploy.bat \
   tools/windows_deploy_encrypted.bat
+

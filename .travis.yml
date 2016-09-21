@@ -65,7 +65,7 @@ before_install:
   && sudo apt-get update -qq
   && sudo apt-get install -y -qq qt${QT_BASE}base qt${QT_BASE}script qt${QT_BASE}tools
   && source /opt/qt${QT_BASE}/bin/qt${QT_BASE}-env.sh; fi
-- if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update; brew install qt5; PATH="/usr/local/opt/qt5/bin:$PATH"; fi
+- if [ "$TRAVIS_OS_NAME" = "osx" ]; then ${TRAVIS_BUILD_DIR}/tools/mac_osx_install.sh; fi
 
 before_script:
 - qmake CONFIG+=$CONFIG CONFIG+=$CRYPT
