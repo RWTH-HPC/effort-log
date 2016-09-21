@@ -131,7 +131,7 @@ void MainWindow::CreateConnections() {
   countdown_timer_ = new QTimer();  // Countdown until the next event
   connect(countdown_timer_, SIGNAL(timeout()), this,
           SLOT(NextAnimationFrame()));
-  connect(log_action_, SIGNAL(triggered()), this, SLOT(LogView()));
+  connect(log_action_, SIGNAL(triggered()), this, SLOT(LogViewer()));
   connect(new_action_, SIGNAL(triggered()), this,
           SLOT(ExecQuestionnaireDialog()));
   connect(help_action_, SIGNAL(triggered()), this, SLOT(Help()));

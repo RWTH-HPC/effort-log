@@ -25,7 +25,7 @@ cd qt-everywhere-opensource-src-5.7.0
   -skip qtwinextras \
   -skip qtx11extras
 
-make -j2
+make -j2 1> /dev/null
 sudo make install
 
 export PATH=$QT_BASE_DIR/bin:$PATH
