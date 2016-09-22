@@ -51,7 +51,7 @@ after_build:
       }
 
 artifacts:
-  - path: *.zip
+  - path: effort-log*.zip
     name: effort-log
 
 deploy:
