@@ -36,18 +36,6 @@ matrix:
       compiler: clang
       env: COMPILER=clang CONFIG=release CRYPT=crypt
     - os: osx
-      compiler: gcc
-      env: COMPILER=gcc CONFIG=debug
-    - os: osx
-      compiler: gcc
-      env: COMPILER=gcc CONFIG=release
-    - os: osx
-      compiler: gcc
-      env: COMPILER=gcc CONFIG=debug CRYPT=crypt
-    - os: osx
-      compiler: gcc
-      env: COMPILER=gcc CONFIG=release CRYPT=crypt
-    - os: osx
       compiler: clang
       env: COMPILER=clang CONFIG=debug
     - os: osx
@@ -65,7 +53,7 @@ before_install:
   && sudo apt-get update -qq
   && sudo apt-get install -y -qq qt${QT_BASE}base qt${QT_BASE}script qt${QT_BASE}tools
   && source /opt/qt${QT_BASE}/bin/qt${QT_BASE}-env.sh; fi
-- if [ "$TRAVIS_OS_NAME" = "osx" ]; then travis_wait 30 ${TRAVIS_BUILD_DIR}/tools/mac_osx_install.sh; fi
+- if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update; brew install qt5; PATH="/usr/local/opt/qt5/bin:$PATH"; fi
 
 before_script:
 - qmake CONFIG+=$CONFIG CONFIG+=$CRYPT

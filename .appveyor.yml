@@ -3,10 +3,24 @@ version : 0.7.{build}
 environment:
   VSVER: 12.0
   matrix:
+    - QTDIR: C:\Qt\5.5\mingw49_32
+      CRYPT: false
+      DEPLOY: false
+    - QTDIR: C:\Qt\5.5\mingw49_32
+      CRYPT: true
+      DEPLOY: false
     - QTDIR: C:\Qt\5.6\mingw49_32
       CRYPT: false
+      DEPLOY: true
     - QTDIR: C:\Qt\5.6\mingw49_32
       CRYPT: true
+      DEPLOY: true
+    - QTDIR: C:\Qt\5.7\mingw49_32
+      CRYPT: false
+      DEPLOY: false
+    - QTDIR: C:\Qt\5.7\mingw49_32
+      CRYPT: true
+      DEPLOY: false
 
 configuration:
   - debug
@@ -27,15 +41,17 @@ build_script:
 after_build:
   - ps: |
       if($env:CONFIGURATION -eq "release") {
-        if($env:CRYPT  -eq "true") {
-          C:\projects\effort-log\tools\windows_deploy_encrypted.bat
-        } else {
-          C:\projects\effort-log\tools\windows_deploy.bat
+        if($env:DEPLOY -eq "true") {
+          if($env:CRYPT -eq "true") {
+            C:\projects\effort-log\tools\windows_deploy_encrypted.bat
+          } else {
+            C:\projects\effort-log\tools\windows_deploy.bat
+          }
         }
       }
 
 artifacts:
-  - path: effort-log_v*.zip
+  - path: *.zip
     name: effort-log
 
 deploy:
