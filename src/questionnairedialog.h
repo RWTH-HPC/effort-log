@@ -89,6 +89,19 @@ private slots:
    * active button to inactive and activates the clicked button.
    */
   void OnPressedMButton(QAbstractButton *btn);
+  //! Call to bool Project::ReadLog(QString f)
+  /*!
+   * This method calls bool Project::ReadLog(QString f) on the locally stored
+   * project.
+   *
+   * \see bool Project::ReadLog(QString f)
+   */
+  void ReadLog();
+  //! Displays a simple viewer for the created log files
+  /*!
+   * This method is called if the user hits the "Read Log" button.
+   */
+  void LogViewer();
 
 private:
   //! Takes care of all connections
@@ -134,6 +147,7 @@ private:
   int scheduler_; /**< Denotes if the questionnaire was scheduled by the
                           set interval (=0), was manually executed (=2), or was
                           executed on closing the program (=3)*/
+  QPushButton *log_button_;  /**< Button to read the current log file.*/
 };
 
 #endif // DIALOG

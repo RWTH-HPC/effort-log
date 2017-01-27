@@ -18,9 +18,10 @@
  * along with EffortLog.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "questionnairedialog.h"
 #include "definitions.h"
+#include "logview.h"
 #include "milestonedialog.h"
+#include "questionnairedialog.h"
 
 #include <QDebug>
 #include <QtMath>
@@ -112,6 +113,13 @@ void QuestionnaireDialog::Setup() {
   skip_button_->setAutoDefault(false);
   skip_button_->setShortcut(QKeySequence(Qt::Key_Q));
 
+  // Button to read the log
+  log_button_ = new QPushButton(tr("Read Log"));
+  log_button_->setToolTip(tr("Read current log file <font color='gray'>Q</font>"));
+  log_button_->setCheckable(true);
+  log_button_->setAutoDefault(false);
+  log_button_->setShortcut(QKeySequence(Qt::Key_L));
+
   // Button to finish the input
   finish_button_ = new QPushButton(tr("Finish"));
   finish_button_->setToolTip(tr("Finish input <font color='gray'>F</font>"));
@@ -156,6 +164,7 @@ void QuestionnaireDialog::Setup() {
 
   QHBoxLayout *button_layout = new QHBoxLayout;
   button_layout->addWidget(skip_button_, 0, Qt::AlignCenter);
+  button_layout->addWidget(log_button_, 0, Qt::AlignCenter);
   button_layout->addWidget(finish_button_, 0, Qt::AlignCenter);
 
   QHBoxLayout *colomn_layout = new QHBoxLayout;
@@ -185,9 +194,8 @@ void QuestionnaireDialog::CreateConnections() {
   connect(countdown_timer, SIGNAL(timeout()), this, SLOT(UpdateUI()));
   countdown_timer->start(60000);
   connect(skip_button_, SIGNAL(released()), this, SLOT(reject()));
+  connect(log_button_, SIGNAL(released()), this, SLOT(LogViewer()));
   connect(finish_button_, SIGNAL(released()), this, SLOT(accept()));
-  // connect(m_group_, SIGNAL(buttonClicked(QAbstractButton*)), this,
-  //        SLOT(OnPressedMButton(QAbstractButton*)));
   return;
 }
 
@@ -314,5 +322,18 @@ void QuestionnaireDialog::OnPressedMButton(QAbstractButton *btn) {
     m_button_pressed_ = false;
   }
   last_m_button_ = btn;
+  return;
+}
+
+void QuestionnaireDialog::ReadLog() {
+  QSettings settings;
+  project_->ReadLog(settings.value("conf/logFile").toString());
+  return;
+}
+
+void QuestionnaireDialog::LogViewer() {
+  LogView view(project_);
+  view.resize(450, 300);
+  view.exec();
   return;
 }
