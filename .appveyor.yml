@@ -1,7 +1,6 @@
-version : 0.7.{build}
+version : 0.8.{build}
 
 environment:
-  VSVER: 12.0
   matrix:
     - QTDIR: C:\Qt\5.5\mingw492_32
       CRYPT: false
@@ -19,6 +18,12 @@ environment:
       CRYPT: false
       DEPLOY: false
     - QTDIR: C:\Qt\5.7\mingw53_32
+      CRYPT: true
+      DEPLOY: false
+    - QTDIR: C:\Qt\5.8\mingw53_32
+      CRYPT: false
+      DEPLOY: false
+    - QTDIR: C:\Qt\5.8\mingw53_32
       CRYPT: true
       DEPLOY: false
 
