@@ -1,5 +1,5 @@
 /*
- * Copyright © 2016 by IT Center, RWTH Aachen University
+ * Copyright (c) 2015-2017 by IT Center, RWTH Aachen University
  *
  * This file is part of EffortLog, a tool for collecting software
  * development effort.
@@ -213,8 +213,9 @@ void MainWindow::CreateMenus() {
   QMenu *help_menu = new QMenu(tr("&Help"), this);
   help_menu->addAction(help_action_);
   help_menu->addAction(about_action_);
-#ifndef CRYPT
   QMenu *file_menu = new QMenu(tr("&File"), this);
+  file_menu->addAction(new_action_);
+#ifndef CRYPT
   file_menu->addAction(log_action_);
   menuBar()->addMenu(file_menu);
 #endif
@@ -245,7 +246,7 @@ void MainWindow::LogViewer() {
 void MainWindow::About() {
   QString msg;
   msg.append(tr("<h1>%1 %2</h1>").arg(APP_NAME).arg(APP_VERSION));
-  msg.append("<br/>Copyright © 2016 by IT Center");
+  msg.append("<br/>Copyright © 2017 by IT Center");
   msg.append("<br/>Group: High Performance Computing");
   msg.append("<br/>Division: Computational Science and Engineering");
   msg.append("<br/>RWTH Aachen University");
@@ -269,7 +270,7 @@ void MainWindow::About() {
 
 void MainWindow::Help() {
   QTextBrowser *browser = new QTextBrowser();
-  browser->setSource(QUrl("qrc:///index.html"));
+  browser->setSource(QUrl("qrc:///doc.html"));
   browser->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
   browser->setWindowTitle(tr("%1 help").arg(APP_NAME));
   browser->resize(600, 800);
