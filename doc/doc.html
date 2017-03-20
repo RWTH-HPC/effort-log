@@ -1,0 +1,308 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<div id="header">
+<h1 class="title">EffortLog Version 0.8.1</h1>
+</div>
+<div id="TOC">
+<ul>
+<li><a href="#using-the-help-browser"><span class="toc-section-number">1</span> Using the Help Browser</a></li>
+<li><a href="#configuration-wizard"><span class="toc-section-number">2</span> Configuration Wizard</a><ul>
+<li><a href="#elements-of-the-wizard"><span class="toc-section-number">2.1</span> Elements of the Wizard</a></li>
+<li><a href="#global-settings"><span class="toc-section-number">2.2</span> Global Settings</a></li>
+</ul></li>
+<li><a href="#main-program"><span class="toc-section-number">3</span> Main program</a><ul>
+<li><a href="#elements-of-the-main-window"><span class="toc-section-number">3.1</span> Elements of the Main Window</a><ul>
+<li><a href="#menubar"><span class="toc-section-number">3.1.1</span> Menubar</a></li>
+<li><a href="#statusbar"><span class="toc-section-number">3.1.2</span> Statusbar</a></li>
+</ul></li>
+<li><a href="#elements-of-the-log-file-viewer"><span class="toc-section-number">3.2</span> Elements of the Log File Viewer</a></li>
+</ul></li>
+<li><a href="#interval-based-questionnaire"><span class="toc-section-number">4</span> Interval-based Questionnaire</a><ul>
+<li><a href="#elements-of-the-questionnaire"><span class="toc-section-number">4.1</span> Elements of the Questionnaire</a><ul>
+<li><a href="#statusbar"><span class="toc-section-number">4.1.1</span> Statusbar</a></li>
+<li><a href="#activity-chooser"><span class="toc-section-number">4.1.2</span> Activity chooser</a></li>
+<li><a href="#comment-field"><span class="toc-section-number">4.1.3</span> Comment field</a></li>
+<li><a href="#milestone-field"><span class="toc-section-number">4.1.4</span> Milestone field</a></li>
+<li><a href="#buttons"><span class="toc-section-number">4.1.5</span> Buttons</a></li>
+</ul></li>
+<li><a href="#how-to-answer-the-questionnaire"><span class="toc-section-number">4.2</span> How to Answer the Questionnaire</a></li>
+</ul></li>
+<li><a href="#log-file"><span class="toc-section-number">5</span> Log File</a><ul>
+<li><a href="#format-and-structure-of-the-log-file"><span class="toc-section-number">5.1</span> Format and Structure of the Log File</a></li>
+<li><a href="#handling-of-the-log-file"><span class="toc-section-number">5.2</span> Handling of the Log File</a></li>
+</ul></li>
+<li><a href="#about-effortlog"><span class="toc-section-number">6</span> About EffortLog</a><ul>
+<li><a href="#history-of-effortlog"><span class="toc-section-number">6.1</span> History of EffortLog</a></li>
+<li><a href="#needed-privileges-to-run-effortlog"><span class="toc-section-number">6.2</span> Needed Privileges to Run EffortLog</a></li>
+<li><a href="#licensing-of-effortlog"><span class="toc-section-number">6.3</span> Licensing of EffortLog</a></li>
+<li><a href="#help-the-development-of-effortlog"><span class="toc-section-number">6.4</span> Help the Development of EffortLog</a></li>
+</ul></li>
+</ul>
+</div>
+<h1 id="using-the-help-browser" class="chapter"><span class="header-section-number">1</span> Using the Help Browser</h1>
+<p>You can get help by hitting <strong>help</strong> from the application menu bar under Help. Additionally you can always bring up this help browser by hitting <strong>F1</strong> from your keyboard if you are running Windows or Linux operating systems or <strong>Command+?</strong> if you are on Mac OS X.</p>
+<p>This help is split into multiple files which are connected through links. These are highlighted with a blue color of the text. Additionally each of the help files provides a simple navigation in the upper part of the window. This navigation will guide you through the whole help document if you hit the <strong>next</strong> button. You can go back to the last help file with the <strong>back</strong> button. Additionally you can go at any time back to the top of the documentation by hitting the <strong>top</strong> button.</p>
+<p>The help browser might look like fig. <a href="#fig:help">1</a>.</p>
+<div class="figure">
+<img src="images/help.png" alt="Figure 1: The help window." id="fig:help" width="480" />
+<p class="caption">Figure 1: The help window.</p>
+</div>
+<h1 id="configuration-wizard" class="chapter"><span class="header-section-number">2</span> Configuration Wizard</h1>
+<p>The settings dialog is the first window to open upon execution of the program. Its main goal is it to present the user with a convenient tool to set up the configuration needed for monitoring programming effort.</p>
+<h2 id="elements-of-the-wizard" class="section"><span class="header-section-number">2.1</span> Elements of the Wizard</h2>
+<p>The configuration dialog consists of one unified window which provides acces to all user-input needed. The dialog holds a vertical list of entries. Each entry is divided into a label which explains the expected input, a filed for the input and optional a button for easier access to the expected input. The user can browse through the input fields by hitting &quot;tab&quot; on the keyboard. The main window is divided into four distinct areas which will be explained in detail in the folling section. The configuration wizard is depicted in fig. <a href="#fig:conf">2</a>.</p>
+<div class="figure">
+<img src="images/conf.png" alt="Figure 2: The configuration wizard." id="fig:conf" width="480" />
+<p class="caption">Figure 2: The configuration wizard.</p>
+</div>
+<h2 id="global-settings" class="chapter"><span class="header-section-number">2.2</span> Global Settings</h2>
+<p>The configuration wizard will set the following user-specified global settings of the main program:</p>
+<ul>
+<li>The specified user name to distinct between multiple users working on the same project.</li>
+<li>The name of the project to distinct between multiple projects a user might work on.</li>
+<li>The current development stage of the project.</li>
+<li>The logging interval in minutes which sets the default interval at which the questionnaire is executed.</li>
+<li>The output directory to which the log file is saved.</li>
+<li>The name of the output file.</li>
+</ul>
+<h1 id="main-program" class="chapter"><span class="header-section-number">3</span> Main program</h1>
+<p>The main program of Effort Log is a simple window providing the user with information about the running logging.</p>
+<h2 id="elements-of-the-main-window" class="section"><span class="header-section-number">3.1</span> Elements of the Main Window</h2>
+<p>The main window in EffortLog consists of various elements which described in detail below. Its main purpose is to maintain a simple interface to provide the user about the current project he or she is logging to and when the next scheduled logging event will be. Except of the menubar and the toolbar, there are no elements which need user interaction. The main window looks like fig. <a href="#fig:main">3</a>.</p>
+<div class="figure">
+<img src="images/main.png" alt="Figure 3: The main window." id="fig:main" width="480" />
+<p class="caption">Figure 3: The main window.</p>
+</div>
+<h3 id="menubar" class="subheading"><span class="header-section-number">3.1.1</span> Menubar</h3>
+<p>A simple menubar provides the user with information about the program.</p>
+<h4 id="file" class="subsubheading"><span class="header-section-number">3.1.1.1</span> File</h4>
+<p><strong>Log current effort</strong></p>
+<p>Starts a questionnaire for logging the current effort. This can be useful e.g. if the user wants to log earlier than the specified logging interval.</p>
+<p><strong>Read current log file</strong></p>
+<p>Opens the current log file for quickly reading through it.</p>
+<h4 id="help" class="subsubheading"><span class="header-section-number">3.1.1.2</span> Help</h4>
+<p><strong>About</strong></p>
+<p>Display information about EffortLog including the version and author of the program.</p>
+<p><strong>Help</strong></p>
+<p>Open the help window displaying the contents of the EffortLog help.</p>
+<p>A simple toolbar provides quick access to to functions of the menubar and information about the currently active project.</p>
+<h3 id="statusbar" class="subheading"><span class="header-section-number">3.1.2</span> Statusbar</h3>
+<p>A statusbar in the lower part of the main window provides the user with information about the running program. The statusbar displays a message with the following information:</p>
+<ul>
+<li>Indicator if the program is running.</li>
+<li>A timer in form of a progress bar until the next event.</li>
+<li>The time of the next scheduled logging event.</li>
+</ul>
+<p>This message can be overwritten by tooltips when hovering with the mouse pointer over a button.</p>
+<h2 id="elements-of-the-log-file-viewer" class="section"><span class="header-section-number">3.2</span> Elements of the Log File Viewer</h2>
+<p>The log file viewer consists of a convenient tree view to allow for a quick overview over preject's activities and milestones during the active development. It can be used to review the main development efforts and performance improvements. The activities are grouped by date and hold their identifier, comment, activity, development duration in minutes and if available the according milestone(s). If a milestone exists for the activity, the type of milestone with the respective performance measure is displayed. The respective activities of a date can be viewed by clicking on the date in the first column of the viewer and can be hidden by clicking it again. A close button is located in the lower right of the window. Note that this window holds a viewer only. No changes to the underlying log file can be made. The log file viewer is depicted in fig. <a href="#fig:log_viewer">4</a>.</p>
+<div class="figure">
+<img src="images/log_viewer.png" alt="Figure 4: The log file viewer." id="fig:log_viewer" width="672" />
+<p class="caption">Figure 4: The log file viewer.</p>
+</div>
+<h1 id="interval-based-questionnaire" class="chapter"><span class="header-section-number">4</span> Interval-based Questionnaire</h1>
+<p>This questionnaire is executed in a chosen interval and asks the user about his or her current development's effort.</p>
+<h2 id="elements-of-the-questionnaire" class="section"><span class="header-section-number">4.1</span> Elements of the Questionnaire</h2>
+<p>The window of the questionnaire consists of the following elements.</p>
+<div class="figure">
+<img src="images/dialog_main.png" alt="Figure 5: The questionnaire window." id="fig:dialog_main" width="672" />
+<p class="caption">Figure 5: The questionnaire window.</p>
+</div>
+<h3 id="statusbar" class="subheading"><span class="header-section-number">4.1.1</span> Statusbar</h3>
+<p>A simple statusbar in the upmost part of the window shows the number of successfully logged events during the current session.</p>
+<h3 id="activity-chooser" class="subheading"><span class="header-section-number">4.1.2</span> Activity chooser</h3>
+<p>The left part of the window shows a chooser for different activities allowing the user to quickly specify the activity he or she was working on. It consists of big radio buttons. There can be only one selected button at any time. The default activity is break. Additionally upon startup of the questionnaire the left pane is selected by default. Therefore the user can switch between different activities with the <strong>up-key</strong> and <strong>down-key</strong>. To quickly select one specific activity there are hotkeys for each of them. The following lists provides an overview of the available activities and the matching hotkeys.</p>
+<ul>
+<li><p>Break b</p></li>
+<li><p>Thinking h</p></li>
+<li><p>Serial s</p></li>
+<li><p>Parallelizing p</p></li>
+<li><p>Testing t</p></li>
+<li><p>Debugging d</p></li>
+<li><p>Tuning u</p></li>
+<li><p>Experimenting e</p></li>
+<li><p>Other o</p></li>
+</ul>
+<h3 id="comment-field" class="subheading"><span class="header-section-number">4.1.3</span> Comment field</h3>
+<p>The center part of the window holds a text field to input comments on the current activity.</p>
+<h3 id="milestone-field" class="subheading"><span class="header-section-number">4.1.4</span> Milestone field</h3>
+<p>The right part of the window allows the user to select one or multiple milestones reached in the current logging interval. When at least one milestone is selected, an additional questionnaire pops up. It lets the user specify the milestone with its performance measure and is described in detail in <a href="#log-file-viewer">Log File Viewer</a>.</p>
+<h3 id="buttons" class="subheading"><span class="header-section-number">4.1.5</span> Buttons</h3>
+<p>The are two buttons in the lower part of the window:</p>
+<ul>
+<li>Skip: If the user hits this button the current logging event will be skipped and the user is presented with the main program. The timer until the next event will be reset to the specified logging interval. Hotkey: <strong>q</strong></li>
+<li>Finish: If the user finished all input he or she can hit this button to save the current logging event and return to the main program. The timer until the next event will be reset to the specified logging interval. Hotkey: <strong>f</strong></li>
+</ul>
+<h2 id="how-to-answer-the-questionnaire" class="chapter"><span class="header-section-number">4.2</span> How to Answer the Questionnaire</h2>
+<p>There are some default activities to choose:</p>
+<ul>
+<li>Break</li>
+<li>Thinking</li>
+<li>Serial</li>
+<li>Parallelizing</li>
+<li>Testing</li>
+<li>Debugging</li>
+<li>Tuning</li>
+<li>Experimenting</li>
+</ul>
+<p>To get the results of the logs as accurate as possible please only choose an activity from this list if it falls under this category. If you are uncertain if it belongs to one of the categories above or you worked on something different please choose other from the list. If you did choose other activity please describe it in detail in the comment field.</p>
+<p>The comment field is used to keep track of additionally information you want to add to your logs.</p>
+<p>If you want to take a brake for some time longer than the default logging interval you do not have to quit the program. You might just let it run in the background and it will set a bigger time slot for your break as soon as you return back to your work place.</p>
+<h1 id="log-file" class="chapter"><span class="header-section-number">5</span> Log File</h1>
+<p>This help describes the log file which holds all information collected by EffortLog. Its main purpose is to further evaluate the developer's effort.</p>
+<h2 id="format-and-structure-of-the-log-file" class="section"><span class="header-section-number">5.1</span> Format and Structure of the Log File</h2>
+<p>The log file is formatted in JSON. It contains of the following entries:</p>
+<ul>
+<li>&quot;InitialProjectStage&quot;: The initial development stage of the project. This was specified during the configuration wizard. The choices for the stage are:
+<ul>
+<li>Scratch</li>
+<li>Working serial version</li>
+<li>Tuned serial version</li>
+<li>Working parallel version</li>
+<li>Tuned parallel version</li>
+</ul></li>
+<li>&quot;InitialProjectStageComment&quot;: A user-provieded comment on the above development stage.</li>
+<li>&quot;LoggingEvents&quot;: A list of the logging events sorted by the occurance. Each entry consists of the following keys:
+<ul>
+<li>&quot;ID&quot;: A unique identifier of the event. The first event holds id 0 and all following events are then consecutively numbered.</li>
+<li>&quot;UserName&quot;: The user's name. This was specified during the configuration wizard.</li>
+<li>&quot;ProjectTitle&quot;: The title of the project. This was specified during the configuration wizard.</li>
+<li>&quot;ProjectStage&quot;: The current development stage of the project. This was specified during the configuration wizard. The choices for the stage are:
+<ul>
+<li>Scratch</li>
+<li>Working serial version</li>
+<li>Tuned serial version</li>
+<li>Working parallel version</li>
+<li>Tuned parallel version</li>
+</ul></li>
+<li>&quot;ActivityType&quot;: The chosen type of activity. The user is provided with a list of the following activities:
+<ul>
+<li>Break</li>
+<li>Thinking</li>
+<li>Serial</li>
+<li>Parallelizing</li>
+<li>Testing</li>
+<li>Debugging</li>
+<li>Tuning</li>
+<li>Experimenting</li>
+<li>Other</li>
+</ul></li>
+<li>&quot;Comment&quot;: Contains a comment on the activity. If the user did not enter any comment this field is empty.</li>
+<li>&quot;CurLoggingTime&quot;: The time when the user finished the questionnaire.</li>
+<li>&quot;Interval&quot;: The time in minutes since the last stored logging event.</li>
+<li>&quot;LastLoggingTime&quot;: The time when the user finished the questionnaire the time before the current event.</li>
+<li>&quot;LoggingInterval&quot;: The specified logging interval. This was specified during the configuration wizard.</li>
+<li>&quot;NoEventsCurrentSession&quot;: A count of the number of events logged during the current session.</li>
+<li>&quot;Scheduler&quot;: Specifies how the event was triggered. 0 denotes an unknown or undefined event, 1 denotes an interval-based event , 2 an appeneded event, 3 a manual event executed through the GUI, and 4 an event on closing the program.</li>
+</ul></li>
+<li>&quot;Milestones&quot;: A list of the milestones sorted by the occurance. Each entry consists of the following keys:
+<ul>
+<li>&quot;Architecture&quot;: The architecture used for executing the performance measurements of the milestone.</li>
+<li>&quot;Comment&quot;: Contains a comment on the milestone. If the user did not enter any comment this field is empty.</li>
+<li>&quot;Compiler&quot;: The compiler used for generating the binary which was executed for the performance measurements of the milestone.</li>
+<li>&quot;DataSize&quot;: The problem size used during the performance measurements of the milestone.</li>
+<li>&quot;ID&quot;: A unique identifier of the milestone. The first event holds id 0 and all following events are then consecutively numbered.</li>
+<li>&quot;MatchingActivityID&quot;: The identifier of the according event where the milestone was specified.</li>
+<li>&quot;NoThreadsNodes&quot;: The number of threads/nodes which were utilized for the performance measurements of the milestone.</li>
+<li>&quot;PerfComment&quot;: The obtained performance measure.</li>
+<li>&quot;PerfMetric&quot;: The performance metric used.</li>
+<li>&quot;ProgrammingModel&quot;: The programming model used during the development of the milestone.</li>
+<li>&quot;ThreadsNodes&quot;: Distinguishes if threads or nodes are used for the key NoThreadsNodes.</li>
+<li>&quot;Time&quot;: The time when the milestone was recorded.</li>
+<li>&quot;Title&quot;: The type of milestone. The choices are:
+<ul>
+<li>Working serial version</li>
+<li>Tuned serial version</li>
+<li>Working parallel version</li>
+<li>Tuned parallel version</li>
+<li>Other</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>Note: The JSON keys are typically alphabetically ordered by the Qt JSON library. Note 2: The tool expects unaltered JSON files. Do not change the log files manually!</p>
+<h2 id="handling-of-the-log-file" class="section"><span class="header-section-number">5.2</span> Handling of the Log File</h2>
+<p>There are two different ways how EffortLog handles the log file:</p>
+<ul>
+<li>If the specified log file does not exist EffortLog will create it and start writing to it.</li>
+<li>If the specified log file does exist EffortLog will append to the end of file. This way, old logs are never overwritten.</li>
+</ul>
+<p>To further evaluate the log file external software can be used. There are several programs which are able to read JSON files as well as interfaces to most of the programming languages.</p>
+<h1 id="about-effortlog" class="chapter"><span class="header-section-number">6</span> About EffortLog</h1>
+<p>This help provides information about EffortLog.</p>
+<h2 id="history-of-effortlog" class="section"><span class="header-section-number">6.1</span> History of EffortLog</h2>
+<p>EffortLog was started in 2015 at the IT Center of RWTH Aachen University. Its main purpose is to provide a simple program to aid developers in tracking their programming efforts. The gained data can than be evaluated for researching purposes on programming effort analysis. Please see <a href="http://www.hpc.rwth-aachen.de/research/tco">www.hpc.rwth-aachen.de/research/tco</a> for more information on the research done with EffortLog.</p>
+<p>Change log:</p>
+<ul>
+<li>0.8.1 (January 2017):
+<ul>
+<li>Added a viewer of the current log file during the questionnaire</li>
+</ul></li>
+<li>0.8 (September 2016):
+<ul>
+<li>Added a convenient view of the current log file sorted by dates</li>
+<li>Can now handle development sessions spanning multiple days</li>
+</ul></li>
+<li>0.7 (February 2016):
+<ul>
+<li>Encryption is disabled by default. Add `-config crypt` to your qmake flags to enable encryption</li>
+<li>Fixed a bug leading to empty time stemps in the log files</li>
+</ul></li>
+<li>0.6 (January 2016):
+<ul>
+<li>Fixed a bug in the interval length of the first logging event</li>
+<li>Added full 256-bit AES encryption of all project and log files</li>
+<li>Fixed a bug on saving an appended event which was introduced by the encryption</li>
+</ul></li>
+<li>0.5 (December 2015):
+<ul>
+<li>Added milestones to projects</li>
+<li>Added IDs to each logging event</li>
+<li>Fixed US locale to unify data format of log files</li>
+<li>Milestones match ID of the logging event where the current milestone was specified</li>
+</ul></li>
+<li>0.4 (December 2015):
+<ul>
+<li>Configuration unified in one dialog</li>
+<li>Added appendix to log file at program startup</li>
+<li>General bug fixes</li>
+</ul></li>
+<li>0.3 (November 2015):
+<ul>
+<li>New configuration window</li>
+<li>Main window simplified</li>
+<li>Fixed errors with the generated JSON files</li>
+</ul></li>
+<li>0.2 (October 2015):
+<ul>
+<li>Improved JSON handling</li>
+</ul></li>
+<li>0.1 (September 2015): Initial release</li>
+</ul>
+<h2 id="needed-privileges-to-run-effortlog" class="section"><span class="header-section-number">6.2</span> Needed Privileges to Run EffortLog</h2>
+<p>EffortLog can be run as any user as long as the user owns the rights to write to the specified output directory of the log file. Note that users on Unix operating systems might need to set the binary file to be executable. The binary file is called &quot;effort-log&quot; on Linux operating systems and can be set executable by the following command: <code>chmod +x effort-log</code>.</p>
+<h2 id="licensing-of-effortlog" class="chapter"><span class="header-section-number">6.3</span> Licensing of EffortLog</h2>
+<p>Copyright © 2015-2017 IT Center, RWTH Aachen University</p>
+<p>This project is licensed under version 3 of the <a href="http://www.gnu.org/licenses/">GNU General Public License</a>.</p>
+<h2 id="help-the-development-of-effortlog" class="chapter"><span class="header-section-number">6.4</span> Help the Development of EffortLog</h2>
+<p>For more information on the research done with EffortLog and general questions, please see <a href="http://www.hpc.rwth-aachen.de/research/tco">www.hpc.rwth-aachen.de/research/tco</a> or contact <script type="text/javascript">
+<!--
+h='&#x69;&#116;&#x63;&#46;&#114;&#x77;&#116;&#104;&#x2d;&#x61;&#x61;&#x63;&#104;&#x65;&#110;&#46;&#100;&#x65;';a='&#64;';n='&#x77;&#x69;&#x65;&#110;&#x6b;&#x65;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+'&#x53;&#x61;&#110;&#100;&#114;&#x61;&#32;&#x57;&#x69;&#x65;&#110;&#x6b;&#x65;'+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#x53;&#x61;&#110;&#100;&#114;&#x61;&#32;&#x57;&#x69;&#x65;&#110;&#x6b;&#x65;&#32;&#40;&#x77;&#x69;&#x65;&#110;&#x6b;&#x65;&#32;&#x61;&#116;&#32;&#x69;&#116;&#x63;&#32;&#100;&#x6f;&#116;&#32;&#114;&#x77;&#116;&#104;&#x2d;&#x61;&#x61;&#x63;&#104;&#x65;&#110;&#32;&#100;&#x6f;&#116;&#32;&#100;&#x65;&#x29;</noscript> or <script type="text/javascript">
+<!--
+h='&#x69;&#116;&#x63;&#46;&#114;&#x77;&#116;&#104;&#x2d;&#x61;&#x61;&#x63;&#104;&#x65;&#110;&#46;&#100;&#x65;';a='&#64;';n='&#x6d;&#x69;&#108;&#108;&#x65;&#114;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+'&#74;&#x75;&#108;&#x69;&#x61;&#110;&#32;&#x4d;&#x69;&#108;&#108;&#x65;&#114;'+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#74;&#x75;&#108;&#x69;&#x61;&#110;&#32;&#x4d;&#x69;&#108;&#108;&#x65;&#114;&#32;&#40;&#x6d;&#x69;&#108;&#108;&#x65;&#114;&#32;&#x61;&#116;&#32;&#x69;&#116;&#x63;&#32;&#100;&#x6f;&#116;&#32;&#114;&#x77;&#116;&#104;&#x2d;&#x61;&#x61;&#x63;&#104;&#x65;&#110;&#32;&#100;&#x6f;&#116;&#32;&#100;&#x65;&#x29;</noscript>.</p>
+<p>For information regarding the development of EffortLog, please see the <a href="https://github.com/julianmi/effort-log#developing-and-contributing-to-effortlog">readme file on Github</a> or contact Julian Miller (miller@itc.rwth-aachen.de).</p>
+</body>
+</html>
