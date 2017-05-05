@@ -26,7 +26,6 @@
 #include <QTranslator>
 
 #include <signal.h>
-#include <unistd.h>
 
 #include "definitions.h"
 #include "questionnairedialog.h"

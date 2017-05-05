@@ -18,6 +18,7 @@
  * along with EffortLog.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QMessageBox>
 #include "project.h"
 
 #include <QDebug>
@@ -283,11 +284,16 @@ bool Project::StoreLog(QString f) {
 
 bool Project::ReadLog(QString f) {
   activities_->clear();
+  if (VERBOSE)
+    qDebug() << "Log file: " << f;
   QFile file(f);
-  if (!file.open(QIODevice::ReadOnly)) {
-    qWarning("Couldn't open log file.");
-    return false;
+  if (!file.open(QFile::ReadOnly)) {
+    QMessageBox::information(0, "Error", file.errorString());
   }
+//  if (!file.open(QIODevice::ReadOnly)) {
+//    qWarning("Couldn't open log file.");
+//    return false;
+//  }
   QByteArray data = file.readAll();
 #ifdef CRYPT
   QByteArray dec_data;
@@ -351,10 +357,15 @@ bool Project::ReadLog(QString f) {
 
 bool Project::Load(QString f) {
   QFile file(f);
-  if (!file.open(QIODevice::ReadOnly)) {
-    qWarning("Couldn't open project file.");
-    return false;
+  if (VERBOSE)
+    qDebug() << "Project file: " << f;
+  if (!file.open(QFile::ReadOnly)) {
+    throw QFile::OpenError;
   }
+//  if (!file.open(QIODevice::ReadOnly)) {
+//    qWarning("Couldn't open project file.");
+//    return false;
+//  }
   QByteArray data = file.readAll();
 #ifdef CRYPT
   QByteArray dec_data;

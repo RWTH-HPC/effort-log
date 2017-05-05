@@ -278,7 +278,8 @@ void MainWindow::Help() {
 }
 
 void MainWindow::ReadLog() {
-  project_->ReadLog(settings_.value("conf/logFile").toString());
+  qDebug() << settings_.value("conf/logFile");
+  project_->ReadLog(QDir::toNativeSeparators(settings_.value("conf/logFile").toString()));
 }
 
 void MainWindow::SetProject(Project *p) {

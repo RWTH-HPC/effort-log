@@ -242,7 +242,6 @@ void SetupDialog::accept() {
   settings_.setValue("conf/logFileDir", log_file_dir_line_edit_->text());
   QString fileName = settings_.value("conf/logFileDir").toString() + "/"
       + settings_.value("conf/logFileName").toString();
-  fileName.replace( " ", "_" );  // Remove blanks in file name
   settings_.setValue("conf/logFile", fileName);
   settings_.setValue("conf/logInterval", log_interval_spin_box_->value());
   settings_.setValue("conf/confAccepted", true);
@@ -289,7 +288,7 @@ void SetupDialog::accept() {
     } else {
       qWarning("No working directory specified!");
     }
-    project_->ReadLog(settings_.value("conf/logFile").toString());
+    project_->ReadLog(QDir::toNativeSeparators(settings_.value("conf/logFile").toString()));
     if (append_activity_->GetType() != "") { 
       project_->AddActivity(*append_activity_);
     }
@@ -350,7 +349,6 @@ void SetupDialog::SaveSettings() {
   settings_.setValue("conf/logFileDir", log_file_dir_line_edit_->text());
   QString fileName = settings_.value("conf/logFileDir").toString() + "/"
       + settings_.value("conf/logFileName").toString();
-  fileName.replace( " ", "_" );  // Remove blanks in file name
   settings_.setValue("conf/logFile", fileName);
   settings_.setValue("conf/logInterval", log_interval_spin_box_->value());
   return;

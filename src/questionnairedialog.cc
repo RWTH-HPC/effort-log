@@ -25,6 +25,7 @@
 
 #include <QDebug>
 #include <QtMath>
+#include <QDir>
 
 QuestionnaireDialog::QuestionnaireDialog(MainWindow *window, int scheduler)
     : QDialog() {
@@ -327,7 +328,7 @@ void QuestionnaireDialog::OnPressedMButton(QAbstractButton *btn) {
 
 void QuestionnaireDialog::ReadLog() {
   QSettings settings;
-  project_->ReadLog(settings.value("conf/logFile").toString());
+  project_->ReadLog(QDir::toNativeSeparators(settings.value("conf/logFile").toString()));
   return;
 }
 
