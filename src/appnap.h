@@ -18,11 +18,7 @@
  * along with EffortLog.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-#ifndef APPNAP_H_
-#define APPNAP_H_
+#pragma once
 
 void enableAppNap();
 void disableAppNap();
-
-#endif

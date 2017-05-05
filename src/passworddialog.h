@@ -18,8 +18,7 @@
  * along with EffortLog.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PASSWORDDIALOG_H
-#define PASSWORDDIALOG_H
+#pragma once
 
 #include <QDialog>
 #include <QDialogButtonBox>
@@ -70,5 +69,3 @@ private:
   QLabel *match_label_;  /**< Displays a warning if passwords do not match or
                               are empty.*/
 };
-
-#endif // PASSWORDDIALOG_H

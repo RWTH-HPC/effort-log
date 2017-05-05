@@ -18,8 +18,7 @@
  * along with EffortLog.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PROJECT_H
-#define PROJECT_H
+#pragma once
 
 #include "activity.h"
 #ifdef CRYPT
@@ -275,6 +274,3 @@ private:
   QList<Milestone> *milestones_;  /**< A list of milestones linked to this
                                        project.*/
 };
-
-
-#endif // PROJECT_H

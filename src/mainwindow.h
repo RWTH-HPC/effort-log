@@ -18,8 +18,7 @@
  * along with EffortLog.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#pragma once
 
 #include <QAction>
 #include <QFrame>
@@ -247,5 +246,3 @@ private:
   QToolBar *tool_bar_;    /**< The main tool bar*/
   QLabel *project_label_; /**< Holds the title of the project.*/
 };
-
-#endif // MAINWINDOW

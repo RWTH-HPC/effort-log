@@ -18,8 +18,7 @@
  * along with EffortLog.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DIALOG_H
-#define DIALOG_H
+#pragma once
 
 #include <QApplication>
 #include <QButtonGroup>
@@ -149,5 +148,3 @@ private:
                           executed on closing the program (=3)*/
   QPushButton *log_button_;  /**< Button to read the current log file.*/
 };
-
-#endif // DIALOG

@@ -1,5 +1,4 @@
-#ifndef LOGVIEW_H
-#define LOGVIEW_H
+#pragma once
 
 #include "project.h"
 #include <QDialog>
@@ -17,5 +16,3 @@ public:
   //! The main constructor.
   LogView(Project *pro);
 };
-
-#endif // LOGVIEW_H

@@ -18,8 +18,7 @@
  * along with EffortLog.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SETUPDIALOG_H
-#define SETUPDIALOG_H
+#pragma once
 
 #include <QApplication>
 #include <QDialog>
@@ -203,5 +202,3 @@ private slots:
   //! Auto-completion of the title of known projects
   void AutoComplete();
 };
-
-#endif // SETUPDIALOG_H

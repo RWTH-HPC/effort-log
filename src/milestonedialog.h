@@ -18,8 +18,7 @@
  * along with EffortLog.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MILESTONEDIALOG_H
-#define MILESTONEDIALOG_H
+#pragma once
 
 #include <QComboBox>
 #include <QDialog>
@@ -138,5 +137,3 @@ private:
   QLineEdit *data_size_;  /**< Lets user specify the data size of the
                                        milestone.*/
 };
-
-#endif // MILESTONEDIALOG_H

@@ -18,9 +18,7 @@
  * along with EffortLog.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PROINITDIALOG_H
-#define PROINITDIALOG_H
-
+#pragma once
 
 #include <QButtonGroup>
 #include <QDialog>
@@ -78,5 +76,3 @@ private:
                                           development stage of the project.*/
   QPlainTextEdit *comment_box_;  /**< Input of comments about the project.*/
 };
-
-#endif // PROINITDIALOG_H

@@ -18,8 +18,7 @@
  * along with EffortLog.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef APPENDDIALOG_H
-#define APPENDDIALOG_H
+#pragma once
 
 #include <QApplication>
 #include <QButtonGroup>
@@ -125,5 +124,3 @@ public:
                                           development before executing the
                                           program.*/
 };
-
-#endif // APPENDDIALOG_H

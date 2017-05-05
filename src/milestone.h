@@ -18,8 +18,7 @@
  * along with EffortLog.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MILESTONE_H
-#define MILESTONE_H
+#pragma once
 
 #include <QString>
 #include <QDateTime>
@@ -185,5 +184,3 @@ private:
   QString model_;  /**< The programming model used for the milestone.*/
   QString data_size_;  /**< The data size used during the milestone.*/
 };
-
-#endif // MILESTONE_H

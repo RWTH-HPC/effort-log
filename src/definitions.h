@@ -18,8 +18,7 @@
  * along with EffortLog.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DEFINITIONS
-#define DEFINITIONS
+#pragma once
 
 #define APP_NAME "Effort Log"  /**< Global string holding the application's
                                     name.*/
@@ -36,6 +35,4 @@
 #define LOG_ON_EXIT_THRESHOLD 0.2 /**< Global double precision value which
                                        specifies the delay on which to ask
                                        again on exiting the program.*/
-
-#endif // DEFINITIONS
 

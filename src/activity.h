@@ -18,8 +18,7 @@
  * along with EffortLog.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef ACTIVITY_H
-#define ACTIVITY_H
+#pragma once
 
 #include <QFile>
 #include <QJsonDocument>
@@ -185,5 +184,3 @@ private:
                    event executed through the GUI, and 4 an event on closing the
                    program.*/
 };
-
-#endif // ACTIVITY

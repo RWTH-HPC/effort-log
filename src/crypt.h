@@ -18,8 +18,7 @@
  * along with EffortLog.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CRYPT_H
-#define CRYPT_H
+#pragma once
 
 #include <QJsonDocument>
 
@@ -65,5 +64,3 @@ public:
 private:
   QByteArray pwd_; /**< Holds the password of the byte stream*/
 };
-
-#endif // CRYPT_H
