@@ -288,7 +288,9 @@ void SetupDialog::accept() {
     } else {
       qWarning("No working directory specified!");
     }
-    project_->ReadLog(QDir::toNativeSeparators(settings_.value("conf/logFile").toString()));
+    QFileInfo checkFile(project_->GetLogFile());
+    if (new_project_flag_ == false && checkFile.exists() && checkFile.isFile())
+      project_->ReadLog(QDir::toNativeSeparators(settings_.value("conf/logFile").toString()));
     if (append_activity_->GetType() != "") { 
       project_->AddActivity(*append_activity_);
     }
