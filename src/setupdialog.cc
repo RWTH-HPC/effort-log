@@ -428,6 +428,14 @@ bool SetupDialog::ProjectHandler() {
 #else
     project_->Load(project_dir_);
 #endif
+    if (project_->GetLogFile() != log_file_name_line_edit_->text())
+      project_->SetLogFile(log_file_name_line_edit_->text());
+    if (project_->GetLogDir() != log_file_dir_line_edit_->text())
+      project_->SetLogDir(log_file_dir_line_edit_->text());
+    if (project_->GetProDir() != project_dir_line_edit_->text())
+      project_->SetProDir(project_dir_line_edit_->text());
+    if (project_->GetTitle() != project_title_line_edit_->text())
+      project_->SetTitle(project_title_line_edit_->text());
   } else {
     new_project_flag_ = true;
   }
