@@ -37,7 +37,7 @@ before_install:
   && sudo apt-get install -y -qq qt${QT_BASE}base qt${QT_BASE}script qt${QT_BASE}tools
   && source /opt/qt${QT_BASE}/bin/qt${QT_BASE}-env.sh; fi
 - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update
-  && curl -O https://raw.githubusercontent.com/Homebrew/homebrew-core/${BREW_QT_VER_SHA}/Formula/qt5.rb'
+  && curl -O https://raw.githubusercontent.com/Homebrew/homebrew-core/${BREW_QT_VER_SHA}/Formula/qt5.rb
   && brew install qt5.rb'
   && brew link --force qt5'
   && PATH="/usr/local/opt/qt5/bin:$PATH"; fi
