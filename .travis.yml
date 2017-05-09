@@ -4,56 +4,43 @@ sudo: required
 
 dist: trusty
 
+os:
+  - linux
+  - osx
+
+compiler:
+  - clang
+  - gcc
+
 env:
-  global:
-    - QT_BASE=56 QT_LONG=562
+  - QT_BASE=56 QT_LONG=562 BREW_QT_VER_SHA=fdfc724dd532345f5c6cdf47dc43e99654e6a5fd CONFIG=debug
+  - QT_BASE=56 QT_LONG=562 BREW_QT_VER_SHA=fdfc724dd532345f5c6cdf47dc43e99654e6a5fd CONFIG=release DEPLOY=true
+  - QT_BASE=56 QT_LONG=562 BREW_QT_VER_SHA=fdfc724dd532345f5c6cdf47dc43e99654e6a5fd CONFIG=debug CRYPT=crypt
+  - QT_BASE=56 QT_LONG=562 BREW_QT_VER_SHA=fdfc724dd532345f5c6cdf47dc43e99654e6a5fd CONFIG=release CRYPT=crypt DEPLOY=true
+  - QT_BASE=57 QT_LONG=571 BREW_QT_VER_SHA=805b2e0b0201b2560235eb3ee5c724d241ba42d5 CONFIG=debug
+  - QT_BASE=57 QT_LONG=571 BREW_QT_VER_SHA=805b2e0b0201b2560235eb3ee5c724d241ba42d5 CONFIG=release
+  - QT_BASE=57 QT_LONG=571 BREW_QT_VER_SHA=805b2e0b0201b2560235eb3ee5c724d241ba42d5 CONFIG=debug CRYPT=crypt
+  - QT_BASE=57 QT_LONG=571 BREW_QT_VER_SHA=805b2e0b0201b2560235eb3ee5c724d241ba42d5 CONFIG=release CRYPT=crypt
+  - QT_BASE=58 QT_LONG=58  BREW_QT_VER_SHA=e8d5c92686cb4b9f3462dfa946c1f48c74b867f9 CONFIG=debug
+  - QT_BASE=58 QT_LONG=58  BREW_QT_VER_SHA=e8d5c92686cb4b9f3462dfa946c1f48c74b867f9 CONFIG=release
+  - QT_BASE=58 QT_LONG=58  BREW_QT_VER_SHA=e8d5c92686cb4b9f3462dfa946c1f48c74b867f9 CONFIG=debug CRYPT=crypt
+  - QT_BASE=58 QT_LONG=58  BREW_QT_VER_SHA=e8d5c92686cb4b9f3462dfa946c1f48c74b867f9 CONFIG=release CRYPT=crypt
 
 matrix:
-  fast_finish: true
-  include:
-    - os: linux
-      compiler: gcc
-      env: COMPILER=gcc CONFIG=debug
-    - os: linux
-      compiler: gcc
-      env: COMPILER=gcc CONFIG=release
-    - os: linux
-      compiler: gcc
-      env: COMPILER=gcc CONFIG=debug CRYPT=crypt
-    - os: linux
-      compiler: gcc
-      env: COMPILER=gcc CONFIG=release CRYPT=crypt
-    - os: linux
-      compiler: clang
-      env: COMPILER=clang CONFIG=debug
-    - os: linux
-      compiler: clang
-      env: COMPILER=clang CONFIG=release
-    - os: linux
-      compiler: clang
-      env: COMPILER=clang CONFIG=debug CRYPT=crypt
-    - os: linux
-      compiler: clang
-      env: COMPILER=clang CONFIG=release CRYPT=crypt
+  exclude:
     - os: osx
-      compiler: clang
-      env: COMPILER=clang CONFIG=debug
-    - os: osx
-      compiler: clang
-      env: COMPILER=clang CONFIG=release DEPLOY=true
-    - os: osx
-      compiler: clang
-      env: COMPILER=clang CONFIG=debug CRYPT=crypt
-    - os: osx
-      compiler: clang
-      env: COMPILER=clang CONFIG=release CRYPT=crypt DEPLOY=true
+      compiler: gcc
 
 before_install:
 - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo add-apt-repository --yes ppa:beineri/opt-qt${QT_LONG}-trusty
   && sudo apt-get update -qq
   && sudo apt-get install -y -qq qt${QT_BASE}base qt${QT_BASE}script qt${QT_BASE}tools
   && source /opt/qt${QT_BASE}/bin/qt${QT_BASE}-env.sh; fi
-- if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update; brew install qt5; PATH="/usr/local/opt/qt5/bin:$PATH"; fi
+- if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update
+  && curl -O https://raw.githubusercontent.com/Homebrew/homebrew-core/${BREW_QT_VER_SHA}/Formula/qt5.rb'
+  && brew install qt5.rb'
+  && brew link --force qt5'
+  && PATH="/usr/local/opt/qt5/bin:$PATH"; fi
 
 before_script:
 - qmake CONFIG+=$CONFIG CONFIG+=$CRYPT
