@@ -55,10 +55,8 @@ script:
 - make
 
 before_deploy:
-  - if [ "$DEPLOY" = "true" ] && [ "$TRAVIS_OS_NAME" == "osx" ]; then
-      echo "Deployment for tag $TRAVIS_TAG $CRYPT";
-      ${TRAVIS_BUILD_DIR}/tools/mac_osx_deploy.sh $TRAVIS_TAG $CRYPT;
-    fi
+  - echo "Deployment for tag $TRAVIS_TAG $CRYPT"
+  - ${TRAVIS_BUILD_DIR}/tools/mac_osx_deploy.sh $TRAVIS_TAG $CRYPT
   - export DMG_FILE=$(ls $TRAVIS_BUILD_DIR/build/release/*.dmg)
   - echo $(ls $TRAVIS_BUILD_DIR/build/release/)
 
@@ -71,4 +69,4 @@ deploy:
   on:
     all_branches: true
     tags: true
-    condition: "$DEPLOY = true"
+    condition: '"$DEPLOY" == "true" && "$TRAVIS_OS_NAME" == "osx"'
