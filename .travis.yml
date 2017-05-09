@@ -38,7 +38,7 @@ before_install:
   && source /opt/qt${QT_BASE}/bin/qt${QT_BASE}-env.sh; fi
 - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update
   && curl -O https://raw.githubusercontent.com/Homebrew/homebrew-core/${BREW_QT_VER_SHA}/Formula/qt5.rb
-  && brew install qt5.rb'
+  && brew install ./qt5.rb'
   && brew link --force qt5'
   && PATH="/usr/local/opt/qt5/bin:$PATH"; fi
 
@@ -49,7 +49,7 @@ script:
 - make
 
 before_deploy:
-  - if [ "$DEPLOY" = "true" ]; then echo "Deployment for tag $TRAVIS_TAG $CRYPT" && ${TRAVIS_BUILD_DIR}/tools/mac_osx_deploy.sh $TRAVIS_TAG $CRYPT; fi
+  - if [ "$DEPLOY" = "true" ] && [ "$TRAVIS_OS_NAME" == "osx" ]; then echo "Deployment for tag $TRAVIS_TAG $CRYPT" && ${TRAVIS_BUILD_DIR}/tools/mac_osx_deploy.sh $TRAVIS_TAG $CRYPT; fi
   - export DMG_FILE=$(ls $TRAVIS_BUILD_DIR/build/release/*.dmg)
   - echo $(ls $TRAVIS_BUILD_DIR/build/release/)
 

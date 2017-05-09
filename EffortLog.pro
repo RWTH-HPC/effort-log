@@ -25,7 +25,7 @@ lessThan(QT_VERSION, 5.0) {
 TARGET = effort-log
 macx:TARGET = EffortLog
 TEMPLATE = app
-VERSION = 0.8.2
+VERSION = 0.8.3
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 QT += core gui widgets
 
