@@ -23,7 +23,17 @@
 #include <QDebug>
 
 Activity::Activity() {
-
+  type_ = "";
+  id_ = -1;
+  saved_events_ = -1;
+  project_title_ = "";
+  user_name_ = "";
+  log_interval_ = -1;
+  cur_time_ = QDateTime();
+  last_time_ = QDateTime();
+  interval_time_ = -1;
+  comment_ = "";
+  scheduler_ = -1;
 }
 
 const QString Activity::kActivityType[] = {"Break","Thinking","Serial",

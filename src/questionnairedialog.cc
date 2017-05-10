@@ -258,9 +258,9 @@ void QuestionnaireDialog::accept() {
 
   if (m_group_->checkedId() != -1) {
     QList<QAbstractButton *> buttons = m_group_->buttons();
+    Milestone *m = new Milestone;
     foreach (QAbstractButton *b, buttons) {
       if (b->isChecked() == true) {
-        Milestone *m = new Milestone;
         if (project_->GetNoMilestones() > 0) {
           *m = project_->GetMilestone(project_->GetNoMilestones() - 1);
           m->SetMsId(-1);
@@ -273,11 +273,10 @@ void QuestionnaireDialog::accept() {
           m->SetTime(QDateTime::currentDateTime());
           m->SetEventId(project_->GetNoActivities());
           project_->AddMilestone(m);
-        } else {
-          free(m);
         }
       }
     }
+    free(m);
   }
 
   if (VERBOSE) {

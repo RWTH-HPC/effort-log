@@ -30,7 +30,7 @@ Project::Project() {
   log_file_ = "";
   stage_ = "";
   stage_comment_ = "";
-  interval_ = 0;
+  interval_ = -1;
   activities_ = new QList<Activity>;
   milestones_ = new QList<Milestone>;
 }
@@ -42,7 +42,7 @@ Project::Project(QString t) {
   log_file_ = "";
   stage_ = "";
   stage_comment_ = "";
-  interval_ = 0;
+  interval_ = -1;
   activities_ = new QList<Activity>;
   milestones_ = new QList<Milestone>;
 }
