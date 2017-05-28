@@ -22,18 +22,18 @@
 
 #include <QApplication>
 #include <QDialog>
-#include <QDir>
 #include <QDialogButtonBox>
+#include <QDir>
 #include <QFileDialog>
 #include <QFormLayout>
 #include <QGroupBox>
 #include <QLineEdit>
 #include <QMessageBox>
-#include <QSpinBox>
 #include <QPushButton>
+#include <QSpinBox>
 
-#include "mainwindow.h"
 #include "appenddialog.h"
+#include "mainwindow.h"
 #ifdef CRYPT
 #include "crypt.h"
 #endif
@@ -51,11 +51,11 @@ public:
    * \param[in] window A pointer to the main window.
    */
   SetupDialog(MainWindow *window);
-  //! The main constructor with encryption.
-  /*!
-   * \param[in] window A pointer to the main window.
-   * \param[in] crypt Handles encryption and decryption for the project
-   */
+//! The main constructor with encryption.
+/*!
+ * \param[in] window A pointer to the main window.
+ * \param[in] crypt Handles encryption and decryption for the project
+ */
 #ifdef CRYPT
   SetupDialog(MainWindow *window, Crypt *crypt);
 #endif
@@ -130,40 +130,40 @@ private:
 #ifdef CRYPT
   Crypt *crypt_;
 #endif
-  MainWindow *main_window_;  /**< Holds a pointer to the main window.*/
-  QGridLayout *layout_;  /**< The main layout of the dialog.*/
-  QString project_dir_;  /**< Holds a string of the project's working
-                              directory.*/
-  QDialogButtonBox *buttons_;  /**< Buttons to accept or quit the dialog.*/
-  QPushButton *browse_log_button_;  /**< Button to browse a directory.*/
-  QPushButton *app_button_;  /**< Buttons to append a logging entry.*/
-  QLineEdit *project_title_line_edit_;   /**< QLineEdit to edit the project's
-                                              title.*/
-  QLineEdit *user_name_line_edit_;   /**< QLineEdit to edit the user name.*/
-  QSpinBox *log_interval_spin_box_;   /**< QSpinBox to set the interval of
-                                           development before executing the
-                                           program.*/
-  QSettings settings_;  /**< Holds a copy of the global settings of the
-                             application.*/
-  QLineEdit *log_file_name_line_edit_;   /**< QLineEdit to edit the log file
-                                          name.*/
+  MainWindow *main_window_;        /**< Holds a pointer to the main window.*/
+  QGridLayout *layout_;            /**< The main layout of the dialog.*/
+  QString project_dir_;            /**< Holds a string of the project's working
+                                        directory.*/
+  QDialogButtonBox *buttons_;      /**< Buttons to accept or quit the dialog.*/
+  QPushButton *browse_log_button_; /**< Button to browse a directory.*/
+  QPushButton *app_button_;        /**< Buttons to append a logging entry.*/
+  QLineEdit *project_title_line_edit_; /**< QLineEdit to edit the project's
+                                            title.*/
+  QLineEdit *user_name_line_edit_;     /**< QLineEdit to edit the user name.*/
+  QSpinBox *log_interval_spin_box_;    /**< QSpinBox to set the interval of
+                                            development before executing the
+                                            program.*/
+  QSettings settings_;                 /**< Holds a copy of the global settings
+                                            of the application.*/
+  QLineEdit *log_file_name_line_edit_; /**< QLineEdit to edit the log file
+                                        name.*/
   QLineEdit *log_file_dir_line_edit_;  /**< QLineEdit to edit the log file's
                                           directory*/
-  QString dir_string_;   /**< A string which holds the log file's directory.*/
-  QButtonGroup *stages_button_group_;  /**< Buttons to specify the current
-                                            project's development stage.*/
+  QString dir_string_; /**< A string which holds the log file's directory.*/
+  QButtonGroup *stages_button_group_; /**< Buttons to specify the current
+                                           project's development stage.*/
 
-  QPushButton *browse_pro_button_;  /**< Button to browse to a working
-                                         directory of the project.*/
-  QLineEdit *project_dir_line_edit_;   /**< QLineEdit to edit the working
-                                            directory of the project.*/
+  QPushButton *browse_pro_button_;   /**< Button to browse to a working
+                                          directory of the project.*/
+  QLineEdit *project_dir_line_edit_; /**< QLineEdit to edit the working
+                                          directory of the project.*/
 
-  bool new_project_flag_;   /**< Indicates if the project already exists.*/
-  QStringList dir_list_;   /**< A list of working directories.*/
-  QCompleter *completer_;   /**< Auto-completion of the title of known
-                                 projects.*/
-  Activity *append_activity_;   /**< An activity to append to the current
-                                     project.*/
+  bool new_project_flag_;     /**< Indicates if the project already exists.*/
+  QStringList dir_list_;      /**< A list of working directories.*/
+  QCompleter *completer_;     /**< Auto-completion of the title of known
+                                   projects.*/
+  Activity *append_activity_; /**< An activity to append to the current
+                                   project.*/
 
 private slots:
   //! Browse a project file

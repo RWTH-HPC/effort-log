@@ -20,7 +20,6 @@
 
 #include "proinitdialog.h"
 
-
 ProInitDialog::ProInitDialog(Project *pro) : QDialog() {
   project_ = pro;
   Setup();
@@ -33,9 +32,7 @@ void ProInitDialog::accept() {
   QDialog::accept();
 }
 
-void ProInitDialog::reject() {
-  QDialog::reject();
-}
+void ProInitDialog::reject() { QDialog::reject(); }
 
 void ProInitDialog::Setup() {
   QLabel *info = new QLabel;
@@ -53,34 +50,34 @@ void ProInitDialog::Setup() {
   stages_label->setWordWrap(true);
   stages_button_group_ = new QButtonGroup;
   stages_buttons_[0] = new QRadioButton(tr("Scratch"));
-  stages_button_group_->addButton(stages_buttons_[0],0);
+  stages_button_group_->addButton(stages_buttons_[0], 0);
   stages_buttons_[0]->setShortcut(QKeySequence(Qt::Key_B));
   stages_buttons_[0]->setToolTip(tr("The project is developed from scratch"));
   stages_buttons_[1] = new QRadioButton(tr("Working serial version"));
-  stages_button_group_->addButton(stages_buttons_[1],1);
+  stages_button_group_->addButton(stages_buttons_[1], 1);
   stages_buttons_[1]->setShortcut(QKeySequence(Qt::Key_H));
   stages_buttons_[1]->setToolTip(tr("The project's developers make use of a "
                                     "working serial version which shall be "
                                     "tuned or parallelized"));
   stages_buttons_[2] = new QRadioButton(tr("Tuned serial version"));
-  stages_button_group_->addButton(stages_buttons_[2],2);
+  stages_button_group_->addButton(stages_buttons_[2], 2);
   stages_buttons_[2]->setShortcut(QKeySequence(Qt::Key_S));
   stages_buttons_[2]->setToolTip(tr("The project's developers make use of a "
                                     "tuned serial version which shall be "
                                     "parallelized"));
   stages_buttons_[3] = new QRadioButton(tr("Working parallel version"));
-  stages_button_group_->addButton(stages_buttons_[3],3);
+  stages_button_group_->addButton(stages_buttons_[3], 3);
   stages_buttons_[3]->setShortcut(QKeySequence(Qt::Key_P));
   stages_buttons_[3]->setToolTip(tr("The project's developers make use of a "
                                     "working parallel version which shall be "
                                     "tuned"));
   stages_buttons_[4] = new QRadioButton(tr("Tuned parallel version"));
-  stages_button_group_->addButton(stages_buttons_[4],4);
+  stages_button_group_->addButton(stages_buttons_[4], 4);
   stages_buttons_[4]->setShortcut(QKeySequence(Qt::Key_T));
   stages_buttons_[4]->setToolTip(tr("The project's developers make use of a "
                                     "tuned parallel version which shall be "
                                     "improved"));
-  stages_buttons_[0]->setChecked(true);  // Set default button
+  stages_buttons_[0]->setChecked(true); // Set default button
 
   QLabel *comment_label = new QLabel;
   comment_label->setText(tr("Comments on the current development stage, the "
@@ -91,21 +88,21 @@ void ProInitDialog::Setup() {
   comment_box_->setPlaceholderText(tr("Comment..."));
 
   // Separators
-  QFrame* central_line = new QFrame();
+  QFrame *central_line = new QFrame();
   central_line->setGeometry(QRect(/* ... */));
   central_line->setFrameShape(QFrame::VLine);
   central_line->setFrameShadow(QFrame::Sunken);
-  QFrame* top_line = new QFrame();
+  QFrame *top_line = new QFrame();
   top_line->setGeometry(QRect(/* ... */));
   top_line->setFrameShape(QFrame::HLine);
   top_line->setFrameShadow(QFrame::Sunken);
-  QFrame* botton_line = new QFrame();
+  QFrame *botton_line = new QFrame();
   botton_line->setGeometry(QRect(/* ... */));
   botton_line->setFrameShape(QFrame::HLine);
   botton_line->setFrameShadow(QFrame::Sunken);
 
-  buttons_ = new QDialogButtonBox(QDialogButtonBox::Ok
-                                  | QDialogButtonBox::Cancel, Qt::Horizontal);
+  buttons_ = new QDialogButtonBox(
+      QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal);
 
   // Layout
   QVBoxLayout *stages_layout = new QVBoxLayout;

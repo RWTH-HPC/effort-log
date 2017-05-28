@@ -20,10 +20,7 @@
 
 #include "milestone.h"
 
-
-Milestone::Milestone() {
-
-}
+Milestone::Milestone() {}
 
 void Milestone::Clear() {
   milestone_id_ = 0;
@@ -34,107 +31,54 @@ void Milestone::Clear() {
   model_ = "";
 }
 
-void Milestone::SetMsId(int id) {
-  milestone_id_ = id;
-}
+void Milestone::SetMsId(int id) { milestone_id_ = id; }
 
-int Milestone::GetMsId() const {
-  return milestone_id_;
-}
+int Milestone::GetMsId() const { return milestone_id_; }
 
-void Milestone::SetEventId(int id) {
-  event_id_ = id;
-}
+void Milestone::SetEventId(int id) { event_id_ = id; }
 
-int Milestone::GetEventId() const {
-  return event_id_;
-}
+int Milestone::GetEventId() const { return event_id_; }
 
-void Milestone::SetTitle(QString t) {
-  title_ = t;
-}
+void Milestone::SetTitle(QString t) { title_ = t; }
 
-QString Milestone::GetTitle() const {
-  return title_;
-}
+QString Milestone::GetTitle() const { return title_; }
 
-void Milestone::SetTime(QDateTime t) {
-  time_ = t;
-}
+void Milestone::SetTime(QDateTime t) { time_ = t; }
 
-QDateTime Milestone::GetTime() const {
-  return time_;
-}
+QDateTime Milestone::GetTime() const { return time_; }
 
-void Milestone::SetComment(QString c) {
-  general_comment_ = c;
-}
+void Milestone::SetComment(QString c) { general_comment_ = c; }
 
-QString Milestone::GetComment() const {
-  return general_comment_;
-}
+QString Milestone::GetComment() const { return general_comment_; }
 
+void Milestone::SetPerfMetric(QString m) { perf_metric_ = m; }
 
-void Milestone::SetPerfMetric(QString m) {
-  perf_metric_ = m;
-}
+QString Milestone::GetPerfMetric() const { return perf_metric_; }
 
-QString Milestone::GetPerfMetric() const {
-  return perf_metric_;
-}
+void Milestone::SetPerfComment(QString c) { perf_comment_ = c; }
 
-void Milestone::SetPerfComment(QString c) {
-  perf_comment_ = c;
-}
+QString Milestone::GetPerfComment() const { return perf_comment_; }
 
-QString Milestone::GetPerfComment() const {
-  return perf_comment_;
-}
+void Milestone::SetArc(QString a) { arc_ = a; }
 
-void Milestone::SetArc(QString a) {
-  arc_ = a;
-}
+QString Milestone::GetArc() const { return arc_; }
 
-QString Milestone::GetArc() const {
-  return arc_;
-}
+void Milestone::SetThreadsType(QString t) { threads_type_ = t; }
 
-void Milestone::SetThreadsType(QString t) {
-  threads_type_ = t;
-}
+QString Milestone::GetThreadsType() const { return threads_type_; }
 
-QString Milestone::GetThreadsType() const {
-  return threads_type_;
-}
+void Milestone::SetThreadsComment(QString c) { threads_comment_ = c; }
 
-void Milestone::SetThreadsComment(QString c) {
-  threads_comment_ = c;
-}
+QString Milestone::GetThreadsComment() const { return threads_comment_; }
 
-QString Milestone::GetThreadsComment() const {
-  return threads_comment_;
-}
+void Milestone::SetCompiler(QString c) { compiler_ = c; }
 
-void Milestone::SetCompiler(QString c) {
-  compiler_ = c;
-}
+QString Milestone::GetCompiler() const { return compiler_; }
 
-QString Milestone::GetCompiler() const {
-  return compiler_;
-}
+void Milestone::SetModel(QString m) { model_ = m; }
 
-void Milestone::SetModel(QString m) {
-  model_ = m;
-}
+QString Milestone::GetModel() const { return model_; }
 
-QString Milestone::GetModel() const {
-  return model_;
-}
+void Milestone::SetDataSize(QString d) { data_size_ = d; }
 
-void Milestone::SetDataSize(QString d) {
-  data_size_ = d;
-}
-
-QString Milestone::GetDataSize() const {
-  return data_size_;
-}
+QString Milestone::GetDataSize() const { return data_size_; }

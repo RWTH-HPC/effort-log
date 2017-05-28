@@ -40,8 +40,8 @@ class ProInitDialog : public QDialog {
 public:
   //! The main constructor.
   /*!
-  * \param[in] pro A pointer to the project to be initialized. \see Project
-  */
+   * \param[in] pro A pointer to the project to be initialized. \see Project
+   */
   ProInitDialog(Project *pro);
   //! Overrides the default accept() member.
   /*!
@@ -53,6 +53,7 @@ public:
    * reject() is executed on quitting the dialog.
    */
   void reject() Q_DECL_OVERRIDE;
+
 private:
   //! Takes care of all connections
   /*!
@@ -68,11 +69,11 @@ private:
    */
   void Setup();
 
-  QDialogButtonBox *buttons_;  /**< Buttons OK and CLOSE at the buttom of the
-                                    dialog.*/
-  Project *project_;  /**< Holds a pointer to the affiliated project.*/
-  QButtonGroup *stages_button_group_;  /**< Group stages_buttons_.*/
-  QRadioButton *stages_buttons_[5];  /**< Radio buttons to select the
-                                          development stage of the project.*/
-  QPlainTextEdit *comment_box_;  /**< Input of comments about the project.*/
+  QDialogButtonBox *buttons_; /**< Buttons OK and CLOSE at the buttom of the
+                                   dialog.*/
+  Project *project_;          /**< Holds a pointer to the affiliated project.*/
+  QButtonGroup *stages_button_group_; /**< Group stages_buttons_.*/
+  QRadioButton *stages_buttons_[5];   /**< Radio buttons to select the
+                                           development stage of the project.*/
+  QPlainTextEdit *comment_box_; /**< Input of comments about the project.*/
 };

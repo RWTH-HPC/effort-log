@@ -22,15 +22,13 @@
 
 #include <QJsonDocument>
 
-
 //! Class to handle encryption and decryption of files
 /*!
  * This class implements a 256-bit AES encryption and decryption of byte
  * streams.
  * \see Dialog
  */
-class Crypt
-{
+class Crypt {
 public:
   //! The main constructor.
   Crypt();

@@ -29,7 +29,6 @@
 
 #include "crypt.h"
 
-
 //! Class to handle password input
 /*!
  * This class provides a dialog which lets users set up new passwords and
@@ -48,6 +47,7 @@ public:
 private slots:
   //! Check if passwords match and are non-empty
   void OnPwdInput();
+
 private:
   //! Overrides the default accept() member.
   /*!
@@ -60,12 +60,12 @@ private:
   //! Handles user input of passwords for existing projects
   void PwdEnter();
 
-  QDialogButtonBox *buttons_;  /**< Buttons OK and CLOSE at the buttom of the
-                                    dialog.*/
-  QLineEdit *pwd_prompt_;  /**< Lets user input their password.*/
-  QLineEdit *rep_pwd_prompt_;  /**< Lets user repeate their password.*/
-  Crypt *crypt_;  /**< A pointer to Crypt which is used to store the new
-                       password or holds the correct password.*/
-  QLabel *match_label_;  /**< Displays a warning if passwords do not match or
-                              are empty.*/
+  QDialogButtonBox *buttons_; /**< Buttons OK and CLOSE at the buttom of the
+                                   dialog.*/
+  QLineEdit *pwd_prompt_;     /**< Lets user input their password.*/
+  QLineEdit *rep_pwd_prompt_; /**< Lets user repeate their password.*/
+  Crypt *crypt_;              /**< A pointer to Crypt which is used to store the
+                                   new password or holds the correct password.*/
+  QLabel *match_label_;       /**< Displays a warning if passwords do not match
+                                   or are empty.*/
 };

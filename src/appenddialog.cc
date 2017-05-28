@@ -34,7 +34,6 @@ AppendDialog::AppendDialog(MainWindow *window, Activity *act) : QDialog() {
 }
 
 void AppendDialog::Setup() {
-//  activity_ = new Activity;
   // Activity count
   no_logged_activities_ = settings_.value("noLoggedActivities").toInt();
 
@@ -42,7 +41,7 @@ void AppendDialog::Setup() {
   QLabel *log_interval_label = new QLabel(tr("Time before executing this "
                                              "program:"));
   log_interval_spin_box_ = new QSpinBox(this);
-  log_interval_spin_box_->setRange(0,1000);
+  log_interval_spin_box_->setRange(0, 1000);
   log_interval_spin_box_->setSingleStep(1);
   log_interval_spin_box_->setValue(15);
   log_interval_spin_box_->setToolTip(tr("Set the time in minutes you want to "
@@ -51,43 +50,43 @@ void AppendDialog::Setup() {
 
   // Activity switcher (left part of the dialog)
   info_string_ = QString("What did you do the last %1 minutes?")
-      .arg(log_interval_spin_box_->value());
+                     .arg(log_interval_spin_box_->value());
   group_activities_ = new QGroupBox(info_string_);
   activity_button_group_ = new QButtonGroup;
   QRadioButton *activity_switcher_buttons[NUM_ACTIVITIES];
   for (int i = 0; i < NUM_ACTIVITIES; i++) {
-    activity_switcher_buttons[i] = new QRadioButton(
-          activity_->kActivityType[i]);
-    activity_button_group_->addButton(activity_switcher_buttons[i],i);
+    activity_switcher_buttons[i] =
+        new QRadioButton(activity_->kActivityType[i]);
+    activity_button_group_->addButton(activity_switcher_buttons[i], i);
   }
   activity_switcher_buttons[0]->setShortcut(QKeySequence(Qt::Key_B));
   activity_switcher_buttons[0]->setToolTip(
-        tr("Choose activity <font color='gray'>B</font>"));
+      tr("Choose activity <font color='gray'>B</font>"));
   activity_switcher_buttons[1]->setShortcut(QKeySequence(Qt::Key_H));
   activity_switcher_buttons[1]->setToolTip(
-        tr("Choose activity <font color='gray'>H</font>"));
+      tr("Choose activity <font color='gray'>H</font>"));
   activity_switcher_buttons[2]->setShortcut(QKeySequence(Qt::Key_S));
   activity_switcher_buttons[2]->setToolTip(
-        tr("Choose activity <font color='gray'>S</font>"));
+      tr("Choose activity <font color='gray'>S</font>"));
   activity_switcher_buttons[3]->setShortcut(QKeySequence(Qt::Key_P));
   activity_switcher_buttons[3]->setToolTip(
-        tr("Choose activity <font color='gray'>P</font>"));
+      tr("Choose activity <font color='gray'>P</font>"));
   activity_switcher_buttons[4]->setShortcut(QKeySequence(Qt::Key_T));
   activity_switcher_buttons[4]->setToolTip(
-        tr("Choose activity <font color='gray'>T</font>"));
+      tr("Choose activity <font color='gray'>T</font>"));
   activity_switcher_buttons[5]->setShortcut(QKeySequence(Qt::Key_D));
   activity_switcher_buttons[5]->setToolTip(
-        tr("Choose activity <font color='gray'>D</font>"));
+      tr("Choose activity <font color='gray'>D</font>"));
   activity_switcher_buttons[6]->setShortcut(QKeySequence(Qt::Key_U));
   activity_switcher_buttons[6]->setToolTip(
-        tr("Choose activity <font color='gray'>U</font>"));
+      tr("Choose activity <font color='gray'>U</font>"));
   activity_switcher_buttons[7]->setShortcut(QKeySequence(Qt::Key_E));
-  activity_switcher_buttons[7]->setToolTip
-      (tr("Choose activity <font color='gray'>E</font>"));
+  activity_switcher_buttons[7]->setToolTip(
+      tr("Choose activity <font color='gray'>E</font>"));
   activity_switcher_buttons[8]->setShortcut(QKeySequence(Qt::Key_O));
   activity_switcher_buttons[8]->setToolTip(
-        tr("Choose activity <font color='gray'>O</font>"));
-  activity_switcher_buttons[0]->setChecked(true);  // Set default button
+      tr("Choose activity <font color='gray'>O</font>"));
+  activity_switcher_buttons[0]->setChecked(true); // Set default button
 
   // Comment field (right part of the dialog)
   comment_box_ = new QPlainTextEdit;
@@ -133,8 +132,9 @@ void AppendDialog::Setup() {
   main_layout_->addLayout(button_layout);
   setLayout(main_layout_);
 
-  QString title_string = QString("Appending a logging event to project: %1")
-      .arg(settings_.value("conf/projectTitle").toString());
+  QString title_string =
+      QString("Appending a logging event to project: %1")
+          .arg(settings_.value("conf/projectTitle").toString());
   group_activities_->setFocus();
   setWindowTitle(title_string);
 }
@@ -148,7 +148,7 @@ void AppendDialog::CreateConnections() {
 
 void AppendDialog::UpdateUI() {
   info_string_ = QString("What did you do the last %1 minutes?")
-      .arg(log_interval_spin_box_->value());
+                     .arg(log_interval_spin_box_->value());
   group_activities_->setTitle(info_string_);
   main_layout_->update();
 }
@@ -179,8 +179,6 @@ void AppendDialog::accept() {
     qDebug() << "Actual logging interval:" << activity_->GetIntervalTime();
     qDebug() << "No of saved events:" << activity_->GetSavedEvents();
   }
-//  project_->ReadLog(settings_.value("conf/logFile").toString());
-//  project_->AddActivity(*activity_);
   main_window_->SetupAnimation();
   settings_.setValue("conf/append", true);
   QDialog::accept();
@@ -188,14 +186,14 @@ void AppendDialog::accept() {
 
 void AppendDialog::reject() {
   QMessageBox::StandardButton button;
-  button = QMessageBox::question(this, APP_NAME, tr("Are you sure you want to "
-                                 "skip this addendum? No logging event will be "
-                                 "added to the current project.\n"),
-                                 QMessageBox::No | QMessageBox::Yes,
-                                 QMessageBox::Yes);
+  button = QMessageBox::question(
+      this, APP_NAME,
+      tr("Are you sure you want to "
+         "skip this addendum? No logging event will be "
+         "added to the current project.\n"),
+      QMessageBox::No | QMessageBox::Yes, QMessageBox::Yes);
   if (button != QMessageBox::No) {
     settings_.setValue("conf/append", false);
     QDialog::reject();
   }
 }
-

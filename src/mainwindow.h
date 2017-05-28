@@ -222,8 +222,8 @@ private:
   QString info_string_;     /**< The user-provided information about the running
                                 logging.*/
   QLCDNumber *lcd_;         /**< The display of the countdown timer in a LCD .*/
-  QAction *log_action_; /**< The action upon hitting the "Browse file" button
-                             of the main menu.*/
+  QAction *log_action_;     /**< The action upon hitting the "Browse file"
+                                 button of the main menu.*/
   QVBoxLayout *main_layout_; /**< The main layout of the main window.*/
   QAction *new_action_;      /**< The action upon hitting the "new" button of
                                     the main menu.*/
@@ -231,9 +231,9 @@ private:
                                   application.*/
   QLabel *time_label_;       /**< The label holding info_string_.*/
   QHBoxLayout *time_layout_; /**< Holds time_label_ and lcd_.*/
-  QString timer_string_;   /**< Holds a string of the time until the nex logging
-                                event.*/
-  QFrame *top_seperator_;  /**< A vertical line acting as a seperator.*/
+  QString timer_string_;     /**< Holds a string of the time until the next
+                                  logging event.*/
+  QFrame *top_seperator_;    /**< A vertical line acting as a seperator.*/
   QLabel *version_label_;  /**< Contains the versioning number of the program.*/
   QStatusBar *status_bar_; /**< Status bar on the bottom of the window.*/
   QLabel *status_label_running_; /**< Indicator if the program is running.*/

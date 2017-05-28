@@ -121,8 +121,8 @@ private:
    * \see Dialog::main_layout_
    */
   void Setup();
-  Activity *activity_; /**< An object of type Activity which holds the matching
-                           activity to the dialog.*/
+  Activity *activity_;    /**< An object of type Activity which holds the
+                              matching activity to the dialog.*/
   bool m_button_pressed_; /**< Indicates if a button is pressed or not.*/
   QAbstractButton *last_m_button_;      /**< The lastly clicked button.*/
   QButtonGroup *activity_button_group_; /**< Holds all buttons for choosing an
@@ -135,16 +135,16 @@ private:
                                      label info_string_.*/
   QPushButton *finish_button_;  /**< Button to exit the dialog after finishing
                                      all mandatory input.*/
-  QString info_string_; /**< Holds the question on what the user was working
-                             on. Is updated every 60 seconds.*/
-  QVBoxLayout *main_layout_; /**< The main layout of the dialog.*/
-  MainWindow *main_window_;  /**< Holds a pointer to the main window.*/
-  int no_logged_activities_; /**< The number of successfully logged events.*/
-  QPushButton *skip_button_; /**< Button to exit the dialog without logging the
-                                  event to the log file (skipping this event)*/
+  QString info_string_;         /**< Holds the question on what the user was
+                                     working on. Is updated every 60 seconds.*/
+  QVBoxLayout *main_layout_;    /**< The main layout of the dialog.*/
+  MainWindow *main_window_;     /**< Holds a pointer to the main window.*/
+  int no_logged_activities_;    /**< The number of successfully logged events.*/
+  QPushButton *skip_button_;    /**< Button to exit the dialog without logging the
+                                     event to the log file (skipping this event)*/
   Project *project_; /**< Holds a pointer to the current project. \see Project*/
-  int scheduler_; /**< Denotes if the questionnaire was scheduled by the
-                          set interval (=0), was manually executed (=2), or was
-                          executed on closing the program (=3)*/
-  QPushButton *log_button_;  /**< Button to read the current log file.*/
+  int scheduler_;    /**< Denotes if the questionnaire was scheduled by the
+                             set interval (=0), was manually executed (=2), or
+                             was executed on closing the program (=3)*/
+  QPushButton *log_button_; /**< Button to read the current log file.*/
 };

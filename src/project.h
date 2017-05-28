@@ -28,15 +28,13 @@
 #include "milestone.h"
 #include <QJsonArray>
 
-
 //! Class to handle projects.
 /*!
  * This class holds all information to specify a project.
  * Additionally there is an interface to load from a file in JSON format or
  * save a list of activities to such file.
  */
-class Project
-{
+class Project {
 public:
   //! The main constructor.
   Project();
@@ -45,18 +43,18 @@ public:
    * \param[in] t The title of the project
    */
   Project(QString t);
-  //! The main constructor.
-  /*!
-   * \param[in] crypt Handles encryption and decryption for the project
-   */
+//! The main constructor.
+/*!
+ * \param[in] crypt Handles encryption and decryption for the project
+ */
 #ifdef CRYPT
   Project(Crypt *crypt);
 #endif
-  //! Construction which also sets title_
-  /*!
-   * \param[in] crypt Handles encryption and decryption for the project
-   * \param[in] t The title of the project
-   */
+//! Construction which also sets title_
+/*!
+ * \param[in] crypt Handles encryption and decryption for the project
+ * \param[in] t The title of the project
+ */
 #ifdef CRYPT
   Project(Crypt *crypt, QString t);
 #endif
@@ -104,20 +102,20 @@ public:
   QString GetLogFile() const;
   //! Adds an activity to the project
   /*!
-  * \param[in] act The Activity the be added to the list of activities
-  */
+   * \param[in] act The Activity the be added to the list of activities
+   */
   void AddActivity(Activity act);
   //! Removes an activity from the project
   /*!
-  * \param[in] n The number of activity to be removed
-  */
+   * \param[in] n The number of activity to be removed
+   */
   void RemoveActivity(int n);
   //! Returns an activity from the list of activities
   /*!
-  * \param[in] n The number of activity to be returned
-  * \return The activity with the given number n
-  */
-  Activity GetActivity (int n) const;
+   * \param[in] n The number of activity to be returned
+   * \return The activity with the given number n
+   */
+  Activity GetActivity(int n) const;
   //! Setter for the first contributor of contributors_
   /*!
    * \param[in] c The name of a contributor
@@ -231,12 +229,12 @@ public:
   bool StoreLog(QString f);
   //! Reads the list of activities from disk
   /*!
-  * Reads the list of activities from a JSON file and stores it in the list
-  * of activities.
-  * \param[in] f The name and direktory of the JSON file
-  * \return True if the file was successfully read, false if an error
-  * occured
-  */
+   * Reads the list of activities from a JSON file and stores it in the list
+   * of activities.
+   * \param[in] f The name and direktory of the JSON file
+   * \return True if the file was successfully read, false if an error
+   * occured
+   */
   bool ReadLog(QString f);
   //! Stores the project to disk
   /*!
@@ -248,29 +246,29 @@ public:
   bool Save(QString f);
   //! Reads the list of activities from disk
   /*!
-  * Reads the project from a project file and stores it project.
-  * \param[in] f The name and direktory of the project file
-  * \return True if the file was successfully read, false if an error
-  * occured
-  */
+   * Reads the project from a project file and stores it project.
+   * \param[in] f The name and direktory of the project file
+   * \return True if the file was successfully read, false if an error
+   * occured
+   */
   bool Load(QString f);
 
 private:
 #ifdef CRYPT
-  Crypt *crypt_;  /**< A pointer to Crypt which is associate with the current
-                       project.*/
+  Crypt *crypt_; /**< A pointer to Crypt which is associate with the current
+                      project.*/
 #endif
   QList<Activity> *activities_;  /**< A list of activities associated with the
                                       current project.*/
-  QString title_;  /**< The title of the project.*/
-  QString pro_dir_;  /**< The working directory of the project.*/
-  QString log_dir_;  /**< The directory to store log files to.*/
-  QString log_file_;  /**< The full path of the log file.*/
-  QString stage_;  /**< The development stage of the project.*/
-  QString stage_comment_;  /**< A comment about the development stage of the
-                                project.*/
-  QStringList contributors_;  /**< A list of contributors to this project.*/
-  int interval_;  /**< The logging interval.*/
-  QList<Milestone> *milestones_;  /**< A list of milestones linked to this
-                                       project.*/
+  QString title_;                /**< The title of the project.*/
+  QString pro_dir_;              /**< The working directory of the project.*/
+  QString log_dir_;              /**< The directory to store log files to.*/
+  QString log_file_;             /**< The full path of the log file.*/
+  QString stage_;                /**< The development stage of the project.*/
+  QString stage_comment_;        /**< A comment about the development stage of
+                                      the project.*/
+  QStringList contributors_;     /**< A list of contributors to this project.*/
+  int interval_;                 /**< The logging interval.*/
+  QList<Milestone> *milestones_; /**< A list of milestones linked to this
+                                      project.*/
 };

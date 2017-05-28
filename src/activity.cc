@@ -36,91 +36,46 @@ Activity::Activity() {
   scheduler_ = -1;
 }
 
-const QString Activity::kActivityType[] = {"Break","Thinking","Serial",
-                                           "Parallelizing","Testing",
-                                           "Debugging","Tuning",
-                                           "Experimenting","Other"};
+const QString Activity::kActivityType[] = {
+    "Break",     "Thinking", "Serial",        "Parallelizing", "Testing",
+    "Debugging", "Tuning",   "Experimenting", "Other"};
 
-QString Activity::GetType() const {
-  return type_;
-}
+QString Activity::GetType() const { return type_; }
 
-void Activity::SetType(QString type) {
-  type_ = type;
-}
+void Activity::SetType(QString type) { type_ = type; }
 
-void Activity::SetId(int i) {
-  id_ = i;
-}
+void Activity::SetId(int i) { id_ = i; }
 
-int Activity::GetId() const {
-  return id_;
-}
+int Activity::GetId() const { return id_; }
 
-int Activity::GetSavedEvents() const {
-  return saved_events_;
-}
+int Activity::GetSavedEvents() const { return saved_events_; }
 
-void Activity::SetSavedEvents(const int &events) {
-  saved_events_ = events;
-}
+void Activity::SetSavedEvents(const int &events) { saved_events_ = events; }
 
-QString Activity::GetProjectTitle() const {
-  return project_title_;
-}
-void Activity::SetProjectTitle(const QString &title) {
-  project_title_ = title;
-}
+QString Activity::GetProjectTitle() const { return project_title_; }
+void Activity::SetProjectTitle(const QString &title) { project_title_ = title; }
 
-QString Activity::GetUserName() const {
-  return user_name_;
-}
-void Activity::SetUserName(const QString &name) {
-  user_name_ = name;
-}
+QString Activity::GetUserName() const { return user_name_; }
+void Activity::SetUserName(const QString &name) { user_name_ = name; }
 
-int Activity::GetLogInterval() const {
-  return log_interval_;
-}
+int Activity::GetLogInterval() const { return log_interval_; }
 
-void Activity::SetLogInterval(const int &interval) {
-  log_interval_ = interval;
-}
+void Activity::SetLogInterval(const int &interval) { log_interval_ = interval; }
 
-QDateTime Activity::GetCurTime() const {
-  return cur_time_;
-}
+QDateTime Activity::GetCurTime() const { return cur_time_; }
 
-void Activity::SetCurTime(const QDateTime &time) {
-  cur_time_ = time;
-}
+void Activity::SetCurTime(const QDateTime &time) { cur_time_ = time; }
 
-QDateTime Activity::GetLastTime() const {
-  return last_time_;
-}
+QDateTime Activity::GetLastTime() const { return last_time_; }
 
-void Activity::SetLastTime(const QDateTime &time) {
-  last_time_ = time;
-}
+void Activity::SetLastTime(const QDateTime &time) { last_time_ = time; }
 
-int Activity::GetIntervalTime() const {
-  return interval_time_;
-}
+int Activity::GetIntervalTime() const { return interval_time_; }
 
-void Activity::SetIntervalTime(const int &time) {
-  interval_time_ = time;
-}
+void Activity::SetIntervalTime(const int &time) { interval_time_ = time; }
 
-QString Activity::GetComment() const {
-  return comment_;
-}
-void Activity::SetComment(const QString &comment) {
-  comment_ = comment;
-}
+QString Activity::GetComment() const { return comment_; }
+void Activity::SetComment(const QString &comment) { comment_ = comment; }
 
-int Activity::GetScheduler() const {
-  return scheduler_;
-}
-void Activity::SetScheduler(const int scheduler) {
-  scheduler_ = scheduler;
-}
+int Activity::GetScheduler() const { return scheduler_; }
+void Activity::SetScheduler(const int scheduler) { scheduler_ = scheduler; }

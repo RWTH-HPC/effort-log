@@ -25,14 +25,13 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QLineEdit>
-#include <QSpinBox>
-#include <QString>
 #include <QPlainTextEdit>
 #include <QPushButton>
+#include <QSpinBox>
+#include <QString>
 #include <QVBoxLayout>
 
 #include "milestone.h"
-
 
 //! Class to create a new milestone
 /*!
@@ -111,29 +110,29 @@ private:
    */
   void LoadPreviousMS();
 
-  Milestone *ms_;  /**< A pointer to the associate milestone \see Milestone.*/
+  Milestone *ms_; /**< A pointer to the associate milestone \see Milestone.*/
   QPushButton *finish_button_;  /**< Button to exit the dialog after finishing
                                      all mandatory input.*/
-  QVBoxLayout *main_layout_;  /**< The main layout of the dialog.*/
-  QPushButton *skip_button_;  /**< Button to exit the dialog without logging the
-                                   event to the log file (skipping this event)*/
-  QLineEdit *perf_comment_;  /**< Lets user specify a comment about the
-                                  performance.*/
-  QDoubleSpinBox *perf_spin_;  /**< Lets user specify the performance.*/
-  QSpinBox *threads_spin_;  /**< Lets user specify count of nodes, threads,
-                                 etc.*/
-  QString msg_;  /**< Specifies the used milestone.*/
-  QComboBox *perf_box_;  /**< Lets user specify the performance metric.*/
-  QComboBox *threads_box_;  /**< Lets user specify the metric for counting
-                                 nodes, threads, etc.*/
-  QLineEdit *arc_comment_;  /**< Lets user specify the architecture.*/
+  QVBoxLayout *main_layout_;    /**< The main layout of the dialog.*/
+  QPushButton *skip_button_;    /**< Button to exit the dialog without logging the
+                                     event to the log file (skipping this event)*/
+  QLineEdit *perf_comment_;     /**< Lets user specify a comment about the
+                                     performance.*/
+  QDoubleSpinBox *perf_spin_;   /**< Lets user specify the performance.*/
+  QSpinBox *threads_spin_;      /**< Lets user specify count of nodes, threads,
+                                     etc.*/
+  QString msg_;                 /**< Specifies the used milestone.*/
+  QComboBox *perf_box_;         /**< Lets user specify the performance metric.*/
+  QComboBox *threads_box_;      /**< Lets user specify the metric for counting
+                                     nodes, threads, etc.*/
+  QLineEdit *arc_comment_;      /**< Lets user specify the architecture.*/
   QLineEdit *threads_comment_;  /**< Lets user specify a comment about the
                                   count of nodes, threads, etc.*/
-  QLineEdit *compiler_comment_;  /**< Lets user specify the used compiler.*/
-  QLineEdit *model_comment_;  /**< Lets user specify the used programming
-                                   model.*/
-  QLineEdit *comment_;  /**< Lets user specify a general comment about the
-                             milestone.*/
-  QLineEdit *data_size_;  /**< Lets user specify the data size of the
-                                       milestone.*/
+  QLineEdit *compiler_comment_; /**< Lets user specify the used compiler.*/
+  QLineEdit *model_comment_;    /**< Lets user specify the used programming
+                                     model.*/
+  QLineEdit *comment_;          /**< Lets user specify a general comment about
+                                     the milestone.*/
+  QLineEdit *data_size_;        /**< Lets user specify the data size of the
+                                             milestone.*/
 };

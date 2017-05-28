@@ -17,6 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with EffortLog.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include <QDebug>
 
 #include "passworddialog.h"
@@ -42,8 +43,8 @@ void PasswordDialog::PwdInit() {
   rep_pwd_prompt_->setPlaceholderText(tr("Repeat Password"));
   match_label_ = new QLabel("Password too short");
 
-  buttons_ = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Close,
-                             Qt::Horizontal);
+  buttons_ = new QDialogButtonBox(
+      QDialogButtonBox::Ok | QDialogButtonBox::Close, Qt::Horizontal);
   buttons_->button(QDialogButtonBox::Ok)->setEnabled(false);
 
   QVBoxLayout *main_layout = new QVBoxLayout;
@@ -56,8 +57,7 @@ void PasswordDialog::PwdInit() {
   setWindowTitle("Password prompt");
 
   // Connections
-  connect(pwd_prompt_, SIGNAL(textChanged(QString)), this,
-          SLOT(OnPwdInput()));
+  connect(pwd_prompt_, SIGNAL(textChanged(QString)), this, SLOT(OnPwdInput()));
   connect(rep_pwd_prompt_, SIGNAL(textChanged(QString)), this,
           SLOT(OnPwdInput()));
   connect(buttons_, SIGNAL(accepted()), this, SLOT(accept()));
@@ -73,8 +73,8 @@ void PasswordDialog::PwdEnter() {
   pwd_prompt_->setEchoMode(QLineEdit::Password);
   pwd_prompt_->setPlaceholderText(tr("Password"));
 
-  buttons_ = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Close,
-                             Qt::Horizontal);
+  buttons_ = new QDialogButtonBox(
+      QDialogButtonBox::Ok | QDialogButtonBox::Close, Qt::Horizontal);
 
   QVBoxLayout *main_layout = new QVBoxLayout;
   main_layout->addWidget(pwd_prompt_label);

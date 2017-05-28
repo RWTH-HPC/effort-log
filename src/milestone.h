@@ -20,16 +20,14 @@
 
 #pragma once
 
-#include <QString>
 #include <QDateTime>
-
+#include <QString>
 
 //! Class to handle milestones
 /*!
  * This class holds all information to specify milestones of a project.
  */
-class Milestone
-{
+class Milestone {
 public:
   //! The main constructor.
   Milestone();
@@ -167,20 +165,20 @@ public:
   QString GetDataSize() const;
 
 private:
-  int milestone_id_;  /**< The id of the milestone.*/
-  int event_id_;  /**< The id of the corresponding event.*/
-  QString title_;  /**< The title of the milestone.*/
-  QDateTime time_;  /**< The time when the milestone was created.*/
-  QString general_comment_;  /**< A comment about the milestone.*/
-  QString perf_metric_;  /**< The metric for measuring the performance of the
-                              milestone.*/
-  QString perf_comment_;  /**< A comment about the performance of the
-                               milestone.*/
-  QString arc_;  /**< The architecture used during the milestone.*/
-  QString threads_type_;  /**< The metric used to specify nodes, threads, etc.*/
-  QString threads_comment_;  /**< A comment on the metric used to specify
-                                  nodes, threads, etc.*/
-  QString compiler_;  /**< The compiler used during the milestone.*/
-  QString model_;  /**< The programming model used for the milestone.*/
-  QString data_size_;  /**< The data size used during the milestone.*/
+  int milestone_id_;        /**< The id of the milestone.*/
+  int event_id_;            /**< The id of the corresponding event.*/
+  QString title_;           /**< The title of the milestone.*/
+  QDateTime time_;          /**< The time when the milestone was created.*/
+  QString general_comment_; /**< A comment about the milestone.*/
+  QString perf_metric_;     /**< The metric for measuring the performance of the
+                                 milestone.*/
+  QString perf_comment_;    /**< A comment about the performance of the
+                                 milestone.*/
+  QString arc_;             /**< The architecture used during the milestone.*/
+  QString threads_type_; /**< The metric used to specify nodes, threads, etc.*/
+  QString threads_comment_; /**< A comment on the metric used to specify
+                                 nodes, threads, etc.*/
+  QString compiler_;        /**< The compiler used during the milestone.*/
+  QString model_;           /**< The programming model used for the milestone.*/
+  QString data_size_;       /**< The data size used during the milestone.*/
 };

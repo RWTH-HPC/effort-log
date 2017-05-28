@@ -72,7 +72,7 @@ public:
    */
   void reject() Q_DECL_OVERRIDE;
 
- private slots:
+private slots:
   //! Updates the view of the dialog
   /*!
    * This method updates the displayed message of group_activities_ whenever the
@@ -80,7 +80,7 @@ public:
    */
   void UpdateUI();
 
- private:
+private:
   //! Takes care of all connections
   /*!
    * This method sets up the needed connections of the dialog. Theser are:
@@ -100,27 +100,29 @@ public:
    * \see AppendDialog::main_layout_
    */
   void Setup();
-  Activity *activity_;  /**< An object of type Activity which holds the matching
-                            activity to the dialog.*/
-  QButtonGroup *activity_button_group_;  /**< Holds all buttons for choosing an
-                                              activity.*/
-  QPlainTextEdit *comment_box_;  /**< A box to input comments on an activity.*/
-  QGroupBox *group_activities_;  /**< Holds activity_button_group_ with the
-                                      label info_string_.*/
+  Activity *activity_;                  /**< An object of type Activity which
+                                             holds the matchingactivity to the
+                                             dialog.*/
+  QButtonGroup *activity_button_group_; /**< Holds all buttons for choosing an
+                                             activity.*/
+  QPlainTextEdit *comment_box_; /**< A box to input comments on an activity.*/
+  QGroupBox *group_activities_; /**< Holds activity_button_group_ with the
+                                     label info_string_.*/
   QPushButton *finish_button_;  /**< Button to exit the dialog after finishing
                                      all mandatory input.*/
-  QString info_string_;  /**< Holds the question on what the user was working
-                              on. Is updated on changes to
-                              log_interval_spin_box_.*/
-  QVBoxLayout *main_layout_;  /**< The main layout of the dialog.*/
-  MainWindow *main_window_;  /**< Holds a pointer to the main window.*/
-  int no_logged_activities_;  /**< The number of successfully logged events.*/
-  QPushButton *skip_button_;  /**< Button to exit the dialog without logging the
-                                   event to the log file (skipping this event)*/
+  QString info_string_;         /**< Holds the question on what the user was
+                                     working on. Is updated on changes to
+                                     log_interval_spin_box_.*/
+  QVBoxLayout *main_layout_;    /**< The main layout of the dialog.*/
+  MainWindow *main_window_;     /**< Holds a pointer to the main window.*/
+  int no_logged_activities_;    /**< The number of successfully logged events.*/
+  QPushButton *skip_button_;    /**< Button to exit the dialog without logging
+                                     the event to the log file (skipping this
+                                     event)*/
   Project *project_; /**< Holds a pointer to the current project. \see Project*/
-  QSettings settings_;  /**< Holds a copy of the global settings of the
-                             application.*/
-  QSpinBox *log_interval_spin_box_;  /**< Lets the user specify the interval of
-                                          development before executing the
-                                          program.*/
+  QSettings settings_;              /**< Holds a copy of the global settings of
+                                         the application.*/
+  QSpinBox *log_interval_spin_box_; /**< Lets the user specify the interval of
+                                         development before executing the
+                                         program.*/
 };

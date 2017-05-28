@@ -18,9 +18,9 @@
  * along with EffortLog.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "mainwindow.h"
 #include "definitions.h"
 #include "questionnairedialog.h"
-#include "mainwindow.h"
 #ifdef __APPLE__
 #include "appnap.h"
 #endif
@@ -28,7 +28,6 @@
 
 #include <QDebug>
 #include <QFileDialog>
-
 
 MainWindow::MainWindow() : QMainWindow() {
   log_running_ = false;
@@ -53,29 +52,31 @@ MainWindow::MainWindow(Crypt *crypt) : QMainWindow() {
 #endif
 }
 
-void MainWindow::closeEvent (QCloseEvent *event) {
+void MainWindow::closeEvent(QCloseEvent *event) {
   settings_.setValue("geometry", saveGeometry());
   settings_.setValue("windowState", saveState());
   if (settings_.value("conf/confAccepted") == true) {
     QMessageBox::StandardButton button;
-    button = QMessageBox::question(this, APP_NAME, tr("Are you sure you want "
-                                   "to stop logging your effort?\n"),
+    button = QMessageBox::question(this, APP_NAME,
+                                   tr("Are you sure you want "
+                                      "to stop logging your effort?\n"),
                                    QMessageBox::Cancel | QMessageBox::Yes,
                                    QMessageBox::Yes);
     if (button != QMessageBox::Yes) {
       event->ignore();
     } else {
       if (settings_.value("noLoggedActivities").toInt() > 0) {
-        int cur_interval = QTime::currentTime().msecsSinceStartOfDay() -
+        int cur_interval =
+            QTime::currentTime().msecsSinceStartOfDay() -
             settings_.value("lastLogTime").toTime().msecsSinceStartOfDay();
         if (VERBOSE) {
           qDebug() << cur_interval;
-          qDebug() << (settings_.value("conf/logInterval").toInt() * 60000
-                       * LOG_ON_EXIT_THRESHOLD);
+          qDebug() << (settings_.value("conf/logInterval").toInt() * 60000 *
+                       LOG_ON_EXIT_THRESHOLD);
         }
-        if (cur_interval > 1
-            && cur_interval > (settings_.value("conf/logInterval").toInt()
-                               * 60000 * LOG_ON_EXIT_THRESHOLD)) {
+        if (cur_interval > 1 &&
+            cur_interval > (settings_.value("conf/logInterval").toInt() *
+                            60000 * LOG_ON_EXIT_THRESHOLD)) {
           countdown_timer_->stop();
           QuestionnaireDialog dialog(this, 3);
           dialog.exec();
@@ -92,7 +93,7 @@ void MainWindow::closeEvent (QCloseEvent *event) {
 }
 
 void MainWindow::Setup() {
-  //central_widget_ = new QWidget();
+  // central_widget_ = new QWidget();
 
   // Status bar
   status_bar_ = this->statusBar();
@@ -112,12 +113,12 @@ void MainWindow::Setup() {
 }
 
 void MainWindow::CreateActions() {
-  log_action_ = new QAction(QIcon(":/images/log.png"), tr("&Read current log"),
-                            this);
+  log_action_ =
+      new QAction(QIcon(":/images/log.png"), tr("&Read current log"), this);
   log_action_->setShortcut(QKeySequence::Open);
   log_action_->setStatusTip(tr("Open the current log file"));
-  new_action_ = new QAction(QIcon(":/images/new.png"),
-                            tr("&Log current effort"), this);
+  new_action_ =
+      new QAction(QIcon(":/images/new.png"), tr("&Log current effort"), this);
   new_action_->setShortcut(QKeySequence::New);
   new_action_->setStatusTip(tr("Create a new logging event"));
   help_action_ = new QAction(tr("&Help"), this);
@@ -128,7 +129,7 @@ void MainWindow::CreateActions() {
 }
 
 void MainWindow::CreateConnections() {
-  countdown_timer_ = new QTimer();  // Countdown until the next event
+  countdown_timer_ = new QTimer(); // Countdown until the next event
   connect(countdown_timer_, SIGNAL(timeout()), this,
           SLOT(NextAnimationFrame()));
   connect(log_action_, SIGNAL(triggered()), this, SLOT(LogViewer()));
@@ -146,18 +147,18 @@ void MainWindow::UpdateUI() {
   }
   countdown_time_.setHMS(0, settings_.value("conf/logInterval").toInt(), 0);
   setWindowTitle(tr("Effort log"));
-  project_label_->setText("Active project: "
-                          + settings_.value("conf/projectTitle").toString()
-                          + "     ");
-  //central_widget_->update();
+  project_label_->setText(
+      "Active project: " + settings_.value("conf/projectTitle").toString() +
+      "     ");
+  // central_widget_->update();
 }
 
 void MainWindow::SetupAnimation() {
   double tmp = settings_.value("conf/logInterval").toDouble() * 60.0;
   status_progress_bar_->setMaximum(tmp);
   status_progress_bar_->setValue(tmp);
-  status_progress_bar_->resize(10,500);
-  statusBar()->addWidget(status_progress_bar_,1);
+  status_progress_bar_->resize(10, 500);
+  statusBar()->addWidget(status_progress_bar_, 1);
   statusBar()->addWidget(status_label_time_);
   QTime time = QTime::currentTime();
   time = time.addSecs(settings_.value("conf/logInterval").toInt() * 60);
@@ -171,16 +172,17 @@ void MainWindow::QuitOnSignal() {
   settings_.setValue("geometry", saveGeometry());
   settings_.setValue("windowState", saveState());
   if (settings_.value("noLoggedActivities").toInt() > 0) {
-    int cur_interval = QTime::currentTime().msecsSinceStartOfDay() -
+    int cur_interval =
+        QTime::currentTime().msecsSinceStartOfDay() -
         settings_.value("lastLogTime").toTime().msecsSinceStartOfDay();
     if (VERBOSE) {
       qDebug() << cur_interval;
-      qDebug() << (settings_.value("conf/logInterval").toInt() * 60000
-                   * LOG_ON_EXIT_THRESHOLD);
+      qDebug() << (settings_.value("conf/logInterval").toInt() * 60000 *
+                   LOG_ON_EXIT_THRESHOLD);
     }
-    if (cur_interval > 1
-        && cur_interval > (settings_.value("conf/logInterval").toInt()
-                           * 60000 * LOG_ON_EXIT_THRESHOLD)) {
+    if (cur_interval > 1 &&
+        cur_interval > (settings_.value("conf/logInterval").toInt() * 60000 *
+                        LOG_ON_EXIT_THRESHOLD)) {
       countdown_timer_->stop();
       QuestionnaireDialog dialog(this, 3);
       dialog.exec();
@@ -192,9 +194,9 @@ void MainWindow::QuitOnSignal() {
 }
 
 void MainWindow::NextAnimationFrame() {
-  if ((countdown_time_.hour() == 0) && (countdown_time_.minute() == 0)
-       && (countdown_time_.second() == 0)) {
-    QuestionnaireDialog dialog(this,0);
+  if ((countdown_time_.hour() == 0) && (countdown_time_.minute() == 0) &&
+      (countdown_time_.second() == 0)) {
+    QuestionnaireDialog dialog(this, 0);
     dialog.exec();
     dialog.show();
     dialog.setWindowModality(Qt::WindowModal);
@@ -221,7 +223,7 @@ void MainWindow::CreateMenus() {
 #endif
   menuBar()->addMenu(help_menu);
 
-  QWidget* spacer = new QWidget();
+  QWidget *spacer = new QWidget();
   spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
   tool_bar_->addAction(log_action_);
   tool_bar_->addAction(new_action_);
@@ -229,13 +231,9 @@ void MainWindow::CreateMenus() {
   tool_bar_->addWidget(project_label_);
 }
 
-void MainWindow::SetLogRunning(bool r) {
-  log_running_ = r;
-}
+void MainWindow::SetLogRunning(bool r) { log_running_ = r; }
 
-void MainWindow::SetTimeLabel(QString s) {
-  status_label_time_->setText(s);
-}
+void MainWindow::SetTimeLabel(QString s) { status_label_time_->setText(s); }
 
 void MainWindow::LogViewer() {
   LogView view(project_);
@@ -252,7 +250,9 @@ void MainWindow::About() {
   msg.append("<br/>RWTH Aachen University");
   msg.append("<br/>Seffenter Weg 23");
   msg.append("<br/>52074 Aachen, Germany");
-  msg.append("<br/><a href='www.hpc.rwth-aachen.de/research/tco/'>www.hpc.rwth-aachen.de/research/tco</a>");
+  msg.append("<br/><a "
+             "href='www.hpc.rwth-aachen.de/research/tco/"
+             "'>www.hpc.rwth-aachen.de/research/tco</a>");
 
   QMessageBox about_box(this);
   about_box.setText(msg);
@@ -278,22 +278,21 @@ void MainWindow::Help() {
 }
 
 void MainWindow::ReadLog() {
-  project_->ReadLog(QDir::toNativeSeparators(settings_.value("conf/logFile").toString()));
+  project_->ReadLog(
+      QDir::toNativeSeparators(settings_.value("conf/logFile").toString()));
 }
 
-void MainWindow::SetProject(Project *p) {
-  project_ = p;
-}
+void MainWindow::SetProject(Project *p) { project_ = p; }
 
 void MainWindow::ExecQuestionnaireDialog() {
-  QuestionnaireDialog dialog(this,2);
+  QuestionnaireDialog dialog(this, 2);
   dialog.exec();
   dialog.show();
   dialog.setWindowModality(Qt::WindowModal);
 }
 
 void MainWindow::ExecScheduledQuestionnaireDialog() {
-  QuestionnaireDialog dialog(this,0);
+  QuestionnaireDialog dialog(this, 0);
   dialog.exec();
   dialog.show();
   dialog.setWindowModality(Qt::WindowModal);

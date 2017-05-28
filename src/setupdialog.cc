@@ -25,11 +25,10 @@
 #include "proinitdialog.h"
 #include "setupdialog.h"
 
+#include <QCompleter>
 #include <QDebug>
 #include <QFileInfo>
-#include <QCompleter>
 #include <QStringListModel>
-
 
 SetupDialog::SetupDialog(MainWindow *window) : QDialog() {
   main_window_ = window;
@@ -73,8 +72,8 @@ void SetupDialog::Setup() {
   project_dir_line_edit_ = new QLineEdit();
   project_dir_line_edit_->setToolTip(tr("Specify the working directory of the "
                                         "project"));
-  project_dir_line_edit_->setText(QDir::toNativeSeparators(
-                                    QDir::currentPath()));
+  project_dir_line_edit_->setText(
+      QDir::toNativeSeparators(QDir::currentPath()));
 
   browse_pro_button_ = new QPushButton(tr("Browse..."));
   browse_pro_button_->setToolTip(tr("Browse an output directory"));
@@ -94,15 +93,15 @@ void SetupDialog::Setup() {
   log_interval_spin_box_->setValue(15);
   log_interval_spin_box_->setToolTip(tr("Set the logging interval"
                                         "between %1 and %2 minutes")
-                                     .arg(MIN_LOG_INTERVAL)
-                                     .arg(MAX_LOG_INTERVAL));
+                                         .arg(MIN_LOG_INTERVAL)
+                                         .arg(MAX_LOG_INTERVAL));
   log_interval_spin_box_->setSuffix(" min");
 
   // Specify the log file's output directory
   QLabel *log_file_dir_label = new QLabel(tr("Output directory:"));
   log_file_dir_line_edit_ = new QLineEdit;
-  log_file_dir_line_edit_->setText(QDir::toNativeSeparators(
-                                     QDir::currentPath()));
+  log_file_dir_line_edit_->setText(
+      QDir::toNativeSeparators(QDir::currentPath()));
   log_file_dir_line_edit_->setToolTip(tr("Specify the output directory"));
   log_file_dir_label->setBuddy(log_file_dir_line_edit_);
 
@@ -114,8 +113,8 @@ void SetupDialog::Setup() {
   browse_log_button_ = new QPushButton(tr("Browse..."));
   browse_log_button_->setToolTip(tr("Browse an output directory"));
 
-  buttons_ = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Close,
-                                  Qt::Horizontal);
+  buttons_ = new QDialogButtonBox(
+      QDialogButtonBox::Ok | QDialogButtonBox::Close, Qt::Horizontal);
   buttons_->button(QDialogButtonBox::Ok)->setEnabled(false);
 
   // Appendix
@@ -128,21 +127,21 @@ void SetupDialog::Setup() {
   app_button_->setToolTip(tr("Append current work"));
 
   // Layout
-  project_layout->addWidget(project_title_label,0,0);
-  project_layout->addWidget(project_title_line_edit_,0,1);
-  project_layout->addWidget(project_dir_label,1,0);
-  project_layout->addWidget(project_dir_line_edit_,1,1);
-  project_layout->addWidget(browse_pro_button_,1,2);
-  project_layout->addWidget(user_name_label,2,0);
-  project_layout->addWidget(user_name_line_edit_,2,1);
+  project_layout->addWidget(project_title_label, 0, 0);
+  project_layout->addWidget(project_title_line_edit_, 0, 1);
+  project_layout->addWidget(project_dir_label, 1, 0);
+  project_layout->addWidget(project_dir_line_edit_, 1, 1);
+  project_layout->addWidget(browse_pro_button_, 1, 2);
+  project_layout->addWidget(user_name_label, 2, 0);
+  project_layout->addWidget(user_name_line_edit_, 2, 1);
 
-  log_layout->addWidget(log_file_dir_label,0,0);
-  log_layout->addWidget(log_file_dir_line_edit_,0,1);
-  log_layout->addWidget(browse_log_button_,0,2);
-  log_layout->addWidget(log_file_name_label,1,0);
-  log_layout->addWidget(log_file_name_line_edit_,1,1);
-  log_layout->addWidget(log_interval_label,2,0);
-  log_layout->addWidget(log_interval_spin_box_,2,1);
+  log_layout->addWidget(log_file_dir_label, 0, 0);
+  log_layout->addWidget(log_file_dir_line_edit_, 0, 1);
+  log_layout->addWidget(browse_log_button_, 0, 2);
+  log_layout->addWidget(log_file_name_label, 1, 0);
+  log_layout->addWidget(log_file_name_line_edit_, 1, 1);
+  log_layout->addWidget(log_interval_label, 2, 0);
+  log_layout->addWidget(log_interval_spin_box_, 2, 1);
 
   app_layout->addWidget(app_label);
   app_layout->addWidget(app_button_);
@@ -187,11 +186,6 @@ void SetupDialog::CreateConnections() {
   connect(log_file_name_line_edit_, SIGNAL(textChanged(QString)), this,
           SLOT(CheckInput()));
 
-  //  connect(project_title_line_edit_, SIGNAL(textChanged(QString)), this,
-  //          SLOT(ProjectHandler()));
-  //  connect(project_dir_line_edit_, SIGNAL(textChanged(QString)), this,
-  //          SLOT(ProjectHandler()));
-
   connect(buttons_, SIGNAL(accepted()), this, SLOT(accept()));
   connect(buttons_, SIGNAL(rejected()), this, SLOT(reject()));
 }
@@ -199,18 +193,20 @@ void SetupDialog::CreateConnections() {
 void SetupDialog::accept() {
   QDir dir(project_dir_line_edit_->text());
   if (!dir.exists()) {
-    const QString text = "The working directory '"
-        + project_dir_line_edit_->text() + "' does not exist. Please specify "
-        "another one.";
+    const QString text = "The working directory '" +
+                         project_dir_line_edit_->text() +
+                         "' does not exist. Please specify "
+                         "another one.";
     QMessageBox::warning(this, "Directory does not exist", text,
-                                    QMessageBox::Ok);
+                         QMessageBox::Ok);
     return;
   } else {
     QFileInfo finfo(dir.absoluteFilePath(project_dir_line_edit_->text()));
     if (!finfo.isWritable()) {
-      const QString text = "The working directory '"
-          + project_dir_line_edit_->text() + "' is not writable. Please "
-                                              "specify another one.";
+      const QString text = "The working directory '" +
+                           project_dir_line_edit_->text() +
+                           "' is not writable. Please "
+                           "specify another one.";
       QMessageBox::warning(this, "Directory not writable", text,
                            QMessageBox::Ok);
       return;
@@ -218,18 +214,20 @@ void SetupDialog::accept() {
   }
   dir = QDir(log_file_dir_line_edit_->text());
   if (!dir.exists()) {
-    const QString text = "The log file directory '"
-        + log_file_dir_line_edit_->text() + "' does not exist. Please specify "
-        "another one.";
+    const QString text = "The log file directory '" +
+                         log_file_dir_line_edit_->text() +
+                         "' does not exist. Please specify "
+                         "another one.";
     QMessageBox::warning(this, "Directory does not exist", text,
-                                    QMessageBox::Ok);
+                         QMessageBox::Ok);
     return;
   } else {
     QFileInfo finfo(dir.absoluteFilePath(log_file_dir_line_edit_->text()));
     if (!finfo.isWritable()) {
-      const QString text = "The log file directory '"
-          + log_file_dir_line_edit_->text() + "' is not writable. Please "
-                                              "specify another one.";
+      const QString text = "The log file directory '" +
+                           log_file_dir_line_edit_->text() +
+                           "' is not writable. Please "
+                           "specify another one.";
       QMessageBox::warning(this, "Directory not writable", text,
                            QMessageBox::Ok);
       return;
@@ -240,8 +238,8 @@ void SetupDialog::accept() {
   settings_.setValue("conf/userName", user_name_line_edit_->text());
   settings_.setValue("conf/logFileName", log_file_name_line_edit_->text());
   settings_.setValue("conf/logFileDir", log_file_dir_line_edit_->text());
-  QString fileName = settings_.value("conf/logFileDir").toString() + "/"
-      + settings_.value("conf/logFileName").toString();
+  QString fileName = settings_.value("conf/logFileDir").toString() + "/" +
+                     settings_.value("conf/logFileName").toString();
   settings_.setValue("conf/logFile", fileName);
   settings_.setValue("conf/logInterval", log_interval_spin_box_->value());
   settings_.setValue("conf/confAccepted", true);
@@ -254,12 +252,12 @@ void SetupDialog::accept() {
     if (new_project_flag_ == true) {
 #ifdef CRYPT
       PasswordDialog pwd(crypt_, true);
-      if (pwd.exec() == QDialog::Rejected){
+      if (pwd.exec() == QDialog::Rejected) {
         return;
       }
 #endif
       ProInitDialog d(project_);
-      if (d.exec() == QDialog::Rejected){
+      if (d.exec() == QDialog::Rejected) {
         return;
       }
       project_->AddContributor(user_name_line_edit_->text());
@@ -288,10 +286,12 @@ void SetupDialog::accept() {
     } else {
       qWarning("No working directory specified!");
     }
-    QFileInfo checkFile(QDir::toNativeSeparators(settings_.value("conf/logFile").toString()));
+    QFileInfo checkFile(
+        QDir::toNativeSeparators(settings_.value("conf/logFile").toString()));
     if (new_project_flag_ == false && checkFile.exists() && checkFile.isFile())
-      project_->ReadLog(QDir::toNativeSeparators(settings_.value("conf/logFile").toString()));
-    if (append_activity_->GetType() != "") { 
+      project_->ReadLog(
+          QDir::toNativeSeparators(settings_.value("conf/logFile").toString()));
+    if (append_activity_->GetType() != "") {
       project_->AddActivity(*append_activity_);
     }
 
@@ -310,8 +310,9 @@ void SetupDialog::accept() {
 
 void SetupDialog::reject() {
   QMessageBox::StandardButton button;
-  button = QMessageBox::question(this, APP_NAME, tr("Are you sure you want to "
-                                                    "quit this program?\n"),
+  button = QMessageBox::question(this, APP_NAME,
+                                 tr("Are you sure you want to "
+                                    "quit this program?\n"),
                                  QMessageBox::Cancel | QMessageBox::Yes,
                                  QMessageBox::Yes);
   if (button != QMessageBox::Cancel) {
@@ -327,19 +328,19 @@ void SetupDialog::LoadSettings() {
     user_name_line_edit_->setText(settings_.value("conf/userName").toString());
   if (settings_.contains("conf/projectTitle"))
     project_title_line_edit_->setText(
-          settings_.value("conf/projectTitle").toString());
+        settings_.value("conf/projectTitle").toString());
   if (settings_.contains("conf/projectDir"))
     project_dir_line_edit_->setText(
-          settings_.value("conf/projectDir").toString());
+        settings_.value("conf/projectDir").toString());
   if (settings_.contains("conf/logFileDir"))
     log_file_dir_line_edit_->setText(
-          settings_.value("conf/logFileDir").toString());
+        settings_.value("conf/logFileDir").toString());
   if (settings_.contains("conf/logFileName"))
     log_file_name_line_edit_->setText(
-          settings_.value("conf/logFileName").toString());
+        settings_.value("conf/logFileName").toString());
   if (settings_.contains("conf/logInterval"))
     log_interval_spin_box_->setValue(
-          settings_.value("conf/logInterval").toInt());
+        settings_.value("conf/logInterval").toInt());
   return;
 }
 
@@ -349,26 +350,24 @@ void SetupDialog::SaveSettings() {
   settings_.setValue("conf/userName", user_name_line_edit_->text());
   settings_.setValue("conf/logFileName", log_file_name_line_edit_->text());
   settings_.setValue("conf/logFileDir", log_file_dir_line_edit_->text());
-  QString fileName = settings_.value("conf/logFileDir").toString() + "/"
-      + settings_.value("conf/logFileName").toString();
+  QString fileName = settings_.value("conf/logFileDir").toString() + "/" +
+                     settings_.value("conf/logFileName").toString();
   settings_.setValue("conf/logFile", fileName);
   settings_.setValue("conf/logInterval", log_interval_spin_box_->value());
   return;
 }
 
 void SetupDialog::BrowseDir() {
-  dir_string_ = QFileDialog::getExistingDirectory(this,
-                                                  tr("Save log file to..."),
-                                                  QDir::currentPath());
+  dir_string_ = QFileDialog::getExistingDirectory(
+      this, tr("Save log file to..."), QDir::currentPath());
   if (!dir_string_.isEmpty())
     log_file_dir_line_edit_->setText(dir_string_);
   return;
 }
 
 void SetupDialog::BrowsePro() {
-  QString dir = QFileDialog::getExistingDirectory(this,
-                                                  tr("Save project to..."),
-                                                  QDir::currentPath());
+  QString dir = QFileDialog::getExistingDirectory(
+      this, tr("Save project to..."), QDir::currentPath());
   if (!dir.isEmpty()) {
     project_dir_ = dir;
     project_dir_line_edit_->setText(dir);
@@ -377,8 +376,8 @@ void SetupDialog::BrowsePro() {
 }
 
 void SetupDialog::SetLogFileName() {
-  log_file_name_line_edit_->setText(project_title_line_edit_->text()
-                                    + tr(".json"));
+  log_file_name_line_edit_->setText(project_title_line_edit_->text() +
+                                    tr(".json"));
   return;
 }
 
@@ -416,7 +415,7 @@ bool SetupDialog::ProjectHandler() {
     bool status = project_->Load(project_dir_);
     while (status == false) {
       PasswordDialog *pwd = new PasswordDialog(crypt_, false);
-      if (pwd->exec() == QDialog::Rejected){
+      if (pwd->exec() == QDialog::Rejected) {
         return false;
       }
       status = project_->Load(project_dir_);

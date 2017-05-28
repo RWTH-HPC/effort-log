@@ -54,8 +54,9 @@ void MilestoneDialog::accept() {
 
 void MilestoneDialog::reject() {
   QMessageBox::StandardButton button;
-  button = QMessageBox::question(this, msg_,tr("Are you sure you want to "
-                                                    "skip this log?\n"),
+  button = QMessageBox::question(this, msg_,
+                                 tr("Are you sure you want to "
+                                    "skip this log?\n"),
                                  QMessageBox::No | QMessageBox::Yes,
                                  QMessageBox::Yes);
   if (button != QMessageBox::No) {
@@ -139,12 +140,14 @@ void MilestoneDialog::Setup() {
   QLabel *comment_label = new QLabel(tr("7. Other comments"));
   comment_label->setWordWrap(true);
   comment_ = new QLineEdit;
-  comment_->setToolTip(tr("Any other comment not fitting the categories above"));
+  comment_->setToolTip(
+      tr("Any other comment not fitting the categories above"));
   comment_->setPlaceholderText(tr("General comment on this milestone"));
 
   // Button to skip the input
   skip_button_ = new QPushButton(tr("Skip"));
-  skip_button_->setToolTip(tr("Skip this milestone <font color='gray'>Q</font>"));
+  skip_button_->setToolTip(
+      tr("Skip this milestone <font color='gray'>Q</font>"));
   skip_button_->setCheckable(true);
   skip_button_->setAutoDefault(false);
   skip_button_->setShortcut(QKeySequence(Qt::Key_Q));
@@ -206,8 +209,7 @@ void MilestoneDialog::Setup() {
 }
 
 void MilestoneDialog::CreateConnections() {
-  connect(perf_box_, SIGNAL(activated(int)), this,
-          SLOT(PerfInputChanged(int)));
+  connect(perf_box_, SIGNAL(activated(int)), this, SLOT(PerfInputChanged(int)));
   connect(threads_box_, SIGNAL(activated(int)), this,
           SLOT(ThreadsInputChanged(int)));
 
@@ -228,7 +230,7 @@ void MilestoneDialog::CreateConnections() {
 }
 
 void MilestoneDialog::PerfInputChanged(int i) {
-  switch(i) {
+  switch (i) {
   case 0:
     perf_spin_->setSuffix(tr(" sec"));
     perf_spin_->show();
@@ -269,7 +271,7 @@ void MilestoneDialog::PerfInputChanged(int i) {
 }
 
 void MilestoneDialog::ThreadsInputChanged(int i) {
-  switch(i) {
+  switch (i) {
   case 0:
     threads_spin_->setSuffix(tr(" threads"));
     threads_spin_->show();
@@ -319,7 +321,8 @@ void MilestoneDialog::LoadPreviousMS() {
     if (perf.contains("Execution time in seconds", Qt::CaseInsensitive)) {
       perf_box_->setCurrentIndex(0);
       PerfInputChanged(0);
-    } else if (perf.contains("Execution time in minutes", Qt::CaseInsensitive)) {
+    } else if (perf.contains("Execution time in minutes",
+                             Qt::CaseInsensitive)) {
       perf_box_->setCurrentIndex(1);
       PerfInputChanged(1);
     } else if (perf.contains("Execution time in hours", Qt::CaseInsensitive)) {

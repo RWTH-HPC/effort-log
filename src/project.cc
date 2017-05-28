@@ -18,8 +18,8 @@
  * along with EffortLog.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QMessageBox>
 #include "project.h"
+#include <QMessageBox>
 
 #include <QDebug>
 
@@ -88,96 +88,55 @@ void Project::ClearProject() {
   milestones_->clear();
 }
 
-void Project::SetTitle(QString t) {
-  title_ = t;
-}
+void Project::SetTitle(QString t) { title_ = t; }
 
+QString Project::GetTitle() const { return title_; }
 
-QString Project::GetTitle() const {
-  return title_;
-}
+void Project::SetProDir(QString d) { pro_dir_ = d; }
 
-void Project::SetProDir(QString d) {
-  pro_dir_ = d;
-}
+QString Project::GetProDir() const { return pro_dir_; }
 
-QString Project::GetProDir() const {
-  return pro_dir_;
-}
+void Project::SetLogDir(QString d) { log_dir_ = d; }
 
-void Project::SetLogDir(QString d) {
-  log_dir_ = d;
-}
+QString Project::GetLogDir() const { return log_dir_; }
 
-QString Project::GetLogDir() const {
-  return log_dir_;
-}
+void Project::SetLogFile(QString f) { log_file_ = f; }
 
-void Project::SetLogFile(QString f) {
-  log_file_ = f;
-}
-
-QString Project::GetLogFile() const {
-  return log_file_;
-}
+QString Project::GetLogFile() const { return log_file_; }
 
 void Project::AddActivity(Activity act) {
   act.SetId(activities_->length());
   activities_->append(act);
 }
 
-void Project::RemoveActivity(int n) {
-  activities_->removeAt(n);
-}
+void Project::RemoveActivity(int n) { activities_->removeAt(n); }
 
-Activity Project::GetActivity (int n) const {
-  return activities_->at(n);
-}
+Activity Project::GetActivity(int n) const { return activities_->at(n); }
 
-void Project::SetContributor(QString c) {
-  contributors_[0] = c;
-}
+void Project::SetContributor(QString c) { contributors_[0] = c; }
 
-void Project::SetContributor(QString c, int n) {
-  contributors_[n] = c;
-}
+void Project::SetContributor(QString c, int n) { contributors_[n] = c; }
 
 void Project::AddContributor(QString c) {
   if (!contributors_.contains(c))
     contributors_.append(c);
 }
 
-QString Project::GetContributor(int n) const {
-  return contributors_.at(n);
-}
+QString Project::GetContributor(int n) const { return contributors_.at(n); }
 
-QStringList Project::GetContributor() const {
-  return contributors_;
-}
+QStringList Project::GetContributor() const { return contributors_; }
 
-int Project::GetInterval() const {
-  return interval_;
-}
+int Project::GetInterval() const { return interval_; }
 
-void Project::SetInterval(const int &i) {
-  interval_ = i;
-}
+void Project::SetInterval(const int &i) { interval_ = i; }
 
-void Project::SetInitStage(QString s) {
-  stage_ = s;
-}
+void Project::SetInitStage(QString s) { stage_ = s; }
 
-QString Project::GetInitStage() const {
-  return stage_;
-}
+QString Project::GetInitStage() const { return stage_; }
 
-void Project::SetStageComment(QString s) {
-  stage_comment_ = s;
-}
+void Project::SetStageComment(QString s) { stage_comment_ = s; }
 
-QString Project::GetStageComment() const {
-  return stage_comment_;
-}
+QString Project::GetStageComment() const { return stage_comment_; }
 
 void Project::AddMilestone(int e_id, QString title, QDateTime time,
                            QString comment, QString arc, QString threads_type,
@@ -207,21 +166,13 @@ void Project::AddMilestone(Milestone *m) {
   milestones_->append(*m);
 }
 
-QList<Milestone> *Project::GetMilestone() {
-  return milestones_;
-}
+QList<Milestone> *Project::GetMilestone() { return milestones_; }
 
-Milestone Project::GetMilestone(int n) {
-  return milestones_->at(n);
-}
+Milestone Project::GetMilestone(int n) { return milestones_->at(n); }
 
-int Project::GetNoMilestones() {
-  return milestones_->length();
-}
+int Project::GetNoMilestones() { return milestones_->length(); }
 
-int Project::GetNoActivities() {
-  return activities_->length();
-}
+int Project::GetNoActivities() { return activities_->length(); }
 
 bool Project::StoreLog(QString f) {
   QFile file(f);
@@ -290,10 +241,7 @@ bool Project::ReadLog(QString f) {
   if (!file.open(QFile::ReadOnly)) {
     QMessageBox::information(0, "Error", file.errorString());
   }
-//  if (!file.open(QIODevice::ReadOnly)) {
-//    qWarning("Couldn't open log file.");
-//    return false;
-//  }
+
   QByteArray data = file.readAll();
 #ifdef CRYPT
   QByteArray dec_data;
@@ -308,11 +256,12 @@ bool Project::ReadLog(QString f) {
   stage_ = json["InitialProjectStage"].toString();
   stage_comment_ = json["InitialProjectStageComment"].toString();
   QJsonArray milestones_array = json["Milestones"].toArray();
-  foreach (const QJsonValue & v, milestones_array) {
+  foreach (const QJsonValue &v, milestones_array) {
     QJsonObject o = v.toObject();
     Milestone ms;
     ms.SetTitle(o["Title"].toString());
-    ms.SetTime(QDateTime::fromString(o["Time"].toString(),"yyyy-MM-dd hh:mm:ss"));
+    ms.SetTime(
+        QDateTime::fromString(o["Time"].toString(), "yyyy-MM-dd hh:mm:ss"));
     ms.SetComment(o["Comment"].toString());
     ms.SetMsId(o["ID"].toInt());
     ms.SetEventId(o["MatchingActivityID"].toInt());
@@ -327,7 +276,7 @@ bool Project::ReadLog(QString f) {
     milestones_->append(ms);
   }
   QJsonArray activities_array = json["LoggingEvents"].toArray();
-  foreach (const QJsonValue & v, activities_array) {
+  foreach (const QJsonValue &v, activities_array) {
     QJsonObject o = v.toObject();
     Activity a;
     a.SetId(o["ID"].toInt());
@@ -336,8 +285,10 @@ bool Project::ReadLog(QString f) {
       qDebug() << "ActivityType: " << o["ActivityType"].toString();
     a.SetProjectTitle(o["ProjectTitle"].toString());
     a.SetUserName(o["UserName"].toString());
-    a.SetCurTime(QDateTime::fromString(o["CurLoggingTime"].toString(),"yyyy-MM-dd hh:mm:ss"));
-    a.SetLastTime(QDateTime::fromString(o["LastLoggingTime"].toString(),"yyyy-MM-dd hh:mm:ss"));
+    a.SetCurTime(QDateTime::fromString(o["CurLoggingTime"].toString(),
+                                       "yyyy-MM-dd hh:mm:ss"));
+    a.SetLastTime(QDateTime::fromString(o["LastLoggingTime"].toString(),
+                                        "yyyy-MM-dd hh:mm:ss"));
     a.SetIntervalTime(o["Interval"].toInt());
     if (VERBOSE)
       qDebug() << "Interval: " << o["Interval"].toInt();
@@ -362,10 +313,7 @@ bool Project::Load(QString f) {
   if (!file.open(QFile::ReadOnly)) {
     throw QFile::OpenError;
   }
-//  if (!file.open(QIODevice::ReadOnly)) {
-//    qWarning("Couldn't open project file.");
-//    return false;
-//  }
+
   QByteArray data = file.readAll();
 #ifdef CRYPT
   QByteArray dec_data;
@@ -386,7 +334,7 @@ bool Project::Load(QString f) {
   stage_ = json["StageOfDevel"].toInt();
   stage_comment_ = json["Comment"].toInt();
   QJsonArray array = json["Contributors"].toArray();
-  foreach(const QJsonValue &cont, array) {
+  foreach (const QJsonValue &cont, array) {
     AddContributor(cont.toObject().value("name").toString());
   }
   return status;

@@ -28,17 +28,16 @@
 #include <signal.h>
 
 #include "definitions.h"
-#include "questionnairedialog.h"
 #include "mainwindow.h"
 #include "milestone.h"
 #include "milestonedialog.h"
 #include "passworddialog.h"
+#include "questionnairedialog.h"
 #include "setupdialog.h"
 
 #ifdef CRYPT
 #include "crypt.h"
 #endif
-
 
 MainWindow *window;
 

@@ -18,14 +18,14 @@
  * along with EffortLog.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "questionnairedialog.h"
 #include "definitions.h"
 #include "logview.h"
 #include "milestonedialog.h"
-#include "questionnairedialog.h"
 
 #include <QDebug>
-#include <QtMath>
 #include <QDir>
+#include <QtMath>
 
 QuestionnaireDialog::QuestionnaireDialog(MainWindow *window, int scheduler)
     : QDialog() {
@@ -116,7 +116,8 @@ void QuestionnaireDialog::Setup() {
 
   // Button to read the log
   log_button_ = new QPushButton(tr("Read Log"));
-  log_button_->setToolTip(tr("Read current log file <font color='gray'>Q</font>"));
+  log_button_->setToolTip(
+      tr("Read current log file <font color='gray'>Q</font>"));
   log_button_->setCheckable(true);
   log_button_->setAutoDefault(false);
   log_button_->setShortcut(QKeySequence(Qt::Key_L));
@@ -229,10 +230,6 @@ void QuestionnaireDialog::accept() {
   QDateTime cur_time = QDateTime::currentDateTime();
   activity_->SetCurTime(cur_time);
   activity_->SetLastTime(settings.value("lastLogTime").toDateTime());
-  // activity_->SetIntervalTime(qCeil((
-  //  activity_->GetCurTime().time().msecsSinceStartOfDay()
-  //  - activity_->GetLastTime().time().msecsSinceStartOfDay()) / 60000.0));
-  // activity_->SetIntervalTime(qCeil(cur_time.secsTo(activity_->GetLastTime()))/-60.0);
   activity_->SetIntervalTime(
       qCeil(cur_time.secsTo(activity_->GetLastTime()) / -60.0));
   activity_->SetSavedEvents(no_logged_activities_);
@@ -299,8 +296,9 @@ void QuestionnaireDialog::accept() {
 
 void QuestionnaireDialog::reject() {
   QMessageBox::StandardButton button;
-  button = QMessageBox::question(this, APP_NAME, tr("Are you sure you want to "
-                                                    "skip this log?\n"),
+  button = QMessageBox::question(this, APP_NAME,
+                                 tr("Are you sure you want to "
+                                    "skip this log?\n"),
                                  QMessageBox::No | QMessageBox::Yes,
                                  QMessageBox::Yes);
   if (button != QMessageBox::No) {
@@ -327,7 +325,8 @@ void QuestionnaireDialog::OnPressedMButton(QAbstractButton *btn) {
 
 void QuestionnaireDialog::ReadLog() {
   QSettings settings;
-  project_->ReadLog(QDir::toNativeSeparators(settings.value("conf/logFile").toString()));
+  project_->ReadLog(
+      QDir::toNativeSeparators(settings.value("conf/logFile").toString()));
   return;
 }
 
