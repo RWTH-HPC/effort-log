@@ -18,9 +18,9 @@ compiler:
 
 env:
   - QT_BASE=58 QT_LONG=58  CONFIG=debug
-  - QT_BASE=58 QT_LONG=58  CONFIG=release
+  - QT_BASE=58 QT_LONG=58  CONFIG=release DEPLOY=true
   - QT_BASE=58 QT_LONG=58  CONFIG=debug CRYPT=crypt
-  - QT_BASE=58 QT_LONG=58  CONFIG=release CRYPT=crypt
+  - QT_BASE=58 QT_LONG=58  CONFIG=release CRYPT=crypt DEPLOY=true
 
 matrix:
   exclude:
