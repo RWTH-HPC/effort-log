@@ -81,6 +81,7 @@ void MainWindow::closeEvent(QCloseEvent *event) {
           QuestionnaireDialog dialog(this, 3);
           dialog.exec();
           dialog.show();
+          dialog.raise();
           dialog.setWindowModality(Qt::WindowModal);
         }
         project_->StoreLog(settings_.value("conf/logFile").toString());

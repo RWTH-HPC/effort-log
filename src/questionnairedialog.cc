@@ -35,7 +35,7 @@ QuestionnaireDialog::QuestionnaireDialog(MainWindow *window, int scheduler)
   Setup();
   CreateConnections();
   UpdateUI();
-  setWindowFlags(Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
+  setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
 }
 
 void QuestionnaireDialog::Setup() {
