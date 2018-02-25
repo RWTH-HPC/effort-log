@@ -1,23 +1,17 @@
-version : 0.8.{build}
+version : 0.9.{build}
 
 environment:
   matrix:
-    - QTDIR: C:\Qt\5.6\mingw49_32
+    - QTDIR: C:\Qt\5.9\mingw53_32
       CRYPT: false
       DEPLOY: true
-    - QTDIR: C:\Qt\5.6\mingw49_32
+    - QTDIR: C:\Qt\5.9\mingw53_32
       CRYPT: true
       DEPLOY: true
-    - QTDIR: C:\Qt\5.7\mingw53_32
+    - QTDIR: C:\Qt\5.10\mingw53_32
       CRYPT: false
       DEPLOY: false
-    - QTDIR: C:\Qt\5.7\mingw53_32
-      CRYPT: true
-      DEPLOY: false
-    - QTDIR: C:\Qt\5.8\mingw53_32
-      CRYPT: false
-      DEPLOY: false
-    - QTDIR: C:\Qt\5.8\mingw53_32
+    - QTDIR: C:\Qt\5.10\mingw53_32
       CRYPT: true
       DEPLOY: false
 
