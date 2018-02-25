@@ -1,5 +1,5 @@
 #------------------------------------------------------------------------------#
-#  Copyright (c) 2015-2017 by IT Center, RWTH Aachen University
+#  Copyright (c) 2015-2018 by IT Center, RWTH Aachen University
 #
 #  This file is part of EffortLog, a tool for collecting software
 #  development effort.
@@ -25,7 +25,7 @@ lessThan(QT_VERSION, 5.0) {
 TARGET = effort-log
 macx:TARGET = EffortLog
 TEMPLATE = app
-VERSION = 0.8.3
+VERSION = 0.9.0
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 QT += core gui widgets
 
@@ -119,7 +119,8 @@ SOURCES += \
   src/setupdialog.cc \
   src/proinitdialog.cc \
   src/questionnairedialog.cc \
-  src/logview.cc
+  src/logview.cc \
+  src/qstform.cc
 
 HEADERS +=  \
   src/activity.h \
@@ -132,7 +133,8 @@ HEADERS +=  \
   src/setupdialog.h \
   src/proinitdialog.h \
   src/questionnairedialog.h \
-  src/logview.h
+  src/logview.h \
+  src/qstform.h
 
 RESOURCES += \
   doc/doc.qrc \
@@ -141,11 +143,14 @@ RESOURCES += \
 OTHER_FILES += \
   resources/Info.plist \
   Doxyfile \
-  README.md
+  README.md \
+  .appveyor.yml \
+  .travis.yml
 
 DISTFILES += \
   tools/mac_osx_install.sh \
   tools/mac_osx_deploy.sh \
   tools/windows_deploy.bat \
-  tools/windows_deploy_encrypted.bat
+  tools/windows_deploy_encrypted.bat \
+    tools/format.sh
 
