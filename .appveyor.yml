@@ -8,10 +8,10 @@ environment:
     - QTDIR: C:\Qt\5.9\mingw53_32
       CRYPT: true
       DEPLOY: true
-    - QTDIR: C:\Qt\5.10\mingw53_32
+    - QTDIR: C:\Qt\5.10.0\mingw53_32
       CRYPT: false
       DEPLOY: false
-    - QTDIR: C:\Qt\5.10\mingw53_32
+    - QTDIR: C:\Qt\5.10.0\mingw53_32
       CRYPT: true
       DEPLOY: false
 
