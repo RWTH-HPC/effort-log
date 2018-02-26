@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2017 by IT Center, RWTH Aachen University
+ * Copyright (c) 2015-2018 by IT Center, RWTH Aachen University
  *
  * This file is part of EffortLog, a tool for collecting software
  * development effort.
@@ -103,7 +103,8 @@ void MainWindow::Setup() {
   status_progress_bar_ = new QProgressBar();
   statusBar()->addWidget(status_label_running_);
 
-  tool_bar_ = new QToolBar(this);
+  tool_bar_ = new QToolBar(tr("MainToolBar"), this);
+  tool_bar_->setObjectName("MainToolBar");
   project_label_ = new QLabel;
 
   status_progress_bar_->setValue(100);
@@ -245,7 +246,7 @@ void MainWindow::LogViewer() {
 void MainWindow::About() {
   QString msg;
   msg.append(tr("<h1>%1 %2</h1>").arg(APP_NAME).arg(APP_VERSION));
-  msg.append("<br/>Copyright © 2017 by IT Center");
+  msg.append("<br/>Copyright © 2015-2018 by IT Center");
   msg.append("<br/>Group: High Performance Computing");
   msg.append("<br/>Division: Computational Science and Engineering");
   msg.append("<br/>RWTH Aachen University");
