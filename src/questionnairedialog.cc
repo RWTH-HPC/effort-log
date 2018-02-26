@@ -273,7 +273,7 @@ void QuestionnaireDialog::accept() {
         }
       }
     }
-    free(m);
+    delete(m);
   }
 
   if (VERBOSE) {

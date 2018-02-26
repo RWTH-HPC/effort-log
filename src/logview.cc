@@ -38,7 +38,7 @@ LogView::LogView(Project *pro) : QDialog() {
   QStandardItemModel *model = new QStandardItemModel(0, 6, this);
   QStandardItem *rootNode = model->invisibleRootItem();
   QList<QDate> date_list;
-  QStandardItem *current;
+  QStandardItem *current = new QStandardItem;
   for (int i = 0; i < no_events; i++) {
     QList<QStandardItem *> item_list;
     QStandardItem *item = new QStandardItem();
