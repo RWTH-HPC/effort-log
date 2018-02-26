@@ -143,13 +143,13 @@ public:
   /*!
    * \return A string containing comment_
    */
-  QString GetComment() const;
+  QString GetMSComment() const;
   //! Setter for comment_
   /*!
    * \param[in] comment A string which specifies the comment specified by the
    * user
    */
-  void SetComment(const QString &comment);
+  void SetMSComment(const QString &comment);
   //! Getter for scheduler_
   /*!
    * \return An integer containing scheduler_
@@ -160,6 +160,126 @@ public:
    * \param[in] scheduler An integer which specifies how the event was created
    */
   void SetScheduler(const int scheduler);
+  //! Setter for milestone_id_
+  /*!
+   * \param[in] id The id of the milestone
+   */
+  void SetMsId(int id);
+  //! Getter for milestone_id_
+  /*!
+   * \return An integer containing milestone_id_
+   */
+  int GetMsId() const;
+  //! Setter for event_id_
+  /*!
+   * \param[in] id The id of the corresponding event
+   */
+  void SetEventId(int id);
+  //! Getter for event_id_
+  /*!
+   * \return An integer containing event_id_
+   */
+  int GetEventId() const;
+  //! Setter for ms_title_
+  /*!
+   * \param[in] t The title of the milestone
+   */
+  void SetMsTitle(QString t);
+  //! Getter for ms_title_
+  /*!
+   * \return A string containing ms_title_
+   */
+  QString GetMsTitle() const;
+  //! Setter for ms_comment_
+  /*!
+   * \param[in] c A comment about the milestone
+   */
+  void SetMsComment(QString c);
+  //! Getter for ms_comment_
+  /*!
+   * \return A string containing comment_
+   */
+  QString GetMsComment() const;
+  //! Setter for perf_metric_
+  /*!
+   * \param[in] m The metric for measuring the performance of the event
+   */
+  void SetPerfMetric(QString m);
+  //! Getter for perf_metric_
+  /*!
+   * \return A string containing perf_metric_
+   */
+  QString GetPerfMetric() const;
+  //! Setter for perf_comment_
+  /*!
+   * \param[in] c A comment about the performance of the event
+   */
+  void SetPerfComment(QString c);
+  //! Getter for perf_comment_
+  /*!
+   * \return A string containing perf_comment_
+   */
+  QString GetPerfComment() const;
+  //! Setter for arc_
+  /*!
+   * \param[in] a The architecture used during the event
+   */
+  void SetArc(QString a);
+  //! Getter for arc_
+  /*!
+   * \return A string containing arc_
+   */
+  QString GetArc() const;
+  //! Setter for threads_type_
+  /*!
+   * \param[in] t The metric used to specify nodes, threads, etc.
+   */
+  void SetThreadsType(QString t);
+  //! Getter for threads_type_
+  /*!
+   * \return A string containing threads_type_
+   */
+  QString GetThreadsType() const;
+  //! Setter for threads_comment_
+  /*!
+   * \param[in] c A comment on the metric used to specify nodes, threads, etc.
+   */
+  void SetThreadsComment(QString c);
+  //! Getter for threads_comment_
+  /*!
+   * \return A string containing threads_comment_
+   */
+  QString GetThreadsComment() const;
+  //! Setter for compiler_
+  /*!
+   * \param[in] c The compiler used during the event
+   */
+  void SetCompiler(QString c);
+  //! Getter for compiler_
+  /*!
+   * \return A string containing compiler_
+   */
+  QString GetCompiler() const;
+  //! Setter for model_
+  /*!
+   * \param[in] m The programming model used for the event
+   */
+  void SetModel(QString m);
+  //! Getter for model_
+  /*!
+   * \return A string containing model_
+   */
+  QString GetModel() const;
+  //! Setter for data_size_
+  /*!
+   * \param[in] d The data size used during the event
+   */
+  void SetDataSize(QString d);
+  //! Getter for data_size_
+  /*!
+   * \return A string containing data_size_
+   */
+  QString GetDataSize() const;
 
 private:
   QString type_;          /**< A string which holds the type of activity.*/
@@ -183,4 +303,17 @@ private:
                                event , 2 an appeneded event, 3 a manual event
                                executed through the GUI, and 4 an event on
                                closing the program.*/
+  int milestone_id_;      /**< The id of the milestone. -1 if none provided.*/
+  QString ms_title_;      /**< The title of the milestone.*/
+  QString ms_comment_;    /**< A comment about the milestone.*/
+  QString perf_metric_;   /**< The metric for measuring the performance.*/
+  QString perf_comment_;  /**< A comment about the performance of the
+                               evnet.*/
+  QString arc_;           /**< The architecture used during the event.*/
+  QString threads_type_;  /**< The metric used to specify nodes, threads, etc.*/
+  QString threads_comment_; /**< A comment on the metric used to specify
+                                 nodes, threads, etc.*/
+  QString compiler_;        /**< The compiler used during the event.*/
+  QString model_;           /**< The programming model used for the event.*/
+  QString data_size_;       /**< The data size used during the event.*/
 };

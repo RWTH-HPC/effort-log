@@ -185,7 +185,7 @@ bool Project::StoreLog(QString f) {
   foreach (const Activity a, *activities_) {
     QJsonObject obj;
     obj["ID"] = a.GetId();
-    obj["Comment"] = a.GetComment();
+    obj["Comment"] = a.GetMSComment();
     obj["NoEventsCurrentSession"] = a.GetSavedEvents();
     obj["LoggingInterval"] = a.GetLogInterval();
     obj["Interval"] = a.GetIntervalTime();
@@ -296,7 +296,7 @@ bool Project::ReadLog(QString f) {
     if (VERBOSE)
       qDebug() << a.GetId();
     a.SetSavedEvents(o["NoEventsCurrentSession"].toInt());
-    a.SetComment(o["Comment"].toString());
+    a.SetMSComment(o["Comment"].toString());
     if (o["Scheduler"].isUndefined())
       a.SetScheduler(0);
     else

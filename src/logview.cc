@@ -47,7 +47,7 @@ LogView::LogView(Project *pro) : QDialog() {
     item_id->setText(QString::number(i + 1));
     item_id->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
     item_list << item_id;
-    item_list << new QStandardItem(pro->GetActivity(i).GetComment());
+    item_list << new QStandardItem(pro->GetActivity(i).GetMSComment());
     item_list << new QStandardItem(pro->GetActivity(i).GetType());
     QStandardItem *item_interval = new QStandardItem();
     item_interval->setText(
@@ -104,6 +104,7 @@ LogView::LogView(Project *pro) : QDialog() {
     if (no_ms_matches == 0)
       current->appendRow(item_list);
   }
+
   model->setHeaderData(0, Qt::Horizontal, QObject::tr("Date"));
   model->setHeaderData(1, Qt::Horizontal, QObject::tr("Id"));
   model->setHeaderData(2, Qt::Horizontal, QObject::tr("Comment"));

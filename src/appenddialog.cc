@@ -165,12 +165,12 @@ void AppendDialog::accept() {
   activity_->SetProjectTitle(settings_.value("conf/projectTitle").toString());
   activity_->SetUserName(settings_.value("conf/userName").toString());
   activity_->SetLogInterval(settings_.value("conf/logInterval").toInt());
-  activity_->SetComment(comment_box_->toPlainText());
+  activity_->SetMSComment(comment_box_->toPlainText());
   activity_->SetScheduler(2);
 
   if (VERBOSE) {
     qDebug() << "\nActivity type:" << activity_->GetType();
-    qDebug() << "Comment:" << activity_->GetComment();
+    qDebug() << "Comment:" << activity_->GetMSComment();
     qDebug() << "User name:" << activity_->GetUserName();
     qDebug() << "Project title:" << activity_->GetProjectTitle();
     qDebug() << "Current time:" << activity_->GetCurTime().toString();

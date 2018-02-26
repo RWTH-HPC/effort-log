@@ -34,6 +34,11 @@ Activity::Activity() {
   interval_time_ = -1;
   comment_ = "";
   scheduler_ = -1;
+  milestone_id_ = -1;
+  ms_title_ = "";
+  ms_comment_ = "";
+  arc_ = "";
+  model_ = "";
 }
 
 const QString Activity::kActivityType[] = {
@@ -74,8 +79,51 @@ int Activity::GetIntervalTime() const { return interval_time_; }
 
 void Activity::SetIntervalTime(const int &time) { interval_time_ = time; }
 
-QString Activity::GetComment() const { return comment_; }
-void Activity::SetComment(const QString &comment) { comment_ = comment; }
+QString Activity::GetMSComment() const { return comment_; }
+void Activity::SetMSComment(const QString &comment) { comment_ = comment; }
 
 int Activity::GetScheduler() const { return scheduler_; }
 void Activity::SetScheduler(const int scheduler) { scheduler_ = scheduler; }
+void Activity::SetMsId(int id) { milestone_id_ = id; }
+
+int Activity::GetMsId() const { return milestone_id_; }
+
+void Activity::SetMsTitle(QString t) { ms_title_ = t; }
+
+QString Activity::GetMsTitle() const { return ms_title_; }
+
+void Activity::SetMsComment(QString c) { ms_comment_ = c; }
+
+QString Activity::GetMsComment() const { return ms_comment_; }
+
+void Activity::SetPerfMetric(QString m) { perf_metric_ = m; }
+
+QString Activity::GetPerfMetric() const { return perf_metric_; }
+
+void Activity::SetPerfComment(QString c) { perf_comment_ = c; }
+
+QString Activity::GetPerfComment() const { return perf_comment_; }
+
+void Activity::SetArc(QString a) { arc_ = a; }
+
+QString Activity::GetArc() const { return arc_; }
+
+void Activity::SetThreadsType(QString t) { threads_type_ = t; }
+
+QString Activity::GetThreadsType() const { return threads_type_; }
+
+void Activity::SetThreadsComment(QString c) { threads_comment_ = c; }
+
+QString Activity::GetThreadsComment() const { return threads_comment_; }
+
+void Activity::SetCompiler(QString c) { compiler_ = c; }
+
+QString Activity::GetCompiler() const { return compiler_; }
+
+void Activity::SetModel(QString m) { model_ = m; }
+
+QString Activity::GetModel() const { return model_; }
+
+void Activity::SetDataSize(QString d) { data_size_ = d; }
+
+QString Activity::GetDataSize() const { return data_size_; }
