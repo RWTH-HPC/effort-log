@@ -555,6 +555,38 @@ void QuestionnaireDialog::MsInputChanged() {
   this->repaint();
   return;
 }
+
+void QuestionnaireDialog::CheckInput() {
+  finish_button_->setEnabled(false);
+  if (act_form_->GetText().isEmpty()) {
+    return;
+  }
+  if (perf_group_->checkedId() == 1) {
+    if (perf_box_->currentIndex() == 5) {
+      if (perf_comment_->text().isEmpty()) {
+        return;
+      }
+    } else {
+      if (perf_spin_->value() <= 0.0) {
+        return;
+      }
+    }
+    if (threads_box_->currentIndex() == 2) {
+      if (threads_comment_->text().isEmpty()) {
+        return;
+      }
+    } else {
+      if (threads_spin_->value() <= 0) {
+        return;
+      }
+    }
+  }
+  if (ms_group_->checkedId() == 1) {
+    if (ms_line_edit_->text().isEmpty()) {
+      return;
+    }
+  }
+  finish_button_->setEnabled(true);
   return;
 }
 

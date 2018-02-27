@@ -104,6 +104,12 @@ private slots:
   void PerfInputChanged();
   //! Handles changes to the milestone section
   void MsInputChanged();
+  //! Checks the user input
+  /*!
+   * The user can only click on OK when all required input fields are set
+   * correctly.
+   */
+  void CheckInput();
   //! Call to bool Project::ReadLog(QString f)
   /*!
    * This method calls bool Project::ReadLog(QString f) on the locally stored
