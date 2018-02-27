@@ -20,19 +20,24 @@
 
 #pragma once
 
-#define APP_NAME "Effort Log"     /**< Global string holding the application's \
-                                       name.*/
-#define MIN_LOG_INTERVAL 1        /**< Global integer value holding the        \
-                                       minimum logging interval whichcan be    \
-                                       set through the wizard.*/
-#define MAX_LOG_INTERVAL 180      /**< Global integer value holding the        \
-                                       maximum logging interval which can be   \
-                                       set through the wizard.*/
-#define NUM_ACTIVITIES 9          /**< Global integer value which specifies    \
-                                       the number of different activities.*/
-#define VERBOSE 0                 /**< Global integer value which specifies if \
-                                       the program should output debugging     \
-                                       information (==1).*/
-#define LOG_ON_EXIT_THRESHOLD 0.2 /**< Global double precision value which     \
-                                       specifies the delay on which to ask     \
-                                       again on exiting the program.*/
+#define APP_NAME                                                               \
+  "Effort Log" /**< Global string holding the application's name.*/
+#define MIN_LOG_INTERVAL                                                       \
+  1 /**< Global integer value holding the                                      \
+         minimum logging interval whichcan be                                  \
+         set through the wizard.*/
+#define MAX_LOG_INTERVAL                                                       \
+  180 /**< Global integer value holding the                                    \
+           maximum logging interval which can be                               \
+           set through the wizard.*/
+#define NUM_ACTIVITIES                                                         \
+  9 /**< Global integer value which specifies                                  \
+         the number of different activities.*/
+#define VERBOSE                                                                \
+  0 /**< Global integer value which specifies if                               \
+         the program should output debugging                                   \
+         information (==1).*/
+#define LOG_ON_EXIT_THRESHOLD                                                  \
+  0.2 /**< Global double precision value which                                 \
+           specifies the delay on which to ask                                 \
+           again on exiting the program.*/
