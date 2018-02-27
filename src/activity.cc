@@ -53,6 +53,10 @@ void Activity::SetId(int i) { id_ = i; }
 
 int Activity::GetId() const { return id_; }
 
+void Activity::SetComment(QString c) { comment_ = c; }
+
+QString Activity::GetComment() const { return comment_; }
+
 int Activity::GetSavedEvents() const { return saved_events_; }
 
 void Activity::SetSavedEvents(const int &events) { saved_events_ = events; }

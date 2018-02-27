@@ -65,6 +65,16 @@ public:
    * \param[in] i An interger which specifies the id of the activity
    */
   void SetId(int i);
+  //! Setter for comment_
+  /*!
+   * \param[in] c A comment about the activity
+   */
+  void SetComment(QString c);
+  //! Getter for comment_
+  /*!
+   * \return A string containing comment_
+   */
+  QString GetComment() const;
   //! Getter for saved_events_
   /*!
    * \return An interger value containing saved_events_

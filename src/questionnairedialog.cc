@@ -399,9 +399,11 @@ void QuestionnaireDialog::accept() {
     activity_->SetDataSize(data_form_->GetText());
   }
 
+  activity_->SetComment(comment_box_->toPlainText());
+
   if (ms_group_->checkedId() == 1) {
     activity_->SetMsTitle(ms_line_edit_->text());
-    activity_->SetMsComment(comment_box_->toPlainText());
+    activity_->SetMsComment(ms_comment_->toPlainText());
     activity_->SetMsId(project_->GetNoMilestones());
   } else {
     activity_->SetMsId(-1);
