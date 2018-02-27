@@ -169,28 +169,28 @@ bool Project::StoreLog(QString f) {
   QJsonArray activities_array;
   foreach (const Activity a, *activities_) {
     QJsonObject obj;
+    obj["ActivityType"] = a.GetType();
+    obj["Architecture"] = a.GetArc();
+    obj["Comment"] = a.GetComment();
+    obj["Compiler"] = a.GetCompiler();
+    obj["CurLoggingTime"] = a.GetCurTime().toString("yyyy-MM-dd hh:mm:ss");
+    obj["DataSize"] = a.GetDataSize();
     obj["ID"] = a.GetId();
-    obj["Comment"] = a.GetMsComment();
-    obj["NoEventsCurrentSession"] = a.GetSavedEvents();
-    obj["LoggingInterval"] = a.GetLogInterval();
     obj["Interval"] = a.GetIntervalTime();
     obj["LastLoggingTime"] = a.GetLastTime().toString("yyyy-MM-dd hh:mm:ss");
-    obj["CurLoggingTime"] = a.GetCurTime().toString("yyyy-MM-dd hh:mm:ss");
-    obj["UserName"] = a.GetUserName();
-    obj["ProjectTitle"] = a.GetProjectTitle();
-    obj["ActivityType"] = a.GetType();
-    obj["Scheduler"] = a.GetScheduler();
-    obj["MsTitle"] = a.GetMsTitle();
+    obj["LoggingInterval"] = a.GetLogInterval();
     obj["MsComment"] = a.GetMsComment();
     obj["MsID"] = a.GetMsId();
-    obj["PerfMetric"] = a.GetPerfMetric();
-    obj["PerfComment"] = a.GetPerfComment();
-    obj["ProgrammingModel"] = a.GetModel();
-    obj["ThreadsNodes"] = a.GetThreadsType();
+    obj["MsTitle"] = a.GetMsTitle();
+    obj["NoEventsCurrentSession"] = a.GetSavedEvents();
     obj["NoThreadsNodes"] = a.GetThreadsComment();
-    obj["Compiler"] = a.GetCompiler();
-    obj["Architecture"] = a.GetArc();
-    obj["DataSize"] = a.GetDataSize();
+    obj["PerfComment"] = a.GetPerfComment();
+    obj["PerfMetric"] = a.GetPerfMetric();
+    obj["ProgrammingModel"] = a.GetModel();
+    obj["ProjectTitle"] = a.GetProjectTitle();
+    obj["Scheduler"] = a.GetScheduler();
+    obj["ThreadsNodes"] = a.GetThreadsType();
+    obj["UserName"] = a.GetUserName();
     activities_array.append(obj);
   }
   json["InitialProjectStage"] = stage_;
@@ -236,40 +236,33 @@ bool Project::ReadLog(QString f) {
   foreach (const QJsonValue &v, activities_array) {
     QJsonObject o = v.toObject();
     Activity a;
-    a.SetId(o["ID"].toInt());
     a.SetType(o["ActivityType"].toString());
-    if (VERBOSE)
-      qDebug() << "ActivityType: " << o["ActivityType"].toString();
-    a.SetProjectTitle(o["ProjectTitle"].toString());
-    a.SetUserName(o["UserName"].toString());
+    a.SetArc(o["Architecture"].toString());
+    a.SetComment(o["Comment"].toString());
+    a.SetCompiler(o["Compiler"].toString());
     a.SetCurTime(QDateTime::fromString(o["CurLoggingTime"].toString(),
                                        "yyyy-MM-dd hh:mm:ss"));
+    a.SetArc(o["DataSize"].toString());
+    a.SetId(o["ID"].toInt());
+    a.SetIntervalTime(o["Interval"].toInt());
     a.SetLastTime(QDateTime::fromString(o["LastLoggingTime"].toString(),
                                         "yyyy-MM-dd hh:mm:ss"));
-    a.SetIntervalTime(o["Interval"].toInt());
-    if (VERBOSE)
-      qDebug() << "Interval: " << o["Interval"].toInt();
     a.SetLogInterval(o["LoggingInterval"].toInt());
-    if (VERBOSE)
-      qDebug() << a.GetId();
+    a.SetMsComment(o["MsComment"].toString());
+    a.SetMsId(o["MsID"].toInt());
+    a.SetMsTitle(o["MsTitle"].toString());
     a.SetSavedEvents(o["NoEventsCurrentSession"].toInt());
-    a.SetMsComment(o["Comment"].toString());
+    a.SetThreadsComment(o["NoThreadsNodes"].toString());
+    a.SetPerfComment(o["PerfComment"].toString());
+    a.SetPerfMetric(o["PerfMetric"].toString());
+    a.SetModel(o["ProgrammingModel"].toString());
+    a.SetProjectTitle(o["ProjectTitle"].toString());
     if (o["Scheduler"].isUndefined())
       a.SetScheduler(0);
     else
       a.SetScheduler(o["Scheduler"].toInt());
-    a.SetMsTitle(o["MsTitle"].toString());
-    a.SetMsComment(o["MsComment"].toString());
-    a.SetMsId(o["MsID"].toInt());
-    a.SetId(o["MatchingActivityID"].toInt());
-    a.SetPerfMetric(o["PerfMetric"].toString());
-    a.SetPerfComment(o["PerfComment"].toString());
-    a.SetModel(o["ProgrammingModel"].toString());
     a.SetThreadsType(o["ThreadsNodes"].toString());
-    a.SetThreadsComment(o["NoThreadsNodes"].toString());
-    a.SetCompiler(o["Compiler"].toString());
-    a.SetArc(o["Architecture"].toString());
-    a.SetArc(o["DataSize"].toString());
+    a.SetUserName(o["UserName"].toString());
     activities_->append(a);
   }
   return status;
