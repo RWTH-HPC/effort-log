@@ -31,9 +31,6 @@
 
 LogView::LogView(Project *pro) : QDialog() {
   QTreeView *view;
-  setWindowTitle("");
-
-  int no_ms = pro->GetNoMilestones();
   int no_events = pro->GetNoActivities();
   QStandardItemModel *model = new QStandardItemModel(0, 6, this);
   QStandardItem *rootNode = model->invisibleRootItem();
@@ -47,13 +44,32 @@ LogView::LogView(Project *pro) : QDialog() {
     item_id->setText(QString::number(i + 1));
     item_id->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
     item_list << item_id;
-    item_list << new QStandardItem(pro->GetActivity(i).GetMsComment());
     item_list << new QStandardItem(pro->GetActivity(i).GetType());
     QStandardItem *item_interval = new QStandardItem();
     item_interval->setText(
         QString::number(pro->GetActivity(i).GetIntervalTime()));
     item_interval->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
     item_list << item_interval;
+
+    QStandardItem *item_comment = new QStandardItem();
+    if (pro->GetActivity(i).GetMsId() >= 0) {
+      QString ms_content;
+      ms_content.append(pro->GetActivity(i).GetMsTitle());
+      ms_content.append(":  ");
+      QString metric = pro->GetActivity(i).GetPerfMetric();
+      if (metric.contains("Execution time")) {
+        ms_content.append("exec. time: ");
+      } else if (metric.contains("Throughput")) {
+        ms_content.append("throughput: ");
+      } else {
+        ms_content.append(metric);
+        ms_content.append(": ");
+      }
+      ms_content.append(pro->GetActivity(i).GetPerfComment());
+      item_comment->setText(ms_content);
+    }
+    item_list << item_comment;
+    item_list << new QStandardItem(pro->GetActivity(i).GetComment());
 
     QDate date = pro->GetActivity(i).GetCurTime().date();
     if (date_list.contains(date) == false) {
@@ -62,55 +78,15 @@ LogView::LogView(Project *pro) : QDialog() {
       rootNode->appendRow(item);
       current = item;
     }
-
-    int no_ms_matches = 0;
-    for (int j = 0; j < no_ms; j++) {
-      if (pro->GetMilestone(j).GetId() == pro->GetActivity(i).GetId()) {
-        QString ms_content;
-        QStandardItem *item_ms = new QStandardItem();
-        ms_content.append(pro->GetMilestone(j).GetMsTitle());
-        ms_content.append(", ");
-        QString metric = pro->GetMilestone(j).GetPerfMetric();
-        if (metric.contains("Execution time")) {
-          ms_content.append("Exec. time: ");
-        } else if (metric.contains("Throughput")) {
-          ms_content.append("Throughput: ");
-        } else {
-          ms_content.append(metric);
-          ms_content.append(": ");
-        }
-        ms_content.append(pro->GetMilestone(j).GetPerfComment());
-        item_ms->setText(ms_content);
-        if (no_ms_matches == 0) {
-          item_list << item_ms;
-          current->appendRow(item_list);
-        } else {
-          QList<QStandardItem *> ms_item_list;
-          ms_item_list << new QStandardItem();
-          for (int n = 0; n < 3; n++) {
-            QStandardItem *item_ditto = new QStandardItem("\"");
-            item_ditto->setTextAlignment(Qt::AlignCenter | Qt::AlignVCenter);
-            ms_item_list << item_ditto;
-          }
-          QStandardItem *item_ditto = new QStandardItem("\"");
-          item_ditto->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
-          ms_item_list << item_ditto;
-          ms_item_list << item_ms;
-          current->appendRow(ms_item_list);
-        }
-        no_ms_matches++;
-      }
-    }
-    if (no_ms_matches == 0)
-      current->appendRow(item_list);
+    current->appendRow(item_list);
   }
 
   model->setHeaderData(0, Qt::Horizontal, QObject::tr("Date"));
   model->setHeaderData(1, Qt::Horizontal, QObject::tr("Id"));
-  model->setHeaderData(2, Qt::Horizontal, QObject::tr("Comment"));
-  model->setHeaderData(3, Qt::Horizontal, QObject::tr("Activity"));
-  model->setHeaderData(4, Qt::Horizontal, QObject::tr("Duration [min]"));
-  model->setHeaderData(5, Qt::Horizontal, QObject::tr("Milestone"));
+  model->setHeaderData(2, Qt::Horizontal, QObject::tr("Activity"));
+  model->setHeaderData(3, Qt::Horizontal, QObject::tr("Duration [min]"));
+  model->setHeaderData(4, Qt::Horizontal, QObject::tr("Milestone"));
+  model->setHeaderData(5, Qt::Horizontal, QObject::tr("Comment"));
 
   view = new QTreeView(this);
   view->setModel(model);
@@ -132,4 +108,7 @@ LogView::LogView(Project *pro) : QDialog() {
   layout->addLayout(bottomLayout);
 
   setLayout(layout);
+  setWindowTitle("Viewing " + QString::number(no_events) + " events and " +
+                 QString::number(pro->GetNoMilestones()) + " milestones");
+  setWindowFlags(Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
 }
