@@ -199,6 +199,7 @@ void QuestionnaireDialog::Setup() {
   finish_button_->setCheckable(true);
   finish_button_->setAutoDefault(false);
   finish_button_->setShortcut(QKeySequence(Qt::Key_F));
+  finish_button_->setEnabled(false);
 
   // Separator
   QFrame *botton_line = new QFrame();
@@ -300,8 +301,8 @@ void QuestionnaireDialog::Setup() {
       QString("Logging event #%1:   %2 - now")
           .arg(no_logged_activities_ + 1)
           .arg(settings.value("lastLogTime").toDateTime().toString("hh:mm ap"));
-  group_activities_->setFocus();
-  setWindowTitle(title_string);
+  this->setWindowTitle(title_string);
+  this->setWindowFlags(Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
   return;
 }
 
