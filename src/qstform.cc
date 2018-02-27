@@ -20,21 +20,16 @@
 
 #include "qstform.h"
 
-QstForm::QstForm() : QWidget()
-{
-  Setup();
-}
+QstForm::QstForm() : QWidget() { Setup(); }
 
-QstForm::QstForm(QString title, QString tip) : QWidget()
-{
+QstForm::QstForm(QString title, QString tip) : QWidget() {
   tooltip_ = tip;
   Setup();
   title_->setText(title);
   line_edit_->setToolTip(tooltip_);
 }
 
-QstForm::QstForm(QString title, QString tip, bool line) : QWidget()
-{
+QstForm::QstForm(QString title, QString tip, bool line) : QWidget() {
   tooltip_ = tip;
   line_ = line;
   Setup();
@@ -42,8 +37,7 @@ QstForm::QstForm(QString title, QString tip, bool line) : QWidget()
   line_edit_->setToolTip(tooltip_);
 }
 
-void QstForm::Setup()
-{
+void QstForm::Setup() {
   title_ = new QLabel();
   title_->setWordWrap(true);
 
@@ -54,8 +48,7 @@ void QstForm::Setup()
   layout_ = new QVBoxLayout;
   layout_->addWidget(title_);
   layout_->addWidget(line_edit_);
-  if (line_)
-  {
+  if (line_) {
     hline_ = new QFrame();
     hline_->setGeometry(QRect(/* ... */));
     hline_->setFrameShape(QFrame::HLine);
@@ -70,42 +63,47 @@ void QstForm::SetTitle(QString t) { title_->setText(t); }
 
 QString QstForm::GetTitle() const { return title_->text(); }
 
-void QstForm::SetTooltip(QString t) { line_edit_->setToolTip(t); }
+void QstForm::SetToolTip(QString t) { line_edit_->setToolTip(t); }
 
-QString QstForm::GetTooltip() const { return line_edit_->toolTip(); }
+QString QstForm::GetToolTip() const { return line_edit_->toolTip(); }
 
-void QstForm::SetLine(bool l)
-{
+void QstForm::SetText(QString t) { line_edit_->setText(t); }
+
+QString QstForm::GetText() const { return line_edit_->text(); }
+
+void QstForm::SetPlaceholderText(QString t) {
+  line_edit_->setPlaceholderText(t);
+}
+
+QString QstForm::GetPlaceholderText() const {
+  return line_edit_->placeholderText();
+}
+
+void QstForm::SetLine(bool l) {
   line_ = l;
-  if (l)
-  {
-    if (!layout_->findChild<QWidget*>("hline_"))
-    {
+  if (l) {
+    if (!layout_->findChild<QWidget *>("hline_")) {
       hline_ = new QFrame();
       hline_->setGeometry(QRect(/* ... */));
       hline_->setFrameShape(QFrame::HLine);
       hline_->setFrameShadow(QFrame::Sunken);
       layout_->addWidget(hline_);
     }
-  }
-  else
-  {
+  } else {
     layout_->removeWidget(hline_);
   }
 }
 
 bool QstForm::GetLine() const { return line_; }
 
-void QstForm::SetCompleter()
-{
+void QstForm::SetCompleter() {
   completer_ = new QCompleter(compContents_, this);
   completer_->setCaseSensitivity(Qt::CaseInsensitive);
   completer_->setCompletionMode(QCompleter::UnfilteredPopupCompletion);
   line_edit_->setCompleter(completer_);
 }
 
-void QstForm::SetCompleter(QStringList s)
-{
+void QstForm::SetCompleter(QStringList s) {
   completer_ = new QCompleter(s, this);
   completer_->setCaseSensitivity(Qt::CaseInsensitive);
   completer_->setCompletionMode(QCompleter::UnfilteredPopupCompletion);
@@ -114,9 +112,7 @@ void QstForm::SetCompleter(QStringList s)
 
 QStringList QstForm::GetCompleter() const { return compContents_; }
 
-void QstForm::CompleterAppend(QString s)
-{
+void QstForm::CompleterAppend(QString s) {
   compContents_.append(s);
   SetCompleter();
 }
-

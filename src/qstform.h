@@ -20,12 +20,12 @@
 
 #pragma once
 
-#include <QWidget>
-#include <QLabel>
-#include <QVBoxLayout>
-#include <QLineEdit>
 #include <QCompleter>
+#include <QLabel>
+#include <QLineEdit>
 #include <QStringListModel>
+#include <QVBoxLayout>
+#include <QWidget>
 
 //! Class to handle projects.
 /*!
@@ -33,8 +33,7 @@
  * Additionally there is an interface to load from a file in JSON format or
  * save a list of activities to such file.
  */
-class QstForm : public QWidget
-{
+class QstForm : public QWidget {
   Q_OBJECT
 public:
   //! The main constructor.
@@ -54,7 +53,8 @@ public:
    * \param[in] parent The parent widget
    * \param[in] title The title of the form
    * \param[in] tip The tooltip of the form
-   * \param[in] line Sets if there will be a horizontal line printed after the form
+   * \param[in] line Sets if there will be a horizontal line printed after the
+   * form
    */
   explicit QstForm(QString title, QString tip, bool line);
   //! Setter for title_
@@ -71,12 +71,32 @@ public:
   /*!
    * \param[in] t The tooltip of the form
    */
-  void SetTooltip(QString t);
+  void SetToolTip(QString t);
   //! Getter for tooltip_
   /*!
    * \return A string containing tooltip_
    */
-  QString GetTooltip() const;
+  QString GetToolTip() const;
+  //! Setter for line edit text
+  /*!
+   * \param[in] t The text to set for line_edit_
+   */
+  void SetText(QString t);
+  //! Getter for the text of line_edit_
+  /*!
+   * \return A string containing line_edit_->text()
+   */
+  QString GetText() const;
+  //! Setter for line edit text
+  /*!
+   * \param[in] t The placeholder text to set for line_edit_
+   */
+  void SetPlaceholderText(QString t);
+  //! Getter for the placeholder text of line_edit_
+  /*!
+   * \return A string containing the placeholder text of line_edit_
+   */
+  QString GetPlaceholderText() const;
   //! Setter for line_
   /*!
    * \param[in] l Sets if there will be a horizontal line printed after the form
@@ -84,7 +104,8 @@ public:
   void SetLine(bool s);
   //! Getter for line_
   /*!
-   * \return A bool indicating if there will be a horizontal line printed after the form
+   * \return A bool indicating if there will be a horizontal line printed after
+   * the form
    */
   bool GetLine() const;
   //! Setter for completer_
@@ -107,18 +128,21 @@ public:
    * \param[in] s The QString to append
    */
   void CompleterAppend(QString s);
+  QLineEdit *line_edit_; /**< The main text input field.*/
+
 private:
   //! Sets up the form
   /*!
    * This method initilaizes all objects needed for the form.
    */
   void Setup();
-  QLabel *title_;                /**< The title of the form.*/
-  QString tooltip_;                 /**< The tooltip of the form.*/
-  QVBoxLayout *layout_;          /**< The layout of the form.*/
-  QLineEdit *line_edit_;         /**< The main text input field.*/
-  QCompleter *completer_;        /**< The completer for the input field.*/
-  QStringList compContents_;     /**< The completer's content.*/
-  bool line_ = true;             /**< Sets if there will be a horizontal line printed after the form.*/
-  QFrame *hline_;                /**< A horizontal line printed after the form.*/
+  QLabel *title_;            /**< The title of the form.*/
+  QString tooltip_;          /**< The tooltip of the form.*/
+  QVBoxLayout *layout_;      /**< The layout of the form.*/
+  QCompleter *completer_;    /**< The completer for the input field.*/
+  QStringList compContents_; /**< The completer's content.*/
+  bool line_ =
+      true;       /**< Sets if there will be a horizontal line printed after the
+                     form.*/
+  QFrame *hline_; /**< A horizontal line printed after the form.*/
 };
