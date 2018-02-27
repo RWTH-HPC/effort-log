@@ -43,69 +43,140 @@ void QuestionnaireDialog::Setup() {
   activity_ = new Activity;
   no_logged_activities_ = settings.value("noLoggedActivities").toInt();
 
-  // Activity switcher (left part of the dialog)
-  activity_label_ = new QLabel(info_string_);
-  group_activities_ = new QGroupBox();
-  activity_button_group_ = new QButtonGroup;
-  QRadioButton *activity_switcher_buttons[NUM_ACTIVITIES];
-  for (int i = 0; i < NUM_ACTIVITIES; i++) {
-    activity_switcher_buttons[i] =
-        new QRadioButton(activity_->kActivityType[i]);
-    activity_button_group_->addButton(activity_switcher_buttons[i], i);
-  }
-  activity_switcher_buttons[0]->setShortcut(QKeySequence(Qt::Key_B));
-  activity_switcher_buttons[0]->setToolTip(
-      tr("Choose activity <font color='gray'>B</font>"));
-  activity_switcher_buttons[1]->setShortcut(QKeySequence(Qt::Key_H));
-  activity_switcher_buttons[1]->setToolTip(
-      tr("Choose activity <font color='gray'>H</font>"));
-  activity_switcher_buttons[2]->setShortcut(QKeySequence(Qt::Key_S));
-  activity_switcher_buttons[2]->setToolTip(
-      tr("Choose activity <font color='gray'>S</font>"));
-  activity_switcher_buttons[3]->setShortcut(QKeySequence(Qt::Key_P));
-  activity_switcher_buttons[3]->setToolTip(
-      tr("Choose activity <font color='gray'>P</font>"));
-  activity_switcher_buttons[4]->setShortcut(QKeySequence(Qt::Key_T));
-  activity_switcher_buttons[4]->setToolTip(
-      tr("Choose activity <font color='gray'>T</font>"));
-  activity_switcher_buttons[5]->setShortcut(QKeySequence(Qt::Key_D));
-  activity_switcher_buttons[5]->setToolTip(
-      tr("Choose activity <font color='gray'>D</font>"));
-  activity_switcher_buttons[6]->setShortcut(QKeySequence(Qt::Key_U));
-  activity_switcher_buttons[6]->setToolTip(
-      tr("Choose activity <font color='gray'>U</font>"));
-  activity_switcher_buttons[7]->setShortcut(QKeySequence(Qt::Key_E));
-  activity_switcher_buttons[7]->setToolTip(
-      tr("Choose activity <font color='gray'>E</font>"));
-  activity_switcher_buttons[8]->setShortcut(QKeySequence(Qt::Key_O));
-  activity_switcher_buttons[8]->setToolTip(
-      tr("Choose activity <font color='gray'>O</font>"));
-  activity_switcher_buttons[0]->setChecked(true); // Set default button
+  // Activity form
+  act_form_ = new QstForm();
+  act_form_->SetTitle(info_string_);
+  act_form_->SetToolTip(
+      tr("Describe how you were mainly working since the last diary entry"));
+  act_form_->SetLine(false);
 
-  // Comment field (right part of the dialog)
-  QLabel *comment_label = new QLabel("Comment on this activity:");
+  // Performance
+  perf_group_ = new QButtonGroup(this);
+  perf_group_->setExclusive(true);
+  QCheckBox *perf_checkbox1 = new QCheckBox(tr("Yes"));
+  QCheckBox *perf_checkbox2 = new QCheckBox(tr("No"));
+  perf_group_->addButton(perf_checkbox1);
+  perf_group_->addButton(perf_checkbox2);
+  perf_group_->setId(perf_checkbox1, 1);
+  perf_group_->setId(perf_checkbox2, 2);
+  perf_checkbox2->setChecked(true);
+
+  QLabel *perf_section_label_ =
+      new QLabel(tr("<font color='red'>*</font> 2. Did you measure the "
+                    "performance of your application?"));
+  perf_section_label_->setWordWrap(true);
+  QLabel *perf_label =
+      new QLabel(tr("<font color='red'>*</font> Which performance does your "
+                    "application currently reach?"));
+  perf_label->setWordWrap(true);
+  perf_box_ = new QComboBox;
+  perf_box_->addItem(tr("Execution time in seconds"));
+  perf_box_->addItem(tr("Execution time in minutes"));
+  perf_box_->addItem(tr("Execution time in hours"));
+  perf_box_->addItem(tr("Throughput in GFlop/s"));
+  perf_box_->addItem(tr("Speedup"));
+  perf_box_->addItem(tr("Other"));
+  perf_spin_ = new QDoubleSpinBox;
+  perf_spin_->setRange(0.0, 10000.0);
+  perf_comment_ = new QLineEdit;
+  perf_comment_->setPlaceholderText(tr("Specify performance"));
+  perf_comment_->hide();
+  perf_box_->setCurrentIndex(0);
+  perf_spin_->setSuffix(tr(" sec"));
+
+  // No threads, nodes, etc.
+  QLabel *threads_label =
+      new QLabel(tr("<font color='red'>*</font> No threads, nodes, etc. used "
+                    "during the performance measurements"));
+  threads_label->setWordWrap(true);
+  threads_box_ = new QComboBox;
+  threads_box_->addItem(tr("Number of threads"));
+  threads_box_->addItem(tr("Number of nodes"));
+  threads_box_->addItem(tr("Other"));
+  threads_spin_ = new QSpinBox;
+  threads_spin_->setRange(0, 10000000);
+  threads_spin_->setSuffix(tr(" threads"));
+  threads_box_->setCurrentIndex(0);
+  threads_comment_ = new QLineEdit;
+  threads_comment_->setToolTip(tr("Information on the number of threads, "
+                                  "nodes, etc. used for the performance "
+                                  "measurements"));
+  threads_comment_->setPlaceholderText(tr("No threads, nodes, etc."));
+  threads_comment_->hide();
+
+  // Architecture
+  arc_form_ = new QstForm();
+  arc_form_->SetTitle(tr("Architecture"));
+  arc_form_->SetToolTip(tr(
+      "Information on the architecture used for the performance measurements"));
+  arc_form_->SetPlaceholderText(tr("E.g. Intel Xeon X7550"));
+  arc_form_->SetLine(false);
+
+  // Compiler
+  compiler_form_ = new QstForm();
+  compiler_form_->SetTitle(tr("Compiler"));
+  compiler_form_->SetToolTip(tr("Information on used compiler used for the "
+                                "performance measurements"));
+  compiler_form_->SetPlaceholderText(tr("E.g. GCC 7.1"));
+  compiler_form_->SetLine(false);
+
+  // Programming model
+  model_form_ = new QstForm();
+  model_form_->SetTitle(tr("Programming model"));
+  model_form_->SetToolTip(
+      tr("Information on the programming model used for the "
+         "performance measurements"));
+  model_form_->SetPlaceholderText(tr("E.g. OpenMP"));
+  model_form_->SetLine(false);
+
+  // Data size
+  data_form_ = new QstForm();
+  data_form_->SetTitle(tr("Data size"));
+  data_form_->SetToolTip(tr("Information on the size of the used data set"));
+  data_form_->SetPlaceholderText(tr("E.g. benchmark xyz with large data set"));
+  data_form_->SetLine(false);
+
+  // Comment field for the activity
+  QLabel *comment_label = new QLabel("3. Comment on this activity:");
   comment_label->setWordWrap(true);
   comment_box_ = new QPlainTextEdit;
   comment_box_->setPlaceholderText(tr("Comment..."));
+  comment_box_->setMaximumHeight(45);
+  comment_box_->setToolTip(
+      tr("Provide additional information of your last development activity"));
 
   // Project milestones
-  QLabel *m_label = new QLabel("Did you reach one of the following milestones "
-                               "during the last logging interval?");
-  m_label->setWordWrap(true);
-  m_group_ = new QButtonGroup(this);
-  m_group_->setExclusive(false);
-  QCheckBox *checkbox1 = new QCheckBox(tr("Working serial version"));
-  QCheckBox *checkbox2 = new QCheckBox(tr("Tuned serial version"));
-  QCheckBox *checkbox3 = new QCheckBox(tr("Working parallel version"));
-  QCheckBox *checkbox4 = new QCheckBox(tr("Tuned parallel version"));
-  QCheckBox *checkbox5 = new QCheckBox(tr("Other"));
-  m_group_->addButton(checkbox1);
-  m_group_->addButton(checkbox2);
-  m_group_->addButton(checkbox3);
-  m_group_->addButton(checkbox4);
-  m_group_->addButton(checkbox5);
-  last_m_button_ = NULL;
-  m_button_pressed_ = false;
+  QLabel *ms_label = new QLabel("<font color='red'>*</font> 4. Did you reach a "
+                                "milestone during the last logging interval?");
+  ms_label->setWordWrap(true);
+  ms_label->setToolTip(tr("Select yes if you reached a milestone during the "
+                          "last logging interval.<br>"
+                          "Additional questions will then appear."));
+
+  ms_group_ = new QButtonGroup(this);
+  ms_group_->setExclusive(true);
+  QCheckBox *ms_checkbox1 = new QCheckBox(tr("Yes"));
+  QCheckBox *ms_checkbox2 = new QCheckBox(tr("No"));
+  ms_group_->addButton(ms_checkbox1);
+  ms_group_->addButton(ms_checkbox2);
+  ms_group_->setId(ms_checkbox1, 1);
+  ms_group_->setId(ms_checkbox2, 2);
+  ms_checkbox2->setChecked(true);
+
+  ms_title_label_ =
+      new QLabel("<font color='red'>*</font> Title of the milestone:");
+  ms_line_edit_ = new QLineEdit;
+  ms_comment_label_ = new QLabel(tr("11. Comment on the milestone:"));
+  ms_comment_label_->setWordWrap(true);
+  ms_comment_ = new QPlainTextEdit;
+  ms_comment_->setToolTip(
+      tr("Provide additional information for this milestone"));
+  ms_comment_->setPlaceholderText(tr("Comment..."));
+  ms_comment_->setMaximumHeight(45);
+  ms_title_label_->hide();
+  ms_line_edit_->hide();
+  ms_comment_label_->hide();
+  ms_comment_->hide();
 
   // Button to skip the event
   skip_button_ = new QPushButton(tr("Skip"));
@@ -130,54 +201,97 @@ void QuestionnaireDialog::Setup() {
   finish_button_->setShortcut(QKeySequence(Qt::Key_F));
 
   // Separator
-  QFrame *vline1 = new QFrame();
-  vline1->setGeometry(QRect(/* ... */));
-  vline1->setFrameShape(QFrame::VLine);
-  vline1->setFrameShadow(QFrame::Sunken);
-  QFrame *vline2 = new QFrame();
-  vline2->setGeometry(QRect(/* ... */));
-  vline2->setFrameShape(QFrame::VLine);
-  vline2->setFrameShadow(QFrame::Sunken);
   QFrame *botton_line = new QFrame();
   botton_line->setGeometry(QRect(/* ... */));
   botton_line->setFrameShape(QFrame::HLine);
   botton_line->setFrameShadow(QFrame::Sunken);
 
   // Layout
-  QVBoxLayout *activity_layout = new QVBoxLayout;
-  activity_layout->addWidget(activity_label_);
-  for (int i = 0; i < NUM_ACTIVITIES; i++) {
-    activity_layout->addWidget(activity_switcher_buttons[i]);
-  }
-  activity_layout->addStretch(1);
+  perf_buttons_ = new QHBoxLayout;
+  perf_buttons_->addWidget(perf_checkbox1);
+  perf_buttons_->addWidget(perf_checkbox2);
 
-  QVBoxLayout *comment_layout = new QVBoxLayout;
-  comment_layout->addWidget(comment_label);
-  comment_layout->addWidget(comment_box_);
+  QHBoxLayout *perf_layout = new QHBoxLayout;
+  perf_layout->addWidget(perf_box_);
+  perf_layout->addWidget(perf_spin_);
+  perf_layout->addWidget(perf_comment_);
 
-  QVBoxLayout *m_layout = new QVBoxLayout;
-  m_layout->addWidget(m_label);
-  m_layout->addWidget(checkbox1);
-  m_layout->addWidget(checkbox2);
-  m_layout->addWidget(checkbox3);
-  m_layout->addWidget(checkbox4);
-  m_layout->addWidget(checkbox5);
-  m_layout->addStretch(1);
+  QHBoxLayout *threads_layout = new QHBoxLayout;
+  threads_layout->addWidget(threads_box_);
+  threads_layout->addWidget(threads_spin_);
+  threads_layout->addWidget(threads_comment_);
+
+  ms_buttons_ = new QHBoxLayout;
+  ms_buttons_->addWidget(ms_checkbox1);
+  ms_buttons_->addWidget(ms_checkbox2);
 
   QHBoxLayout *button_layout = new QHBoxLayout;
   button_layout->addWidget(skip_button_, 0, Qt::AlignCenter);
   button_layout->addWidget(log_button_, 0, Qt::AlignCenter);
   button_layout->addWidget(finish_button_, 0, Qt::AlignCenter);
 
-  QHBoxLayout *colomn_layout = new QHBoxLayout;
-  colomn_layout->addLayout(activity_layout);
-  colomn_layout->addWidget(vline1);
-  colomn_layout->addLayout(comment_layout);
-  colomn_layout->addWidget(vline2);
-  colomn_layout->addLayout(m_layout);
+  QVBoxLayout *act_layout = new QVBoxLayout;
+  act_layout->addWidget(act_form_);
+  QGroupBox *act_group = new QGroupBox;
+  act_group->setTitle(tr("Activity"));
+  act_group->setLayout(act_layout);
+  act_group->setToolTip(
+      tr("Describe how you were mainly working since the last diary entry"));
+
+  QVBoxLayout *perf_detailed_layout = new QVBoxLayout;
+  perf_detailed_layout->addWidget(perf_label);
+  perf_detailed_layout->addLayout(perf_layout);
+  perf_detailed_layout->addWidget(threads_label);
+  perf_detailed_layout->addLayout(threads_layout);
+  perf_detailed_layout->addWidget(arc_form_);
+  perf_detailed_layout->addWidget(compiler_form_);
+  perf_detailed_layout->addWidget(model_form_);
+  perf_detailed_layout->addWidget(data_form_);
+
+  perf_widget_ = new QWidget;
+  perf_widget_->setLayout(perf_detailed_layout);
+  perf_widget_->hide();
+
+  QVBoxLayout *perf_group_layout = new QVBoxLayout;
+  perf_group_layout->addWidget(perf_section_label_);
+  perf_group_layout->addLayout(perf_buttons_);
+  perf_group_layout->addWidget(perf_widget_);
+  QGroupBox *perf_group = new QGroupBox;
+  perf_group->setTitle(tr("Performance"));
+  perf_group->setLayout(perf_group_layout);
+  perf_group->setToolTip(tr("Leave at default if you did not measure the "
+                            "performance of your application."));
+
+  QVBoxLayout *comment_layout = new QVBoxLayout;
+  comment_layout->addWidget(comment_label);
+  comment_layout->addWidget(comment_box_);
+  QGroupBox *comment_group = new QGroupBox;
+  comment_group->setTitle(tr("Comment"));
+  comment_group->setLayout(comment_layout);
+  comment_group->setMinimumHeight(120);
+  comment_group->setMaximumHeight(120);
+  comment_group->setToolTip(
+      tr("Provide additional information of your last development activity"));
+
+  QVBoxLayout *ms_layout = new QVBoxLayout;
+  ms_layout->addWidget(ms_label);
+  ms_layout->addLayout(ms_buttons_);
+  ms_layout->addWidget(ms_title_label_);
+  ms_layout->addWidget(ms_line_edit_);
+  ms_layout->addWidget(ms_comment_label_);
+  ms_layout->addWidget(ms_comment_);
+  QGroupBox *ms_group = new QGroupBox;
+  ms_group->setTitle(tr("Milestone"));
+  ms_group->setLayout(ms_layout);
+  ms_group->setToolTip(tr("Select yes if you reached a milestone during the "
+                          "last logging interval.<br>"
+                          "Additional questions will then appear."));
 
   main_layout_ = new QVBoxLayout;
-  main_layout_->addLayout(colomn_layout);
+  main_layout_->addWidget(act_group);
+  main_layout_->addWidget(perf_group);
+  main_layout_->addWidget(comment_group);
+  main_layout_->addWidget(ms_group);
   main_layout_->addWidget(botton_line);
   main_layout_->addLayout(button_layout);
   setLayout(main_layout_);
@@ -195,6 +309,31 @@ void QuestionnaireDialog::CreateConnections() {
   QTimer *countdown_timer = new QTimer();
   connect(countdown_timer, SIGNAL(timeout()), this, SLOT(UpdateUI()));
   countdown_timer->start(60000);
+
+  connect(perf_box_, SIGNAL(activated(int)), this, SLOT(PerfInputChanged(int)));
+  connect(threads_box_, SIGNAL(activated(int)), this,
+          SLOT(ThreadsInputChanged(int)));
+  connect(perf_group_, SIGNAL(buttonClicked(int)), this,
+          SLOT(PerfInputChanged()));
+  connect(ms_group_, SIGNAL(buttonClicked(int)), this, SLOT(MsInputChanged()));
+
+  connect(perf_group_, SIGNAL(buttonClicked(int)), this, SLOT(CheckInput()));
+  connect(ms_group_, SIGNAL(buttonClicked(int)), this, SLOT(CheckInput()));
+  connect(act_form_->line_edit_, SIGNAL(textChanged(QString)), this,
+          SLOT(CheckInput()));
+  connect(perf_box_, SIGNAL(currentIndexChanged(int)), this,
+          SLOT(CheckInput()));
+  connect(perf_comment_, SIGNAL(textChanged(QString)), this,
+          SLOT(CheckInput()));
+  connect(perf_spin_, SIGNAL(valueChanged(double)), this, SLOT(CheckInput()));
+  connect(threads_box_, SIGNAL(currentIndexChanged(int)), this,
+          SLOT(CheckInput()));
+  connect(threads_comment_, SIGNAL(textChanged(QString)), this,
+          SLOT(CheckInput()));
+  connect(threads_spin_, SIGNAL(valueChanged(int)), this, SLOT(CheckInput()));
+  connect(ms_line_edit_, SIGNAL(textChanged(QString)), this,
+          SLOT(CheckInput()));
+
   connect(skip_button_, SIGNAL(released()), this, SLOT(reject()));
   connect(log_button_, SIGNAL(released()), this, SLOT(LogViewer()));
   connect(finish_button_, SIGNAL(released()), this, SLOT(accept()));
@@ -207,13 +346,14 @@ void QuestionnaireDialog::UpdateUI() {
                  settings.value("lastLogTime").toTime().msecsSinceStartOfDay();
   interval /= (1000 * 60);
   if (interval == 1) {
-    info_string_ = QString("What did you do the last minute?");
+    info_string_ = QString("<font color='red'>*</font> 1. What were you "
+                           "working on the last minute?");
   } else {
-    info_string_ =
-        QString("What did you do the last %1 minutes?").arg(interval);
+    info_string_ = QString("<font color='red'>*</font> 1. What were you "
+                           "working on the last %1 minutes?")
+                       .arg(interval);
   }
-  activity_label_->setText(info_string_);
-  activity_label_->update();
+  act_form_->SetTitle(info_string_);
 
   if (VERBOSE) {
     qDebug() << "\n@Dialog: UpdateUI called. Time interval: " << interval;
@@ -233,12 +373,38 @@ void QuestionnaireDialog::accept() {
   activity_->SetIntervalTime(
       qCeil(cur_time.secsTo(activity_->GetLastTime()) / -60.0));
   activity_->SetSavedEvents(no_logged_activities_);
-  activity_->SetType(activity_button_group_->checkedButton()->text());
+  activity_->SetType(act_form_->GetText());
   settings.setValue("lastLogTime", QDateTime::currentDateTime());
   activity_->SetProjectTitle(settings.value("conf/projectTitle").toString());
   activity_->SetUserName(settings.value("conf/userName").toString());
   activity_->SetLogInterval(settings.value("conf/logInterval").toInt());
-  activity_->SetComment(comment_box_->toPlainText());
+
+  if (perf_group_->checkedId() == 1) {
+    activity_->SetArc(arc_form_->GetText());
+    activity_->SetModel(model_form_->GetText());
+    activity_->SetPerfMetric(perf_box_->currentText());
+    if (perf_box_->currentIndex() == 5) {
+      activity_->SetPerfComment(perf_comment_->text());
+    } else {
+      activity_->SetPerfComment(perf_spin_->text());
+    }
+    activity_->SetCompiler(compiler_form_->GetText());
+    activity_->SetThreadsType(threads_box_->currentText());
+    if (threads_box_->currentIndex() == 2) {
+      activity_->SetThreadsComment(threads_comment_->text());
+    } else {
+      activity_->SetThreadsComment(threads_spin_->text());
+    }
+    activity_->SetDataSize(data_form_->GetText());
+  }
+
+  if (ms_group_->checkedId() == 1) {
+    activity_->SetMsTitle(ms_line_edit_->text());
+    activity_->SetMsComment(comment_box_->toPlainText());
+    activity_->SetMsId(project_->GetNoMilestones());
+  } else {
+    activity_->SetMsId(-1);
+  }
   switch (scheduler_) {
   case 0:
     activity_->SetScheduler(1);
@@ -253,32 +419,9 @@ void QuestionnaireDialog::accept() {
     activity_->SetScheduler(0);
   }
 
-  if (m_group_->checkedId() != -1) {
-    QList<QAbstractButton *> buttons = m_group_->buttons();
-    Milestone *m = new Milestone;
-    foreach (QAbstractButton *b, buttons) {
-      if (b->isChecked() == true) {
-        if (project_->GetNoMilestones() > 0) {
-          *m = project_->GetMilestone(project_->GetNoMilestones() - 1);
-          m->SetMsId(-1);
-        } else {
-          m->SetMsId(0);
-        }
-        MilestoneDialog dialog(m, b->text());
-        if (dialog.exec()) {
-          m->SetTitle(b->text());
-          m->SetTime(QDateTime::currentDateTime());
-          m->SetEventId(project_->GetNoActivities());
-          project_->AddMilestone(m);
-        }
-      }
-    }
-    delete(m);
-  }
-
   if (VERBOSE) {
     qDebug() << "\nActivity type:" << activity_->GetType();
-    qDebug() << "Comment:" << activity_->GetComment();
+    qDebug() << "Comment:" << activity_->GetMsComment();
     qDebug() << "User name:" << activity_->GetUserName();
     qDebug() << "Project title:" << activity_->GetProjectTitle();
     qDebug() << "Current time:" << activity_->GetCurTime().toString();
@@ -287,9 +430,11 @@ void QuestionnaireDialog::accept() {
     qDebug() << "Actual logging interval:" << activity_->GetIntervalTime();
     qDebug() << "No of saved events:" << activity_->GetSavedEvents();
   }
+  activity_->SetId(project_->GetNoActivities());
   project_->AddActivity(*activity_);
   project_->StoreLog(settings.value("conf/logFile").toString());
   main_window_->SetupAnimation();
+  main_window_->SetQstRunning(false);
   QDialog::accept();
   return;
 }
@@ -307,11 +452,113 @@ void QuestionnaireDialog::reject() {
     main_window_->SetupAnimation();
     QDialog::reject();
   }
+  main_window_->SetQstRunning(false);
+  return;
+}
+
+void QuestionnaireDialog::PerfInputChanged(int i) {
+  switch (i) {
+  case 0:
+    perf_spin_->setSuffix(tr(" sec"));
+    perf_spin_->show();
+    perf_comment_->hide();
+    perf_spin_->setFocus();
+    break;
+  case 1:
+    perf_spin_->setSuffix(tr(" min"));
+    perf_spin_->show();
+    perf_comment_->hide();
+    perf_spin_->setFocus();
+    break;
+  case 2:
+    perf_spin_->setSuffix(tr(" hour"));
+    perf_spin_->show();
+    perf_comment_->hide();
+    perf_spin_->setFocus();
+    break;
+  case 3:
+    perf_spin_->setSuffix(tr(" GFlop/s"));
+    perf_spin_->show();
+    perf_comment_->hide();
+    perf_spin_->setFocus();
+    break;
+  case 4:
+    perf_spin_->setSuffix(tr(""));
+    perf_spin_->show();
+    perf_comment_->hide();
+    perf_spin_->setFocus();
+    break;
+  case 5:
+    perf_spin_->hide();
+    perf_comment_->show();
+    perf_comment_->setFocus();
+    break;
+  }
+  main_layout_->update();
+  this->repaint();
+  return;
+}
+
+void QuestionnaireDialog::ThreadsInputChanged(int i) {
+  switch (i) {
+  case 0:
+    threads_spin_->setSuffix(tr(" threads"));
+    threads_spin_->show();
+    threads_comment_->hide();
+    threads_spin_->setFocus();
+    break;
+  case 1:
+    threads_spin_->setSuffix(tr(" nodes"));
+    threads_spin_->show();
+    threads_comment_->hide();
+    threads_spin_->setFocus();
+    break;
+  case 2:
+    threads_spin_->hide();
+    threads_comment_->show();
+    threads_comment_->setFocus();
+    break;
+  }
+  main_layout_->update();
+  this->repaint();
+  return;
+}
+
+void QuestionnaireDialog::PerfInputChanged() {
+  if (perf_group_->checkedId() == 1) {
+    perf_widget_->show();
+  } else if (perf_group_->checkedId() == 2) {
+    perf_widget_->hide();
+  }
+
+  main_layout_->update();
+  this->repaint();
+  return;
+}
+
+void QuestionnaireDialog::MsInputChanged() {
+  if (ms_group_->checkedId() == 1) {
+    ms_title_label_->show();
+    ms_line_edit_->show();
+    ms_comment_label_->show();
+    ms_comment_->show();
+    ms_title_label_->setFocus();
+  } else if (ms_group_->checkedId() == 2) {
+    ms_title_label_->hide();
+    ms_line_edit_->hide();
+    ms_comment_label_->hide();
+    ms_comment_->hide();
+  }
+
+  main_layout_->update();
+  this->repaint();
+  return;
+}
   return;
 }
 
 void QuestionnaireDialog::OnPressedMButton(QAbstractButton *btn) {
-  QList<QAbstractButton *> buttons = m_group_->buttons();
+  QList<QAbstractButton *> buttons = ms_group_->buttons();
   foreach (QAbstractButton *b, buttons) { b->setChecked(false); }
   if (btn != last_m_button_ || m_button_pressed_ == false) {
     btn->setChecked(true);

@@ -35,12 +35,14 @@
 #include <QPushButton>
 #include <QRadioButton>
 #include <QSettings>
+#include <QSpinBox>
 #include <QTimer>
 #include <QVBoxLayout>
 
 #include "activity.h"
 #include "mainwindow.h"
 #include "project.h"
+#include "qstform.h"
 
 //! Class to handle interval-based user input
 /*!
@@ -88,6 +90,20 @@ private slots:
    * active button to inactive and activates the clicked button.
    */
   void OnPressedMButton(QAbstractButton *btn);
+  //! Handles changes to the performance metrics
+  /*!
+   * \param[in] i The id of the active metric.
+   */
+  void PerfInputChanged(int i);
+  //! Handles changes to the threads, nodes, etc. metrics
+  /*!
+   * \param[in] i The id of the active metric.
+   */
+  void ThreadsInputChanged(int i);
+  //! Handles changes to the performance section
+  void PerfInputChanged();
+  //! Handles changes to the milestone section
+  void MsInputChanged();
   //! Call to bool Project::ReadLog(QString f)
   /*!
    * This method calls bool Project::ReadLog(QString f) on the locally stored
@@ -124,27 +140,62 @@ private:
   Activity *activity_;    /**< An object of type Activity which holds the
                               matching activity to the dialog.*/
   bool m_button_pressed_; /**< Indicates if a button is pressed or not.*/
-  QAbstractButton *last_m_button_;      /**< The lastly clicked button.*/
-  QButtonGroup *activity_button_group_; /**< Holds all buttons for choosing an
-                                             activity.*/
-  QButtonGroup *m_group_;  /**< Holds all buttons for choosing a milestone.*/
+  QAbstractButton *last_m_button_; /**< The lastly clicked button.*/
+  QButtonGroup *ms_group_; /**< Holds all buttons for choosing a milestone.*/
   QLabel *activity_label_; /**< Holds a message containing the minutes since
                                  the last logging event.*/
   QPlainTextEdit *comment_box_; /**< A box to input comments on an activity.*/
   QGroupBox *group_activities_; /**< Holds activity_button_group_ with the
                                      label info_string_.*/
-  QPushButton *finish_button_;  /**< Button to exit the dialog after finishing
-                                     all mandatory input.*/
-  QString info_string_;         /**< Holds the question on what the user was
-                                     working on. Is updated every 60 seconds.*/
-  QVBoxLayout *main_layout_;    /**< The main layout of the dialog.*/
-  MainWindow *main_window_;     /**< Holds a pointer to the main window.*/
-  int no_logged_activities_;    /**< The number of successfully logged events.*/
-  QPushButton *skip_button_;    /**< Button to exit the dialog without logging the
-                                     event to the log file (skipping this event)*/
+  QLineEdit *m_title_edit_; /**< A field to input the title of the milestone.*/
+  QPushButton *finish_button_; /**< Button to exit the dialog after finishing
+                                    all mandatory input.*/
+  QString info_string_;        /**< Holds the question on what the user was
+                                    working on. Is updated every 60 seconds.*/
+  QVBoxLayout *main_layout_;   /**< The main layout of the dialog.*/
+  MainWindow *main_window_;    /**< Holds a pointer to the main window.*/
+  int no_logged_activities_;   /**< The number of successfully logged events.*/
+  QPushButton *skip_button_; /**< Button to exit the dialog without logging the
+                                  event to the log file (skipping this event)*/
   Project *project_; /**< Holds a pointer to the current project. \see Project*/
   int scheduler_;    /**< Denotes if the questionnaire was scheduled by the
                              set interval (=0), was manually executed (=2), or
                              was executed on closing the program (=3)*/
   QPushButton *log_button_; /**< Button to read the current log file.*/
+  QstForm *act_form_;       /**< Form to specify the type of activity.*/
+  QWidget *perf_widget_;    /**< A widget of holding the detailed questions on
+                               performance.*/
+  QButtonGroup
+      *perf_group_; /**< Yes/ No buttons to specify if the performance of
+                       applicationw as measured.*/
+  QHBoxLayout
+      *perf_buttons_; /**< Yes/ No buttons to specify if a milestone occured.*/
+  QLabel *perf_section_label_; /**< The label of section on performance.*/
+  QLineEdit *perf_comment_;    /**< Lets user specify a comment about the
+                                    performance.*/
+  QDoubleSpinBox *perf_spin_;  /**< Lets user specify the performance.*/
+  QComboBox *perf_box_;        /**< Lets user specify the performance metric.*/
+  QSpinBox *threads_spin_;     /**< Lets user specify count of nodes, threads,
+                                    etc.*/
+  QComboBox *threads_box_;     /**< Lets user specify the metric for counting
+                                    nodes, threads, etc.*/
+  QstForm *arc_form_;          /**< Lets user specify the architecture.*/
+  QLineEdit *threads_comment_; /**< Lets user specify a comment about the
+                                 count of nodes, threads, etc.*/
+  QstForm *compiler_form_;     /**< Lets user specify the used compiler.*/
+  QstForm *model_form_;        /**< Lets user specify the used programming
+                                         model.*/
+  QLineEdit *comment_;         /**< Lets user specify a general comment about
+                                    the milestone.*/
+  QstForm *data_form_;         /**< Lets user specify the data size of the
+                                              milestone.*/
+  QHBoxLayout
+      *ms_buttons_; /**< Yes/ No buttons to specify if a milestone occured.*/
+  QLabel *ms_title_label_;   /**< The label for the line edit of the milestone's
+                                title.*/
+  QLineEdit *ms_line_edit_;  /**< Line edit of the milestone's title.*/
+  QLabel *ms_comment_label_; /**< The label of the comment filed to specify
+                                additional informatin regarding the milestone.*/
+  QPlainTextEdit *ms_comment_; /**< A comment filed to specify additional
+                                  informatin regarding the milestone.*/
 };
