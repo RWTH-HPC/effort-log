@@ -79,9 +79,6 @@ int Activity::GetIntervalTime() const { return interval_time_; }
 
 void Activity::SetIntervalTime(const int &time) { interval_time_ = time; }
 
-QString Activity::GetMSComment() const { return comment_; }
-void Activity::SetMSComment(const QString &comment) { comment_ = comment; }
-
 int Activity::GetScheduler() const { return scheduler_; }
 void Activity::SetScheduler(const int scheduler) { scheduler_ = scheduler; }
 void Activity::SetMsId(int id) { milestone_id_ = id; }

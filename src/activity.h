@@ -139,17 +139,6 @@ public:
    * the current activity and the last one
    */
   void SetIntervalTime(const int &time);
-  //! Getter for comment_
-  /*!
-   * \return A string containing comment_
-   */
-  QString GetMSComment() const;
-  //! Setter for comment_
-  /*!
-   * \param[in] comment A string which specifies the comment specified by the
-   * user
-   */
-  void SetMSComment(const QString &comment);
   //! Getter for scheduler_
   /*!
    * \return An integer containing scheduler_
