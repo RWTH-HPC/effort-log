@@ -47,7 +47,7 @@ LogView::LogView(Project *pro) : QDialog() {
     item_id->setText(QString::number(i + 1));
     item_id->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
     item_list << item_id;
-    item_list << new QStandardItem(pro->GetActivity(i).GetMSComment());
+    item_list << new QStandardItem(pro->GetActivity(i).GetMsComment());
     item_list << new QStandardItem(pro->GetActivity(i).GetType());
     QStandardItem *item_interval = new QStandardItem();
     item_interval->setText(
@@ -65,10 +65,10 @@ LogView::LogView(Project *pro) : QDialog() {
 
     int no_ms_matches = 0;
     for (int j = 0; j < no_ms; j++) {
-      if (pro->GetMilestone(j).GetEventId() == pro->GetActivity(i).GetId()) {
+      if (pro->GetMilestone(j).GetId() == pro->GetActivity(i).GetId()) {
         QString ms_content;
         QStandardItem *item_ms = new QStandardItem();
-        ms_content.append(pro->GetMilestone(j).GetTitle());
+        ms_content.append(pro->GetMilestone(j).GetMsTitle());
         ms_content.append(", ");
         QString metric = pro->GetMilestone(j).GetPerfMetric();
         if (metric.contains("Execution time")) {
