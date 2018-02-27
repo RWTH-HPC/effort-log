@@ -32,7 +32,6 @@ Project::Project() {
   stage_comment_ = "";
   interval_ = -1;
   activities_ = new QList<Activity>;
-  milestones_ = new QList<Milestone>;
 }
 
 Project::Project(QString t) {
@@ -44,7 +43,6 @@ Project::Project(QString t) {
   stage_comment_ = "";
   interval_ = -1;
   activities_ = new QList<Activity>;
-  milestones_ = new QList<Milestone>;
 }
 
 #ifdef CRYPT
@@ -58,7 +56,6 @@ Project::Project(Crypt *crypt) {
   stage_comment_ = "";
   interval_ = 0;
   activities_ = new QList<Activity>;
-  milestones_ = new QList<Milestone>;
 }
 
 Project::Project(Crypt *crypt, QString t) {
@@ -71,7 +68,6 @@ Project::Project(Crypt *crypt, QString t) {
   stage_comment_ = "";
   interval_ = 0;
   activities_ = new QList<Activity>;
-  milestones_ = new QList<Milestone>;
 }
 #endif
 
@@ -85,7 +81,6 @@ void Project::ClearProject() {
   interval_ = 0;
   activities_->clear();
   contributors_.clear();
-  milestones_->clear();
 }
 
 void Project::SetTitle(QString t) { title_ = t; }
@@ -104,10 +99,7 @@ void Project::SetLogFile(QString f) { log_file_ = f; }
 
 QString Project::GetLogFile() const { return log_file_; }
 
-void Project::AddActivity(Activity act) {
-  act.SetId(activities_->length());
-  activities_->append(act);
-}
+void Project::AddActivity(Activity act) { activities_->append(act); }
 
 void Project::RemoveActivity(int n) { activities_->removeAt(n); }
 
@@ -138,39 +130,32 @@ void Project::SetStageComment(QString s) { stage_comment_ = s; }
 
 QString Project::GetStageComment() const { return stage_comment_; }
 
-void Project::AddMilestone(int e_id, QString title, QDateTime time,
-                           QString comment, QString arc, QString threads_type,
-                           QString threads, QString compiler, QString model,
-                           QString perf_metric, QString perf_comment,
-                           QString data_size) {
-  int m_id = milestones_->length();
-  milestones_->append(Milestone());
-  milestones_->last().SetMsId(m_id);
-  milestones_->last().SetTitle(title);
-  milestones_->last().SetTime(time);
-  milestones_->last().SetArc(arc);
-  milestones_->last().SetComment(comment);
-  milestones_->last().SetModel(model);
-  milestones_->last().SetPerfComment(perf_comment);
-  milestones_->last().SetPerfMetric(perf_metric);
-  milestones_->last().SetEventId(e_id);
-  milestones_->last().SetThreadsType(threads_type);
-  milestones_->last().SetThreadsComment(threads);
-  milestones_->last().SetCompiler(compiler);
-  milestones_->last().SetDataSize(data_size);
+QList<Activity> Project::GetMilestone() {
+  QList<Activity> ms;
+  foreach (const Activity a, *activities_) {
+    if (a.GetMsId() != -1)
+      ms.append(a);
+  }
+  return ms;
 }
 
-void Project::AddMilestone(Milestone *m) {
-  int m_id = milestones_->length();
-  m->SetMsId(m_id);
-  milestones_->append(*m);
+Activity Project::GetMilestone(int n) {
+  foreach (const Activity a, *activities_) {
+    if (a.GetMsId() == n)
+      return a;
+  }
+  Activity empty_act;
+  return empty_act;
 }
 
-QList<Milestone> *Project::GetMilestone() { return milestones_; }
-
-Milestone Project::GetMilestone(int n) { return milestones_->at(n); }
-
-int Project::GetNoMilestones() { return milestones_->length(); }
+int Project::GetNoMilestones() {
+  int no_ms = 0;
+  foreach (const Activity a, *activities_) {
+    if (a.GetMsId() != -1)
+      no_ms++;
+  }
+  return no_ms;
+}
 
 int Project::GetNoActivities() { return activities_->length(); }
 
@@ -185,7 +170,7 @@ bool Project::StoreLog(QString f) {
   foreach (const Activity a, *activities_) {
     QJsonObject obj;
     obj["ID"] = a.GetId();
-    obj["Comment"] = a.GetMSComment();
+    obj["Comment"] = a.GetMsComment();
     obj["NoEventsCurrentSession"] = a.GetSavedEvents();
     obj["LoggingInterval"] = a.GetLogInterval();
     obj["Interval"] = a.GetIntervalTime();
@@ -195,29 +180,21 @@ bool Project::StoreLog(QString f) {
     obj["ProjectTitle"] = a.GetProjectTitle();
     obj["ActivityType"] = a.GetType();
     obj["Scheduler"] = a.GetScheduler();
+    obj["MsTitle"] = a.GetMsTitle();
+    obj["MsComment"] = a.GetMsComment();
+    obj["MsID"] = a.GetMsId();
+    obj["PerfMetric"] = a.GetPerfMetric();
+    obj["PerfComment"] = a.GetPerfComment();
+    obj["ProgrammingModel"] = a.GetModel();
+    obj["ThreadsNodes"] = a.GetThreadsType();
+    obj["NoThreadsNodes"] = a.GetThreadsComment();
+    obj["Compiler"] = a.GetCompiler();
+    obj["Architecture"] = a.GetArc();
+    obj["DataSize"] = a.GetDataSize();
     activities_array.append(obj);
-  }
-  QJsonArray milestones_array;
-  foreach (const Milestone ms, *milestones_) {
-    QJsonObject obj;
-    obj["Title"] = ms.GetTitle();
-    obj["Time"] = ms.GetTime().toString("yyyy-MM-dd hh:mm:ss");
-    obj["Comment"] = ms.GetComment();
-    obj["ID"] = ms.GetMsId();
-    obj["MatchingActivityID"] = ms.GetEventId();
-    obj["PerfMetric"] = ms.GetPerfMetric();
-    obj["PerfComment"] = ms.GetPerfComment();
-    obj["ProgrammingModel"] = ms.GetModel();
-    obj["ThreadsNodes"] = ms.GetThreadsType();
-    obj["NoThreadsNodes"] = ms.GetThreadsComment();
-    obj["Compiler"] = ms.GetCompiler();
-    obj["Architecture"] = ms.GetArc();
-    obj["DataSize"] = ms.GetDataSize();
-    milestones_array.append(obj);
   }
   json["InitialProjectStage"] = stage_;
   json["InitialProjectStageComment"] = stage_comment_;
-  json["Milestones"] = milestones_array;
   json["LoggingEvents"] = activities_array;
 
   QJsonDocument doc(json);
@@ -255,26 +232,6 @@ bool Project::ReadLog(QString f) {
   json = load_doc.object();
   stage_ = json["InitialProjectStage"].toString();
   stage_comment_ = json["InitialProjectStageComment"].toString();
-  QJsonArray milestones_array = json["Milestones"].toArray();
-  foreach (const QJsonValue &v, milestones_array) {
-    QJsonObject o = v.toObject();
-    Milestone ms;
-    ms.SetTitle(o["Title"].toString());
-    ms.SetTime(
-        QDateTime::fromString(o["Time"].toString(), "yyyy-MM-dd hh:mm:ss"));
-    ms.SetComment(o["Comment"].toString());
-    ms.SetMsId(o["ID"].toInt());
-    ms.SetEventId(o["MatchingActivityID"].toInt());
-    ms.SetPerfMetric(o["PerfMetric"].toString());
-    ms.SetPerfComment(o["PerfComment"].toString());
-    ms.SetModel(o["ProgrammingModel"].toString());
-    ms.SetThreadsType(o["ThreadsNodes"].toString());
-    ms.SetThreadsComment(o["NoThreadsNodes"].toString());
-    ms.SetCompiler(o["Compiler"].toString());
-    ms.SetArc(o["Architecture"].toString());
-    ms.SetArc(o["DataSize"].toString());
-    milestones_->append(ms);
-  }
   QJsonArray activities_array = json["LoggingEvents"].toArray();
   foreach (const QJsonValue &v, activities_array) {
     QJsonObject o = v.toObject();
@@ -296,11 +253,23 @@ bool Project::ReadLog(QString f) {
     if (VERBOSE)
       qDebug() << a.GetId();
     a.SetSavedEvents(o["NoEventsCurrentSession"].toInt());
-    a.SetMSComment(o["Comment"].toString());
+    a.SetMsComment(o["Comment"].toString());
     if (o["Scheduler"].isUndefined())
       a.SetScheduler(0);
     else
       a.SetScheduler(o["Scheduler"].toInt());
+    a.SetMsTitle(o["MsTitle"].toString());
+    a.SetMsComment(o["MsComment"].toString());
+    a.SetMsId(o["MsID"].toInt());
+    a.SetId(o["MatchingActivityID"].toInt());
+    a.SetPerfMetric(o["PerfMetric"].toString());
+    a.SetPerfComment(o["PerfComment"].toString());
+    a.SetModel(o["ProgrammingModel"].toString());
+    a.SetThreadsType(o["ThreadsNodes"].toString());
+    a.SetThreadsComment(o["NoThreadsNodes"].toString());
+    a.SetCompiler(o["Compiler"].toString());
+    a.SetArc(o["Architecture"].toString());
+    a.SetArc(o["DataSize"].toString());
     activities_->append(a);
   }
   return status;

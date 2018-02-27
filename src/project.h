@@ -173,42 +173,17 @@ public:
    * \return A string containing stage_comment_
    */
   QString GetStageComment() const;
-  //! Add a milestone to the project
+  //! Getter for all activities with milestones
   /*!
-   * \param[in] e_id The id of the associate logging event.
-   * \param[in] title The title of the milestone.
-   * \param[in] time The time of the milestone.
-   * \param[in] comment A comment about the milestone.
-   * \param[in] arc The architecture used during the milestone.
-   * \param[in] threads_type The metric used to specify nodes, threads, etc.
-   * \param[in] threads The number of nodes, threads, etc.
-   * \param[in] compiler The compiler used during the milestone.
-   * \param[in] model The programming model used for the milestone.
-   * \param[in] perf_metric The metric for measuring the performance of the
-   * milestone
-   * \param[in] perf_comment A comment about the performance of the milestone.
-   * \param[in] data_size A comment about the data size of the milestone.
+   * \return A pointer to a list of activities with milestones
    */
-  void AddMilestone(int e_id, QString title, QDateTime time, QString comment,
-                    QString arc, QString threads_type, QString threads,
-                    QString compiler, QString model, QString perf_metric,
-                    QString perf_comment, QString data_size);
-  //! Add a milestone to the project
+  QList<Activity> GetMilestone();
+  //! Getter for milestone with ID n
   /*!
-   * \param[in] m The milestone to be added to the porject.
+   * \param[in] n The ID of the milestone to look for.
+   * \return A milestone from activities_
    */
-  void AddMilestone(Milestone *m);
-  //! Getter for milestones_
-  /*!
-   * \return A pointer to milestones_
-   */
-  QList<Milestone> *GetMilestone();
-  //! Getter for milestones_ at position n
-  /*!
-   * \param[in] n The position of the milestone to look for.
-   * \return A milestones from milestones_
-   */
-  Milestone GetMilestone(int n);
+  Activity GetMilestone(int n);
   //! Gets the number of milestones in the current project
   /*!
    * \return The number of milestones in the current project.
@@ -258,17 +233,15 @@ private:
   Crypt *crypt_; /**< A pointer to Crypt which is associate with the current
                       project.*/
 #endif
-  QList<Activity> *activities_;  /**< A list of activities associated with the
-                                      current project.*/
-  QString title_;                /**< The title of the project.*/
-  QString pro_dir_;              /**< The working directory of the project.*/
-  QString log_dir_;              /**< The directory to store log files to.*/
-  QString log_file_;             /**< The full path of the log file.*/
-  QString stage_;                /**< The development stage of the project.*/
-  QString stage_comment_;        /**< A comment about the development stage of
-                                      the project.*/
-  QStringList contributors_;     /**< A list of contributors to this project.*/
-  int interval_;                 /**< The logging interval.*/
-  QList<Milestone> *milestones_; /**< A list of milestones linked to this
-                                      project.*/
+  QList<Activity> *activities_; /**< A list of activities associated with the
+                                     current project.*/
+  QString title_;               /**< The title of the project.*/
+  QString pro_dir_;             /**< The working directory of the project.*/
+  QString log_dir_;             /**< The directory to store log files to.*/
+  QString log_file_;            /**< The full path of the log file.*/
+  QString stage_;               /**< The development stage of the project.*/
+  QString stage_comment_;       /**< A comment about the development stage of
+                                     the project.*/
+  QStringList contributors_;    /**< A list of contributors to this project.*/
+  int interval_;                /**< The logging interval.*/
 };
