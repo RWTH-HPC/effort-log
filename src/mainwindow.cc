@@ -43,6 +43,7 @@ MainWindow::MainWindow() : QMainWindow() {
 MainWindow::MainWindow(Crypt *crypt) : QMainWindow() {
   crypt_ = crypt;
   log_running_ = false;
+  qst_running_ = false;
   Setup();
   CreateActions();
   CreateConnections();
@@ -78,6 +79,7 @@ void MainWindow::closeEvent(QCloseEvent *event) {
             cur_interval > (settings_.value("conf/logInterval").toInt() *
                             60000 * LOG_ON_EXIT_THRESHOLD)) {
           countdown_timer_->stop();
+          qst_running_ = true;
           QuestionnaireDialog dialog(this, 3);
           dialog.exec();
           dialog.show();
@@ -186,6 +188,7 @@ void MainWindow::QuitOnSignal() {
         cur_interval > (settings_.value("conf/logInterval").toInt() * 60000 *
                         LOG_ON_EXIT_THRESHOLD)) {
       countdown_timer_->stop();
+      qst_running_ = true;
       QuestionnaireDialog dialog(this, 3);
       dialog.exec();
       dialog.show();
@@ -198,11 +201,14 @@ void MainWindow::QuitOnSignal() {
 void MainWindow::NextAnimationFrame() {
   if ((countdown_time_.hour() == 0) && (countdown_time_.minute() == 0) &&
       (countdown_time_.second() == 0)) {
-    QuestionnaireDialog dialog(this, 0);
-    dialog.exec();
-    dialog.show();
-    dialog.setWindowModality(Qt::WindowModal);
-    countdown_time_.setHMS(0, settings_.value("conf/logInterval").toInt(), 0);
+    if (qst_running_ == false) {
+      qst_running_ = true;
+      QuestionnaireDialog dialog(this, 0);
+      dialog.exec();
+      dialog.show();
+      dialog.setWindowModality(Qt::WindowModal);
+      countdown_time_.setHMS(0, settings_.value("conf/logInterval").toInt(), 0);
+    }
   } else {
     countdown_time_ = countdown_time_.addSecs(-1);
   }
@@ -234,6 +240,8 @@ void MainWindow::CreateMenus() {
 }
 
 void MainWindow::SetLogRunning(bool r) { log_running_ = r; }
+
+void MainWindow::SetQstRunning(bool r) { qst_running_ = r; }
 
 void MainWindow::SetTimeLabel(QString s) { status_label_time_->setText(s); }
 
@@ -287,6 +295,7 @@ void MainWindow::ReadLog() {
 void MainWindow::SetProject(Project *p) { project_ = p; }
 
 void MainWindow::ExecQuestionnaireDialog() {
+  qst_running_ = true;
   QuestionnaireDialog dialog(this, 2);
   dialog.exec();
   dialog.show();
@@ -294,6 +303,7 @@ void MainWindow::ExecQuestionnaireDialog() {
 }
 
 void MainWindow::ExecScheduledQuestionnaireDialog() {
+  qst_running_ = true;
   QuestionnaireDialog dialog(this, 0);
   dialog.exec();
   dialog.show();
