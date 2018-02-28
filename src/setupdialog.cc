@@ -47,7 +47,6 @@ SetupDialog::SetupDialog(MainWindow *window, Crypt *crypt) : QDialog() {
   project_ = new Project(crypt);
   new_project_flag_ = true;
   settings_.setValue("conf/append", false);
-  append_activity_ = new Activity;
   Setup();
   CreateConnections();
   LoadSettings();
@@ -412,7 +411,6 @@ bool SetupDialog::ProjectHandler() {
     project_->ClearProject();
 #ifdef CRYPT
     bool status = project_->Load(project_dir_);
-    main_window_->AddAppendices();
 
     while (status == false) {
       PasswordDialog *pwd = new PasswordDialog(crypt_, false);
@@ -420,7 +418,6 @@ bool SetupDialog::ProjectHandler() {
         return false;
       }
       status = project_->Load(project_dir_);
-      main_window_->AddAppendices();
       if (status == false) {
         QMessageBox box;
         box.setInformativeText("Password Incorrect.");

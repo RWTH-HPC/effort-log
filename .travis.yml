@@ -17,10 +17,10 @@ compiler:
   - gcc
 
 env:
-  - QT_BASE=59 QT_LONG=594 CONFIG=debug
-  - QT_BASE=59 QT_LONG=594 CONFIG=release DEPLOY=true
-  - QT_BASE=59 QT_LONG=594 CONFIG=debug CRYPT=crypt
-  - QT_BASE=59 QT_LONG=594 CONFIG=release CRYPT=crypt DEPLOY=true
+  - QT_BASE=510 QT_LONG=5.10.1 CONFIG=debug
+  - QT_BASE=510 QT_LONG=5.10.1 CONFIG=release DEPLOY=true
+  - QT_BASE=510 QT_LONG=5.10.1 CONFIG=debug CRYPT=crypt
+  - QT_BASE=510 QT_LONG=5.10.1 CONFIG=release CRYPT=crypt DEPLOY=true
 
 matrix:
   exclude:
