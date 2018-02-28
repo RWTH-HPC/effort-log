@@ -425,8 +425,12 @@ void QuestionnaireDialog::accept() {
   QDateTime cur_time = QDateTime::currentDateTime();
   activity_->SetCurTime(cur_time);
   activity_->SetLastTime(settings.value("lastLogTime").toDateTime());
-  activity_->SetIntervalTime(
-      qCeil(cur_time.secsTo(activity_->GetLastTime()) / -60.0));
+  if (scheduler_ == 1) {
+    activity_->SetIntervalTime(log_interval_spin_box_->value());
+  } else {
+    activity_->SetIntervalTime(
+        qCeil(cur_time.secsTo(activity_->GetLastTime()) / -60.0));
+  }
   activity_->SetSavedEvents(no_logged_activities_);
   activity_->SetType(act_form_->GetText());
   settings.setValue("lastLogTime", QDateTime::currentDateTime());
