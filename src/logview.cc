@@ -55,15 +55,17 @@ LogView::LogView(Project *pro) : QDialog() {
     if (pro->GetActivity(i).GetMsId() >= 0) {
       QString ms_content;
       ms_content.append(pro->GetActivity(i).GetMsTitle());
-      ms_content.append(":  ");
       QString metric = pro->GetActivity(i).GetPerfMetric();
-      if (metric.contains("Execution time")) {
-        ms_content.append("exec. time: ");
-      } else if (metric.contains("Throughput")) {
-        ms_content.append("throughput: ");
-      } else {
-        ms_content.append(metric);
-        ms_content.append(": ");
+      if (metric != "") {
+        ms_content.append(":  ");
+        if (metric.contains("Execution time")) {
+          ms_content.append("exec. time: ");
+        } else if (metric.contains("Throughput")) {
+          ms_content.append("throughput: ");
+        } else {
+          ms_content.append(metric);
+          ms_content.append(": ");
+        }
       }
       ms_content.append(pro->GetActivity(i).GetPerfComment());
       item_comment->setText(ms_content);
