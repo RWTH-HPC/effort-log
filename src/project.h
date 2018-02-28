@@ -109,6 +109,11 @@ public:
    * \param[in] n The number of activity to be removed
    */
   void RemoveActivity(int n);
+  //! Adds an appendix to the project
+  /*!
+   * \param[in] act The apendix the be added to the list of activities
+   */
+  void AddAppendix(Activity act);
   //! Returns an activity from the list of activities
   /*!
    * \param[in] n The number of activity to be returned

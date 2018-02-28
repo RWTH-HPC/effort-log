@@ -164,9 +164,9 @@ private:
   QPushButton *skip_button_; /**< Button to exit the dialog without logging the
                                   event to the log file (skipping this event)*/
   Project *project_; /**< Holds a pointer to the current project. \see Project*/
-  int scheduler_;    /**< Denotes if the questionnaire was scheduled by the
-                             set interval (=0), was manually executed (=2), or
-                             was executed on closing the program (=3)*/
+  int scheduler_;    /**< Denotes if the questionnaire was scheduled by the set
+                        interval (=0), was an appendix (=1), was manually executed
+                        (=2), or was executed on closing the program (=3) */
   QPushButton *log_button_; /**< Button to read the current log file.*/
   QstForm *act_form_;       /**< Form to specify the type of activity.*/
   QWidget *perf_widget_;    /**< A widget of holding the detailed questions on
@@ -202,6 +202,9 @@ private:
   QLineEdit *ms_line_edit_;  /**< Line edit of the milestone's title.*/
   QLabel *ms_comment_label_; /**< The label of the comment filed to specify
                                 additional informatin regarding the milestone.*/
-  QPlainTextEdit *ms_comment_; /**< A comment filed to specify additional
-                                  informatin regarding the milestone.*/
+  QPlainTextEdit *ms_comment_;      /**< A comment filed to specify additional
+                                       informatin regarding the milestone.*/
+  QSpinBox *log_interval_spin_box_; /**< Lets the user specify the interval of
+                                      development before executing the
+                                      program.*/
 };

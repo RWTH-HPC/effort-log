@@ -32,6 +32,7 @@
 MainWindow::MainWindow() : QMainWindow() {
   log_running_ = false;
   qst_running_ = false;
+  appendices_ = new QList<Activity>;
   Setup();
   CreateActions();
   CreateConnections();
@@ -45,6 +46,7 @@ MainWindow::MainWindow(Crypt *crypt) : QMainWindow() {
   crypt_ = crypt;
   log_running_ = false;
   qst_running_ = false;
+  appendices_ = new QList<Activity>;
   Setup();
   CreateActions();
   CreateConnections();
@@ -309,4 +311,17 @@ void MainWindow::ExecScheduledQuestionnaireDialog() {
   dialog.exec();
   dialog.show();
   dialog.setWindowModality(Qt::WindowModal);
+}
+
+void MainWindow::AddAppendix(Activity act) { appendices_->append(act); }
+
+void MainWindow::AddAppendices() {
+  while (appendices_->length() > 0) {
+    appendices_->first().SetId(project_->GetNoActivities());
+    if (appendices_->first().GetMsTitle() != "")
+      appendices_->first().SetMsId(project_->GetNoMilestones());
+    project_->AddActivity(appendices_->first());
+    appendices_->removeFirst();
+  }
+  project_->StoreLog(settings_.value("conf/logFile").toString());
 }

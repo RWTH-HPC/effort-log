@@ -123,7 +123,10 @@ public:
    * \param[in] running A bool denoting if a questionnaire is running
    */
   void SetQstRunning(bool r);
-
+  //! Adds an appendix to appendices_
+  void AddAppendix(Activity act);
+  //! Adds appendices to project_
+  void AddAppendices();
   Project *project_; /**< Holds a pointer to the current project. \see Project*/
 public slots:
   void QuitOnSignal();
@@ -251,4 +254,5 @@ private:
   QToolBar *tool_bar_;    /**< The main tool bar*/
   QLabel *project_label_; /**< Holds the title of the project.*/
   bool qst_running_; /**< True if a questionnaire is running, false if not.*/
+  QList<Activity> *appendices_; /**< A list of potential appendices.*/
 };

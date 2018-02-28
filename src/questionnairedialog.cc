@@ -42,6 +42,18 @@ void QuestionnaireDialog::Setup() {
   activity_ = new Activity;
   no_logged_activities_ = settings.value("noLoggedActivities").toInt();
 
+  // Specify logging interval
+  QLabel *log_interval_label = new QLabel(
+      tr("How long have you been working before executing EffortLog?"));
+  if (scheduler_ == 1) {
+    log_interval_spin_box_ = new QSpinBox(this);
+    log_interval_spin_box_->setRange(0, 1000);
+    log_interval_spin_box_->setSingleStep(1);
+    log_interval_spin_box_->setValue(15);
+    log_interval_spin_box_->setToolTip(tr("Set the time in minutes you want to "
+                                          "be logged to the current project"));
+    log_interval_spin_box_->setSuffix(" min");
+  }
   // Activity form
   act_form_ = new QstForm();
   act_form_->SetTitle(info_string_);
@@ -191,6 +203,11 @@ void QuestionnaireDialog::Setup() {
   log_button_->setCheckable(true);
   log_button_->setAutoDefault(false);
   log_button_->setShortcut(QKeySequence(Qt::Key_L));
+  if (scheduler_ == 1) {
+    log_button_->setEnabled(false);
+    log_button_->setToolTip(
+        tr("You need to set up the current project to read it's log files"));
+  }
 
   // Button to finish the input
   finish_button_ = new QPushButton(tr("Finish"));
@@ -229,6 +246,17 @@ void QuestionnaireDialog::Setup() {
   button_layout->addWidget(skip_button_, 0, Qt::AlignCenter);
   button_layout->addWidget(log_button_, 0, Qt::AlignCenter);
   button_layout->addWidget(finish_button_, 0, Qt::AlignCenter);
+
+  QGroupBox *appendix_group = new QGroupBox;
+  if (scheduler_ == 1) {
+    QHBoxLayout *appendix_layout = new QHBoxLayout;
+    appendix_layout->addWidget(log_interval_label);
+    appendix_layout->addWidget(log_interval_spin_box_);
+    appendix_group->setTitle(tr("Appendix"));
+    appendix_group->setLayout(appendix_layout);
+    appendix_group->setToolTip(tr(
+        "Specify the duration of the event you want to append to your diary"));
+  }
 
   QVBoxLayout *act_layout = new QVBoxLayout;
   act_layout->addWidget(act_form_);
@@ -288,6 +316,9 @@ void QuestionnaireDialog::Setup() {
                           "Additional questions will then appear."));
 
   main_layout_ = new QVBoxLayout;
+  if (scheduler_ == 1) {
+    main_layout_->addWidget(appendix_group);
+  }
   main_layout_->addWidget(act_group);
   main_layout_->addWidget(perf_group);
   main_layout_->addWidget(comment_group);
@@ -296,10 +327,19 @@ void QuestionnaireDialog::Setup() {
   main_layout_->addLayout(button_layout);
   setLayout(main_layout_);
 
-  QString title_string =
-      QString("Logging event #%1:   %2 - now")
-          .arg(no_logged_activities_ + 1)
-          .arg(settings.value("lastLogTime").toDateTime().toString("hh:mm ap"));
+  QString title_string;
+  if (scheduler_ == 1) {
+    title_string = QString("Appendix to the last diary entry on %1")
+                       .arg(settings.value("lastLogTime")
+                                .toDateTime()
+                                .toString("hh:mm ap"));
+  } else {
+    title_string = QString("Logging event #%1:   %2 - now")
+                       .arg(no_logged_activities_ + 1)
+                       .arg(settings.value("lastLogTime")
+                                .toDateTime()
+                                .toString("hh:mm ap"));
+  }
   this->setWindowTitle(title_string);
   this->setWindowFlags(Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
   return;
@@ -309,6 +349,9 @@ void QuestionnaireDialog::CreateConnections() {
   QTimer *countdown_timer = new QTimer();
   connect(countdown_timer, SIGNAL(timeout()), this, SLOT(UpdateUI()));
   countdown_timer->start(60000);
+  if (scheduler_ == 1)
+    connect(log_interval_spin_box_, SIGNAL(valueChanged(int)), this,
+            SLOT(UpdateUI()));
 
   connect(perf_box_, SIGNAL(activated(int)), this, SLOT(PerfInputChanged(int)));
   connect(threads_box_, SIGNAL(activated(int)), this,
@@ -345,13 +388,25 @@ void QuestionnaireDialog::UpdateUI() {
   int interval = QTime::currentTime().msecsSinceStartOfDay() -
                  settings.value("lastLogTime").toTime().msecsSinceStartOfDay();
   interval /= (1000 * 60);
-  if (interval == 1) {
-    info_string_ = QString("<font color='red'>*</font> 1. What were you "
-                           "working on the last minute?");
+  if (scheduler_ == 1) {
+    int log_time = log_interval_spin_box_->value();
+    if (log_time == 1) {
+      info_string_ = QString("<font color='red'>*</font> 1. What were you "
+                             "working on the last minute?");
+    } else {
+      info_string_ = QString("<font color='red'>*</font> 1. What were you "
+                             "working on the last %1 minutes?")
+                         .arg(log_time);
+    }
   } else {
-    info_string_ = QString("<font color='red'>*</font> 1. What were you "
-                           "working on the last %1 minutes?")
-                       .arg(interval);
+    if (interval == 1) {
+      info_string_ = QString("<font color='red'>*</font> 1. What were you "
+                             "working on the last minute?");
+    } else {
+      info_string_ = QString("<font color='red'>*</font> 1. What were you "
+                             "working on the last %1 minutes?")
+                         .arg(interval);
+    }
   }
   act_form_->SetTitle(info_string_);
 
@@ -403,7 +458,8 @@ void QuestionnaireDialog::accept() {
   if (ms_group_->checkedId() == 1) {
     activity_->SetMsTitle(ms_line_edit_->text());
     activity_->SetMsComment(ms_comment_->toPlainText());
-    activity_->SetMsId(project_->GetNoMilestones());
+    if (scheduler_ != 1)
+      activity_->SetMsId(project_->GetNoMilestones());
   } else {
     activity_->SetMsId(-1);
   }
@@ -432,10 +488,14 @@ void QuestionnaireDialog::accept() {
     qDebug() << "Actual logging interval:" << activity_->GetIntervalTime();
     qDebug() << "No of saved events:" << activity_->GetSavedEvents();
   }
-  activity_->SetId(project_->GetNoActivities());
-  project_->AddActivity(*activity_);
-  project_->StoreLog(settings.value("conf/logFile").toString());
-  main_window_->SetupAnimation();
+  if (scheduler_ == 1) {
+    main_window_->AddAppendix(*activity_);
+  } else {
+    activity_->SetId(project_->GetNoActivities());
+    project_->AddActivity(*activity_);
+    project_->StoreLog(settings.value("conf/logFile").toString());
+    main_window_->SetupAnimation();
+  }
   main_window_->SetQstRunning(false);
   QDialog::accept();
   return;

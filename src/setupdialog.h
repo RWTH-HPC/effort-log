@@ -32,7 +32,9 @@
 #include <QPushButton>
 #include <QSpinBox>
 
+#include "activity.h"
 #include "mainwindow.h"
+#include "questionnairedialog.h"
 #ifdef CRYPT
 #include "crypt.h"
 #endif
@@ -157,12 +159,10 @@ private:
   QLineEdit *project_dir_line_edit_; /**< QLineEdit to edit the working
                                           directory of the project.*/
 
-  bool new_project_flag_;     /**< Indicates if the project already exists.*/
-  QStringList dir_list_;      /**< A list of working directories.*/
-  QCompleter *completer_;     /**< Auto-completion of the title of known
-                                   projects.*/
-  Activity *append_activity_; /**< An activity to append to the current
-                                   project.*/
+  bool new_project_flag_; /**< Indicates if the project already exists.*/
+  QStringList dir_list_;  /**< A list of working directories.*/
+  QCompleter *completer_; /**< Auto-completion of the title of known
+                               projects.*/
 
 private slots:
   //! Browse a project file
@@ -190,9 +190,9 @@ private slots:
    * correctly the button OK is enabled
    */
   void CheckInput();
-  //! Executes AppendDialog()
+  //! Executes an append dialog
   /*!
-   * This method creates a new dialog of Class AppendDialog which gains focus
+   * This method creates a new questionnaire dialog which gains focus
    * over the current SetupDialog.
    */
   void Append();

@@ -35,7 +35,6 @@ SetupDialog::SetupDialog(MainWindow *window) : QDialog() {
   project_ = new Project();
   new_project_flag_ = true;
   settings_.setValue("conf/append", false);
-  append_activity_ = new Activity;
   Setup();
   CreateConnections();
   LoadSettings();
@@ -288,14 +287,14 @@ void SetupDialog::accept() {
     }
     QFileInfo checkFile(
         QDir::toNativeSeparators(settings_.value("conf/logFile").toString()));
-    if (new_project_flag_ == false && checkFile.exists() && checkFile.isFile())
+    if (new_project_flag_ == false && checkFile.exists() &&
+        checkFile.isFile()) {
       project_->ReadLog(
           QDir::toNativeSeparators(settings_.value("conf/logFile").toString()));
-    if (append_activity_->GetType() != "") {
-      project_->AddActivity(*append_activity_);
     }
 
     main_window_->SetProject(project_);
+    main_window_->AddAppendices();
     main_window_->SetLogRunning(true);
     main_window_->SetupAnimation();
     main_window_->UpdateUI();
@@ -382,7 +381,7 @@ void SetupDialog::SetLogFileName() {
 }
 
 void SetupDialog::Append() {
-  AppendDialog dialog(main_window_, append_activity_);
+  QuestionnaireDialog dialog(main_window_, 1);
   dialog.exec();
   dialog.show();
   dialog.setWindowModality(Qt::WindowModal);
@@ -413,12 +412,15 @@ bool SetupDialog::ProjectHandler() {
     project_->ClearProject();
 #ifdef CRYPT
     bool status = project_->Load(project_dir_);
+    main_window_->AddAppendices();
+
     while (status == false) {
       PasswordDialog *pwd = new PasswordDialog(crypt_, false);
       if (pwd->exec() == QDialog::Rejected) {
         return false;
       }
       status = project_->Load(project_dir_);
+      main_window_->AddAppendices();
       if (status == false) {
         QMessageBox box;
         box.setInformativeText("Password Incorrect.");
