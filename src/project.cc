@@ -157,7 +157,12 @@ int Project::GetNoMilestones() {
   return no_ms;
 }
 
-int Project::GetNoActivities() { return activities_->length(); }
+int Project::GetNoActivities() {
+  if (activities_ != NULL)
+    return activities_->length();
+  else
+    return 0;
+}
 
 bool Project::StoreLog(QString f) {
   QFile file(f);
@@ -299,6 +304,7 @@ bool Project::Load(QString f) {
   foreach (const QJsonValue &cont, array) {
     AddContributor(cont.toObject().value("name").toString());
   }
+
   return status;
 }
 
