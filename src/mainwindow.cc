@@ -31,6 +31,7 @@
 
 MainWindow::MainWindow() : QMainWindow() {
   log_running_ = false;
+  qst_running_ = false;
   Setup();
   CreateActions();
   CreateConnections();
