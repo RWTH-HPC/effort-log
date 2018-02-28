@@ -25,7 +25,6 @@
 #include "crypt.h"
 #endif
 #include "definitions.h"
-#include "milestone.h"
 #include <QJsonArray>
 
 //! Class to handle projects.

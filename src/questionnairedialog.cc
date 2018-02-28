@@ -21,7 +21,6 @@
 #include "questionnairedialog.h"
 #include "definitions.h"
 #include "logview.h"
-#include "milestonedialog.h"
 
 #include <QDebug>
 #include <QDir>

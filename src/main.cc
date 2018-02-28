@@ -29,8 +29,6 @@
 
 #include "definitions.h"
 #include "mainwindow.h"
-#include "milestone.h"
-#include "milestonedialog.h"
 #include "passworddialog.h"
 #include "questionnairedialog.h"
 #include "setupdialog.h"

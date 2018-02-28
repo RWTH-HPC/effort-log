@@ -110,11 +110,8 @@ QMAKE_CLEAN += -r doxygen
 
 SOURCES += \
   src/activity.cc \
-  src/appenddialog.cc \
   src/main.cc \
   src/mainwindow.cc \
-  src/milestone.cc \
-  src/milestonedialog.cc \
   src/project.cc \
   src/setupdialog.cc \
   src/proinitdialog.cc \
@@ -124,11 +121,8 @@ SOURCES += \
 
 HEADERS +=  \
   src/activity.h \
-  src/appenddialog.h \
   src/definitions.h \
   src/mainwindow.h \
-  src/milestone.h \
-  src/milestonedialog.h \
   src/project.h \
   src/setupdialog.h \
   src/proinitdialog.h \
@@ -152,5 +146,5 @@ DISTFILES += \
   tools/mac_osx_deploy.sh \
   tools/windows_deploy.bat \
   tools/windows_deploy_encrypted.bat \
-    tools/format.sh
+  tools/format.sh
 

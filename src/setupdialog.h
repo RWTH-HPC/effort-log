@@ -32,7 +32,6 @@
 #include <QPushButton>
 #include <QSpinBox>
 
-#include "appenddialog.h"
 #include "mainwindow.h"
 #ifdef CRYPT
 #include "crypt.h"
