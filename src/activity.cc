@@ -41,7 +41,7 @@ Activity::Activity() {
   model_ = "";
 }
 
-const QString Activity::kActivityType[] = {
+const QStringList Activity::kActivityType = {
     "Break",     "Thinking", "Serial",        "Parallelizing", "Testing",
     "Debugging", "Tuning",   "Experimenting", "Other"};
 

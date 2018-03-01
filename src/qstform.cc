@@ -99,14 +99,14 @@ bool QstForm::GetLine() const { return line_; }
 void QstForm::SetCompleter() {
   completer_ = new QCompleter(compContents_, this);
   completer_->setCaseSensitivity(Qt::CaseInsensitive);
-  completer_->setCompletionMode(QCompleter::UnfilteredPopupCompletion);
+  completer_->setCompletionMode(QCompleter::PopupCompletion);
   line_edit_->setCompleter(completer_);
 }
 
 void QstForm::SetCompleter(QStringList s) {
   completer_ = new QCompleter(s, this);
   completer_->setCaseSensitivity(Qt::CaseInsensitive);
-  completer_->setCompletionMode(QCompleter::UnfilteredPopupCompletion);
+  completer_->setCompletionMode(QCompleter::PopupCompletion);
   line_edit_->setCompleter(completer_);
 }
 

@@ -42,7 +42,7 @@ public:
    * Can be accessed with kActivityType[0] to kActivityType[NUM_ACTIVITIES - 1]
    * \see DEFINITIONS
    */
-  static const QString kActivityType[];
+  static const QStringList kActivityType;
   //! The main constructor.
   Activity();
   //! Getter for kActivityType

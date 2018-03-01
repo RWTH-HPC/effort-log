@@ -201,7 +201,7 @@ public:
   //! Stores the list of activities to disk
   /*!
    * Stores the list of activities to a JSON file
-   * \param[in] f The name and direktory of the JSON file
+   * \param[in] f The name and directory of the JSON file
    * \return True if the file was successfully written, false if an error
    * occured
    */
@@ -210,7 +210,7 @@ public:
   /*!
    * Reads the list of activities from a JSON file and stores it in the list
    * of activities.
-   * \param[in] f The name and direktory of the JSON file
+   * \param[in] f The name and directory of the JSON file
    * \return True if the file was successfully read, false if an error
    * occured
    */
@@ -218,7 +218,7 @@ public:
   //! Stores the project to disk
   /*!
    * Stores the project to a project file
-   * \param[in] f The name and direktory of the project file
+   * \param[in] f The name and directory of the project file
    * \return True if the file was successfully written, false if an error
    * occured
    */
@@ -226,11 +226,41 @@ public:
   //! Reads the list of activities from disk
   /*!
    * Reads the project from a project file and stores it project.
-   * \param[in] f The name and direktory of the project file
+   * \param[in] f The name and directory of the project file
    * \return True if the file was successfully read, false if an error
    * occured
    */
   bool Load(QString f);
+  //! Gets a list of  unique activities in the project
+  /*!
+   * Searches through all activities in the project to find unique activities
+   * \return A list of strings of the unique activities in the project
+   */
+  QStringList GetUniqueActivities();
+  //! Gets a list of  unique architectures in the project
+  /*!
+   * Searches through all activities in the project to find unique architectures
+   * \return A list of strings of the unique architectures in the project
+   */
+  QStringList GetUniqueArchitectures();
+  //! Gets a list of  unique compilers in the project
+  /*!
+   * Searches through all activities in the project to find unique compilers
+   * \return A list of strings of the unique compilers in the project
+   */
+  QStringList GetUniqueCompilers();
+  //! Gets a list of  unique programming models in the project
+  /*!
+   * Searches through all activities in the project to find unique programming models
+   * \return A list of strings of the unique programming models in the project
+   */
+  QStringList GetUniqueProgModels();
+  //! Gets a list of  unique data sizes in the project
+  /*!
+   * Searches through all activities in the project to find unique data sizes
+   * \return A list of strings of the unique data sizes in the project
+   */
+  QStringList GetUniqueDataSizes();
 
 private:
 #ifdef CRYPT

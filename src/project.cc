@@ -247,7 +247,7 @@ bool Project::ReadLog(QString f) {
     a.SetCompiler(o["Compiler"].toString());
     a.SetCurTime(QDateTime::fromString(o["CurLoggingTime"].toString(),
                                        "yyyy-MM-dd hh:mm:ss"));
-    a.SetArc(o["DataSize"].toString());
+    a.SetDataSize(o["DataSize"].toString());
     a.SetId(o["ID"].toInt());
     a.SetIntervalTime(o["Interval"].toInt());
     a.SetLastTime(QDateTime::fromString(o["LastLoggingTime"].toString(),
@@ -342,3 +342,48 @@ bool Project::Save(QString f) {
   return true;
 #endif
 }
+
+QStringList Project::GetUniqueActivities() {
+  QStringList list;
+  foreach (const Activity a, *activities_) {
+    if ((list.indexOf(a.GetType()) == -1) && (a.GetType() != ""))
+      list.append(a.GetType());
+  }
+  return list;
+}
+
+QStringList Project::GetUniqueArchitectures(){
+    QStringList list;
+    foreach (const Activity a, *activities_) {
+      if ((list.indexOf(a.GetArc()) == -1)  && (a.GetArc() != ""))
+        list.append(a.GetArc());
+    }
+    return list;
+  }
+
+QStringList Project::GetUniqueCompilers(){
+    QStringList list;
+    foreach (const Activity a, *activities_) {
+      if ((list.indexOf(a.GetCompiler()) == -1) && (a.GetCompiler() != ""))
+        list.append(a.GetCompiler());
+    }
+    return list;
+  }
+
+QStringList Project::GetUniqueProgModels(){
+    QStringList list;
+    foreach (const Activity a, *activities_) {
+      if ((list.indexOf(a.GetModel()) == -1) && (a.GetModel() != ""))
+        list.append(a.GetModel());
+    }
+    return list;
+  }
+
+QStringList Project::GetUniqueDataSizes(){
+    QStringList list;
+    foreach (const Activity a, *activities_) {
+      if ((list.indexOf(a.GetDataSize()) == -1) && (a.GetDataSize() != ""))
+        list.append(a.GetDataSize());
+    }
+    return list;
+  }
