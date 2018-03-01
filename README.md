@@ -136,12 +136,17 @@ For more information on how to develop and contribute to EffortLog, please conta
 
 ## Change log:
 
+-   0.9.1 (March 2018):
+    -   Added feature: Added auto-completion to most of the questionnaire forms
+    -   Bug fix: 	   Consistent scheduler IDs for the diary entries
+-   0.9.0 (February 2018):
+    -   Added feature: Major reorganization of the questionnaires towards a single-page layout
 -   0.8.3 (May 2017):
-    -   Bug fix: 	Deployment reverted to Qt5.6 due to packaging issues with QT5.8
+    -   Bug fix: 	   Deployment reverted to Qt5.6 due to packaging issues with QT5.8
 -   0.8.2 (May 2017):
     -   Added feature: Support for changes to file directories for existing projects
-    -   Bug fix: Skip read of log file on newly created projects
-    -   Bug fix: Support for blanks in directory names
+    -   Bug fix:       Skip read of log file on newly created projects
+    -   Bug fix:       Support for blanks in directory names
 -   0.8.1 (January 2017):
     -   Added feature: Added a viewer of the current log file during the questionnaire
 -   0.8 (September 2016):
@@ -150,27 +155,27 @@ For more information on how to develop and contribute to EffortLog, please conta
 -   0.7 (February 2016):
     -   Added feature: Encryption is disabled by default. Add \`-config crypt\` to your
         qmake flags to enable encryption
-    -   Bug fix: Empty time stemps in the log files
+    -   Bug fix: Empty time stamps in the log files
 -   0.6 (January 2016):
-    -   Bug fix: Wrong interval length of the first logging event
+    -   Bug fix:       Wrong interval length of the first logging event
     -   Added feature: Support for full 256-bit AES encryption of all project and log files
-    -   Bug fix: Appending an event failes due to encryption
+    -   Bug fix:       Appending an event fails due to encryption
 -   0.5 (December 2015):
     -   Added feature: Added milestones to projects
     -   Added feature: Added IDs to each logging event
-    -   Bug fix: Fixed US locale to unify data format of log files
-    -   Bug fix: Milestones have mismatching IDs between the logging event and the current
+    -   Bug fix:       Fixed US locale to unify data format of log files
+    -   Bug fix:       Milestones have mismatching IDs between the logging event and the current
         milestone
 -   0.4 (December 2015):
     -   Added feature: Configuration unified in one dialog
     -   Added feature: Added appendix to log file at program startup
-    -   Bug fix: General fixes
+    -   Bug fix:       General fixes
 -   0.3 (November 2015):
     -   Added feature: New configuration window
     -   Added feature: Main window simplified
-    -   Bug fix: Errors with the generated JSON files
+    -   Bug fix:       Errors with the generated JSON files
 -   0.2 (October 2015):
-    -   Bug fix: Improved JSON handling
+    -   Bug fix:       Improved JSON handling
 -   0.1 (September 2015): Initial release
 
 ## Related Publications
@@ -179,16 +184,16 @@ For more information on how to develop and contribute to EffortLog, please conta
 2. J. Miller: Software Cost Estimation for the Development Effort applied to Multi-node GPU Aeroacoustics Simulations. Master Thesis, 2016, RWTH Aachen University, Germany.
 
 ## Contact Us
-[Julian Miller](mailto:miller@itc.rwth-aachen.de)
-[Sandra Wienke](mailto:wienke@itc.rwth-aachen.de)
-IT Center
-Group: High Performance Computing
-Division: Computational Science and Engineering
-RWTH Aachen University
-Seffenter Weg 23
+[Julian Miller](mailto:miller@itc.rwth-aachen.de)  
+[Sandra Wienke](mailto:wienke@itc.rwth-aachen.de)  
+IT Center  
+Group: High Performance Computing  
+Division: Computational Science and Engineering  
+RWTH Aachen University  
+Seffenter Weg 23  
 D 52074  Aachen (Germany)
 
 ## License
 
-Copyright © 2015-2017 IT Center, RWTH Aachen University
+Copyright © 2015-2018 IT Center, RWTH Aachen University  
 This project is licensed under version 3 of the GNU General Public License.
