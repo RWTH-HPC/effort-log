@@ -481,16 +481,19 @@ void QuestionnaireDialog::accept() {
   }
   switch (scheduler_) {
   case 0:
+    activity_->SetScheduler(0);
+    break;
+  case 1:
     activity_->SetScheduler(1);
     break;
   case 2:
-    activity_->SetScheduler(3);
+    activity_->SetScheduler(2);
     break;
   case 3:
-    activity_->SetScheduler(4);
+    activity_->SetScheduler(3);
     break;
   default:
-    activity_->SetScheduler(0);
+    activity_->SetScheduler(-1);
   }
 
   if (VERBOSE) {
