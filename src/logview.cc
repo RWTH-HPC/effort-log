@@ -32,7 +32,7 @@
 LogView::LogView(Project *pro) : QDialog() {
   QTreeView *view;
   int no_events = pro->GetNoActivities();
-  QStandardItemModel *model = new QStandardItemModel(0, 6, this);
+  QStandardItemModel *model = new QStandardItemModel(0, 7, this);
   QStandardItem *rootNode = model->invisibleRootItem();
   QList<QDate> date_list;
   QStandardItem *current = new QStandardItem;
@@ -51,26 +51,27 @@ LogView::LogView(Project *pro) : QDialog() {
     item_interval->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
     item_list << item_interval;
 
-    QStandardItem *item_comment = new QStandardItem();
-    if (pro->GetActivity(i).GetMsId() >= 0) {
+    QStandardItem *item_perf = new QStandardItem();
+    if (pro->GetActivity(i).GetPerfComment() != "") {
       QString ms_content;
-      ms_content.append(pro->GetActivity(i).GetMsTitle());
       QString metric = pro->GetActivity(i).GetPerfMetric();
       if (metric != "") {
-        ms_content.append(":  ");
         if (metric.contains("Execution time")) {
-          ms_content.append("exec. time: ");
+          ms_content.append("Exec. time: ");
         } else if (metric.contains("Throughput")) {
-          ms_content.append("throughput: ");
+          ms_content.append("Throughput: ");
+        } else if (metric.contains("Speedup")) {
+          ms_content.append("Speedup: ");
         } else {
           ms_content.append(metric);
           ms_content.append(": ");
         }
       }
       ms_content.append(pro->GetActivity(i).GetPerfComment());
-      item_comment->setText(ms_content);
+      item_perf->setText(ms_content);
     }
-    item_list << item_comment;
+    item_list << item_perf;
+    item_list << new QStandardItem(pro->GetActivity(i).GetMsTitle());
     item_list << new QStandardItem(pro->GetActivity(i).GetComment());
 
     QDate date = pro->GetActivity(i).GetCurTime().date();
@@ -87,8 +88,9 @@ LogView::LogView(Project *pro) : QDialog() {
   model->setHeaderData(1, Qt::Horizontal, QObject::tr("Id"));
   model->setHeaderData(2, Qt::Horizontal, QObject::tr("Activity"));
   model->setHeaderData(3, Qt::Horizontal, QObject::tr("Duration [min]"));
-  model->setHeaderData(4, Qt::Horizontal, QObject::tr("Milestone"));
-  model->setHeaderData(5, Qt::Horizontal, QObject::tr("Comment"));
+  model->setHeaderData(4, Qt::Horizontal, QObject::tr("Performance"));
+  model->setHeaderData(5, Qt::Horizontal, QObject::tr("Milestone"));
+  model->setHeaderData(6, Qt::Horizontal, QObject::tr("Comment"));
 
   view = new QTreeView(this);
   view->setModel(model);
