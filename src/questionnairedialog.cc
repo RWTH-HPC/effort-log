@@ -57,16 +57,16 @@ void QuestionnaireDialog::Setup() {
   // Activity form
   act_form_ = new QstForm();
   act_form_->SetTitle(info_string_);
-  act_form_->SetToolTip(
-      tr("Describe how you were mainly working since the last diary entry. Typical choices include:"
-         "<br> - Break"
-         "<br> - Thinking"
-         "<br> - Serial"
-         "<br> - Parallelizing"
-         "<br> - Testing"
-         "<br> - Debugging"
-         "<br> - Tuning"
-         "<br> - Experimenting"));
+  act_form_->SetToolTip(tr("Describe how you were mainly working since the "
+                           "last diary entry. Typical choices include:"
+                           "<br> - Break"
+                           "<br> - Thinking"
+                           "<br> - Serial"
+                           "<br> - Parallelizing"
+                           "<br> - Testing"
+                           "<br> - Debugging"
+                           "<br> - Tuning"
+                           "<br> - Experimenting"));
   act_form_->SetLine(false);
   if (scheduler_ == 1)
     act_form_->SetCompleter(activity_->kActivityType);

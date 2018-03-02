@@ -131,12 +131,12 @@ private:
 #ifdef CRYPT
   Crypt *crypt_;
 #endif
-  MainWindow *main_window_;        /**< Holds a pointer to the main window.*/
-  QGridLayout *layout_;            /**< The main layout of the dialog.*/
-  QString project_dir_;            /**< Holds a string of the project's working
-                                        directory.*/
-  QDialogButtonBox *buttons_;      /**< Buttons to accept or quit the dialog.*/
-  QPushButton *app_button_;        /**< Buttons to append a logging entry.*/
+  MainWindow *main_window_;   /**< Holds a pointer to the main window.*/
+  QGridLayout *layout_;       /**< The main layout of the dialog.*/
+  QString project_dir_;       /**< Holds a string of the project's working
+                                   directory.*/
+  QDialogButtonBox *buttons_; /**< Buttons to accept or quit the dialog.*/
+  QPushButton *app_button_;   /**< Buttons to append a logging entry.*/
   QLineEdit *project_title_line_edit_; /**< QLineEdit to edit the project's
                                             title.*/
   QLineEdit *user_name_line_edit_;     /**< QLineEdit to edit the user name.*/

@@ -156,7 +156,8 @@ void MainWindow::UpdateUI() {
   setWindowTitle(tr("Effort log"));
   project_label_->setText(
       "Active project:    " + settings_.value("conf/projectTitle").toString() +
-      "<br>Project directory: " + settings_.value("conf/projectDir").toString());
+      "<br>Project directory: " +
+      settings_.value("conf/projectDir").toString());
 }
 
 void MainWindow::SetupAnimation() {

@@ -136,6 +136,8 @@ For more information on how to develop and contribute to EffortLog, please conta
 
 ## Change log:
 
+-   0.9.2 (March 2018):
+    -   Added feature: Simplified set-up
 -   0.9.1 (March 2018):
     -   Added feature: Added auto-completion to most of the questionnaire forms
     -   Bug fix: 	   Consistent scheduler IDs for the diary entries

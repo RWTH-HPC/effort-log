@@ -180,8 +180,8 @@ void SetupDialog::accept() {
 
   settings_.setValue("conf/projectTitle", project_title_line_edit_->text());
   settings_.setValue("conf/userName", user_name_line_edit_->text());
-  settings_.setValue("conf/logFileName", project_title_line_edit_->text() +
-                     tr(".json"));
+  settings_.setValue("conf/logFileName",
+                     project_title_line_edit_->text() + tr(".json"));
   settings_.setValue("conf/logFileDir", project_dir_line_edit_->text());
   QString fileName = settings_.value("conf/logFileDir").toString() + "/" +
                      settings_.value("conf/logFileName").toString();
@@ -316,9 +316,9 @@ void SetupDialog::CheckInput() {
   if (!user_name_line_edit_->text().isEmpty())
     if (!project_title_line_edit_->text().isEmpty())
       if (!project_dir_line_edit_->text().isEmpty()) {
-            buttons_->button(QDialogButtonBox::Ok)->setEnabled(true);
-            app_button_->setEnabled(true);
-          }
+        buttons_->button(QDialogButtonBox::Ok)->setEnabled(true);
+        app_button_->setEnabled(true);
+      }
   return;
 }
 

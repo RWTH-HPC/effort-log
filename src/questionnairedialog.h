@@ -196,12 +196,12 @@ private:
   QstForm *data_form_;         /**< Lets user specify the data size of the
                                               milestone.*/
   QHBoxLayout
-      *ms_buttons_; /**< Yes/ No buttons to specify if a milestone occured.*/
-  QstForm *ms_form_;   /**< The form for the  milestone's title.*/
-  QLabel *ms_comment_label_; /**< The label of the comment filed to specify
-                                additional informatin regarding the milestone.*/
-  QPlainTextEdit *ms_comment_;      /**< A comment filed to specify additional
-                                       informatin regarding the milestone.*/
+      *ms_buttons_;  /**< Yes/ No buttons to specify if a milestone occured.*/
+  QstForm *ms_form_; /**< The form for the  milestone's title.*/
+  QLabel *ms_comment_label_;   /**< The label of the comment filed to specify
+                                  additional informatin regarding the milestone.*/
+  QPlainTextEdit *ms_comment_; /**< A comment filed to specify additional
+                                  informatin regarding the milestone.*/
   QSpinBox *log_interval_spin_box_; /**< Lets the user specify the interval of
                                       development before executing the
                                       program.*/
