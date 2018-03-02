@@ -58,7 +58,15 @@ void QuestionnaireDialog::Setup() {
   act_form_ = new QstForm();
   act_form_->SetTitle(info_string_);
   act_form_->SetToolTip(
-      tr("Describe how you were mainly working since the last diary entry"));
+      tr("Describe how you were mainly working since the last diary entry. Typical choices include:"
+         "<br> - Break"
+         "<br> - Thinking"
+         "<br> - Serial"
+         "<br> - Parallelizing"
+         "<br> - Testing"
+         "<br> - Debugging"
+         "<br> - Tuning"
+         "<br> - Experimenting"));
   act_form_->SetLine(false);
   if (scheduler_ == 1)
     act_form_->SetCompleter(activity_->kActivityType);
@@ -74,7 +82,7 @@ void QuestionnaireDialog::Setup() {
   perf_group_->addButton(perf_checkbox2);
   perf_group_->setId(perf_checkbox1, 1);
   perf_group_->setId(perf_checkbox2, 2);
-  perf_checkbox2->setChecked(true);
+  perf_checkbox1->setChecked(true);
 
   QLabel *perf_section_label_ =
       new QLabel(tr("<font color='red'>*</font> 2. Did you measure the "
@@ -186,9 +194,22 @@ void QuestionnaireDialog::Setup() {
   ms_group_->setId(ms_checkbox2, 2);
   ms_checkbox2->setChecked(true);
 
-  ms_title_label_ =
-      new QLabel("<font color='red'>*</font> Title of the milestone:");
-  ms_line_edit_ = new QLineEdit;
+  ms_form_ = new QstForm();
+  ms_form_->SetTitle(tr("<font color='red'>*</font> Title of the milestone:"));
+  ms_form_->SetToolTip(tr("The name of the milestone. Typical choices include:"
+                          "<br> - Working serial version"
+                          "<br> - Profiled serial version"
+                          "<br> - Working parallel version"
+                          "<br> - Profiled parallel version"
+                          "<br> - Tuned parallel version"));
+  ms_form_->SetPlaceholderText(tr("E.g. working serial version"));
+  ms_form_->SetLine(false);
+  if (scheduler_ == 1)
+    ms_form_->SetCompleter(activity_->kMilestoneType);
+  else
+    ms_form_->SetCompleter(project_->GetUniqueMs());
+  ms_form_->hide();
+
   ms_comment_label_ = new QLabel(tr("11. Comment on the milestone:"));
   ms_comment_label_->setWordWrap(true);
   ms_comment_ = new QPlainTextEdit;
@@ -196,8 +217,6 @@ void QuestionnaireDialog::Setup() {
       tr("Provide additional information for this milestone"));
   ms_comment_->setPlaceholderText(tr("Comment..."));
   ms_comment_->setMaximumHeight(45);
-  ms_title_label_->hide();
-  ms_line_edit_->hide();
   ms_comment_label_->hide();
   ms_comment_->hide();
 
@@ -290,7 +309,6 @@ void QuestionnaireDialog::Setup() {
 
   perf_widget_ = new QWidget;
   perf_widget_->setLayout(perf_detailed_layout);
-  perf_widget_->hide();
 
   QVBoxLayout *perf_group_layout = new QVBoxLayout;
   perf_group_layout->addWidget(perf_section_label_);
@@ -316,8 +334,7 @@ void QuestionnaireDialog::Setup() {
   QVBoxLayout *ms_layout = new QVBoxLayout;
   ms_layout->addWidget(ms_label);
   ms_layout->addLayout(ms_buttons_);
-  ms_layout->addWidget(ms_title_label_);
-  ms_layout->addWidget(ms_line_edit_);
+  ms_layout->addWidget(ms_form_);
   ms_layout->addWidget(ms_comment_label_);
   ms_layout->addWidget(ms_comment_);
   QGroupBox *ms_group = new QGroupBox;
@@ -386,7 +403,7 @@ void QuestionnaireDialog::CreateConnections() {
   connect(threads_comment_, SIGNAL(textChanged(QString)), this,
           SLOT(CheckInput()));
   connect(threads_spin_, SIGNAL(valueChanged(int)), this, SLOT(CheckInput()));
-  connect(ms_line_edit_, SIGNAL(textChanged(QString)), this,
+  connect(ms_form_->line_edit_, SIGNAL(textChanged(QString)), this,
           SLOT(CheckInput()));
 
   connect(skip_button_, SIGNAL(released()), this, SLOT(reject()));
@@ -472,7 +489,7 @@ void QuestionnaireDialog::accept() {
   activity_->SetComment(comment_box_->toPlainText());
 
   if (ms_group_->checkedId() == 1) {
-    activity_->SetMsTitle(ms_line_edit_->text());
+    activity_->SetMsTitle(ms_form_->GetText());
     activity_->SetMsComment(ms_comment_->toPlainText());
     if (scheduler_ != 1)
       activity_->SetMsId(project_->GetNoMilestones());
@@ -619,14 +636,12 @@ void QuestionnaireDialog::PerfInputChanged() {
 
 void QuestionnaireDialog::MsInputChanged() {
   if (ms_group_->checkedId() == 1) {
-    ms_title_label_->show();
-    ms_line_edit_->show();
+    ms_form_->show();
     ms_comment_label_->show();
     ms_comment_->show();
-    ms_title_label_->setFocus();
+    ms_form_->setFocus();
   } else if (ms_group_->checkedId() == 2) {
-    ms_title_label_->hide();
-    ms_line_edit_->hide();
+    ms_form_->hide();
     ms_comment_label_->hide();
     ms_comment_->hide();
   }
@@ -662,7 +677,7 @@ void QuestionnaireDialog::CheckInput() {
     }
   }
   if (ms_group_->checkedId() == 1) {
-    if (ms_line_edit_->text().isEmpty()) {
+    if (ms_form_->GetText().isEmpty()) {
       return;
     }
   }

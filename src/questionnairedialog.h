@@ -197,9 +197,7 @@ private:
                                               milestone.*/
   QHBoxLayout
       *ms_buttons_; /**< Yes/ No buttons to specify if a milestone occured.*/
-  QLabel *ms_title_label_;   /**< The label for the line edit of the milestone's
-                                title.*/
-  QLineEdit *ms_line_edit_;  /**< Line edit of the milestone's title.*/
+  QstForm *ms_form_;   /**< The form for the  milestone's title.*/
   QLabel *ms_comment_label_; /**< The label of the comment filed to specify
                                 additional informatin regarding the milestone.*/
   QPlainTextEdit *ms_comment_;      /**< A comment filed to specify additional
