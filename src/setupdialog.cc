@@ -56,7 +56,6 @@ SetupDialog::SetupDialog(MainWindow *window, Crypt *crypt) : QDialog() {
 void SetupDialog::Setup() {
   layout_ = new QGridLayout;
   QGridLayout *project_layout = new QGridLayout;
-  QGridLayout *log_layout = new QGridLayout;
   QVBoxLayout *app_layout = new QVBoxLayout;
 
   // Specify project title
@@ -95,26 +94,6 @@ void SetupDialog::Setup() {
                                          .arg(MAX_LOG_INTERVAL));
   log_interval_spin_box_->setSuffix(" min");
 
-  // Specify the log file's output directory
-  QLabel *log_file_dir_label = new QLabel(tr("Output directory:"));
-  log_file_dir_line_edit_ = new QLineEdit;
-  log_file_dir_line_edit_->setText(
-      QDir::toNativeSeparators(QDir::currentPath()));
-  log_file_dir_line_edit_->setToolTip(tr("Specify the output directory"));
-  log_file_dir_label->setBuddy(log_file_dir_line_edit_);
-
-  // Specify the log file's name
-  QLabel *log_file_name_label = new QLabel(tr("Log file name:"));
-  log_file_name_line_edit_ = new QLineEdit;
-  log_file_name_label->setBuddy(log_file_name_line_edit_);
-  log_file_name_line_edit_->setToolTip(tr("Specify the name of the log file"));
-  browse_log_button_ = new QPushButton(tr("Browse..."));
-  browse_log_button_->setToolTip(tr("Browse an output directory"));
-
-  buttons_ = new QDialogButtonBox(
-      QDialogButtonBox::Ok | QDialogButtonBox::Close, Qt::Horizontal);
-  buttons_->button(QDialogButtonBox::Ok)->setEnabled(false);
-
   // Appendix
   QLabel *app_label = new QLabel(tr("Do you want to append the work you have "
                                     "done before executing this program to the "
@@ -124,36 +103,31 @@ void SetupDialog::Setup() {
   app_button_->setEnabled(false);
   app_button_->setToolTip(tr("Append current work"));
 
+  buttons_ = new QDialogButtonBox(
+      QDialogButtonBox::Ok | QDialogButtonBox::Close, Qt::Horizontal);
+  buttons_->button(QDialogButtonBox::Ok)->setEnabled(false);
+
   // Layout
   project_layout->addWidget(project_title_label, 0, 0);
   project_layout->addWidget(project_title_line_edit_, 0, 1);
-  project_layout->addWidget(project_dir_label, 1, 0);
-  project_layout->addWidget(project_dir_line_edit_, 1, 1);
-  project_layout->addWidget(browse_pro_button_, 1, 2);
-  project_layout->addWidget(user_name_label, 2, 0);
-  project_layout->addWidget(user_name_line_edit_, 2, 1);
-
-  log_layout->addWidget(log_file_dir_label, 0, 0);
-  log_layout->addWidget(log_file_dir_line_edit_, 0, 1);
-  log_layout->addWidget(browse_log_button_, 0, 2);
-  log_layout->addWidget(log_file_name_label, 1, 0);
-  log_layout->addWidget(log_file_name_line_edit_, 1, 1);
-  log_layout->addWidget(log_interval_label, 2, 0);
-  log_layout->addWidget(log_interval_spin_box_, 2, 1);
+  project_layout->addWidget(user_name_label, 1, 0);
+  project_layout->addWidget(user_name_line_edit_, 1, 1);
+  project_layout->addWidget(project_dir_label, 2, 0);
+  project_layout->addWidget(project_dir_line_edit_, 2, 1);
+  project_layout->addWidget(browse_pro_button_, 2, 2);
+  project_layout->addWidget(log_interval_label, 3, 0);
+  project_layout->addWidget(log_interval_spin_box_, 3, 1);
 
   app_layout->addWidget(app_label);
   app_layout->addWidget(app_button_);
 
   QGroupBox *project_box = new QGroupBox(tr("Project Setup"));
-  QGroupBox *log_box = new QGroupBox(tr("Logging Setup"));
   QGroupBox *app_box = new QGroupBox(tr("Did you work before executing this "
                                         "program and want to log it?"));
   project_box->setLayout(project_layout);
-  log_box->setLayout(log_layout);
   app_box->setLayout(app_layout);
   QVBoxLayout *layout = new QVBoxLayout;
   layout->addWidget(project_box);
-  layout->addWidget(log_box);
   layout->addWidget(app_box);
   layout->addWidget(buttons_);
 
@@ -164,12 +138,9 @@ void SetupDialog::Setup() {
 }
 
 void SetupDialog::CreateConnections() {
-  connect(browse_pro_button_, SIGNAL(clicked()), this, SLOT(BrowsePro()));
-  connect(browse_log_button_, SIGNAL(clicked()), this, SLOT(BrowseDir()));
+  connect(browse_pro_button_, SIGNAL(clicked()), this, SLOT(BrowseDir()));
   connect(app_button_, SIGNAL(clicked()), this, SLOT(Append()));
 
-  connect(project_title_line_edit_, SIGNAL(textChanged(QString)), this,
-          SLOT(SetLogFileName()));
   connect(project_dir_line_edit_, SIGNAL(textChanged(QString)), this,
           SLOT(AutoComplete()));
 
@@ -178,10 +149,6 @@ void SetupDialog::CreateConnections() {
   connect(project_title_line_edit_, SIGNAL(textChanged(QString)), this,
           SLOT(CheckInput()));
   connect(project_dir_line_edit_, SIGNAL(textChanged(QString)), this,
-          SLOT(CheckInput()));
-  connect(log_file_dir_line_edit_, SIGNAL(textChanged(QString)), this,
-          SLOT(CheckInput()));
-  connect(log_file_name_line_edit_, SIGNAL(textChanged(QString)), this,
           SLOT(CheckInput()));
 
   connect(buttons_, SIGNAL(accepted()), this, SLOT(accept()));
@@ -210,35 +177,16 @@ void SetupDialog::accept() {
       return;
     }
   }
-  dir = QDir(log_file_dir_line_edit_->text());
-  if (!dir.exists()) {
-    const QString text = "The log file directory '" +
-                         log_file_dir_line_edit_->text() +
-                         "' does not exist. Please specify "
-                         "another one.";
-    QMessageBox::warning(this, "Directory does not exist", text,
-                         QMessageBox::Ok);
-    return;
-  } else {
-    QFileInfo finfo(dir.absoluteFilePath(log_file_dir_line_edit_->text()));
-    if (!finfo.isWritable()) {
-      const QString text = "The log file directory '" +
-                           log_file_dir_line_edit_->text() +
-                           "' is not writable. Please "
-                           "specify another one.";
-      QMessageBox::warning(this, "Directory not writable", text,
-                           QMessageBox::Ok);
-      return;
-    }
-  }
 
   settings_.setValue("conf/projectTitle", project_title_line_edit_->text());
   settings_.setValue("conf/userName", user_name_line_edit_->text());
-  settings_.setValue("conf/logFileName", log_file_name_line_edit_->text());
-  settings_.setValue("conf/logFileDir", log_file_dir_line_edit_->text());
+  settings_.setValue("conf/logFileName", project_title_line_edit_->text() +
+                     tr(".json"));
+  settings_.setValue("conf/logFileDir", project_dir_line_edit_->text());
   QString fileName = settings_.value("conf/logFileDir").toString() + "/" +
                      settings_.value("conf/logFileName").toString();
   settings_.setValue("conf/logFile", fileName);
+  qDebug() << settings_.value("conf/logFile");
   settings_.setValue("conf/logInterval", log_interval_spin_box_->value());
   settings_.setValue("conf/confAccepted", true);
   settings_.setValue("lastLogTime", QDateTime::currentDateTime());
@@ -262,8 +210,7 @@ void SetupDialog::accept() {
       project_->SetProDir(project_dir_line_edit_->text());
       project_->SetTitle(project_title_line_edit_->text());
       project_->SetInterval(log_interval_spin_box_->value());
-      project_->SetLogDir(log_file_dir_line_edit_->text());
-      project_->SetLogFile(log_file_name_line_edit_->text());
+      project_->SetLogFile(fileName);
     }
 
     if (!project_dir_.isEmpty()) {
@@ -330,12 +277,6 @@ void SetupDialog::LoadSettings() {
   if (settings_.contains("conf/projectDir"))
     project_dir_line_edit_->setText(
         settings_.value("conf/projectDir").toString());
-  if (settings_.contains("conf/logFileDir"))
-    log_file_dir_line_edit_->setText(
-        settings_.value("conf/logFileDir").toString());
-  if (settings_.contains("conf/logFileName"))
-    log_file_name_line_edit_->setText(
-        settings_.value("conf/logFileName").toString());
   if (settings_.contains("conf/logInterval"))
     log_interval_spin_box_->setValue(
         settings_.value("conf/logInterval").toInt());
@@ -346,36 +287,18 @@ void SetupDialog::SaveSettings() {
   settings_.setValue("conf/projectTitle", project_title_line_edit_->text());
   settings_.setValue("conf/projectDir", project_dir_line_edit_->text());
   settings_.setValue("conf/userName", user_name_line_edit_->text());
-  settings_.setValue("conf/logFileName", log_file_name_line_edit_->text());
-  settings_.setValue("conf/logFileDir", log_file_dir_line_edit_->text());
-  QString fileName = settings_.value("conf/logFileDir").toString() + "/" +
-                     settings_.value("conf/logFileName").toString();
-  settings_.setValue("conf/logFile", fileName);
+  settings_.setValue("conf/logInterval", log_interval_spin_box_->value());
   settings_.setValue("conf/logInterval", log_interval_spin_box_->value());
   return;
 }
 
 void SetupDialog::BrowseDir() {
-  dir_string_ = QFileDialog::getExistingDirectory(
-      this, tr("Save log file to..."), QDir::currentPath());
-  if (!dir_string_.isEmpty())
-    log_file_dir_line_edit_->setText(dir_string_);
-  return;
-}
-
-void SetupDialog::BrowsePro() {
   QString dir = QFileDialog::getExistingDirectory(
       this, tr("Save project to..."), QDir::currentPath());
   if (!dir.isEmpty()) {
     project_dir_ = dir;
     project_dir_line_edit_->setText(dir);
   }
-  return;
-}
-
-void SetupDialog::SetLogFileName() {
-  log_file_name_line_edit_->setText(project_title_line_edit_->text() +
-                                    tr(".json"));
   return;
 }
 
@@ -392,9 +315,7 @@ void SetupDialog::CheckInput() {
   app_button_->setEnabled(false);
   if (!user_name_line_edit_->text().isEmpty())
     if (!project_title_line_edit_->text().isEmpty())
-      if (!project_dir_line_edit_->text().isEmpty())
-        if (!log_file_dir_line_edit_->text().isEmpty())
-          if (!log_file_name_line_edit_->text().isEmpty()) {
+      if (!project_dir_line_edit_->text().isEmpty()) {
             buttons_->button(QDialogButtonBox::Ok)->setEnabled(true);
             app_button_->setEnabled(true);
           }
@@ -428,10 +349,6 @@ bool SetupDialog::ProjectHandler() {
 #else
     project_->Load(project_dir_);
 #endif
-    if (project_->GetLogFile() != log_file_name_line_edit_->text())
-      project_->SetLogFile(log_file_name_line_edit_->text());
-    if (project_->GetLogDir() != log_file_dir_line_edit_->text())
-      project_->SetLogDir(log_file_dir_line_edit_->text());
     if (project_->GetProDir() != project_dir_line_edit_->text())
       project_->SetProDir(project_dir_line_edit_->text());
     if (project_->GetTitle() != project_title_line_edit_->text())

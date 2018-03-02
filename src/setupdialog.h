@@ -136,7 +136,6 @@ private:
   QString project_dir_;            /**< Holds a string of the project's working
                                         directory.*/
   QDialogButtonBox *buttons_;      /**< Buttons to accept or quit the dialog.*/
-  QPushButton *browse_log_button_; /**< Button to browse a directory.*/
   QPushButton *app_button_;        /**< Buttons to append a logging entry.*/
   QLineEdit *project_title_line_edit_; /**< QLineEdit to edit the project's
                                             title.*/
@@ -146,10 +145,6 @@ private:
                                             program.*/
   QSettings settings_;                 /**< Holds a copy of the global settings
                                             of the application.*/
-  QLineEdit *log_file_name_line_edit_; /**< QLineEdit to edit the log file
-                                        name.*/
-  QLineEdit *log_file_dir_line_edit_;  /**< QLineEdit to edit the log file's
-                                          directory*/
   QString dir_string_; /**< A string which holds the log file's directory.*/
   QButtonGroup *stages_button_group_; /**< Buttons to specify the current
                                            project's development stage.*/
@@ -165,25 +160,11 @@ private:
                                projects.*/
 
 private slots:
-  //! Browse a project file
-  /*!
-   * This method opens a dialog which lets the user browse for a project file
-   * (*.pro) contraining information about a previously saved project.
-   */
-  void BrowsePro();
   //! Browse a directory
   /*!
-   * This method opens a dialog which lets the user browse a directory. This
-   * directory is the working directory throughout the execution of the
-   * program.
+   * This method opens a dialog which lets the user specify a project directory
    */
   void BrowseDir();
-  //! Sets the text of log_file_name_line_edit_
-  /*!
-   * This method sets the text of log_file_name_line_edit_ to the user-provided
-   * text in project_title_line_edit_.
-   */
-  void SetLogFileName();
   //! Checks the provided settings
   /*!
    * This method checks the provided settings. If all settings are specified

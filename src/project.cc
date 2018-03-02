@@ -26,8 +26,6 @@
 Project::Project() {
   title_ = "";
   pro_dir_ = "";
-  log_dir_ = "";
-  log_file_ = "";
   stage_ = "";
   stage_comment_ = "";
   interval_ = -1;
@@ -37,7 +35,6 @@ Project::Project() {
 Project::Project(QString t) {
   title_ = t;
   pro_dir_ = "";
-  log_dir_ = "";
   log_file_ = "";
   stage_ = "";
   stage_comment_ = "";
@@ -50,7 +47,6 @@ Project::Project(Crypt *crypt) {
   crypt_ = crypt;
   title_ = "";
   pro_dir_ = "";
-  log_dir_ = "";
   log_file_ = "";
   stage_ = "";
   stage_comment_ = "";
@@ -62,7 +58,6 @@ Project::Project(Crypt *crypt, QString t) {
   crypt_ = crypt;
   title_ = t;
   pro_dir_ = "";
-  log_dir_ = "";
   log_file_ = "";
   stage_ = "";
   stage_comment_ = "";
@@ -74,7 +69,6 @@ Project::Project(Crypt *crypt, QString t) {
 void Project::ClearProject() {
   title_ = "";
   pro_dir_ = "";
-  log_dir_ = "";
   log_file_ = "";
   stage_ = "";
   stage_comment_ = "";
@@ -90,10 +84,6 @@ QString Project::GetTitle() const { return title_; }
 void Project::SetProDir(QString d) { pro_dir_ = d; }
 
 QString Project::GetProDir() const { return pro_dir_; }
-
-void Project::SetLogDir(QString d) { log_dir_ = d; }
-
-QString Project::GetLogDir() const { return log_dir_; }
 
 void Project::SetLogFile(QString f) { log_file_ = f; }
 
@@ -295,7 +285,6 @@ bool Project::Load(QString f) {
   json = load_doc.object();
   title_ = json["ProjectTitle"].toString();
   pro_dir_ = json["ProjectDirectory"].toString();
-  log_dir_ = json["LogFileDirectory"].toString();
   log_file_ = json["LogFile"].toString();
   interval_ = json["LoggingInterval"].toInt();
   stage_ = json["StageOfDevel"].toInt();
@@ -317,7 +306,6 @@ bool Project::Save(QString f) {
   QJsonObject json;
   json["ProjectTitle"] = title_;
   json["ProjectDirectory"] = pro_dir_;
-  json["LogFileDirectory"] = log_dir_;
   json["LogFile"] = log_file_;
   json["LoggingInterval"] = interval_;
   json["StageOfDevel"] = stage_;
@@ -352,38 +340,47 @@ QStringList Project::GetUniqueActivities() {
   return list;
 }
 
-QStringList Project::GetUniqueArchitectures(){
-    QStringList list;
-    foreach (const Activity a, *activities_) {
-      if ((list.indexOf(a.GetArc()) == -1)  && (a.GetArc() != ""))
-        list.append(a.GetArc());
-    }
-    return list;
+QStringList Project::GetUniqueArchitectures() {
+  QStringList list;
+  foreach (const Activity a, *activities_) {
+    if ((list.indexOf(a.GetArc()) == -1) && (a.GetArc() != ""))
+      list.append(a.GetArc());
   }
+  return list;
+}
 
-QStringList Project::GetUniqueCompilers(){
-    QStringList list;
-    foreach (const Activity a, *activities_) {
-      if ((list.indexOf(a.GetCompiler()) == -1) && (a.GetCompiler() != ""))
-        list.append(a.GetCompiler());
-    }
-    return list;
+QStringList Project::GetUniqueCompilers() {
+  QStringList list;
+  foreach (const Activity a, *activities_) {
+    if ((list.indexOf(a.GetCompiler()) == -1) && (a.GetCompiler() != ""))
+      list.append(a.GetCompiler());
   }
+  return list;
+}
 
-QStringList Project::GetUniqueProgModels(){
-    QStringList list;
-    foreach (const Activity a, *activities_) {
-      if ((list.indexOf(a.GetModel()) == -1) && (a.GetModel() != ""))
-        list.append(a.GetModel());
-    }
-    return list;
+QStringList Project::GetUniqueProgModels() {
+  QStringList list;
+  foreach (const Activity a, *activities_) {
+    if ((list.indexOf(a.GetModel()) == -1) && (a.GetModel() != ""))
+      list.append(a.GetModel());
   }
+  return list;
+}
 
-QStringList Project::GetUniqueDataSizes(){
-    QStringList list;
-    foreach (const Activity a, *activities_) {
-      if ((list.indexOf(a.GetDataSize()) == -1) && (a.GetDataSize() != ""))
-        list.append(a.GetDataSize());
-    }
-    return list;
+QStringList Project::GetUniqueDataSizes() {
+  QStringList list;
+  foreach (const Activity a, *activities_) {
+    if ((list.indexOf(a.GetDataSize()) == -1) && (a.GetDataSize() != ""))
+      list.append(a.GetDataSize());
   }
+  return list;
+}
+
+QStringList Project::GetUniqueMs() {
+  QStringList list;
+  foreach (const Activity a, *activities_) {
+    if ((list.indexOf(a.GetMsTitle()) == -1) && (a.GetMsTitle() != ""))
+      list.append(a.GetMsTitle());
+  }
+  return list;
+}

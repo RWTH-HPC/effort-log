@@ -251,8 +251,9 @@ public:
   QStringList GetUniqueCompilers();
   //! Gets a list of  unique programming models in the project
   /*!
-   * Searches through all activities in the project to find unique programming models
-   * \return A list of strings of the unique programming models in the project
+   * Searches through all activities in the project to find unique programming
+   * models \return A list of strings of the unique programming models in the
+   * project
    */
   QStringList GetUniqueProgModels();
   //! Gets a list of  unique data sizes in the project
@@ -261,6 +262,12 @@ public:
    * \return A list of strings of the unique data sizes in the project
    */
   QStringList GetUniqueDataSizes();
+  //! Gets a list of  unique milestones in the project
+  /*!
+   * Searches through all activities in the project to find unique milestones
+   * \return A list of strings of the unique milestones in the project
+   */
+  QStringList GetUniqueMs();
 
 private:
 #ifdef CRYPT
@@ -271,7 +278,6 @@ private:
                                      current project.*/
   QString title_;               /**< The title of the project.*/
   QString pro_dir_;             /**< The working directory of the project.*/
-  QString log_dir_;             /**< The directory to store log files to.*/
   QString log_file_;            /**< The full path of the log file.*/
   QString stage_;               /**< The development stage of the project.*/
   QString stage_comment_;       /**< A comment about the development stage of

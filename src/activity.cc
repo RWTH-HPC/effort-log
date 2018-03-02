@@ -45,6 +45,11 @@ const QStringList Activity::kActivityType = {
     "Break",     "Thinking", "Serial",        "Parallelizing", "Testing",
     "Debugging", "Tuning",   "Experimenting", "Other"};
 
+const QStringList Activity::kMilestoneType = {
+    "Working serial version", "Profiled serial version",
+    "Working parallel version", "Profiled parallel version",
+    "Tuned parallel version"};
+
 QString Activity::GetType() const { return type_; }
 
 void Activity::SetType(QString type) { type_ = type; }
