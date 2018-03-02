@@ -1,5 +1,5 @@
 <!--
-  Copyright (c) 2015-2017 by IT Center, RWTH Aachen University
+  Copyright (c) 2015-2018 by IT Center, RWTH Aachen University
 
   This file is part of EffortLog, a tool for collecting software
   development effort.
@@ -18,10 +18,9 @@
   along with EffortLog.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-Using the Help Browser {#using-the-help-browser .chapter}
-======================
+# Using the Help Browser
 
-You can get help by hitting **help** from the application menu bar under
+You can get help by hitting **help** from the application menu bar under 
 Help. Additionally you can always bring up this help browser by hitting
 **F1** from your keyboard if you are running Windows or Linux operating
 systems or **Command+?** if you are on Mac OS X.
@@ -34,6 +33,6 @@ document if you hit the **next** button. You can go back to the last
 help file with the **back** button. Additionally you can go at any time
 back to the top of the documentation by hitting the **top** button.
 
-The help browser might look like +@fig:help.
+The help browser might look like [figure 1](#help).
 
 ![The help window.](images/help.png){#fig:help width="5in"}

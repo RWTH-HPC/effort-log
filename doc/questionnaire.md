@@ -1,5 +1,5 @@
 <!--
-  Copyright (c) 2015-2017 by IT Center, RWTH Aachen University
+  Copyright (c) 2015-2018 by IT Center, RWTH Aachen University
 
   This file is part of EffortLog, a tool for collecting software
   development effort.
@@ -18,83 +18,88 @@
   along with EffortLog.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-Interval-based Questionnaire {#interval-based-questionnaire .chapter}
-============================
+# Interval-based Questionnaire
 
 This questionnaire is executed in a chosen interval and asks the user
 about his or her current development's effort.
 
-Elements of the Questionnaire {#elements-of-the-questionnaire .section}
------------------------------
+## Elements of the Questionnaire
 
 The window of the questionnaire consists of the following elements.
 
-![The questionnaire window.](images/dialog_main.png){#fig:dialog_main
-width="7in"}
+![The questionnaire window.](images/dialog_main.png){#fig:dialog_main}
 
-### Statusbar {#statusbar .subheading}
+### Statusbar
 
 A simple statusbar in the upmost part of the window shows the number of
 successfully logged events during the current session.
 
-### Activity chooser {#activity-chooser .subheading}
+### Section 1: Activity
 
-The left part of the window shows a chooser for different activities
-allowing the user to quickly specify the activity he or she was working
-on. It consists of big radio buttons. There can be only one selected
-button at any time. The default activity is break. Additionally upon
-startup of the questionnaire the left pane is selected by default.
-Therefore the user can switch between different activities with the
-**up-key** and **down-key**. To quickly select one specific activity
-there are hotkeys for each of them. The following lists provides an
-overview of the available activities and the matching hotkeys.
+The upper part of the window shows a free-form filed to specify the
+activity one was working on. It features auto-completion on previous
+types of activities.
 
--   Break b
+![Section 1: Activity](images/activity.png){#fig:activity}
 
--   Thinking h
+### Section 2: Performance
 
--   Serial s
+The second section allows the use to specify performance-related data.
+If features radio buttons with "Yes" and "No" where a single selection
+is allowed. On specifying yes, a set of questions appear. The first one
+handles the performance measurements in form of a metric and the raw
+performance number. The choice for the metric include: execution time in
+secondes, minutes and hours, throughput in GFlop/s, the speedup compared
+to an optimized serial version of the code and other which allows for
+free-form input.
 
--   Parallelizing p
+The second question concerns the leveraged parallelism during the
+measurements. The choice for the metric are number of threads or nodes
+and other which allows for free-form input. Next are four questions in
+the same style of a simple input form. The questions are regarding the
+used architecture, compiler, programming model and data size for the
+measurements. All four fields feature auto-completion on previous
+inputs.
 
--   Testing t
+![Section 2: Performance](images/performance.png){#fig:performance}
 
--   Debugging d
+### Section 3: Comment
 
--   Tuning u
+The third section holds a text field to input comments on the current
+activity.
 
--   Experimenting e
+![Section 3: Comment](images/comment.png){#fig:comment}
 
--   Other o
+### Section 4: Milestone
 
-### Comment field {#comment-field .subheading}
+The lower part of the window allows the use to specify milestone-related
+data. If features radio buttons with "Yes" and "No" where a single
+selection is allowed. On specifying yes, two more input forms appear.
+The first one is a free-form input field to specify the title of the
+milestone. Typical choices include: working serial version, tuned serial
+version, working parallel version and tuned parallel version. The second
+field lets one specify additional information as a comment linked to the
+milestone.
 
-The center part of the window holds a text field to input comments on
-the current activity.
+![Section 4: Milestone](images/milestone.png){#fig:milestone}
 
-### Milestone field {#milestone-field .subheading}
+### Buttons
 
-The right part of the window allows the user to select one or multiple
-milestones reached in the current logging interval. When at least one
-milestone is selected, an additional questionnaire pops up. It lets the
-user specify the milestone with its performance measure and is described
-in detail in [Log File Viewer](#log-file-viewer).
-
-### Buttons {#buttons .subheading}
-
-The are two buttons in the lower part of the window:
+The are three buttons in the lower part of the window:
 
 -   Skip: If the user hits this button the current logging event will be
     skipped and the user is presented with the main program. The timer
-    until the next event will be reset to the specified
-    logging interval. Hotkey: **q**
+    until the next event will be reset to the specified logging
+    interval. Hotkey: **q**
+-   Read Log: Opens a view on the logging events of the current project.
+    See [Elements of the Log File Viewer](#elemts-of-the-log-file-viewer) 
+    for additional information on the viewer.
 -   Finish: If the user finished all input he or she can hit this button
     to save the current logging event and return to the main program.
     The timer until the next event will be reset to the specified
     logging interval. Hotkey: **f**
 
-How to Answer the Questionnaire {#how-to-answer-the-questionnaire .chapter}
--------------------------------
+## How to Answer the Questionnaire
 
 There are some default activities to choose:
 

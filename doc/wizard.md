@@ -1,5 +1,5 @@
 <!--
-  Copyright (c) 2015-2017 by IT Center, RWTH Aachen University
+  Copyright (c) 2015-2018 by IT Center, RWTH Aachen University
 
   This file is part of EffortLog, a tool for collecting software
   development effort.
@@ -18,29 +18,26 @@
   along with EffortLog.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-Configuration Wizard {#configuration-wizard .chapter}
-====================
+# Configuration Wizard
 
 The settings dialog is the first window to open upon execution of the
 program. Its main goal is it to present the user with a convenient tool
 to set up the configuration needed for monitoring programming effort.
 
-Elements of the Wizard {#elements-of-the-wizard .section}
-----------------------
+## Elements of the Wizard
 
 The configuration dialog consists of one unified window which provides
-acces to all user-input needed. The dialog holds a vertical list of
+access to all user-input needed. The dialog holds a vertical list of
 entries. Each entry is divided into a label which explains the expected
 input, a filed for the input and optional a button for easier access to
 the expected input. The user can browse through the input fields by
 hitting "tab" on the keyboard. The main window is divided into four
-distinct areas which will be explained in detail in the folling section.
-The configuration wizard is depicted in +@fig:conf.
+distinct areas which will be explained in detail in the following section.
+The configuration wizard is depicted in [figure 2](#conf).
 
 ![The configuration wizard.](images/conf.png){#fig:conf width="5in"}
 
-Global Settings {#global-settings .chapter}
----------------
+## Global Settings
 
 The configuration wizard will set the following user-specified global
 settings of the main program:
@@ -54,4 +51,3 @@ settings of the main program:
     which the questionnaire is executed.
 -   The output directory to which the log file is saved.
 -   The name of the output file.
-

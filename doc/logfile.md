@@ -1,5 +1,5 @@
 <!--
-  Copyright (c) 2015-2017 by IT Center, RWTH Aachen University
+  Copyright (c) 2015-2018 by IT Center, RWTH Aachen University
 
   This file is part of EffortLog, a tool for collecting software
   development effort.
@@ -18,15 +18,13 @@
   along with EffortLog.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-Log File {#log-file .chapter}
-========
+# Log File
 
 This help describes the log file which holds all information collected
 by EffortLog. Its main purpose is to further evaluate the developer's
 effort.
 
-Format and Structure of the Log File {#format-and-structure-of-the-log-file .section}
-------------------------------------
+## Format and Structure of the Log File
 
 The log file is formatted in JSON. It contains of the following entries:
 
@@ -38,10 +36,10 @@ The log file is formatted in JSON. It contains of the following entries:
     -   Tuned serial version
     -   Working parallel version
     -   Tuned parallel version
--   "InitialProjectStageComment": A user-provieded comment on the above
+-   "InitialProjectStageComment": A user-provided comment on the above
     development stage.
--   "LoggingEvents": A list of the logging events sorted by
-    the occurance. Each entry consists of the following keys:
+-   "LoggingEvents": A list of the logging events sorted by the
+    occurrence. Each entry consists of the following keys:
     -   "ID": A unique identifier of the event. The first event holds id
         0 and all following events are then consecutively numbered.
     -   "UserName": The user's name. This was specified during the
@@ -56,8 +54,8 @@ The log file is formatted in JSON. It contains of the following entries:
         -   Tuned serial version
         -   Working parallel version
         -   Tuned parallel version
-    -   "ActivityType": The chosen type of activity. The user is
-        provided with a list of the following activities:
+    -   "ActivityType": The user-specified type (free-form) of activity.
+        The user is provided with a list of default activities:
         -   Break
         -   Thinking
         -   Serial
@@ -66,60 +64,52 @@ The log file is formatted in JSON. It contains of the following entries:
         -   Debugging
         -   Tuning
         -   Experimenting
-        -   Other
     -   "Comment": Contains a comment on the activity. If the user did
         not enter any comment this field is empty.
-    -   "CurLoggingTime": The time when the user finished
-        the questionnaire.
-    -   "Interval": The time in minutes since the last stored
-        logging event.
+    -   "CurLoggingTime": The time when the user finished the
+        questionnaire.
+    -   "Interval": The time in minutes since the last stored logging
+        event.
     -   "LastLoggingTime": The time when the user finished the
         questionnaire the time before the current event.
     -   "LoggingInterval": The specified logging interval. This was
         specified during the configuration wizard.
     -   "NoEventsCurrentSession": A count of the number of events logged
         during the current session.
-    -   "Scheduler": Specifies how the event was triggered. 0 denotes an
-        unknown or undefined event, 1 denotes an interval-based event ,
-        2 an appeneded event, 3 a manual event executed through the GUI,
-        and 4 an event on closing the program.
--   "Milestones": A list of the milestones sorted by the occurance. Each
-    entry consists of the following keys:
-    -   "Architecture": The architecture used for executing the
-        performance measurements of the milestone.
-    -   "Comment": Contains a comment on the milestone. If the user did
-        not enter any comment this field is empty.
+    -   "Scheduler": Specifies how the event was triggered. -1 denotes
+        an unknown or undefined event, 0 denotes an interval-based event
+        , 1 an appended event, 2 a manual event executed through the
+        GUI, and 3 an event on closing the program.
+    -   "Architecture": The architecture used during the performance
+        measurements.
     -   "Compiler": The compiler used for generating the binary which
-        was executed for the performance measurements of the milestone.
+        was executed for the performance measurements.
     -   "DataSize": The problem size used during the performance
-        measurements of the milestone.
-    -   "ID": A unique identifier of the milestone. The first event
-        holds id 0 and all following events are then
-        consecutively numbered.
-    -   "MatchingActivityID": The identifier of the according event
-        where the milestone was specified.
+        measurements.
     -   "NoThreadsNodes": The number of threads/nodes which were
-        utilized for the performance measurements of the milestone.
+        utilized for the performance measurements.
     -   "PerfComment": The obtained performance measure.
     -   "PerfMetric": The performance metric used.
-    -   "ProgrammingModel": The programming model used during the
-        development of the milestone.
+    -   "ProgrammingModel": The programming model used.
     -   "ThreadsNodes": Distinguishes if threads or nodes are used for
         the key NoThreadsNodes.
-    -   "Time": The time when the milestone was recorded.
-    -   "Title": The type of milestone. The choices are:
+    -   "MsID": A unique identifier of the milestone. The first event
+        holds id 0 and all following events are then consecutively
+        numbered. The ID is -1 if no milestone was specified.
+    -   "MSTitle": The user-defined type (free-form) of milestone. The
+        default choices include:
         -   Working serial version
         -   Tuned serial version
         -   Working parallel version
         -   Tuned parallel version
-        -   Other
+    -   "MsComment": Contains a comment on the milestone. If the user
+        did not enter any comment this field is empty.
 
 Note: The JSON keys are typically alphabetically ordered by the Qt JSON
 library. Note 2: The tool expects unaltered JSON files. Do not change
 the log files manually!
 
-Handling of the Log File {#handling-of-the-log-file .section}
-------------------------
+## Handling of the Log File
 
 There are two different ways how EffortLog handles the log file:
 
