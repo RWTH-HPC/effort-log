@@ -186,7 +186,6 @@ void SetupDialog::accept() {
   QString fileName = settings_.value("conf/logFileDir").toString() + "/" +
                      settings_.value("conf/logFileName").toString();
   settings_.setValue("conf/logFile", fileName);
-  qDebug() << settings_.value("conf/logFile");
   settings_.setValue("conf/logInterval", log_interval_spin_box_->value());
   settings_.setValue("conf/confAccepted", true);
   settings_.setValue("lastLogTime", QDateTime::currentDateTime());
