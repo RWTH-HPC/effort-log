@@ -155,9 +155,8 @@ void MainWindow::UpdateUI() {
   countdown_time_.setHMS(0, settings_.value("conf/logInterval").toInt(), 0);
   setWindowTitle(tr("Effort log"));
   project_label_->setText(
-      "Active project: " + settings_.value("conf/projectTitle").toString() +
-      "     ");
-  // central_widget_->update();
+      "Active project:    " + settings_.value("conf/projectTitle").toString() +
+      "<br>Project directory: " + settings_.value("conf/projectDir").toString());
 }
 
 void MainWindow::SetupAnimation() {
@@ -283,7 +282,7 @@ void MainWindow::About() {
 
 void MainWindow::Help() {
   QTextBrowser *browser = new QTextBrowser();
-  browser->setSource(QUrl("qrc:///doc.html"));
+  browser->setSource(QUrl("qrc:/doc.html"));
   browser->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
   browser->setWindowTitle(tr("%1 help").arg(APP_NAME));
   browser->resize(600, 800);

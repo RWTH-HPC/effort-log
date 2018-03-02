@@ -37,12 +37,10 @@
  */
 class Activity {
 public:
-  //! An array of strings containing the different types of the activities.
-  /*!
-   * Can be accessed with kActivityType[0] to kActivityType[NUM_ACTIVITIES - 1]
-   * \see DEFINITIONS
-   */
+  //! An array of strings containing the default types of the activities.
   static const QStringList kActivityType;
+  //! An array of strings containing the default types of the milestones.
+  static const QStringList kMilestoneType;
   //! The main constructor.
   Activity();
   //! Getter for kActivityType
