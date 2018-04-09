@@ -34,7 +34,6 @@ QuestionnaireDialog::QuestionnaireDialog(MainWindow *window, int scheduler)
   Setup();
   CreateConnections();
   UpdateUI();
-  setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
 }
 
 void QuestionnaireDialog::Setup() {
@@ -370,7 +369,7 @@ void QuestionnaireDialog::Setup() {
                                 .toString("hh:mm ap"));
   }
   this->setWindowTitle(title_string);
-  this->setWindowFlags(Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
+  setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
   return;
 }
 
@@ -706,8 +705,13 @@ void QuestionnaireDialog::ReadLog() {
 }
 
 void QuestionnaireDialog::LogViewer() {
+  //setWindowFlags(Qt::Dialog | Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
+
   LogView view(project_);
   view.resize(450, 300);
   view.exec();
+
+  //setWindowFlags(Qt::Dialog | Qt::WindowStaysOnTopHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
+
   return;
 }
