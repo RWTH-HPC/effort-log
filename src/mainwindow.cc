@@ -99,7 +99,12 @@ void MainWindow::closeEvent(QCloseEvent *event) {
 }
 
 void MainWindow::Setup() {
-  // central_widget_ = new QWidget();
+  tray_icon_ = new QSystemTrayIcon();
+  tray_icon_->setIcon(QIcon(":/images/hourglass.png"));
+  tray_icon_->show();
+  QString tooltip;
+  tooltip.append(tr("%1 %2").arg(APP_NAME).arg(APP_VERSION));
+  tray_icon_->setToolTip(tooltip);
 
   // Status bar
   status_bar_ = this->statusBar();
@@ -206,6 +211,16 @@ void MainWindow::NextAnimationFrame() {
       (countdown_time_.second() == 0)) {
     if (qst_running_ == false) {
       qst_running_ = true;
+      QString msg = tr("Your specified interval of ");
+      msg += settings_.value("conf/logInterval").toString();
+      if (settings_.value("conf/logInterval").toInt() == 1)
+        msg += " minute";
+      else
+        msg += " minutes";
+      msg += " has passed. Please switch to the EffortLog app and answer the questionnaire.";
+      ShowMessage(msg);
+      QApplication::processEvents();
+      QApplication::sendPostedEvents(tray_icon_);
       QuestionnaireDialog dialog(this, 0);
       dialog.exec();
       dialog.show();
@@ -233,6 +248,8 @@ void MainWindow::CreateMenus() {
   menuBar()->addMenu(file_menu);
 #endif
   menuBar()->addMenu(help_menu);
+
+  tray_icon_->setContextMenu(file_menu);
 
   QWidget *spacer = new QWidget();
   spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -324,4 +341,10 @@ void MainWindow::AddAppendices() {
     appendices_->removeFirst();
   }
   project_->StoreLog(settings_.value("conf/logFile").toString());
+}
+
+void MainWindow::ShowMessage(const QString &msg)
+{
+  QString app = tr(APP_NAME) + " " + tr(APP_VERSION);
+  tray_icon_->showMessage(app, msg);
 }

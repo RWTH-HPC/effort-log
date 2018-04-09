@@ -35,6 +35,7 @@
 #include <QStandardItemModel>
 #include <QStatusBar>
 #include <QString>
+#include <QSystemTrayIcon>
 #include <QTableView>
 #include <QTextBrowser>
 #include <QTime>
@@ -127,6 +128,11 @@ public:
   void AddAppendix(Activity act);
   //! Adds appendices to project_
   void AddAppendices();
+  //! Shows a desktop notification
+  /*!
+   * \param[in] msg The message to display
+   */
+  void ShowMessage(const QString &msg);
   Project *project_; /**< Holds a pointer to the current project. \see Project*/
 public slots:
   void QuitOnSignal();
@@ -255,4 +261,5 @@ private:
   QLabel *project_label_; /**< Holds the title of the project.*/
   bool qst_running_; /**< True if a questionnaire is running, false if not.*/
   QList<Activity> *appendices_; /**< A list of potential appendices.*/
+  QSystemTrayIcon *tray_icon_ = new QSystemTrayIcon();  /**< The tray icon.*/
 };
