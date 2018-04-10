@@ -24,6 +24,7 @@
 
 #include <QDebug>
 #include <QDir>
+#include <QScrollArea>
 #include <QtMath>
 
 QuestionnaireDialog::QuestionnaireDialog(MainWindow *window, int scheduler)
@@ -82,11 +83,14 @@ void QuestionnaireDialog::Setup() {
   perf_group_->setId(perf_checkbox1, 1);
   perf_group_->setId(perf_checkbox2, 2);
   perf_checkbox1->setChecked(true);
+  perf_checkbox1->setMaximumSize(perf_checkbox1->sizeHint());
+  perf_checkbox2->setMaximumSize(perf_checkbox2->sizeHint());
 
   QLabel *perf_section_label_ =
       new QLabel(tr("<font color='red'>*</font> 2. Did you measure the "
                     "performance of your application?"));
   perf_section_label_->setWordWrap(true);
+  // perf_section_label_->setMaximumSize(perf_section_label_->sizeHint());
   QLabel *perf_label =
       new QLabel(tr("<font color='red'>*</font> Which performance does your "
                     "application currently reach?"));
@@ -247,12 +251,6 @@ void QuestionnaireDialog::Setup() {
   finish_button_->setShortcut(QKeySequence(Qt::Key_F));
   finish_button_->setEnabled(false);
 
-  // Separator
-  QFrame *botton_line = new QFrame();
-  botton_line->setGeometry(QRect(/* ... */));
-  botton_line->setFrameShape(QFrame::HLine);
-  botton_line->setFrameShadow(QFrame::Sunken);
-
   // Layout
   perf_buttons_ = new QHBoxLayout;
   perf_buttons_->addWidget(perf_checkbox1);
@@ -313,11 +311,11 @@ void QuestionnaireDialog::Setup() {
   perf_group_layout->addWidget(perf_section_label_);
   perf_group_layout->addLayout(perf_buttons_);
   perf_group_layout->addWidget(perf_widget_);
-  QGroupBox *perf_group = new QGroupBox;
-  perf_group->setTitle(tr("Performance"));
-  perf_group->setLayout(perf_group_layout);
-  perf_group->setToolTip(tr("Leave at default if you did not measure the "
-                            "performance of your application."));
+  perf_group_box_ = new QGroupBox;
+  perf_group_box_->setTitle(tr("Performance"));
+  perf_group_box_->setLayout(perf_group_layout);
+  perf_group_box_->setToolTip(tr("Leave at default if you did not measure the "
+                                 "performance of your application."));
 
   QVBoxLayout *comment_layout = new QVBoxLayout;
   comment_layout->addWidget(comment_label);
@@ -325,8 +323,6 @@ void QuestionnaireDialog::Setup() {
   QGroupBox *comment_group = new QGroupBox;
   comment_group->setTitle(tr("Comment"));
   comment_group->setLayout(comment_layout);
-  comment_group->setMinimumHeight(120);
-  comment_group->setMaximumHeight(120);
   comment_group->setToolTip(
       tr("Provide additional information of your last development activity"));
 
@@ -336,23 +332,44 @@ void QuestionnaireDialog::Setup() {
   ms_layout->addWidget(ms_form_);
   ms_layout->addWidget(ms_comment_label_);
   ms_layout->addWidget(ms_comment_);
-  QGroupBox *ms_group = new QGroupBox;
-  ms_group->setTitle(tr("Milestone"));
-  ms_group->setLayout(ms_layout);
-  ms_group->setToolTip(tr("Select yes if you reached a milestone during the "
-                          "last logging interval.<br>"
-                          "Additional questions will then appear."));
+  ms_group_box_ = new QGroupBox;
+  ms_group_box_->setTitle(tr("Milestone"));
+  ms_group_box_->setLayout(ms_layout);
+  ms_group_box_->setToolTip(
+      tr("Select yes if you reached a milestone during the "
+         "last logging interval.<br>"
+         "Additional questions will then appear."));
+
+  QVBoxLayout *scroll_layout = new QVBoxLayout;
+  if (scheduler_ == 1) {
+    appendix_group->setMinimumHeight(100);
+    appendix_group->setMaximumHeight(100);
+    scroll_layout->addWidget(appendix_group);
+  }
+  act_group->setMinimumHeight(100);
+  act_group->setMaximumHeight(100);
+  scroll_layout->addWidget(act_group);
+  perf_group_box_->setMinimumHeight(400);
+  perf_group_box_->setMaximumHeight(500);
+  scroll_layout->addWidget(perf_group_box_);
+  comment_group->setMinimumHeight(120);
+  comment_group->setMaximumHeight(120);
+  scroll_layout->addWidget(comment_group);
+  ms_group_box_->setMinimumHeight(120);
+  ms_group_box_->setMaximumHeight(120);
+  scroll_layout->addWidget(ms_group_box_);
+  scroll_widget_ = new QWidget;
+  // scroll_widget->setMinimumHeight(120);
+  scroll_widget_->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+  scroll_widget_->setLayout(scroll_layout);
+
+  QScrollArea *scroll_area = new QScrollArea;
+  scroll_area->setWidget(scroll_widget_);
 
   main_layout_ = new QVBoxLayout;
-  if (scheduler_ == 1) {
-    main_layout_->addWidget(appendix_group);
-  }
-  main_layout_->addWidget(act_group);
-  main_layout_->addWidget(perf_group);
-  main_layout_->addWidget(comment_group);
-  main_layout_->addWidget(ms_group);
-  main_layout_->addWidget(botton_line);
+  main_layout_->addWidget(scroll_area);
   main_layout_->addLayout(button_layout);
+
   setLayout(main_layout_);
 
   QString title_string;
@@ -621,32 +638,56 @@ void QuestionnaireDialog::ThreadsInputChanged(int i) {
   return;
 }
 
-void QuestionnaireDialog::PerfInputChanged() {
-  if (perf_group_->checkedId() == 1) {
+void QuestionnaireDialog::ActiveSectionsChanged() {
+  bool perf_act = false;
+  if (perf_group_->checkedId() == 1)
+    perf_act = true;
+  bool ms_act = false;
+  if (ms_group_->checkedId() == 1)
+    ms_act = true;
+
+  if (perf_act) {
     perf_widget_->show();
-  } else if (perf_group_->checkedId() == 2) {
+    perf_group_box_->setMinimumHeight(450);
+    perf_group_box_->setMaximumHeight(500);
+  } else {
+    perf_group_box_->setMinimumHeight(100);
+    perf_group_box_->setMaximumHeight(100);
     perf_widget_->hide();
   }
 
-  main_layout_->update();
-  this->repaint();
-  return;
-}
-
-void QuestionnaireDialog::MsInputChanged() {
-  if (ms_group_->checkedId() == 1) {
+  if (ms_act) {
     ms_form_->show();
     ms_comment_label_->show();
     ms_comment_->show();
     ms_form_->setFocus();
-  } else if (ms_group_->checkedId() == 2) {
+    ms_group_box_->setMinimumHeight(200);
+    ms_group_box_->setMaximumHeight(250);
+  } else {
     ms_form_->hide();
     ms_comment_label_->hide();
     ms_comment_->hide();
+    ms_group_box_->setMinimumHeight(120);
+    ms_group_box_->setMaximumHeight(120);
+  }
+
+  if (perf_act && ms_act) {
+    scroll_widget_->setMinimumHeight(950);
+    scroll_widget_->setMaximumHeight(1000);
+  } else if (perf_act && !ms_act) {
+    scroll_widget_->setMinimumHeight(850);
+    scroll_widget_->setMaximumHeight(900);
+  } else if (!perf_act && ms_act) {
+    scroll_widget_->setMinimumHeight(600);
+    scroll_widget_->setMaximumHeight(650);
+  } else {
+    scroll_widget_->setMinimumHeight(400);
+    scroll_widget_->setMaximumHeight(450);
   }
 
   main_layout_->update();
   this->repaint();
+  QApplication::processEvents();
   return;
 }
 

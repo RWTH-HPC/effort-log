@@ -100,10 +100,8 @@ private slots:
    * \param[in] i The id of the active metric.
    */
   void ThreadsInputChanged(int i);
-  //! Handles changes to the performance section
-  void PerfInputChanged();
-  //! Handles changes to the milestone section
-  void MsInputChanged();
+  //! Handles changes to the active sections
+  void ActiveSectionsChanged();
   //! Checks the user input
   /*!
    * The user can only click on OK when all required input fields are set
@@ -205,4 +203,10 @@ private:
   QSpinBox *log_interval_spin_box_; /**< Lets the user specify the interval of
                                       development before executing the
                                       program.*/
+  QGroupBox *perf_group_box_;       /**< Groups the part of the questionnaire on
+                                       performance.*/
+  QGroupBox
+      *ms_group_box_; /**< Groups the part of the questionnaire on milestones.*/
+  QWidget *scroll_widget_; /**< The main widget of the scrollable view of the
+                              questionnaire.*/
 };
