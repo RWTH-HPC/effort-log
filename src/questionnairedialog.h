@@ -165,13 +165,12 @@ private:
   int scheduler_;    /**< Denotes if the questionnaire was scheduled by the set
                         interval (=0), was an appendix (=1), was manually executed
                         (=2), or was executed on closing the program (=3) */
-  QPushButton *log_button_; /**< Button to read the current log file.*/
-  QstForm *act_form_;       /**< Form to specify the type of activity.*/
-  QWidget *perf_widget_;    /**< A widget of holding the detailed questions on
-                               performance.*/
-  QButtonGroup
-      *perf_group_; /**< Yes/ No buttons to specify if the performance of
-                       applicationw as measured.*/
+  QPushButton *log_button_;  /**< Button to read the current log file.*/
+  QstForm *act_form_;        /**< Form to specify the type of activity.*/
+  QWidget *perf_widget_;     /**< A widget of holding the detailed questions on
+                                performance.*/
+  QButtonGroup *perf_group_; /**< Yes/ No buttons to specify if the performance
+                                of applicationw as measured.*/
   QHBoxLayout
       *perf_buttons_; /**< Yes/ No buttons to specify if a milestone occured.*/
   QLabel *perf_section_label_; /**< The label of section on performance.*/

@@ -386,7 +386,8 @@ void QuestionnaireDialog::Setup() {
                                 .toString("hh:mm ap"));
   }
   this->setWindowTitle(title_string);
-  setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
+  setWindowFlags(Qt::Window | Qt::WindowStaysOnTopHint | Qt::WindowTitleHint |
+                 Qt::WindowCloseButtonHint);
   return;
 }
 
@@ -402,8 +403,9 @@ void QuestionnaireDialog::CreateConnections() {
   connect(threads_box_, SIGNAL(activated(int)), this,
           SLOT(ThreadsInputChanged(int)));
   connect(perf_group_, SIGNAL(buttonClicked(int)), this,
-          SLOT(PerfInputChanged()));
-  connect(ms_group_, SIGNAL(buttonClicked(int)), this, SLOT(MsInputChanged()));
+          SLOT(ActiveSectionsChanged()));
+  connect(ms_group_, SIGNAL(buttonClicked(int)), this,
+          SLOT(ActiveSectionsChanged()));
 
   connect(perf_group_, SIGNAL(buttonClicked(int)), this, SLOT(CheckInput()));
   connect(ms_group_, SIGNAL(buttonClicked(int)), this, SLOT(CheckInput()));
@@ -746,13 +748,15 @@ void QuestionnaireDialog::ReadLog() {
 }
 
 void QuestionnaireDialog::LogViewer() {
-  //setWindowFlags(Qt::Dialog | Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
+  // setWindowFlags(Qt::Dialog | Qt::WindowTitleHint |
+  // Qt::WindowCloseButtonHint);
 
   LogView view(project_);
   view.resize(450, 300);
   view.exec();
 
-  //setWindowFlags(Qt::Dialog | Qt::WindowStaysOnTopHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
+  // setWindowFlags(Qt::Dialog | Qt::WindowStaysOnTopHint | Qt::WindowTitleHint
+  // | Qt::WindowCloseButtonHint);
 
   return;
 }

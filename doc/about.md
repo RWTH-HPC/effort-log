@@ -34,6 +34,10 @@ for more information on the research done with EffortLog.
 
 Change log:
 
+-   0.9.3 (April 2018):
+    -   Added feature: Added a tray icon and desktop notifications
+    -   Added feature: The view on the questionnaire is now scrollable
+    -   Bug fix: Improved cross-platform window displaying
 -   0.9.2 (March 2018):
     -   Added feature: Simplified set-up
 -   0.9.1 (March 2018):

@@ -217,7 +217,8 @@ void MainWindow::NextAnimationFrame() {
         msg += " minute";
       else
         msg += " minutes";
-      msg += " has passed. Please switch to the EffortLog app and answer the questionnaire.";
+      msg += " has passed. Please switch to the EffortLog app and answer the "
+             "questionnaire.";
       ShowMessage(msg);
       QApplication::processEvents();
       QApplication::sendPostedEvents(tray_icon_);
@@ -343,8 +344,7 @@ void MainWindow::AddAppendices() {
   project_->StoreLog(settings_.value("conf/logFile").toString());
 }
 
-void MainWindow::ShowMessage(const QString &msg)
-{
+void MainWindow::ShowMessage(const QString &msg) {
   QString app = tr(APP_NAME) + " " + tr(APP_VERSION);
   tray_icon_->showMessage(app, msg);
 }

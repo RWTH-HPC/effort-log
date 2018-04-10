@@ -261,5 +261,5 @@ private:
   QLabel *project_label_; /**< Holds the title of the project.*/
   bool qst_running_; /**< True if a questionnaire is running, false if not.*/
   QList<Activity> *appendices_; /**< A list of potential appendices.*/
-  QSystemTrayIcon *tray_icon_ = new QSystemTrayIcon();  /**< The tray icon.*/
+  QSystemTrayIcon *tray_icon_ = new QSystemTrayIcon(); /**< The tray icon.*/
 };

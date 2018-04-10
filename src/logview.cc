@@ -114,5 +114,6 @@ LogView::LogView(Project *pro) : QDialog() {
   setLayout(layout);
   setWindowTitle("Viewing " + QString::number(no_events) + " events and " +
                  QString::number(pro->GetNoMilestones()) + " milestones");
-  setWindowFlags(Qt::Dialog | Qt::WindowStaysOnTopHint | Qt::WindowCloseButtonHint);
+  setWindowFlags(Qt::Dialog | Qt::WindowStaysOnTopHint |
+                 Qt::WindowCloseButtonHint);
 }

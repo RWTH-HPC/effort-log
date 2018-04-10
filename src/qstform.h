@@ -141,8 +141,7 @@ private:
   QVBoxLayout *layout_;      /**< The layout of the form.*/
   QCompleter *completer_;    /**< The completer for the input field.*/
   QStringList compContents_; /**< The completer's content.*/
-  bool line_ =
-      true;       /**< Sets if there will be a horizontal line printed after the
-                     form.*/
-  QFrame *hline_; /**< A horizontal line printed after the form.*/
+  bool line_ = true; /**< Sets if there will be a horizontal line printed after
+                        the form.*/
+  QFrame *hline_;    /**< A horizontal line printed after the form.*/
 };
