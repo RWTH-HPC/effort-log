@@ -34,6 +34,7 @@
 #include <QPlainTextEdit>
 #include <QPushButton>
 #include <QRadioButton>
+#include <QScrollArea>
 #include <QSettings>
 #include <QSpinBox>
 #include <QTimer>
@@ -73,6 +74,7 @@ public:
    * current interval will therefore be longer.
    */
   void reject() Q_DECL_OVERRIDE;
+  virtual void resizeEvent( QResizeEvent* event);
 
 private slots:
   //! Updates the view of the dialog
@@ -170,9 +172,11 @@ private:
   QWidget *perf_widget_;     /**< A widget of holding the detailed questions on
                                 performance.*/
   QButtonGroup *perf_group_; /**< Yes/ No buttons to specify if the performance
-                                of applicationw as measured.*/
+                                of application was measured.*/
+  QVBoxLayout *perf_group_layout_;  /**< Layout for performance group.*/
   QHBoxLayout
       *perf_buttons_; /**< Yes/ No buttons to specify if a milestone occured.*/
+  QCheckBox *perf_checkbox1_; /**< The Yes button of perf_buttons_ to specify if a milestone occured.*/
   QLabel *perf_section_label_; /**< The label of section on performance.*/
   QLineEdit *perf_comment_;    /**< Lets user specify a comment about the
                                     performance.*/
@@ -192,13 +196,16 @@ private:
                                     the milestone.*/
   QstForm *data_form_;         /**< Lets user specify the data size of the
                                               milestone.*/
+  QVBoxLayout *ms_layout_;  /**< A layout holding the milestone related elements.*/
   QHBoxLayout
       *ms_buttons_;  /**< Yes/ No buttons to specify if a milestone occured.*/
   QstForm *ms_form_; /**< The form for the  milestone's title.*/
   QLabel *ms_comment_label_;   /**< The label of the comment filed to specify
-                                  additional informatin regarding the milestone.*/
-  QPlainTextEdit *ms_comment_; /**< A comment filed to specify additional
+                                  additional information regarding the milestone.*/
+  QPlainTextEdit *ms_comment_; /**< A comment field to specify additional
                                   informatin regarding the milestone.*/
+  QLabel *ms_label_;  /**< A label asking if a milestone was reached.*/
+  QCheckBox *ms_checkbox1_;  /**< A checkbox holding Yes of the answer to the question asked in ms_label_.*/
   QSpinBox *log_interval_spin_box_; /**< Lets the user specify the interval of
                                       development before executing the
                                       program.*/
@@ -207,5 +214,8 @@ private:
   QGroupBox
       *ms_group_box_; /**< Groups the part of the questionnaire on milestones.*/
   QWidget *scroll_widget_; /**< The main widget of the scrollable view of the
+                              questionnaire.*/
+  QScrollArea *scroll_area_; /**< The scrollable area of the questionnaire.*/
+  QVBoxLayout *scroll_layout_; /**< The layout of the scrollable view of the
                               questionnaire.*/
 };
