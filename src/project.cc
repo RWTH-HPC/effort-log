@@ -384,3 +384,24 @@ QStringList Project::GetUniqueMs() {
   }
   return list;
 }
+
+Activity Project::GetLastMs() {
+  Activity act;
+  if (GetNoMilestones() == 0)
+    return act;
+  int i = activities_->length() - 1;
+  while(activities_->at(i).GetMsId() == -1 && i >= 0)
+    i--;
+  return activities_->at(i);
+}
+
+Activity Project::GetLastPerf() {
+  Activity act;
+  if (GetNoActivities() == 0)
+    return act;
+  int i = activities_->length() - 1;
+  while(activities_->at(i).GetPerfComment() == "" && i >= 0)
+    i--;
+  return activities_->at(i);
+}
+

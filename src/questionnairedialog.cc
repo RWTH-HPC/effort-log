@@ -139,6 +139,7 @@ void QuestionnaireDialog::Setup() {
   arc_form_->SetLine(false);
   if (scheduler_ != 1)
     arc_form_->SetCompleter(project_->GetUniqueArchitectures());
+  arc_form_->SetText(project_->GetLastPerf().GetArc());
 
   // Compiler
   compiler_form_ = new QstForm();
@@ -149,6 +150,7 @@ void QuestionnaireDialog::Setup() {
   compiler_form_->SetLine(false);
   if (scheduler_ != 1)
     compiler_form_->SetCompleter(project_->GetUniqueCompilers());
+  compiler_form_->SetText(project_->GetLastPerf().GetCompiler());
 
   // Programming model
   model_form_ = new QstForm();
@@ -160,6 +162,7 @@ void QuestionnaireDialog::Setup() {
   model_form_->SetLine(false);
   if (scheduler_ != 1)
     model_form_->SetCompleter(project_->GetUniqueProgModels());
+  model_form_->SetText(project_->GetLastPerf().GetModel());
 
   // Data size
   data_form_ = new QstForm();
@@ -169,6 +172,7 @@ void QuestionnaireDialog::Setup() {
   data_form_->SetLine(false);
   if (scheduler_ != 1)
     data_form_->SetCompleter(project_->GetUniqueDataSizes());
+  data_form_->SetText(project_->GetLastPerf().GetDataSize());
 
   // Comment field for the activity
   QLabel *comment_label = new QLabel("3. Comment on this activity:");
