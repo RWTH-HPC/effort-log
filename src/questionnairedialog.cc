@@ -352,6 +352,8 @@ void QuestionnaireDialog::Setup() {
 
   // Main layout and sizing
   scroll_layout_ = new QVBoxLayout;
+  if (scheduler_ == 1)
+    scroll_layout_->addWidget(appendix_group);
   scroll_layout_->addWidget(act_group);
   scroll_layout_->addWidget(perf_group_box_);
   comment_group->setFixedHeight(comment_group->contentsMargins().top() + comment_group->contentsMargins().bottom() + 6 * fontMetrics().lineSpacing());
