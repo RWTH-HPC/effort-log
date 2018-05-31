@@ -309,6 +309,7 @@ void QuestionnaireDialog::Setup() {
   perf_detailed_layout->addWidget(compiler_form_);
   perf_detailed_layout->addWidget(model_form_);
   perf_detailed_layout->addWidget(data_form_);
+  perf_detailed_layout->setContentsMargins(0, 0, 0, 0);
 
   perf_widget_ = new QWidget;
   perf_widget_->setLayout(perf_detailed_layout);
