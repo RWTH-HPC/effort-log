@@ -4,7 +4,7 @@ SRC = help.md\
 	  questionnaire.md\
 	  logfile.md\
 	  about.md
-VERSION = 0.9.2
+VERSION = 0.9.3
 FLAGS = --self-contained --toc  --section-divs
 META = --metadata=title:"EffortLog v$(VERSION)"
 HTML_OUT = doc.html
@@ -18,3 +18,4 @@ pdf :
 	pandoc $(FLAGS) $(META) -o $(PDF_OUT) $(SRC)
 clean: 
 	rm doc.html doc.pdf
+
