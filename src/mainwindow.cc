@@ -91,9 +91,11 @@ void MainWindow::closeEvent(QCloseEvent *event) {
         }
         project_->StoreLog(settings_.value("conf/logFile").toString());
       }
+      tray_icon_->hide();
       event->accept();
     }
   } else {
+    tray_icon_->hide();
     event->accept();
   }
 }
