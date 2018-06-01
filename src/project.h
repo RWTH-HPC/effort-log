@@ -270,14 +270,14 @@ public:
   QStringList GetUniqueMs();
   //! Gets the last activity with a milestone
   /*!
-   * Searches backwards through all activities in the project to find the last milestone
-   * \return The last activity with a milestone
+   * Searches backwards through all activities in the project to find the last
+   * milestone \return The last activity with a milestone
    */
   Activity GetLastMs();
   //! Gets the last activity with performance data
   /*!
-   * Searches backwards through all activities in the project to find the last performance measurement
-   * \return The last activity with performance data
+   * Searches backwards through all activities in the project to find the last
+   * performance measurement \return The last activity with performance data
    */
   Activity GetLastPerf();
 

@@ -24,8 +24,8 @@
 
 #include <QDebug>
 #include <QDir>
-#include <QtMath>
 #include <QScrollBar>
+#include <QtMath>
 
 QuestionnaireDialog::QuestionnaireDialog(MainWindow *window, int scheduler)
     : QDialog() {
@@ -90,7 +90,10 @@ void QuestionnaireDialog::Setup() {
       new QLabel(tr("<font color='red'>*</font> 2. Did you measure the "
                     "performance of your application?"));
   perf_section_label_->setWordWrap(true);
-  perf_section_label_->setFixedHeight(perf_section_label_->contentsMargins().top() + perf_section_label_->contentsMargins().bottom() + 2 * fontMetrics().lineSpacing());
+  perf_section_label_->setFixedHeight(
+      perf_section_label_->contentsMargins().top() +
+      perf_section_label_->contentsMargins().bottom() +
+      2 * fontMetrics().lineSpacing());
   QLabel *perf_label =
       new QLabel(tr("<font color='red'>*</font> Which performance does your "
                     "application currently reach?"));
@@ -177,21 +180,27 @@ void QuestionnaireDialog::Setup() {
   // Comment field for the activity
   QLabel *comment_label = new QLabel("3. Comment on this activity:");
   comment_label->setWordWrap(true);
-  comment_label->setFixedHeight(comment_label->contentsMargins().top() + comment_label->contentsMargins().bottom() + fontMetrics().lineSpacing());
+  comment_label->setFixedHeight(comment_label->contentsMargins().top() +
+                                comment_label->contentsMargins().bottom() +
+                                fontMetrics().lineSpacing());
   comment_box_ = new QPlainTextEdit;
   comment_box_->setPlaceholderText(tr("Comment..."));
   comment_box_->setToolTip(
       tr("Provide additional information of your last development activity"));
-  comment_box_->setFixedHeight(comment_box_->contentsMargins().top() + comment_box_->contentsMargins().bottom() + 2.5 * fontMetrics().lineSpacing());
+  comment_box_->setFixedHeight(comment_box_->contentsMargins().top() +
+                               comment_box_->contentsMargins().bottom() +
+                               2.5 * fontMetrics().lineSpacing());
 
   // Project milestones
   ms_label_ = new QLabel("<font color='red'>*</font> 4. Did you reach a "
-                                "milestone during the last logging interval?");
+                         "milestone during the last logging interval?");
   ms_label_->setWordWrap(true);
   ms_label_->setToolTip(tr("Select yes if you reached a milestone during the "
-                          "last logging interval.<br>"
-                          "Additional questions will then appear."));
-  ms_label_->setFixedHeight(ms_label_->contentsMargins().top() + ms_label_->contentsMargins().bottom() + 2 * fontMetrics().lineSpacing());
+                           "last logging interval.<br>"
+                           "Additional questions will then appear."));
+  ms_label_->setFixedHeight(ms_label_->contentsMargins().top() +
+                            ms_label_->contentsMargins().bottom() +
+                            2 * fontMetrics().lineSpacing());
 
   ms_group_ = new QButtonGroup(this);
   ms_group_->setExclusive(true);
@@ -223,12 +232,17 @@ void QuestionnaireDialog::Setup() {
 
   ms_comment_label_ = new QLabel(tr("11. Comment on the milestone:"));
   ms_comment_label_->setWordWrap(true);
-  ms_comment_label_->setFixedHeight(ms_comment_label_->contentsMargins().top() + ms_comment_label_->contentsMargins().bottom() + fontMetrics().lineSpacing());
+  ms_comment_label_->setFixedHeight(
+      ms_comment_label_->contentsMargins().top() +
+      ms_comment_label_->contentsMargins().bottom() +
+      fontMetrics().lineSpacing());
   ms_comment_ = new QPlainTextEdit;
   ms_comment_->setToolTip(
       tr("Provide additional information for this milestone"));
   ms_comment_->setPlaceholderText(tr("Comment..."));
-  ms_comment_->setFixedHeight(ms_comment_->contentsMargins().top() + ms_comment_->contentsMargins().bottom() + 2.5 * fontMetrics().lineSpacing());
+  ms_comment_->setFixedHeight(ms_comment_->contentsMargins().top() +
+                              ms_comment_->contentsMargins().bottom() +
+                              2.5 * fontMetrics().lineSpacing());
   ms_comment_label_->hide();
   ms_comment_->hide();
 
@@ -302,7 +316,10 @@ void QuestionnaireDialog::Setup() {
   act_group->setLayout(act_layout);
   act_group->setToolTip(
       tr("Describe how you were mainly working since the last diary entry"));
-  act_group->setFixedHeight(act_layout->contentsMargins().top() + act_layout->contentsMargins().bottom() + act_layout->spacing() + 4 * fontMetrics().lineSpacing());
+  act_group->setFixedHeight(act_layout->contentsMargins().top() +
+                            act_layout->contentsMargins().bottom() +
+                            act_layout->spacing() +
+                            4 * fontMetrics().lineSpacing());
 
   QVBoxLayout *perf_detailed_layout = new QVBoxLayout;
   perf_detailed_layout->addWidget(perf_label);
@@ -327,7 +344,11 @@ void QuestionnaireDialog::Setup() {
   perf_group_box_->setLayout(perf_group_layout_);
   perf_group_box_->setToolTip(tr("Leave at default if you did not measure the "
                                  "performance of your application."));
-  perf_group_box_->setFixedHeight(perf_section_label_->height() + perf_checkbox1_->height() + perf_group_layout_->contentsMargins().top() + perf_group_layout_->contentsMargins().bottom() + perf_group_layout_->spacing() + 30 * fontMetrics().lineSpacing());
+  perf_group_box_->setFixedHeight(
+      perf_section_label_->height() + perf_checkbox1_->height() +
+      perf_group_layout_->contentsMargins().top() +
+      perf_group_layout_->contentsMargins().bottom() +
+      perf_group_layout_->spacing() + 30 * fontMetrics().lineSpacing());
 
   QVBoxLayout *comment_layout = new QVBoxLayout;
   comment_layout->addWidget(comment_label);
@@ -337,7 +358,11 @@ void QuestionnaireDialog::Setup() {
   comment_group->setLayout(comment_layout);
   comment_group->setToolTip(
       tr("Provide additional information of your last development activity"));
-  comment_group->setFixedHeight(comment_label->height() + comment_box_->height() + comment_layout->contentsMargins().top() + comment_layout->contentsMargins().bottom() + comment_layout->spacing() + 3 * fontMetrics().lineSpacing());
+  comment_group->setFixedHeight(
+      comment_label->height() + comment_box_->height() +
+      comment_layout->contentsMargins().top() +
+      comment_layout->contentsMargins().bottom() + comment_layout->spacing() +
+      3 * fontMetrics().lineSpacing());
 
   ms_layout_ = new QVBoxLayout;
   ms_layout_->addWidget(ms_label_);
@@ -352,7 +377,11 @@ void QuestionnaireDialog::Setup() {
       tr("Select yes if you reached a milestone during the "
          "last logging interval.<br>"
          "Additional questions will then appear."));
-  ms_group_box_->setFixedHeight(ms_label_->height() + ms_checkbox1_->height() + ms_layout_->contentsMargins().top() + ms_layout_->contentsMargins().bottom() + ms_layout_->spacing() + 4 * fontMetrics().lineSpacing());
+  ms_group_box_->setFixedHeight(ms_label_->height() + ms_checkbox1_->height() +
+                                ms_layout_->contentsMargins().top() +
+                                ms_layout_->contentsMargins().bottom() +
+                                ms_layout_->spacing() +
+                                4 * fontMetrics().lineSpacing());
 
   // Main layout and sizing
   scroll_layout_ = new QVBoxLayout;
@@ -360,7 +389,9 @@ void QuestionnaireDialog::Setup() {
     scroll_layout_->addWidget(appendix_group);
   scroll_layout_->addWidget(act_group);
   scroll_layout_->addWidget(perf_group_box_);
-  comment_group->setFixedHeight(comment_group->contentsMargins().top() + comment_group->contentsMargins().bottom() + 6 * fontMetrics().lineSpacing());
+  comment_group->setFixedHeight(comment_group->contentsMargins().top() +
+                                comment_group->contentsMargins().bottom() +
+                                6 * fontMetrics().lineSpacing());
   scroll_layout_->addWidget(comment_group);
   scroll_layout_->addWidget(ms_group_box_);
   scroll_widget_ = new QWidget;
@@ -374,10 +405,17 @@ void QuestionnaireDialog::Setup() {
 
   setLayout(main_layout_);
 
-  if(scroll_area_->verticalScrollBar()->isVisible())
-    scroll_widget_->setMinimumSize(this->width() - scroll_area_->verticalScrollBar()->width() - main_layout_->contentsMargins().left() - main_layout_->contentsMargins().right() - 2, 0);
+  if (scroll_area_->verticalScrollBar()->isVisible())
+    scroll_widget_->setMinimumSize(
+        this->width() - scroll_area_->verticalScrollBar()->width() -
+            main_layout_->contentsMargins().left() -
+            main_layout_->contentsMargins().right() - 2,
+        0);
   else
-   scroll_widget_->setMinimumSize(this->width() - main_layout_->contentsMargins().left() - main_layout_->contentsMargins().right() - 2, 0);
+    scroll_widget_->setMinimumSize(
+        this->width() - main_layout_->contentsMargins().left() -
+            main_layout_->contentsMargins().right() - 2,
+        0);
   scroll_widget_->adjustSize();
 
   QString title_string;
@@ -659,11 +697,19 @@ void QuestionnaireDialog::ActiveSectionsChanged() {
   if (perf_act) {
     perf_widget_->show();
     perf_group_layout_->update();
-    perf_group_box_->setFixedHeight(perf_section_label_->height() + perf_checkbox1_->height() + perf_group_layout_->contentsMargins().top() + perf_group_layout_->contentsMargins().bottom() + perf_group_layout_->spacing() + 30 * fontMetrics().lineSpacing());
+    perf_group_box_->setFixedHeight(
+        perf_section_label_->height() + perf_checkbox1_->height() +
+        perf_group_layout_->contentsMargins().top() +
+        perf_group_layout_->contentsMargins().bottom() +
+        perf_group_layout_->spacing() + 30 * fontMetrics().lineSpacing());
   } else {
     perf_widget_->hide();
     perf_group_layout_->update();
-    perf_group_box_->setFixedHeight(perf_section_label_->height() + perf_checkbox1_->height() + perf_group_layout_->contentsMargins().top() + perf_group_layout_->contentsMargins().bottom() + perf_group_layout_->spacing() + 4 * fontMetrics().lineSpacing());
+    perf_group_box_->setFixedHeight(
+        perf_section_label_->height() + perf_checkbox1_->height() +
+        perf_group_layout_->contentsMargins().top() +
+        perf_group_layout_->contentsMargins().bottom() +
+        perf_group_layout_->spacing() + 4 * fontMetrics().lineSpacing());
   }
 
   if (ms_act) {
@@ -671,12 +717,20 @@ void QuestionnaireDialog::ActiveSectionsChanged() {
     ms_comment_label_->show();
     ms_comment_->show();
     ms_form_->setFocus();
-    ms_group_box_->setFixedHeight(ms_label_->height() + ms_checkbox1_->height() + ms_layout_->contentsMargins().top() + ms_layout_->contentsMargins().bottom() + ms_layout_->spacing() + 10 * fontMetrics().lineSpacing());
+    ms_group_box_->setFixedHeight(
+        ms_label_->height() + ms_checkbox1_->height() +
+        ms_layout_->contentsMargins().top() +
+        ms_layout_->contentsMargins().bottom() + ms_layout_->spacing() +
+        10 * fontMetrics().lineSpacing());
   } else {
     ms_form_->hide();
     ms_comment_label_->hide();
     ms_comment_->hide();
-    ms_group_box_->setFixedHeight(ms_label_->height() + ms_checkbox1_->height() + ms_layout_->contentsMargins().top() + ms_layout_->contentsMargins().bottom() + ms_layout_->spacing() + 4 * fontMetrics().lineSpacing());
+    ms_group_box_->setFixedHeight(
+        ms_label_->height() + ms_checkbox1_->height() +
+        ms_layout_->contentsMargins().top() +
+        ms_layout_->contentsMargins().bottom() + ms_layout_->spacing() +
+        4 * fontMetrics().lineSpacing());
   }
   scroll_widget_->adjustSize();
   main_layout_->update();
@@ -746,12 +800,19 @@ void QuestionnaireDialog::LogViewer() {
   return;
 }
 
-void QuestionnaireDialog::resizeEvent(QResizeEvent* event) {
+void QuestionnaireDialog::resizeEvent(QResizeEvent *event) {
   QDialog::resizeEvent(event);
-  if(scroll_area_->verticalScrollBar()->isVisible())
-    scroll_widget_->setMinimumSize(this->width() - scroll_area_->verticalScrollBar()->width() - main_layout_->contentsMargins().left() - main_layout_->contentsMargins().right() - 2, 0);
+  if (scroll_area_->verticalScrollBar()->isVisible())
+    scroll_widget_->setMinimumSize(
+        this->width() - scroll_area_->verticalScrollBar()->width() -
+            main_layout_->contentsMargins().left() -
+            main_layout_->contentsMargins().right() - 2,
+        0);
   else
-   scroll_widget_->setMinimumSize(this->width() - main_layout_->contentsMargins().left() - main_layout_->contentsMargins().right() - 2, 0);
+    scroll_widget_->setMinimumSize(
+        this->width() - main_layout_->contentsMargins().left() -
+            main_layout_->contentsMargins().right() - 2,
+        0);
   scroll_widget_->adjustSize();
   return;
 }
