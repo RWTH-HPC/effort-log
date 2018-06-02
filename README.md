@@ -60,7 +60,8 @@ To create the *Doxygen* documentation use
     make doxygen
 
 ## Information Gathered by EffortLog
-**Project file \*.pro (JSON format)**
+
+### Project file \*.pro (JSON format)
 
 | Information  |  Collected through |
 |---|---|
@@ -70,7 +71,7 @@ To create the *Doxygen* documentation use
 | Output directory of the log file |  user-provided during program startup |
 | Logging interval in minutes  | user-provided during program startup  |
 
-**Log file \*.json (JSON format)**
+### Log file \*.json (JSON format)
 
 | Information  |  Collected through |
 |---|---|
@@ -98,6 +99,7 @@ To create the *Doxygen* documentation use
 | Other comment on the milestone if provided  | user-provided during questionnaires  |
 
 Notes on anonymity:
+
 * EffortLog does not store any information on its users except of the project file (\*.pro) and the log file (\*.json). These files contain only user-provided input obtained from the questionnaires.
 * Use random usernames.
 * The project file (\*.pro) may contain the username of the system you are currently logged in. Please check this file before sharing it.
@@ -110,75 +112,82 @@ EffortLog can be configured to encrypt all user related files to ensure the safe
     openssl enc -aes-256-cbc -d -in <encrypted log file>.json -out <decrypted log file>
 
 Notes:
+
 * Encryption is disabled by default. Add `-config crypt` to your qmake flags to enable encryption.
 * Choosing a complex and unique password for each project is crucial to ensure privacy!
 * As of January 2016, changing passwords for a project is not possible once the password is set.
 
 ## Developing and Contributing to EffortLog
 
-**Submit a Bug Report**
-- Bugs are tracked through [Github Issues](https://github.com/julianmi/effort-log/issues).
-- Please describe the bug as detailed as possible including steps which reproduce the problem.
+### Submit a Bug Report
 
-**Request a Feature**
+* Bugs are tracked through [Github Issues](https://github.com/julianmi/effort-log/issues).
+* Please describe the bug as detailed as possible including steps which reproduce the problem.
 
-- Feature requests are tracked through [Github Issues](https://github.com/julianmi/effort-log/issues).
-- Please describe the feature as detailed as possible including the changes you like to see compared to the current behavior.
+### Request a Feature
 
-**Make a Pull Request**
+* Feature requests are tracked through [Github Issues](https://github.com/julianmi/effort-log/issues).
+* Please describe the feature as detailed as possible including the changes you like to see compared to the current behavior.
 
-- Open a new [GitHub pull request](https://github.com/julianmi/effort-log/pulls) with the patch.
-- Please use detailed descriptions on the purpose of the patch.
-- Include the according issue number if present.
+### Make a Pull Request
+
+* Open a new [GitHub pull request](https://github.com/julianmi/effort-log/pulls) with the patch.
+* Please use detailed descriptions on the purpose of the patch.
+* Include the according issue number if present.
 
 For more information on how to develop and contribute to EffortLog, please contact
 [Julian Miller](mailto:miller@itc.rwth-aachen.de)
 
-## Change log:
+## Change log
 
--   0.9.2 (March 2018):
-    -   Added feature: Simplified set-up
--   0.9.1 (March 2018):
-    -   Added feature: Added auto-completion to most of the questionnaire forms
-    -   Bug fix: 	   Consistent scheduler IDs for the diary entries
--   0.9.0 (February 2018):
-    -   Added feature: Major reorganization of the questionnaires towards a single-page layout
--   0.8.3 (May 2017):
-    -   Bug fix: 	   Deployment reverted to Qt5.6 due to packaging issues with QT5.8
--   0.8.2 (May 2017):
-    -   Added feature: Support for changes to file directories for existing projects
-    -   Bug fix:       Skip read of log file on newly created projects
-    -   Bug fix:       Support for blanks in directory names
--   0.8.1 (January 2017):
-    -   Added feature: Added a viewer of the current log file during the questionnaire
--   0.8 (September 2016):
-    -   Added feature: Added a convenient view of the current log file sorted by dates
-    -   Added feature: Can now handle development sessions spanning multiple days
--   0.7 (February 2016):
-    -   Added feature: Encryption is disabled by default. Add \`-config crypt\` to your
-        qmake flags to enable encryption
-    -   Bug fix: Empty time stamps in the log files
--   0.6 (January 2016):
-    -   Bug fix:       Wrong interval length of the first logging event
-    -   Added feature: Support for full 256-bit AES encryption of all project and log files
-    -   Bug fix:       Appending an event fails due to encryption
--   0.5 (December 2015):
-    -   Added feature: Added milestones to projects
-    -   Added feature: Added IDs to each logging event
-    -   Bug fix:       Fixed US locale to unify data format of log files
-    -   Bug fix:       Milestones have mismatching IDs between the logging event and the current
-        milestone
--   0.4 (December 2015):
-    -   Added feature: Configuration unified in one dialog
-    -   Added feature: Added appendix to log file at program startup
-    -   Bug fix:       General fixes
--   0.3 (November 2015):
-    -   Added feature: New configuration window
-    -   Added feature: Main window simplified
-    -   Bug fix:       Errors with the generated JSON files
--   0.2 (October 2015):
-    -   Bug fix:       Improved JSON handling
--   0.1 (September 2015): Initial release
+* 0.9.4 (June 2018):
+  * Added feature: Questionnaires remember characteristics of last performance measurement
+  * Bug fix:               Improved scaling on high-DPI displays
+* 0.9.3 (April 2018):
+  * Added feature: Added a tray icon and desktop notifications
+  * Added feature: The view on the questionnaire is now scrollable
+  * Bug fix:               Improved cross-platform window displaying
+* 0.9.2 (March 2018):
+  * Added feature: Simplified set-up
+* 0.9.1 (March 2018):
+  * Added feature: Added auto-completion to most of the questionnaire forms
+  * Bug fix:               Consistent scheduler IDs for the diary entries
+* 0.9.0 (February 2018):
+  * Added feature: Major reorganization of the questionnaires towards a single-page layout
+* 0.8.3 (May 2017):
+  * Bug fix:               Deployment reverted to Qt5.6 due to packaging issues with QT5.8
+* 0.8.2 (May 2017):
+  * Added feature: Support for changes to file directories for existing projects
+  * Bug fix:               Skip read of log file on newly created projects
+  * Bug fix:               Support for blanks in directory names
+* 0.8.1 (January 2017):
+  * Added feature: Added a viewer of the current log file during the questionnaire
+* 0.8 (September 2016):
+  * Added feature: Added a convenient view of the current log file sorted by dates
+  * Added feature: Can now handle development sessions spanning multiple days
+* 0.7 (February 2016):
+  * Added feature: Encryption is disabled by default. Add \`-config crypt\` to your qmake flags to enable encryption
+  * Bug fix:               Empty time stamps in the log files
+* 0.6 (January 2016):
+  * Added feature: Support for full 256-bit AES encryption of all project and log files
+  * Bug fix:               Appending an event fails due to encryption
+  * Bug fix:               Wrong interval length of the first logging event
+* 0.5 (December 2015):
+  * Added feature: Added milestones to projects
+  * Added feature: Added IDs to each logging event
+  * Bug fix:               Fixed US locale to unify data format of log files
+  * Bug fix:               Milestones have mismatching IDs between the logging event and the current milestone
+* 0.4 (December 2015):
+  * Added feature: Configuration unified in one dialog
+  * Added feature: Added appendix to log file at program startup
+  * Bug fix:               General fixes
+* 0.3 (November 2015):
+  * Added feature: New configuration window
+  * Added feature: Main window simplified
+  * Bug fix:               Errors with the generated JSON files
+* 0.2 (October 2015):
+  * Bug fix:               Improved JSON handling
+* 0.1 (September 2015): Initial release
 
 ## Related Publications
 
@@ -186,6 +195,7 @@ For more information on how to develop and contribute to EffortLog, please conta
 2. J. Miller: Software Cost Estimation for the Development Effort applied to Multi-node GPU Aeroacoustics Simulations. Master Thesis, 2016, RWTH Aachen University, Germany.
 
 ## Contact Us
+
 [Julian Miller](mailto:miller@itc.rwth-aachen.de)  
 [Sandra Wienke](mailto:wienke@itc.rwth-aachen.de)  
 IT Center  
