@@ -140,9 +140,10 @@ void QuestionnaireDialog::Setup() {
       "Information on the architecture used for the performance measurements"));
   arc_form_->SetPlaceholderText(tr("E.g. Intel Xeon X7550"));
   arc_form_->SetLine(false);
-  if (scheduler_ != 1)
+  if (scheduler_ != 1) {
     arc_form_->SetCompleter(project_->GetUniqueArchitectures());
-  arc_form_->SetText(project_->GetLastPerf().GetArc());
+    arc_form_->SetText(project_->GetLastPerf().GetArc());
+  }
 
   // Compiler
   compiler_form_ = new QstForm();
@@ -151,9 +152,10 @@ void QuestionnaireDialog::Setup() {
                                 "performance measurements"));
   compiler_form_->SetPlaceholderText(tr("E.g. GCC 7.1"));
   compiler_form_->SetLine(false);
-  if (scheduler_ != 1)
+  if (scheduler_ != 1) {
     compiler_form_->SetCompleter(project_->GetUniqueCompilers());
-  compiler_form_->SetText(project_->GetLastPerf().GetCompiler());
+    compiler_form_->SetText(project_->GetLastPerf().GetCompiler());
+  }
 
   // Programming model
   model_form_ = new QstForm();
@@ -163,9 +165,10 @@ void QuestionnaireDialog::Setup() {
          "performance measurements"));
   model_form_->SetPlaceholderText(tr("E.g. OpenMP"));
   model_form_->SetLine(false);
-  if (scheduler_ != 1)
+  if (scheduler_ != 1) {
     model_form_->SetCompleter(project_->GetUniqueProgModels());
-  model_form_->SetText(project_->GetLastPerf().GetModel());
+    model_form_->SetText(project_->GetLastPerf().GetModel());
+  }
 
   // Data size
   data_form_ = new QstForm();
@@ -173,9 +176,10 @@ void QuestionnaireDialog::Setup() {
   data_form_->SetToolTip(tr("Information on the size of the used data set"));
   data_form_->SetPlaceholderText(tr("E.g. benchmark xyz with large data set"));
   data_form_->SetLine(false);
-  if (scheduler_ != 1)
+  if (scheduler_ != 1) {
     data_form_->SetCompleter(project_->GetUniqueDataSizes());
-  data_form_->SetText(project_->GetLastPerf().GetDataSize());
+    data_form_->SetText(project_->GetLastPerf().GetDataSize());
+  }
 
   // Comment field for the activity
   QLabel *comment_label = new QLabel("3. Comment on this activity:");
