@@ -613,8 +613,6 @@ void QuestionnaireDialog::reject() {
                                  QMessageBox::No | QMessageBox::Yes,
                                  QMessageBox::Yes);
   if (button != QMessageBox::No) {
-    QSettings settings;
-    settings.setValue("lastLogTime", QDateTime::currentDateTime());
     main_window_->SetupAnimation();
     QDialog::reject();
   }
