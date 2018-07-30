@@ -196,16 +196,16 @@ For more information on how to develop and contribute to EffortLog, please conta
 
 ## Contact Us
 
-[Julian Miller](mailto:miller@itc.rwth-aachen.de)  
-[Sandra Wienke](mailto:wienke@itc.rwth-aachen.de)  
-IT Center  
-Group: High Performance Computing  
-Division: Computational Science and Engineering  
-RWTH Aachen University  
-Seffenter Weg 23  
+[Julian Miller](mailto:miller@itc.rwth-aachen.de)
+[Sandra Wienke](mailto:wienke@itc.rwth-aachen.de)
+IT Center
+Group: High Performance Computing
+Division: Computational Science and Engineering
+RWTH Aachen University
+Seffenter Weg 23
 D 52074  Aachen (Germany)
 
 ## License
 
-Copyright © 2015-2018 IT Center, RWTH Aachen University  
+Copyright © 2015-2018 IT Center, RWTH Aachen University
 This project is licensed under version 3 of the GNU General Public License.
