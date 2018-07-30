@@ -147,4 +147,3 @@ DISTFILES += \
   tools/windows_deploy.bat \
   tools/windows_deploy_encrypted.bat \
   tools/format.sh
-

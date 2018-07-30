@@ -12,10 +12,11 @@ PDF_OUT = doc.pdf
 
 
 all : html pdf
-html : 
+html :
 	pandoc $(FLAGS) $(META) --to html5 --css doc.css -o $(HTML_OUT) -s $(SRC)
-pdf : 
+pdf :
 	pandoc $(FLAGS) $(META) -o $(PDF_OUT) $(SRC)
-clean: 
+clean:
 	rm doc.html doc.pdf
 
+.PHONY: all clean test

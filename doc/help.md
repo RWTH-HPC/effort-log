@@ -20,7 +20,7 @@
 
 # Using the Help Browser
 
-You can get help by hitting **help** from the application menu bar under 
+You can get help by hitting **help** from the application menu bar under
 Help. Additionally you can always bring up this help browser by hitting
 **F1** from your keyboard if you are running Windows or Linux operating
 systems or **Command+?** if you are on Mac OS X.

@@ -92,7 +92,7 @@ The are three buttons in the lower part of the window:
     until the next event will be reset to the specified logging
     interval. Hotkey: **q**
 -   Read Log: Opens a view on the logging events of the current project.
-    See [Elements of the Log File Viewer](#elemts-of-the-log-file-viewer) 
+    See [Elements of the Log File Viewer](#elemts-of-the-log-file-viewer)
     for additional information on the viewer.
 -   Finish: If the user finished all input he or she can hit this button
     to save the current logging event and return to the main program.
