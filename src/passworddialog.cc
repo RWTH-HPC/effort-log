@@ -32,8 +32,9 @@ PasswordDialog::PasswordDialog(Crypt *crypt, bool init) : QDialog() {
 }
 
 void PasswordDialog::PwdInit() {
-  QLabel *pwd_prompt_label = new QLabel("Please set a password which is used "
-                                        "to encrypt your private log files.");
+  QLabel *pwd_prompt_label = new QLabel(
+      "Please set a password which is used "
+      "to encrypt your private log files.");
   pwd_prompt_label->setWordWrap(true);
   pwd_prompt_ = new QLineEdit;
   pwd_prompt_->setEchoMode(QLineEdit::Password);
@@ -66,8 +67,9 @@ void PasswordDialog::PwdInit() {
 }
 
 void PasswordDialog::PwdEnter() {
-  QLabel *pwd_prompt_label = new QLabel("Please enter the password for this "
-                                        "project.");
+  QLabel *pwd_prompt_label = new QLabel(
+      "Please enter the password for this "
+      "project.");
   pwd_prompt_label->setWordWrap(true);
   pwd_prompt_ = new QLineEdit;
   pwd_prompt_->setEchoMode(QLineEdit::Password);

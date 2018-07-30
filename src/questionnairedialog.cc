@@ -50,23 +50,25 @@ void QuestionnaireDialog::Setup() {
     log_interval_spin_box_->setRange(0, 1000);
     log_interval_spin_box_->setSingleStep(1);
     log_interval_spin_box_->setValue(15);
-    log_interval_spin_box_->setToolTip(tr("Set the time in minutes you want to "
-                                          "be logged to the current project"));
+    log_interval_spin_box_->setToolTip(
+        tr("Set the time in minutes you want to "
+           "be logged to the current project"));
     log_interval_spin_box_->setSuffix(" min");
   }
   // Activity form
   act_form_ = new QstForm();
   act_form_->SetTitle(info_string_);
-  act_form_->SetToolTip(tr("Describe how you were mainly working since the "
-                           "last diary entry. Typical choices include:"
-                           "<br> - Break"
-                           "<br> - Thinking"
-                           "<br> - Serial"
-                           "<br> - Parallelizing"
-                           "<br> - Testing"
-                           "<br> - Debugging"
-                           "<br> - Tuning"
-                           "<br> - Experimenting"));
+  act_form_->SetToolTip(
+      tr("Describe how you were mainly working since the "
+         "last diary entry. Typical choices include:"
+         "<br> - Break"
+         "<br> - Thinking"
+         "<br> - Serial"
+         "<br> - Parallelizing"
+         "<br> - Testing"
+         "<br> - Debugging"
+         "<br> - Tuning"
+         "<br> - Experimenting"));
   act_form_->SetLine(false);
   if (scheduler_ == 1)
     act_form_->SetCompleter(activity_->kActivityType);
@@ -127,9 +129,10 @@ void QuestionnaireDialog::Setup() {
   threads_spin_->setSuffix(tr(" threads"));
   threads_box_->setCurrentIndex(0);
   threads_comment_ = new QLineEdit;
-  threads_comment_->setToolTip(tr("Information on the number of threads, "
-                                  "nodes, etc. used for the performance "
-                                  "measurements"));
+  threads_comment_->setToolTip(
+      tr("Information on the number of threads, "
+         "nodes, etc. used for the performance "
+         "measurements"));
   threads_comment_->setPlaceholderText(tr("No threads, nodes, etc."));
   threads_comment_->hide();
 
@@ -148,8 +151,9 @@ void QuestionnaireDialog::Setup() {
   // Compiler
   compiler_form_ = new QstForm();
   compiler_form_->SetTitle(tr("Compiler"));
-  compiler_form_->SetToolTip(tr("Information on used compiler used for the "
-                                "performance measurements"));
+  compiler_form_->SetToolTip(
+      tr("Information on used compiler used for the "
+         "performance measurements"));
   compiler_form_->SetPlaceholderText(tr("E.g. GCC 7.1"));
   compiler_form_->SetLine(false);
   if (scheduler_ != 1) {
@@ -196,12 +200,14 @@ void QuestionnaireDialog::Setup() {
                                2.5 * fontMetrics().lineSpacing());
 
   // Project milestones
-  ms_label_ = new QLabel("<font color='red'>*</font> 4. Did you reach a "
-                         "milestone during the last logging interval?");
+  ms_label_ = new QLabel(
+      "<font color='red'>*</font> 4. Did you reach a "
+      "milestone during the last logging interval?");
   ms_label_->setWordWrap(true);
-  ms_label_->setToolTip(tr("Select yes if you reached a milestone during the "
-                           "last logging interval.<br>"
-                           "Additional questions will then appear."));
+  ms_label_->setToolTip(
+      tr("Select yes if you reached a milestone during the "
+         "last logging interval.<br>"
+         "Additional questions will then appear."));
   ms_label_->setFixedHeight(ms_label_->contentsMargins().top() +
                             ms_label_->contentsMargins().bottom() +
                             2 * fontMetrics().lineSpacing());
@@ -220,12 +226,13 @@ void QuestionnaireDialog::Setup() {
 
   ms_form_ = new QstForm();
   ms_form_->SetTitle(tr("<font color='red'>*</font> Title of the milestone:"));
-  ms_form_->SetToolTip(tr("The name of the milestone. Typical choices include:"
-                          "<br> - Working serial version"
-                          "<br> - Profiled serial version"
-                          "<br> - Working parallel version"
-                          "<br> - Profiled parallel version"
-                          "<br> - Tuned parallel version"));
+  ms_form_->SetToolTip(
+      tr("The name of the milestone. Typical choices include:"
+         "<br> - Working serial version"
+         "<br> - Profiled serial version"
+         "<br> - Working parallel version"
+         "<br> - Profiled parallel version"
+         "<br> - Tuned parallel version"));
   ms_form_->SetPlaceholderText(tr("E.g. working serial version"));
   ms_form_->SetLine(false);
   if (scheduler_ == 1)
@@ -346,8 +353,9 @@ void QuestionnaireDialog::Setup() {
   perf_group_box_ = new QGroupBox;
   perf_group_box_->setTitle(tr("Performance"));
   perf_group_box_->setLayout(perf_group_layout_);
-  perf_group_box_->setToolTip(tr("Leave at default if you did not measure the "
-                                 "performance of your application."));
+  perf_group_box_->setToolTip(
+      tr("Leave at default if you did not measure the "
+         "performance of your application."));
   perf_group_box_->setFixedHeight(
       perf_section_label_->height() + perf_checkbox1_->height() +
       perf_group_layout_->contentsMargins().top() +
@@ -389,8 +397,7 @@ void QuestionnaireDialog::Setup() {
 
   // Main layout and sizing
   scroll_layout_ = new QVBoxLayout;
-  if (scheduler_ == 1)
-    scroll_layout_->addWidget(appendix_group);
+  if (scheduler_ == 1) scroll_layout_->addWidget(appendix_group);
   scroll_layout_->addWidget(act_group);
   scroll_layout_->addWidget(perf_group_box_);
   comment_group->setFixedHeight(comment_group->contentsMargins().top() +
@@ -488,20 +495,24 @@ void QuestionnaireDialog::UpdateUI() {
   if (scheduler_ == 1) {
     int log_time = log_interval_spin_box_->value();
     if (log_time == 1) {
-      info_string_ = QString("<font color='red'>*</font> 1. What were you "
-                             "working on the last minute?");
+      info_string_ = QString(
+          "<font color='red'>*</font> 1. What were you "
+          "working on the last minute?");
     } else {
-      info_string_ = QString("<font color='red'>*</font> 1. What were you "
-                             "working on the last %1 minutes?")
+      info_string_ = QString(
+                         "<font color='red'>*</font> 1. What were you "
+                         "working on the last %1 minutes?")
                          .arg(log_time);
     }
   } else {
     if (interval == 1) {
-      info_string_ = QString("<font color='red'>*</font> 1. What were you "
-                             "working on the last minute?");
+      info_string_ = QString(
+          "<font color='red'>*</font> 1. What were you "
+          "working on the last minute?");
     } else {
-      info_string_ = QString("<font color='red'>*</font> 1. What were you "
-                             "working on the last %1 minutes?")
+      info_string_ = QString(
+                         "<font color='red'>*</font> 1. What were you "
+                         "working on the last %1 minutes?")
                          .arg(interval);
     }
   }
@@ -559,26 +570,25 @@ void QuestionnaireDialog::accept() {
   if (ms_group_->checkedId() == 1) {
     activity_->SetMsTitle(ms_form_->GetText());
     activity_->SetMsComment(ms_comment_->toPlainText());
-    if (scheduler_ != 1)
-      activity_->SetMsId(project_->GetNoMilestones());
+    if (scheduler_ != 1) activity_->SetMsId(project_->GetNoMilestones());
   } else {
     activity_->SetMsId(-1);
   }
   switch (scheduler_) {
-  case 0:
-    activity_->SetScheduler(0);
-    break;
-  case 1:
-    activity_->SetScheduler(1);
-    break;
-  case 2:
-    activity_->SetScheduler(2);
-    break;
-  case 3:
-    activity_->SetScheduler(3);
-    break;
-  default:
-    activity_->SetScheduler(-1);
+    case 0:
+      activity_->SetScheduler(0);
+      break;
+    case 1:
+      activity_->SetScheduler(1);
+      break;
+    case 2:
+      activity_->SetScheduler(2);
+      break;
+    case 3:
+      activity_->SetScheduler(3);
+      break;
+    default:
+      activity_->SetScheduler(-1);
   }
 
   if (VERBOSE) {
@@ -622,41 +632,41 @@ void QuestionnaireDialog::reject() {
 
 void QuestionnaireDialog::PerfInputChanged(int i) {
   switch (i) {
-  case 0:
-    perf_spin_->setSuffix(tr(" sec"));
-    perf_spin_->show();
-    perf_comment_->hide();
-    perf_spin_->setFocus();
-    break;
-  case 1:
-    perf_spin_->setSuffix(tr(" min"));
-    perf_spin_->show();
-    perf_comment_->hide();
-    perf_spin_->setFocus();
-    break;
-  case 2:
-    perf_spin_->setSuffix(tr(" hour"));
-    perf_spin_->show();
-    perf_comment_->hide();
-    perf_spin_->setFocus();
-    break;
-  case 3:
-    perf_spin_->setSuffix(tr(" GFlop/s"));
-    perf_spin_->show();
-    perf_comment_->hide();
-    perf_spin_->setFocus();
-    break;
-  case 4:
-    perf_spin_->setSuffix(tr(""));
-    perf_spin_->show();
-    perf_comment_->hide();
-    perf_spin_->setFocus();
-    break;
-  case 5:
-    perf_spin_->hide();
-    perf_comment_->show();
-    perf_comment_->setFocus();
-    break;
+    case 0:
+      perf_spin_->setSuffix(tr(" sec"));
+      perf_spin_->show();
+      perf_comment_->hide();
+      perf_spin_->setFocus();
+      break;
+    case 1:
+      perf_spin_->setSuffix(tr(" min"));
+      perf_spin_->show();
+      perf_comment_->hide();
+      perf_spin_->setFocus();
+      break;
+    case 2:
+      perf_spin_->setSuffix(tr(" hour"));
+      perf_spin_->show();
+      perf_comment_->hide();
+      perf_spin_->setFocus();
+      break;
+    case 3:
+      perf_spin_->setSuffix(tr(" GFlop/s"));
+      perf_spin_->show();
+      perf_comment_->hide();
+      perf_spin_->setFocus();
+      break;
+    case 4:
+      perf_spin_->setSuffix(tr(""));
+      perf_spin_->show();
+      perf_comment_->hide();
+      perf_spin_->setFocus();
+      break;
+    case 5:
+      perf_spin_->hide();
+      perf_comment_->show();
+      perf_comment_->setFocus();
+      break;
   }
   main_layout_->update();
   this->repaint();
@@ -665,23 +675,23 @@ void QuestionnaireDialog::PerfInputChanged(int i) {
 
 void QuestionnaireDialog::ThreadsInputChanged(int i) {
   switch (i) {
-  case 0:
-    threads_spin_->setSuffix(tr(" threads"));
-    threads_spin_->show();
-    threads_comment_->hide();
-    threads_spin_->setFocus();
-    break;
-  case 1:
-    threads_spin_->setSuffix(tr(" nodes"));
-    threads_spin_->show();
-    threads_comment_->hide();
-    threads_spin_->setFocus();
-    break;
-  case 2:
-    threads_spin_->hide();
-    threads_comment_->show();
-    threads_comment_->setFocus();
-    break;
+    case 0:
+      threads_spin_->setSuffix(tr(" threads"));
+      threads_spin_->show();
+      threads_comment_->hide();
+      threads_spin_->setFocus();
+      break;
+    case 1:
+      threads_spin_->setSuffix(tr(" nodes"));
+      threads_spin_->show();
+      threads_comment_->hide();
+      threads_spin_->setFocus();
+      break;
+    case 2:
+      threads_spin_->hide();
+      threads_comment_->show();
+      threads_comment_->setFocus();
+      break;
   }
   main_layout_->update();
   this->repaint();
@@ -690,11 +700,9 @@ void QuestionnaireDialog::ThreadsInputChanged(int i) {
 
 void QuestionnaireDialog::ActiveSectionsChanged() {
   bool perf_act = false;
-  if (perf_group_->checkedId() == 1)
-    perf_act = true;
+  if (perf_group_->checkedId() == 1) perf_act = true;
   bool ms_act = false;
-  if (ms_group_->checkedId() == 1)
-    ms_act = true;
+  if (ms_group_->checkedId() == 1) ms_act = true;
 
   if (perf_act) {
     perf_widget_->show();

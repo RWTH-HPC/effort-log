@@ -24,8 +24,8 @@
 #ifdef CRYPT
 #include "crypt.h"
 #endif
-#include "definitions.h"
 #include <QJsonArray>
+#include "definitions.h"
 
 //! Class to handle projects.
 /*!
@@ -34,7 +34,7 @@
  * save a list of activities to such file.
  */
 class Project {
-public:
+ public:
   //! The main constructor.
   Project();
   //! Construction which also sets title_
@@ -281,7 +281,7 @@ public:
    */
   Activity GetLastPerf();
 
-private:
+ private:
 #ifdef CRYPT
   Crypt *crypt_; /**< A pointer to Crypt which is associate with the current
                       project.*/

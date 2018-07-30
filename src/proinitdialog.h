@@ -37,7 +37,7 @@
  */
 class ProInitDialog : public QDialog {
   Q_OBJECT
-public:
+ public:
   //! The main constructor.
   /*!
    * \param[in] pro A pointer to the project to be initialized. \see Project
@@ -54,7 +54,7 @@ public:
    */
   void reject() Q_DECL_OVERRIDE;
 
-private:
+ private:
   //! Takes care of all connections
   /*!
    * This method sets up the needed connections of the dialog. Theser are:

@@ -29,7 +29,7 @@
  * \see Dialog
  */
 class Crypt {
-public:
+ public:
   //! The main constructor.
   Crypt();
   //! Encrypts a byte stream
@@ -59,6 +59,6 @@ public:
    */
   QByteArray GetPwd() const;
 
-private:
+ private:
   QByteArray pwd_; /**< Holds the password of the byte stream*/
 };

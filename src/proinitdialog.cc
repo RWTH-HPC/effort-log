@@ -36,17 +36,19 @@ void ProInitDialog::reject() { QDialog::reject(); }
 
 void ProInitDialog::Setup() {
   QLabel *info = new QLabel;
-  info->setText(tr("You received this questionnaire since it is the first time "
-                   "you created this project."));
+  info->setText(
+      tr("You received this questionnaire since it is the first time "
+         "you created this project."));
   info->setWordWrap(true);
 
   // Specify stage of the project
   QLabel *stages_label = new QLabel;
-  stages_label->setText(tr("Please specify the current development stage of "
-                           "the project. If there is no entry matching your "
-                           "current project please note your current "
-                           "development stage in the comment box to the "
-                           "right."));
+  stages_label->setText(
+      tr("Please specify the current development stage of "
+         "the project. If there is no entry matching your "
+         "current project please note your current "
+         "development stage in the comment box to the "
+         "right."));
   stages_label->setWordWrap(true);
   stages_button_group_ = new QButtonGroup;
   stages_buttons_[0] = new QRadioButton(tr("Scratch"));
@@ -56,33 +58,38 @@ void ProInitDialog::Setup() {
   stages_buttons_[1] = new QRadioButton(tr("Working serial version"));
   stages_button_group_->addButton(stages_buttons_[1], 1);
   stages_buttons_[1]->setShortcut(QKeySequence(Qt::Key_H));
-  stages_buttons_[1]->setToolTip(tr("The project's developers make use of a "
-                                    "working serial version which shall be "
-                                    "tuned or parallelized"));
+  stages_buttons_[1]->setToolTip(
+      tr("The project's developers make use of a "
+         "working serial version which shall be "
+         "tuned or parallelized"));
   stages_buttons_[2] = new QRadioButton(tr("Tuned serial version"));
   stages_button_group_->addButton(stages_buttons_[2], 2);
   stages_buttons_[2]->setShortcut(QKeySequence(Qt::Key_S));
-  stages_buttons_[2]->setToolTip(tr("The project's developers make use of a "
-                                    "tuned serial version which shall be "
-                                    "parallelized"));
+  stages_buttons_[2]->setToolTip(
+      tr("The project's developers make use of a "
+         "tuned serial version which shall be "
+         "parallelized"));
   stages_buttons_[3] = new QRadioButton(tr("Working parallel version"));
   stages_button_group_->addButton(stages_buttons_[3], 3);
   stages_buttons_[3]->setShortcut(QKeySequence(Qt::Key_P));
-  stages_buttons_[3]->setToolTip(tr("The project's developers make use of a "
-                                    "working parallel version which shall be "
-                                    "tuned"));
+  stages_buttons_[3]->setToolTip(
+      tr("The project's developers make use of a "
+         "working parallel version which shall be "
+         "tuned"));
   stages_buttons_[4] = new QRadioButton(tr("Tuned parallel version"));
   stages_button_group_->addButton(stages_buttons_[4], 4);
   stages_buttons_[4]->setShortcut(QKeySequence(Qt::Key_T));
-  stages_buttons_[4]->setToolTip(tr("The project's developers make use of a "
-                                    "tuned parallel version which shall be "
-                                    "improved"));
-  stages_buttons_[0]->setChecked(true); // Set default button
+  stages_buttons_[4]->setToolTip(
+      tr("The project's developers make use of a "
+         "tuned parallel version which shall be "
+         "improved"));
+  stages_buttons_[0]->setChecked(true);  // Set default button
 
   QLabel *comment_label = new QLabel;
-  comment_label->setText(tr("Comments on the current development stage, the "
-                            "used programming model, goals of the project, "
-                            "initial performance, used architecture, etc.:"));
+  comment_label->setText(
+      tr("Comments on the current development stage, the "
+         "used programming model, goals of the project, "
+         "initial performance, used architecture, etc.:"));
   comment_label->setWordWrap(true);
   comment_box_ = new QPlainTextEdit;
   comment_box_->setPlaceholderText(tr("Comment..."));

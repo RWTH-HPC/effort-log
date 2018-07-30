@@ -54,7 +54,7 @@
  */
 class QuestionnaireDialog : public QDialog {
   Q_OBJECT
-public:
+ public:
   //! The main constructor.
   QuestionnaireDialog(MainWindow *window, int scheduler);
   //! Overrides the default accept() member.
@@ -76,7 +76,7 @@ public:
   void reject() Q_DECL_OVERRIDE;
   virtual void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
 
-private slots:
+ private slots:
   //! Updates the view of the dialog
   /*!
    * This method is called every minute to update the displayed message of
@@ -124,7 +124,7 @@ private slots:
    */
   void LogViewer();
 
-private:
+ private:
   //! Takes care of all connections
   /*!
    * This method sets up the needed connections of the dialog. Theser are:

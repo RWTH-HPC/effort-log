@@ -67,8 +67,9 @@ void SetupDialog::Setup() {
 
   QLabel *project_dir_label = new QLabel(tr("Project directory:"));
   project_dir_line_edit_ = new QLineEdit();
-  project_dir_line_edit_->setToolTip(tr("Specify the working directory of the "
-                                        "project"));
+  project_dir_line_edit_->setToolTip(
+      tr("Specify the working directory of the "
+         "project"));
   project_dir_line_edit_->setText(
       QDir::toNativeSeparators(QDir::currentPath()));
 
@@ -95,9 +96,10 @@ void SetupDialog::Setup() {
   log_interval_spin_box_->setSuffix(" min");
 
   // Appendix
-  QLabel *app_label = new QLabel(tr("Do you want to append the work you have "
-                                    "done before executing this program to the "
-                                    "above specified project?"));
+  QLabel *app_label =
+      new QLabel(tr("Do you want to append the work you have "
+                    "done before executing this program to the "
+                    "above specified project?"));
   app_label->setWordWrap(true);
   app_button_ = new QPushButton(tr("Append..."));
   app_button_->setEnabled(false);
@@ -122,8 +124,9 @@ void SetupDialog::Setup() {
   app_layout->addWidget(app_button_);
 
   QGroupBox *project_box = new QGroupBox(tr("Project Setup"));
-  QGroupBox *app_box = new QGroupBox(tr("Did you work before executing this "
-                                        "program and want to log it?"));
+  QGroupBox *app_box =
+      new QGroupBox(tr("Did you work before executing this "
+                       "program and want to log it?"));
   project_box->setLayout(project_layout);
   app_box->setLayout(app_layout);
   QVBoxLayout *layout = new QVBoxLayout;
@@ -190,8 +193,7 @@ void SetupDialog::accept() {
   settings_.setValue("conf/confAccepted", true);
   settings_.setValue("lastLogTime", QDateTime::currentDateTime());
 
-  if (VERBOSE)
-    qDebug() << "LastLogTime" << settings_.value("lastLogTime");
+  if (VERBOSE) qDebug() << "LastLogTime" << settings_.value("lastLogTime");
 
   if (ProjectHandler() == true) {
     if (new_project_flag_ == true) {

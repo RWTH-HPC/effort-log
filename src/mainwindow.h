@@ -56,7 +56,7 @@
  */
 class MainWindow : public QMainWindow {
   Q_OBJECT
-public:
+ public:
   //! The main constructor.
   explicit MainWindow();
   //! The main constructor with encryption
@@ -134,10 +134,10 @@ public:
    */
   void ShowMessage(const QString &msg);
   Project *project_; /**< Holds a pointer to the current project. \see Project*/
-public slots:
+ public slots:
   void QuitOnSignal();
 
-private slots:
+ private slots:
   //! Updates the view of the countdown timer
   /*!
    * This method is called every second to update the view of the timer until
@@ -189,7 +189,7 @@ private slots:
    */
   void ExecScheduledQuestionnaireDialog();
 
-private:
+ private:
   //! Sets up the actions of the main program
   /*!
    * This method is called to initialize the actions in the menu of the program.

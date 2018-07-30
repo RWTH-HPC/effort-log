@@ -143,7 +143,7 @@ void MainWindow::CreateActions() {
 }
 
 void MainWindow::CreateConnections() {
-  countdown_timer_ = new QTimer(); // Countdown until the next event
+  countdown_timer_ = new QTimer();  // Countdown until the next event
   connect(countdown_timer_, SIGNAL(timeout()), this,
           SLOT(NextAnimationFrame()));
   connect(log_action_, SIGNAL(triggered()), this, SLOT(LogViewer()));
@@ -219,8 +219,9 @@ void MainWindow::NextAnimationFrame() {
         msg += " minute";
       else
         msg += " minutes";
-      msg += " has passed. Please switch to the EffortLog app and answer the "
-             "questionnaire.";
+      msg +=
+          " has passed. Please switch to the EffortLog app and answer the "
+          "questionnaire.";
       ShowMessage(msg);
       QApplication::processEvents();
       QApplication::sendPostedEvents(tray_icon_);
@@ -283,9 +284,10 @@ void MainWindow::About() {
   msg.append("<br/>RWTH Aachen University");
   msg.append("<br/>Seffenter Weg 23");
   msg.append("<br/>52074 Aachen, Germany");
-  msg.append("<br/><a "
-             "href='www.hpc.rwth-aachen.de/research/tco/"
-             "'>www.hpc.rwth-aachen.de/research/tco</a>");
+  msg.append(
+      "<br/><a "
+      "href='www.hpc.rwth-aachen.de/research/tco/"
+      "'>www.hpc.rwth-aachen.de/research/tco</a>");
 
   QMessageBox about_box(this);
   about_box.setText(msg);

@@ -35,7 +35,7 @@
  */
 class QstForm : public QWidget {
   Q_OBJECT
-public:
+ public:
   //! The main constructor.
   /*!
    * \param[in] parent The parent widget
@@ -130,7 +130,7 @@ public:
   void CompleterAppend(QString s);
   QLineEdit *line_edit_; /**< The main text input field.*/
 
-private:
+ private:
   //! Sets up the form
   /*!
    * This method initilaizes all objects needed for the form.

@@ -100,8 +100,7 @@ void Project::SetContributor(QString c) { contributors_[0] = c; }
 void Project::SetContributor(QString c, int n) { contributors_[n] = c; }
 
 void Project::AddContributor(QString c) {
-  if (!contributors_.contains(c))
-    contributors_.append(c);
+  if (!contributors_.contains(c)) contributors_.append(c);
 }
 
 QString Project::GetContributor(int n) const { return contributors_.at(n); }
@@ -123,16 +122,14 @@ QString Project::GetStageComment() const { return stage_comment_; }
 QList<Activity> Project::GetMilestone() {
   QList<Activity> ms;
   foreach (const Activity a, *activities_) {
-    if (a.GetMsId() != -1)
-      ms.append(a);
+    if (a.GetMsId() != -1) ms.append(a);
   }
   return ms;
 }
 
 Activity Project::GetMilestone(int n) {
   foreach (const Activity a, *activities_) {
-    if (a.GetMsId() == n)
-      return a;
+    if (a.GetMsId() == n) return a;
   }
   Activity empty_act;
   return empty_act;
@@ -141,8 +138,7 @@ Activity Project::GetMilestone(int n) {
 int Project::GetNoMilestones() {
   int no_ms = 0;
   foreach (const Activity a, *activities_) {
-    if (a.GetMsId() != -1)
-      no_ms++;
+    if (a.GetMsId() != -1) no_ms++;
   }
   return no_ms;
 }
@@ -207,8 +203,7 @@ bool Project::StoreLog(QString f) {
 
 bool Project::ReadLog(QString f) {
   activities_->clear();
-  if (VERBOSE)
-    qDebug() << "Log file: " << f;
+  if (VERBOSE) qDebug() << "Log file: " << f;
   QFile file(f);
   if (!file.open(QFile::ReadOnly)) {
     QMessageBox::information(0, "Error", file.errorString());
@@ -265,8 +260,7 @@ bool Project::ReadLog(QString f) {
 
 bool Project::Load(QString f) {
   QFile file(f);
-  if (VERBOSE)
-    qDebug() << "Project file: " << f;
+  if (VERBOSE) qDebug() << "Project file: " << f;
   if (!file.open(QFile::ReadOnly)) {
     throw QFile::OpenError;
   }
@@ -387,20 +381,16 @@ QStringList Project::GetUniqueMs() {
 
 Activity Project::GetLastMs() {
   Activity act;
-  if (GetNoMilestones() == 0)
-    return act;
+  if (GetNoMilestones() == 0) return act;
   int i = activities_->length() - 1;
-  while (activities_->at(i).GetMsId() == -1 && i >= 0)
-    i--;
+  while (activities_->at(i).GetMsId() == -1 && i >= 0) i--;
   return activities_->at(i);
 }
 
 Activity Project::GetLastPerf() {
   Activity act;
-  if (GetNoActivities() == 0)
-    return act;
+  if (GetNoActivities() == 0) return act;
   int i = activities_->length() - 1;
-  while (activities_->at(i).GetPerfComment() == "" && i >= 0)
-    i--;
+  while (activities_->at(i).GetPerfComment() == "" && i >= 0) i--;
   return activities_->at(i);
 }

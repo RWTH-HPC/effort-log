@@ -1,9 +1,9 @@
 #pragma once
 
-#include "project.h"
 #include <QDialog>
 #include <QStandardItemModel>
 #include <QTreeView>
+#include "project.h"
 
 //! Class to view to current log file
 /*!
@@ -12,7 +12,7 @@
  */
 class LogView : public QDialog {
   Q_OBJECT
-public:
+ public:
   //! The main constructor.
   LogView(Project *pro);
 };

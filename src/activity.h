@@ -36,7 +36,7 @@
  * save an activity to such file.
  */
 class Activity {
-public:
+ public:
   //! An array of strings containing the default types of the activities.
   static const QStringList kActivityType;
   //! An array of strings containing the default types of the milestones.
@@ -278,7 +278,7 @@ public:
    */
   QString GetDataSize() const;
 
-private:
+ private:
   QString type_;          /**< A string which holds the type of activity.*/
   int id_;                /**< Holds the ID of Activity::type_*/
   int saved_events_;      /**< An integer value which holds a count of saved

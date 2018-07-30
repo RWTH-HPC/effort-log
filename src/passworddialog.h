@@ -36,7 +36,7 @@
  */
 class PasswordDialog : public QDialog {
   Q_OBJECT
-public:
+ public:
   //! The main constructor.
   /*!
    * \param[in] crypt A pointer to Crypt which is used to store the new
@@ -44,11 +44,11 @@ public:
    *  \param[in] init Indicates if it is a new password or not
    */
   PasswordDialog(Crypt *crypt, bool init);
-private slots:
+ private slots:
   //! Check if passwords match and are non-empty
   void OnPwdInput();
 
-private:
+ private:
   //! Overrides the default accept() member.
   /*!
    * accept() is executed on successfully quitting the dialog. This method sets

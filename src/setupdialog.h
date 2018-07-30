@@ -46,7 +46,7 @@
  */
 class SetupDialog : public QDialog {
   Q_OBJECT
-public:
+ public:
   //! The main constructor.
   /*!
    * \param[in] window A pointer to the main window.
@@ -79,9 +79,9 @@ public:
 
   Project *project_; /**< Holds a pointer to the current project. \see Project*/
 
-public slots:
+ public slots:
 
-private:
+ private:
   //! Sets up the view of the dialog
   /*!
    * This method initilaizes all objects needed for visualization of the dialog.
@@ -159,7 +159,7 @@ private:
   QCompleter *completer_; /**< Auto-completion of the title of known
                                projects.*/
 
-private slots:
+ private slots:
   //! Browse a directory
   /*!
    * This method opens a dialog which lets the user specify a project directory
