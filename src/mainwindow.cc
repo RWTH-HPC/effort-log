@@ -169,8 +169,8 @@ void MainWindow::UpdateUI() {
 
 void MainWindow::SetupAnimation() {
   double tmp = settings_.value("conf/logInterval").toDouble() * 60.0;
-  status_progress_bar_->setMaximum(tmp);
-  status_progress_bar_->setValue(tmp);
+  status_progress_bar_->setMaximum(static_cast<int>(tmp));
+  status_progress_bar_->setValue(static_cast<int>(tmp));
   status_progress_bar_->resize(10, 500);
   statusBar()->addWidget(status_progress_bar_, 1);
   statusBar()->addWidget(status_label_time_);

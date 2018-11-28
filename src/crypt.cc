@@ -24,7 +24,7 @@
 
 #include <QDebug>
 
-unsigned int salt[] = {12345, 54321};
+static unsigned int salt[] = {12345, 54321};
 
 Crypt::Crypt() {}
 

@@ -195,10 +195,10 @@ void QuestionnaireDialog::Setup() {
   comment_box_->setPlaceholderText(tr("Comment..."));
   comment_box_->setToolTip(
       tr("Provide additional information of your last development activity"));
-  comment_box_->setFixedHeight(comment_box_->contentsMargins().top() +
-                               comment_box_->contentsMargins().bottom() +
-                               2.5 * fontMetrics().lineSpacing());
-
+  comment_box_->setFixedHeight(
+      static_cast<int>(comment_box_->contentsMargins().top() +
+                       comment_box_->contentsMargins().bottom() +
+                       2.5 * fontMetrics().lineSpacing()));
   // Project milestones
   ms_label_ = new QLabel(
       "<font color='red'>*</font> 4. Did you reach a "
@@ -251,9 +251,10 @@ void QuestionnaireDialog::Setup() {
   ms_comment_->setToolTip(
       tr("Provide additional information for this milestone"));
   ms_comment_->setPlaceholderText(tr("Comment..."));
-  ms_comment_->setFixedHeight(ms_comment_->contentsMargins().top() +
-                              ms_comment_->contentsMargins().bottom() +
-                              2.5 * fontMetrics().lineSpacing());
+  ms_comment_->setFixedHeight(
+      static_cast<int>(ms_comment_->contentsMargins().top() +
+                       ms_comment_->contentsMargins().bottom() +
+                       2.5 * fontMetrics().lineSpacing()));
   ms_comment_label_->hide();
   ms_comment_->hide();
 

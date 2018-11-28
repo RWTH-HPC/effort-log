@@ -37,7 +37,7 @@
 #include "crypt.h"
 #endif
 
-MainWindow *window;
+static MainWindow *window;
 
 void HandlerOnSignal(int param) {
   printf("\nQuit the application on signal %i.\n", param);

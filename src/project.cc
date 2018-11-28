@@ -144,7 +144,7 @@ int Project::GetNoMilestones() {
 }
 
 int Project::GetNoActivities() {
-  if (activities_ != NULL)
+  if (activities_ != nullptr)
     return activities_->length();
   else
     return 0;
@@ -206,7 +206,7 @@ bool Project::ReadLog(QString f) {
   if (VERBOSE) qDebug() << "Log file: " << f;
   QFile file(f);
   if (!file.open(QFile::ReadOnly)) {
-    QMessageBox::information(0, "Error", file.errorString());
+    QMessageBox::information(nullptr, "Error", file.errorString());
   }
 
   QByteArray data = file.readAll();
