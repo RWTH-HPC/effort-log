@@ -281,8 +281,8 @@ bool Project::Load(QString f) {
   pro_dir_ = json["ProjectDirectory"].toString();
   log_file_ = json["LogFile"].toString();
   interval_ = json["LoggingInterval"].toInt();
-  stage_ = json["StageOfDevel"].toInt();
-  stage_comment_ = json["Comment"].toInt();
+  stage_ = json["StageOfDevel"].toString();
+  stage_comment_ = json["Comment"].toString();
   QJsonArray array = json["Contributors"].toArray();
   foreach (const QJsonValue &cont, array) {
     AddContributor(cont.toObject().value("name").toString());
