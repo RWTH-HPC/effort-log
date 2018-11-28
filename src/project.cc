@@ -391,6 +391,9 @@ Activity Project::GetLastPerf() {
   Activity act;
   if (GetNoActivities() == 0) return act;
   int i = activities_->length() - 1;
-  while (activities_->at(i).GetPerfComment() == "" && i >= 0) i--;
-  return activities_->at(i);
+  while (activities_->at(i).GetPerfComment() == "" && i > 0) i--;
+  if (activities_->at(i).GetPerfComment() == "")
+    return act;
+  else
+    return activities_->at(i);
 }
