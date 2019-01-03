@@ -43,7 +43,7 @@ matrix:
       env: MACOSX_DEPLOYMENT_TARGET=10.12 RUBY=2.5.3 CONFIG=debug CRYPT=crypt
     - os: osx
       compiler: clang
-      env: MACOSX_DEPLOYMENT_TARGET=10.12 RUBY=2.5.3 CONFIG=debug CRYPT=crypt DEPLOY=true
+      env: MACOSX_DEPLOYMENT_TARGET=10.12 RUBY=2.5.3 CONFIG=release CRYPT=crypt DEPLOY=true
 
 before_install:
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then sudo add-apt-repository -y ppa:beineri/opt-qt-${QT_LONG}-xenial; fi
