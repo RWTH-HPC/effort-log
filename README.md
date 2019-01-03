@@ -75,28 +75,28 @@ To create the *Doxygen* documentation use
 
 | Information  |  Collected through |
 |---|---|
+| Title of the project  | user-provided during program startup  |
+| Username  |  user-provided during program startup |
+| Logging interval specified at program startup  | user-provided during program startup  |
 | Initial stage of the project  | user-provided during project initialization  |
 | Comment on the initial stage of the project if provided  |  user-provided during project initialization |
 | Type of the activity  | user-provided during questionnaires  |
-| Comment on the activity |  user-provided during questionnaires |
+| ID of the logging event | Starting at 0, counting forwards  |
 | Time of the logging event  | system time  |
 | Time of the last logging event  | system time  |
-| ID of the logging event | Starting at 0, counting forwards  |
+| Actual logging interval  | current time - time of last event  |
+| Comment on the activity if provided | user-provided during questionnaires |
 | Number of events in the current logging session  | Starting at 1, counting forwards  |
-| Logging interval specified at program startup  | user-provided during program startup  |
-| Actual logging interval  |current time - time of last event  |
-| Title of the project  | user-provided during program startup  |
-| Username  |  user-provided during program startup |
+| Scheduler (1 denotes an interval-based event , 2 an appeneded event, 3 a manual event executed through the GUI, and 4 an event on  the program)  | Inserted by the tool  |
 | Title of the milestone  | user-provided during questionnaires  |
 | ID of the milestone (starting at 0)  | user-provided during questionnaires  |
-| Matching ID of the logging event during which the user specified the milestone | user-provided during questionnaires  |
-| Comment on the used performance metric  | user-provided during questionnaires  |
-| Comment on the reached performance  | user-provided during questionnaires  |
-| Comment on the used architecture for the performance measurements  | user-provided during questionnaires  |
-| Comment on the number of threads, nodes, etc. for the performance measurements  | user-provided during questionnaires  |
-| Comment on the used compiler  | user-provided during questionnaires  |
-| Comment on the used programming model  | user-provided during questionnaires  |
-| Other comment on the milestone if provided  | user-provided during questionnaires  |
+| Comment on the milestone if provided  | user-provided during questionnaires  |
+| Used performance metric  | user-provided during questionnaires  |
+| Reached performance  | user-provided during questionnaires  |
+| Used architecture for the performance measurements  | user-provided during questionnaires  |
+| Number of threads, nodes, etc. for the performance measurements  | user-provided during questionnaires  |
+| Used compiler  | user-provided during questionnaires  |
+| Used programming model  | user-provided during questionnaires |
 
 Notes on anonymity:
 
@@ -140,6 +140,10 @@ For more information on how to develop and contribute to EffortLog, please conta
 
 ## Change log
 
+* 0.9.5 (January 2019):
+  * Bug fix:               Missing visual updates to project settings
+  * Bug fix:               Wrong type when importing project files
+  * Bug fix:               Segfault when pressing "Log current efforts"
 * 0.9.4 (June 2018):
   * Added feature: Questionnaires remember characteristics of last performance measurement
   * Bug fix:               Improved scaling on high-DPI displays
@@ -193,6 +197,7 @@ For more information on how to develop and contribute to EffortLog, please conta
 
 1. S. Wienke, J. Miller, M. Schulz, M.S. Müller: Development Effort Estimation in HPC. International ACM/IEEE International Conference for High Performance Computing, Networking, Storage and Analysis (SC16), November 2016, Salt Lake City, UT, USA.
 2. J. Miller: Software Cost Estimation for the Development Effort applied to Multi-node GPU Aeroacoustics Simulations. Master Thesis, 2016, RWTH Aachen University, Germany.
+3. J. Miller, S. Wienke, M. Schlottke-Lakemper, M. Meinke, and M. S. Müller: Applicability of the Software Cost Model COCOMO II to HPC Projects. International Journal of Computational Science and Engineering 2018 17:3, 283-296.
 
 ## Contact Us
 
