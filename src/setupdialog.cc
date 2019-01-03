@@ -240,13 +240,13 @@ void SetupDialog::accept() {
           QDir::toNativeSeparators(settings_.value("conf/logFile").toString()));
     }
 
+    SaveSettings();
     main_window_->SetProject(project_);
     main_window_->AddAppendices();
     main_window_->SetLogRunning(true);
     main_window_->SetupAnimation();
     main_window_->UpdateUI();
     main_window_->show();
-    SaveSettings();
     QDialog::accept();
   } else {
     reject();
