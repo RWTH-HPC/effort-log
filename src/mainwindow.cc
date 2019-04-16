@@ -42,6 +42,7 @@ MainWindow::MainWindow() : QMainWindow() {
 #endif
 }
 
+#ifdef CRYPT
 MainWindow::MainWindow(Crypt *crypt) : QMainWindow() {
   crypt_ = crypt;
   log_running_ = false;
@@ -55,6 +56,7 @@ MainWindow::MainWindow(Crypt *crypt) : QMainWindow() {
   disableAppNap();
 #endif
 }
+#endif
 
 void MainWindow::closeEvent(QCloseEvent *event) {
   settings_.setValue("geometry", saveGeometry());

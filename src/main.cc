@@ -29,12 +29,12 @@
 
 #include "definitions.h"
 #include "mainwindow.h"
-#include "passworddialog.h"
 #include "questionnairedialog.h"
 #include "setupdialog.h"
 
 #ifdef CRYPT
 #include "crypt.h"
+#include "passworddialog.h"
 #endif
 
 static MainWindow *window;

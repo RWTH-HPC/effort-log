@@ -43,7 +43,9 @@
 #include <QToolBar>
 #include <QUrl>
 
+#ifdef CRYPT
 #include "crypt.h"
+#endif
 #include "project.h"
 
 //! Class for dislaying the main window
@@ -59,11 +61,13 @@ class MainWindow : public QMainWindow {
  public:
   //! The main constructor.
   explicit MainWindow();
-  //! The main constructor with encryption
-  /*!
-   * \param[in] crypt Handles encryption and decryption for the project
-   */
+//! The main constructor with encryption
+/*!
+ * \param[in] crypt Handles encryption and decryption for the project
+ */
+#ifdef CRYPT
   explicit MainWindow(Crypt *crypt);
+#endif
   //! Overrides the default closeEvent() member.
   /*!
    * closeEvent() is executed on quitting the main window. A warning will pop up
@@ -221,8 +225,9 @@ class MainWindow : public QMainWindow {
    * \see MainWindow::main_layout_
    */
   void Setup();
-
+#ifdef CRYPT
   Crypt *crypt_;
+#endif
   QAction *about_action_;   /**< The action upon hitting the "about" button of
                                  the main menu.*/
   QWidget *central_widget_; /**< The main widget of the main window.*/
