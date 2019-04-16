@@ -18,8 +18,8 @@
 #  along with EffortLog.  If not, see <http://www.gnu.org/licenses/>.
 #------------------------------------------------------------------------------#
 
-lessThan(QT_VERSION, 5.0) {
-    error("Qt $$QT_VERSION is not supported. EffortLog requires Qt 5.0 or greater")
+lessThan(QT_VERSION, 5.5) {
+    error("Qt $$QT_VERSION is not supported. EffortLog requires Qt 5.5 or greater")
 }
 
 TARGET = effort-log

@@ -19,15 +19,23 @@ You can download the binaries from [Github releases](https://github.com/julianmi
 
 ## Build from Source
 
-You can download the sources from [Github releases](https://github.com/julianmi/effort-log/releases).
+You can download the sources from [Github releases](https://github.com/julianmi/effort-log/releases). EffortLog requires Qt 5.5.0 development libraries to be compiled. OS specific requirements:
 
-Prerequisites:
+* On Windows: MinGW with g++ 4.7 or later, [install Qt](https://www.qt.io/download-qt-installer)
+* On Mac OS X: latest Xcode, `brew install qt5`
+* On Ubuntu/Debian: `sudo apt install build-essential qt5-default`
+* On OpenSUSE: `sudo zypper install libQt5Core-devel libQt5Widgets-devel`
+* On Fedora: `sudo yum install qt5-devel`
+* On Arch Linux: `sudo pacman -S qt`
 
-* Qt 5.4.0 or later
-* On Windows: MinGW with g++ 4.7 or later
-* On Mac OS X: latest Xcode
-* On Linux: g++ 4.7 or later
-* Latest OpenSSL
+Latest OpenSSL if encryption is required:
+
+* On Windows: [install OpenSSL for Windows](https://wiki.openssl.org/index.php/Binaries)
+* On Mac OS X: `brew install openssl`
+* On Ubuntu/Debian: `sudo apt install libssl-dev`
+* On OpenSUSE: `sudo zypper install libopenssl-devel`
+* On Fedora: `sudo yum install openssl-devel`
+* On Arch Linux: `sudo pacman -S openssl`
 
 You can build EffortLog with
 
