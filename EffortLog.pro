@@ -95,10 +95,17 @@ CONFIG(crypt) {
     LIBS += -lssl -lcrypto
   }
   win32 {
-    # Adapt 'C:\OpenSSL-Win32' to your local path
-    SSL_WIN = "C:\\OpenSSL-Win32"
-    INCLUDEPATH += $${SSL_WIN}\\include
-    LIBS += -L$${SSL_WIN}\\bin -leay32
+    !contains(QMAKE_TARGET.arch, x86_64) {
+      # Adapt 'C:\OpenSSL-Win32' to your local path
+      SSL_WIN = "C:\\OpenSSL-Win32"
+      INCLUDEPATH += $${SSL_WIN}\\include
+      LIBS += -L$${SSL_WIN}\\bin -leay32
+    } else {
+      # Adapt 'C:\OpenSSL-Win64' to your local path
+      SSL_WIN = "C:\\OpenSSL-Win64"
+      INCLUDEPATH += $${SSL_WIN}\\include
+      LIBS += -L$${SSL_WIN}\\bin -leay64
+    }
   }
 }
 
