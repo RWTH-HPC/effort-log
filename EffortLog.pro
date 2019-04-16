@@ -18,8 +18,8 @@
 #  along with EffortLog.  If not, see <http://www.gnu.org/licenses/>.
 #------------------------------------------------------------------------------#
 
-lessThan(QT_VERSION, 5.5) {
-    error("Qt $$QT_VERSION is not supported. EffortLog requires Qt 5.5 or greater")
+lessThan(QT_MAJOR_VERSION, 5) {
+    error("Qt $$QT_VERSION is not supported. EffortLog requires Qt 5 or greater")
 }
 
 TARGET = effort-log
@@ -27,7 +27,7 @@ macx:TARGET = EffortLog
 TEMPLATE = app
 VERSION = 0.9.5
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
-QT += core gui widgets
+QT += core widgets
 
 # Compiler flags
 CONFIG += c++11
