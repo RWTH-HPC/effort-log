@@ -1,5 +1,5 @@
 <!--
-  Copyright (c) 2015-2018 by IT Center, RWTH Aachen University
+  Copyright (c) 2015-2019 by IT Center, RWTH Aachen University
 
   This file is part of EffortLog, a tool for collecting software
   development effort.
@@ -43,7 +43,7 @@ A simple menubar provides the user with information about the program.
 **Log current effort**
 
 Starts a questionnaire for logging the current effort. This can be
-useful e.g. if the user wants to log earlier than the specified logging
+useful e.g. if the user wants to log earlier than the specified logging
 interval.
 
 **Read current log file**

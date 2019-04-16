@@ -1,5 +1,5 @@
 <!--
-  Copyright (c) 2015-2018 by IT Center, RWTH Aachen University
+  Copyright (c) 2015-2019 by IT Center, RWTH Aachen University
 
   This file is part of EffortLog, a tool for collecting software
   development effort.
@@ -34,6 +34,10 @@ for more information on the research done with EffortLog.
 
 Change log:
 
+* 0.9.5 (January 2019):
+  * Bug fix:               Missing visual updates to project settings
+  * Bug fix:               Wrong type when importing project files
+  * Bug fix:               Segfault when pressing "Log current efforts"
 * 0.9.4 (June 2018):
   * Added feature: Questionnaires remember characteristics of last performance measurement
   * Bug fix:               Improved scaling on high-DPI displays
@@ -94,7 +98,7 @@ systems and can be set executable by the following command:
 
 ## Licensing of EffortLog
 
-Copyright © 2015-2018 IT Center, RWTH Aachen University
+Copyright © 2015-2019 IT Center, RWTH Aachen University
 
 This project is licensed under version 3 of the [GNU General Public
 License](http://www.gnu.org/licenses/).

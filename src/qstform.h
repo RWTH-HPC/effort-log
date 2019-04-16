@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2018 by IT Center, RWTH Aachen University
+ * Copyright (c) 2015-2019 by IT Center, RWTH Aachen University
  *
  * This file is part of EffortLog, a tool for collecting software
  * development effort.
