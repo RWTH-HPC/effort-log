@@ -4,16 +4,20 @@ environment:
   matrix:
     - QTDIR: C:\Qt\5.9.7\mingw53_32
       CRYPT: false
-      DEPLOY: false
+      DEPLOY: true
+      64BIT: false
     - QTDIR: C:\Qt\5.9.7\mingw53_32
       CRYPT: true
-      DEPLOY: false
+      DEPLOY: true
+      64BIT: false
     - QTDIR: C:\Qt\5.12.1\mingw73_64
       CRYPT: false
       DEPLOY: true
+      64BIT: true
     - QTDIR: C:\Qt\5.12.1\mingw73_64
       CRYPT: true
       DEPLOY: true
+      64BIT: true
 
 configuration:
   - debug
@@ -35,10 +39,18 @@ after_build:
   - ps: |
       if($env:CONFIGURATION -eq "release") {
         if($env:DEPLOY -eq "true") {
-          if($env:CRYPT -eq "true") {
-            C:\projects\effort-log\tools\windows_deploy_encrypted.bat
+          if($env:64BIT -eq "true") {
+            if($env:CRYPT -eq "true") {
+              C:\projects\effort-log\tools\windows_deploy_64_encrypted.bat
+            } else {
+              C:\projects\effort-log\tools\windows_deploy_64.bat
+            }
           } else {
-            C:\projects\effort-log\tools\windows_deploy.bat
+            if($env:CRYPT -eq "true") {
+              C:\projects\effort-log\tools\windows_deploy_32_encrypted.bat
+            } else {
+              C:\projects\effort-log\tools\windows_deploy_32.bat
+            }
           }
         }
       }
