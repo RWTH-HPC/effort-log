@@ -45,17 +45,14 @@ matrix:
       env: MACOSX_DEPLOYMENT_TARGET=10.12 CONFIG=release CRYPT=crypt DEPLOY=true
 
 before_install:
-  - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then docker run --rm -v $(pwd):/effort-log $OS:$OS_VERSION bash; fi
   - if [ "${TRAVIS_OS_NAME}" = "osx" ];   then brew install qt; fi
 
 before_script:
-  - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then cd /effort-log && bash ./tools/linux_before.sh $OS; fi
-  - if [ "${TRAVIS_OS_NAME}" = "osx" ];   then export QT_DIR=/usr/local/opt/qt5/; export PATH=/usr/local/opt/qt5/bin:${PATH}; fi
+  - if [ "${TRAVIS_OS_NAME}" = "osx" ];   then export QT_DIR=/usr/local/opt/qt5/; export PATH=/usr/local/opt/qt5/bin:${PATH}; qmake CONFIG+=$CONFIG CONFIG+=$CRYPT; fi
 
 script:
-  - bash ./tools/unix_build.sh
-  - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then bash ./tools/unix_build.sh; fi
-  - if [ "${TRAVIS_OS_NAME}" = "osx" ];   then bash ${TRAVIS_BUILD_DIR}/tools/unix_build.sh; fi
+  - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then docker run --rm -v $(pwd):/effort-log $OS:$OS_VERSION bash /effort-log/tools/unix_build.sh; fi
+  - if [ "${TRAVIS_OS_NAME}" = "osx" ];   then make -j2; fi
 
 before_deploy:
   - echo "Deployment for tag $TRAVIS_TAG $CRYPT"
