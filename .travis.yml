@@ -16,11 +16,11 @@ matrix:
     - os: linux
       env: OS=debian OS_VERSION=testing
     - os: linux
+      env: OS=fedora OS_VERSION=28
+    - os: linux
       env: OS=fedora OS_VERSION=29
     - os: linux
       env: OS=fedora OS_VERSION=30
-    - os: linux
-      env: OS=fedora OS_VERSION=31
     - os: linux
       env: OS=opensuse/leap OS_VERSION=42.3
     - os: linux

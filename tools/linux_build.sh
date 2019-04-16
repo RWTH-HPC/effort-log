@@ -1,5 +1,4 @@
 #!/bin/sh
-set -e
 
 echo
 echo "Setup build environment"
@@ -21,6 +20,7 @@ case "$1" in
         ;;
     *)
         echo "Unknown OS"
+        exit 1
 esac
 
 if [ -z "$QMAKE" ]; then
@@ -39,28 +39,28 @@ if [ -n "$CPP" ]; then
     $CPP --version
 fi
 
-cd /effort-log || exit
+cd /effort-log || { echo "No directory /effort-log"; exit 1; }
 
 echo
 echo "Building debug version"
-"${QMAKE}" -config debug
-make -j
-make clean
+"${QMAKE}" -config debug || { echo "Failed configuring debug version"; exit 1; }
+make || { echo "Failed building debug version"; exit 1; }
+make clean || { echo "Failed clean-up of debug version"; exit 1; }
 
 echo
 echo "Building release version"
-"${QMAKE}" -config release
-make -j
-make clean
+"${QMAKE}" -config release || { echo "Failed configuring release version"; exit 1; }
+make || { echo "Failed building release version"; exit 1; }
+make clean || { echo "Failed clean-up of release version"; exit 1; }
 
 echo
 echo "Building debug version with encryption support"
-"${QMAKE}" -config debug -config crypt
-make -j
-make clean
+"${QMAKE}" -config debug -config crypt || { echo "Failed configuring debug version with encryption support"; exit 1; }
+make || { echo "Failed building debug version with encryption support"; exit 1; }
+make clean || { echo "Failed clean-up of debug version with encryption support"; exit 1; }
 
 echo
 echo "Building release version with encryption support"
-"${QMAKE}" -config release -config crypt
-make -j
-make clean
+"${QMAKE}" -config release -config crypt || { echo "Failed configuring release version with encryption support"; exit 1; }
+make || { echo "Failed building release version with encryption support"; exit 1; }
+make clean || { echo "Failed clean-up of release version with encryption support"; exit 1; }
