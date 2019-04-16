@@ -22,6 +22,8 @@
 
 #include <QJsonDocument>
 
+#include <openssl/evp.h>
+
 //! Class to handle encryption and decryption of files
 /*!
  * This class implements a 256-bit AES encryption and decryption of byte
@@ -32,6 +34,8 @@ class Crypt {
  public:
   //! The main constructor.
   Crypt();
+  //! The main destructor.
+  ~Crypt();
   //! Encrypts a byte stream
   /*!
    * This method encrypts a given byte stream with a 256-bit AES encryption.
@@ -60,5 +64,7 @@ class Crypt {
   QByteArray GetPwd() const;
 
  private:
-  QByteArray pwd_; /**< Holds the password of the byte stream*/
+  QByteArray pwd_;             /**< Holds the password of the byte stream*/
+  EVP_CIPHER_CTX *encode_ctx_; /**< Holds the encryption cipher*/
+  EVP_CIPHER_CTX *decode_ctx_; /**< Holds the decryption cipher*/
 };
