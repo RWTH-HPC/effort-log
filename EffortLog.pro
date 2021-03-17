@@ -1,5 +1,5 @@
 #------------------------------------------------------------------------------#
-#  Copyright (c) 2015-2019 by IT Center, RWTH Aachen University
+#  Copyright (c) 2015-2021 by IT Center, RWTH Aachen University
 #
 #  This file is part of EffortLog, a tool for collecting software
 #  development effort.
@@ -19,7 +19,11 @@
 #------------------------------------------------------------------------------#
 
 lessThan(QT_MAJOR_VERSION, 5) {
-    error("Qt $$QT_VERSION is not supported. EffortLog requires Qt 5 or greater")
+  error("Qt $$QT_VERSION is not supported. EffortLog requires Qt 5")
+}
+
+greaterThan(QT_MAJOR_VERSION, 6) {
+  error("Qt $$QT_VERSION is not supported. EffortLog requires Qt 5")
 }
 
 TARGET = effort-log
