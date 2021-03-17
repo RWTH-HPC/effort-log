@@ -10,42 +10,46 @@ matrix:
     - os: linux
       env: OS=ubuntu OS_VERSION=18.04
     - os: linux
-      env: OS=ubuntu OS_VERSION=19.04
+      env: OS=ubuntu OS_VERSION=20.04
     - os: linux
       env: OS=debian OS_VERSION=stable
     - os: linux
       env: OS=debian OS_VERSION=testing
     - os: linux
-      env: OS=fedora OS_VERSION=28
+      env: OS=fedora OS_VERSION=31
     - os: linux
-      env: OS=fedora OS_VERSION=29
+      env: OS=fedora OS_VERSION=32
     - os: linux
-      env: OS=fedora OS_VERSION=30
-    - os: linux
-      env: OS=opensuse/leap OS_VERSION=42.3
+      env: OS=fedora OS_VERSION=33
     - os: linux
       env: OS=opensuse/leap OS_VERSION=15.0
     - os: linux
       env: OS=opensuse/leap OS_VERSION=15.1
+    - os: linux
+      env: OS=opensuse/leap OS_VERSION=15.2
     - os: linux
       env: OS=opensuse/tumbleweed OS_VERSION=latest
     - os: linux
       env: OS=archlinux/base OS_VERSION=latest
     - os: osx
       compiler: clang
-      env: MACOSX_DEPLOYMENT_TARGET=10.12 CONFIG=debug
+      osx_image: xcode12.2
+      env: CONFIG=debug
     - os: osx
       compiler: clang
-      env: MACOSX_DEPLOYMENT_TARGET=10.12 CONFIG=release DEPLOY=true
+      osx_image: xcode12.2
+      env: CONFIG=release DEPLOY=true
     - os: osx
       compiler: clang
-      env: MACOSX_DEPLOYMENT_TARGET=10.12 CONFIG=debug CRYPT=crypt
+      osx_image: xcode12.2
+      env: CONFIG=debug CRYPT=crypt
     - os: osx
       compiler: clang
-      env: MACOSX_DEPLOYMENT_TARGET=10.12 CONFIG=release CRYPT=crypt DEPLOY=true
+      osx_image: xcode12.2
+      env: CONFIG=release CRYPT=crypt DEPLOY=true
 
 before_install:
-  - if [ "${TRAVIS_OS_NAME}" = "osx" ];   then brew install qt; fi
+  - if [ "${TRAVIS_OS_NAME}" = "osx" ];   then brew install qt@5; fi
 
 before_script:
   - if [ "${TRAVIS_OS_NAME}" = "osx" ];   then export QT_DIR=/usr/local/opt/qt5/; export PATH=/usr/local/opt/qt5/bin:${PATH}; qmake CONFIG+=$CONFIG CONFIG+=$CRYPT; fi

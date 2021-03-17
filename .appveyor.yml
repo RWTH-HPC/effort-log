@@ -1,20 +1,23 @@
 version : 0.9.{build}
 
+image:
+  - Visual Studio 2019
+
 environment:
   matrix:
-    - QTDIR: C:\Qt\5.9.7\mingw53_32
-      CRYPT: false
-      DEPLOY: true
-      64BIT: false
-    - QTDIR: C:\Qt\5.9.7\mingw53_32
-      CRYPT: true
-      DEPLOY: true
-      64BIT: false
-    - QTDIR: C:\Qt\5.12.1\mingw73_64
+    - QTDIR: C:\Qt\5.15.2\mingw81_64
       CRYPT: false
       DEPLOY: true
       64BIT: true
-    - QTDIR: C:\Qt\5.12.1\mingw73_64
+    - QTDIR: C:\Qt\5.15.2\mingw81_64
+      CRYPT: true
+      DEPLOY: true
+      64BIT: true
+    - QTDIR: C:\Qt\5.12.10\mingw73_64
+      CRYPT: false
+      DEPLOY: true
+      64BIT: true
+    - QTDIR: C:\Qt\5.12.10\mingw73_64
       CRYPT: true
       DEPLOY: true
       64BIT: true

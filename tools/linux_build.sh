@@ -16,7 +16,7 @@ case "$1" in
         zypper -n update && zypper -n install git libQt5Core-devel libQt5Widgets-devel libopenssl-devel
         ;;
     *"archlinux"*)
-        pacman -Syu --noconfirm && pacman -S --noconfirm git gcc make qt openssl
+        pacman -Syu --noconfirm && pacman -S --noconfirm git gcc make qt5-base openssl
         ;;
     *)
         echo "Unknown OS"
