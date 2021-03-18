@@ -34,6 +34,11 @@ for more information on the research done with EffortLog.
 
 Change log:
 
+* 0.9.6 (March 2021):
+  * Chore:                 Updated to Qt 5.15
+  * Chore:                 Removed some deprecated code
+  * Bug fix:               Add ctrl key to hotkeys to prevent interference with user input
+  * Bug fix:               Negative time in the header when logging across date borders
 * 0.9.5 (January 2019):
   * Bug fix:               Missing visual updates to project settings
   * Bug fix:               Wrong type when importing project files

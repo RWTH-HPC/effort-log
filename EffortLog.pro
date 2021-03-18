@@ -29,7 +29,7 @@ greaterThan(QT_MAJOR_VERSION, 6) {
 TARGET = effort-log
 macx:TARGET = EffortLog
 TEMPLATE = app
-VERSION = 0.9.5
+VERSION = 0.9.6
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 QT += core widgets
 
