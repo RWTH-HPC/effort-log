@@ -43,11 +43,9 @@ jobs:
         with:
           version: 5.15.2
           cached: ${{ steps.cache-qt.outputs.cache-hit }}
+      - uses: actions/checkout@v2
       - name: Build
         run: |
-          ls -al
-          pwd
-          cd ../effort-log
           qmake "CONFIG+=release"
           make
           macdeployqt EffortLog.app -always-overwrite -verbose=3 -appstore-compliant -dmg
@@ -86,6 +84,8 @@ jobs:
           version: 5.15.2
           arch: win64_mingw81
           cached: ${{ steps.cache-qt.outputs.cache-hit }}
+      - name: Install Openssl
+        run: choco install openssl -y
       - uses: actions/checkout@v2
       - name: Build
         shell: cmd
@@ -93,8 +93,7 @@ jobs:
           dir "C:\"
           dir "C:\Program Files\"
           dir "C:\Program Files\OpenSSL\"
-          dir "C:\OpenSSL-Win32"
-          dir "C:\OpenSSL-Win64"
+          dir "C:\Program Files\OpenSSL\bin\"
           call "%programfiles(x86)%\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
           qmake "CONFIG+=release"
           make
