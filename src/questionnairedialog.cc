@@ -260,18 +260,18 @@ void QuestionnaireDialog::Setup() {
 
   // Button to skip the event
   skip_button_ = new QPushButton(tr("Skip"));
-  skip_button_->setToolTip(tr("Skip event <font color='gray'>Q</font>"));
+  skip_button_->setToolTip(tr("Skip event <font color='gray'>Ctrl+Q</font>"));
   skip_button_->setCheckable(true);
   skip_button_->setAutoDefault(false);
-  skip_button_->setShortcut(QKeySequence(Qt::Key_Q));
+  skip_button_->setShortcut(tr("Ctrl+Q"));
 
   // Button to read the log
   log_button_ = new QPushButton(tr("Read Log"));
   log_button_->setToolTip(
-      tr("Read current log file <font color='gray'>Q</font>"));
+      tr("Read current log file <font color='gray'>Ctrl+L</font>"));
   log_button_->setCheckable(true);
   log_button_->setAutoDefault(false);
-  log_button_->setShortcut(QKeySequence(Qt::Key_L));
+  log_button_->setShortcut(tr("Ctrl+L"));
   if (scheduler_ == 1) {
     log_button_->setEnabled(false);
     log_button_->setToolTip(
@@ -280,10 +280,10 @@ void QuestionnaireDialog::Setup() {
 
   // Button to finish the input
   finish_button_ = new QPushButton(tr("Finish"));
-  finish_button_->setToolTip(tr("Finish input <font color='gray'>F</font>"));
+  finish_button_->setToolTip(tr("Finish input <font color='gray'>Ctrl+F</font>"));
   finish_button_->setCheckable(true);
   finish_button_->setAutoDefault(false);
-  finish_button_->setShortcut(QKeySequence(Qt::Key_F));
+  finish_button_->setShortcut(tr("Ctrl+F"));
   finish_button_->setEnabled(false);
 
   // Layout
