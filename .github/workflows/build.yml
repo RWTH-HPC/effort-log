@@ -7,19 +7,24 @@ jobs:
     name: Linux
     runs-on: ubuntu-latest
     steps:
+      - name: Cache Qt
+        id: cache-qt
+        uses: actions/cache@v2
+        with:
+          path: ../Qt
+          key: ${{ runner.os }}-QtCache-5.15.2
       - uses: jurplel/install-qt-action@v2
         with:
           version: 5.15.2
       - uses: actions/checkout@v2
-      - run: tools/linux_build.sh ubuntu
       - name: Build
         run: |
-          qmake -config release EffortLog.pro
+          qmake -config release
           make
           make clean
       - name: Build encrypted
         run: |
-          qmake -config release -config crypt EffortLog.pro
+          qmake -config release -config crypt
           make
           make clean
 
@@ -27,12 +32,18 @@ jobs:
     name: macOS
     runs-on: macos-latest
     steps:
+      - name: Cache Qt
+        id: cache-qt
+        uses: actions/cache@v2
+        with:
+          path: ../Qt
+          key: ${{ runner.os }}-QtCache-5.15.2
       - uses: jurplel/install-qt-action@v2
         with:
           version: 5.15.2
       - name: Build
         run: |
-          qmake -config release EffortLog.pro
+          qmake -config release
           make
           macdeployqt EffortLog.app -always-overwrite -verbose=3 -appstore-compliant -dmg
           mv EffortLog.dmg EffortLog_"${GITHUB_REF}"_osx.dmg
@@ -40,7 +51,7 @@ jobs:
           make clean
       - name: Build encrypted
         run: |
-          qmake -config release -config crypt EffortLog.pro
+          qmake -config release -config crypt
           make
           macdeployqt EffortLog.app -always-overwrite -verbose=3 -appstore-compliant -dmg
           mv EffortLog.dmg EffortLog_"${GITHUB_REF}"_osx_encrypted.dmg
@@ -58,6 +69,12 @@ jobs:
     name: Windows
     runs-on: windows-latest
     steps:
+      - name: Cache Qt
+        id: cache-qt
+        uses: actions/cache@v2
+        with:
+          path: ../Qt
+          key: ${{ runner.os }}-QtCache-5.15.2
       - uses: jurplel/install-qt-action@v2
         with:
           version: 5.15.2
@@ -67,20 +84,27 @@ jobs:
         shell: cmd
         run: |
           call "%programfiles(x86)%\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-          qmake CONFIG+=release EffortLog.pro
+          qmake CONFIG+=release
           make
           mkdir bin
-          move release\effort-log.exe bin
+          move build\release\effort-log.exe bin
           7z a effort-log_"${GITHUB_REF}"_win64.zip bin\*
       - name: Build encrypted
         shell: cmd
         run: |
           call "%programfiles(x86)%\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-          qmake CONFIG+=release CONFIG+=crypt EffortLog.pro
+          qmake CONFIG+=release CONFIG+=crypt
           make
           mkdir bin
-          move release\effort-log.exe bin
-          copy C:\OpenSSL-Win62\libeay64.dll build\release\dist\libeay64.dll
-          copy C:\OpenSSL-Win62\libssl64.dll build\release\dist\libssl64.dll
-          copy C:\OpenSSL-Win62\ssleay64.dll build\release\dist\ssleay64.dll
+          move build\release\effort-log.exe bin
+          copy C:\OpenSSL-Win62\libeay64.dll bin\libeay64.dll
+          copy C:\OpenSSL-Win62\libssl64.dll bin\libssl64.dll
+          copy C:\OpenSSL-Win62\ssleay64.dll bin\ssleay64.dll
           7z a effort-log_"${GITHUB_REF}"_win64.zip bin\*
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: effort-log_*.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
