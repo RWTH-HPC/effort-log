@@ -48,8 +48,8 @@ jobs:
         run: |
           qmake "CONFIG+=release"
           make
-          macdeployqt EffortLog.app -always-overwrite -verbose=3 -appstore-compliant -dmg
-          mv EffortLog.dmg EffortLog_"${GITHUB_REF}"_osx.dmg
+          macdeployqt build/release/EffortLog.app -always-overwrite -verbose=3 -appstore-compliant -dmg
+          mv build/release/EffortLog.dmg EffortLog_"${GITHUB_REF}"_osx.dmg
           otool -L EffortLog.app/Contents/MacOS/EffortLog
           make clean
       - name: Build encrypted
@@ -57,8 +57,8 @@ jobs:
           ls -al
           qmake "CONFIG+=release" "CONFIG+=crypt"
           make
-          macdeployqt EffortLog.app -always-overwrite -verbose=3 -appstore-compliant -dmg
-          mv EffortLog.dmg EffortLog_"${GITHUB_REF}"_osx_encrypted.dmg
+          macdeployqt build/release/EffortLog.app -always-overwrite -verbose=3 -appstore-compliant -dmg
+          mv build/release/EffortLog.dmg EffortLog_"${GITHUB_REF}"_osx_encrypted.dmg
           otool -L EffortLog.app/Contents/MacOS/EffortLog
           make clean
       - name: Release
@@ -90,10 +90,10 @@ jobs:
       - name: Build
         shell: cmd
         run: |
-          dir "C:\"
-          dir "C:\Program Files\"
-          dir "C:\Program Files\OpenSSL\"
-          dir "C:\Program Files\OpenSSL\bin\"
+          dir "C:\Program Files\OpenSSL-Win64\"
+          dir "C:\Program Files\OpenSSL-Win64\bin"
+          dir "C:\Program Files\OpenSSL-Win64\include"
+          dir "C:\Program Files\OpenSSL-Win64\lib"
           call "%programfiles(x86)%\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
           qmake "CONFIG+=release"
           make
@@ -101,6 +101,7 @@ jobs:
           move build\release\effort-log.exe bin
           7z a effort-log_"${GITHUB_REF}"_win64.zip bin\*
           make clean
+          rmdir /Q /S bin
       - name: Build encrypted
         shell: cmd
         run: |
@@ -114,6 +115,7 @@ jobs:
           copy "C:\Program Files\OpenSSL\ssleay64.dll" bin\ssleay64.dll
           7z a effort-log_"${GITHUB_REF}"_win64.zip bin\*
           make clean
+          rmdir /Q /S
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
