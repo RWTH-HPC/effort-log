@@ -9,22 +9,23 @@ jobs:
     steps:
       - name: Cache Qt
         id: cache-qt
-        uses: actions/cache@v2
+        uses: actions/cache@v1
         with:
           path: ../Qt
           key: ${{ runner.os }}-QtCache-5.15.2
       - uses: jurplel/install-qt-action@v2
         with:
           version: 5.15.2
+          cached: ${{ steps.cache-qt.outputs.cache-hit }}
       - uses: actions/checkout@v2
       - name: Build
         run: |
-          qmake -config release
+          qmake "CONFIG+=release"
           make
           make clean
       - name: Build encrypted
         run: |
-          qmake -config release -config crypt
+          qmake "CONFIG+=release" "CONFIG+=crypt"
           make
           make clean
 
@@ -34,16 +35,17 @@ jobs:
     steps:
       - name: Cache Qt
         id: cache-qt
-        uses: actions/cache@v2
+        uses: actions/cache@v1
         with:
           path: ../Qt
           key: ${{ runner.os }}-QtCache-5.15.2
       - uses: jurplel/install-qt-action@v2
         with:
           version: 5.15.2
+          cached: ${{ steps.cache-qt.outputs.cache-hit }}
       - name: Build
         run: |
-          qmake -config release
+          qmake "CONFIG+=release"
           make
           macdeployqt EffortLog.app -always-overwrite -verbose=3 -appstore-compliant -dmg
           mv EffortLog.dmg EffortLog_"${GITHUB_REF}"_osx.dmg
@@ -51,7 +53,7 @@ jobs:
           make clean
       - name: Build encrypted
         run: |
-          qmake -config release -config crypt
+          qmake "CONFIG+=release" "CONFIG+=crypt"
           make
           macdeployqt EffortLog.app -always-overwrite -verbose=3 -appstore-compliant -dmg
           mv EffortLog.dmg EffortLog_"${GITHUB_REF}"_osx_encrypted.dmg
@@ -71,7 +73,7 @@ jobs:
     steps:
       - name: Cache Qt
         id: cache-qt
-        uses: actions/cache@v2
+        uses: actions/cache@v1
         with:
           path: ../Qt
           key: ${{ runner.os }}-QtCache-5.15.2
@@ -79,21 +81,23 @@ jobs:
         with:
           version: 5.15.2
           arch: win64_mingw81
+          cached: ${{ steps.cache-qt.outputs.cache-hit }}
       - uses: actions/checkout@v2
       - name: Build
         shell: cmd
         run: |
           call "%programfiles(x86)%\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-          qmake CONFIG+=release
+          qmake "CONFIG+=release"
           make
           mkdir bin
           move build\release\effort-log.exe bin
           7z a effort-log_"${GITHUB_REF}"_win64.zip bin\*
+          make clean
       - name: Build encrypted
         shell: cmd
         run: |
           call "%programfiles(x86)%\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-          qmake CONFIG+=release CONFIG+=crypt
+          qmake "CONFIG+=release" "CONFIG+=crypt"
           make
           mkdir bin
           move build\release\effort-log.exe bin
@@ -101,6 +105,7 @@ jobs:
           copy C:\OpenSSL-Win62\libssl64.dll bin\libssl64.dll
           copy C:\OpenSSL-Win62\ssleay64.dll bin\ssleay64.dll
           7z a effort-log_"${GITHUB_REF}"_win64.zip bin\*
+          make clean
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
