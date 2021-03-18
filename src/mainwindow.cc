@@ -107,7 +107,7 @@ void MainWindow::Setup() {
   tray_icon_->setIcon(QIcon(":/images/hourglass.png"));
   tray_icon_->show();
   QString tooltip;
-  tooltip.append(tr("%1 %2").arg(APP_NAME).arg(APP_VERSION));
+  tooltip.append(tr("%1 %2").arg(APP_NAME, APP_VERSION));
   tray_icon_->setToolTip(tooltip);
 
   // Status bar
@@ -279,7 +279,7 @@ void MainWindow::LogViewer() {
 
 void MainWindow::About() {
   QString msg;
-  msg.append(tr("<h1>%1 %2</h1>").arg(APP_NAME).arg(APP_VERSION));
+  msg.append(tr("<h1>%1 %2</h1>").arg(APP_NAME, APP_VERSION));
   msg.append("<br/>Copyright © 2015-2018 by IT Center");
   msg.append("<br/>Group: High Performance Computing");
   msg.append("<br/>Division: Computational Science and Engineering");

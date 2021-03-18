@@ -65,7 +65,7 @@ int main(int argc, char *argv[]) {
 #endif
   signal(SIGINT, HandlerOnSignal);
   setup->exec();
-  if (settings.value("conf/confAccepted") == true) {
+  if (settings.value("conf/confAccepted").toBool()) {
     return app.exec();
   } else {
     app.quit();

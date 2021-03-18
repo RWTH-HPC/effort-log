@@ -55,7 +55,7 @@ void QstForm::Setup() {
     hline_->setFrameShadow(QFrame::Sunken);
     layout_->addWidget(hline_);
   }
-  layout_->setMargin(0);
+  layout_->setContentsMargins(0, 0, 0, 0);
   setLayout(layout_);
 }
 
