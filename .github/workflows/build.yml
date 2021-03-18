@@ -52,15 +52,20 @@ jobs:
         run: |
           qmake "CONFIG+=release"
           make
+      - name: Deploy
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
           macdeployqt build/release/EffortLog.app -always-overwrite -verbose=3 -appstore-compliant -dmg
           mv build/release/EffortLog.dmg EffortLog_${{ steps.get_version.outputs.VERSION }}_osx.dmg
           otool -L EffortLog.app/Contents/MacOS/EffortLog
           make clean
       - name: Build encrypted
         run: |
-          ls -al
           qmake "CONFIG+=release" "CONFIG+=crypt"
           make
+      - name: Deploy encrypted
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
           macdeployqt build/release/EffortLog.app -always-overwrite -verbose=3 -appstore-compliant -dmg
           mv build/release/EffortLog.dmg EffortLog_${{ steps.get_version.outputs.VERSION }}_osx_encrypted.dmg
           otool -L EffortLog.app/Contents/MacOS/EffortLog
