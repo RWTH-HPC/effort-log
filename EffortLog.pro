@@ -100,9 +100,8 @@ CONFIG(crypt) {
   }
   win32 {
     # Adapt 'C:\Program Files\OpenSSL-Win64\' to your local path
-    SSL_WIN = "C:\\Program Files\\OpenSSL-Win64"
-    INCLUDEPATH += $${SSL_WIN}\\include
-    LIBS += -L$${SSL_WIN}\\bin -lssl -lcrypto
+    INCLUDEPATH += "C:\Program Files\OpenSSL-Win64\\include"
+    LIBS += -L "C:\Program Files\OpenSSL-Win64\bin" -llibssl-1_1-x64 -llibcrypto-1_1-x64
   }
 }
 
