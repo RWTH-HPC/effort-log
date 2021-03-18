@@ -490,8 +490,7 @@ void QuestionnaireDialog::CreateConnections() {
 
 void QuestionnaireDialog::UpdateUI() {
   QSettings settings;
-  int interval = QTime::currentTime().msecsSinceStartOfDay() -
-                 settings.value("lastLogTime").toTime().msecsSinceStartOfDay();
+  qint64 interval = settings.value("lastLogTime").toDateTime().msecsTo(QDateTime::currentDateTime());
   interval /= (1000 * 60);
   if (scheduler_ == 1) {
     int log_time = log_interval_spin_box_->value();
