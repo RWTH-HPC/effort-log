@@ -43,8 +43,11 @@ jobs:
         with:
           version: 5.15.2
           cached: ${{ steps.cache-qt.outputs.cache-hit }}
+      - name: Install Openssl
+        run: brew install openssl
       - name: Build
         run: |
+          ls -al
           qmake "CONFIG+=release"
           make
           macdeployqt EffortLog.app -always-overwrite -verbose=3 -appstore-compliant -dmg
@@ -53,6 +56,7 @@ jobs:
           make clean
       - name: Build encrypted
         run: |
+          ls -al
           qmake "CONFIG+=release" "CONFIG+=crypt"
           make
           macdeployqt EffortLog.app -always-overwrite -verbose=3 -appstore-compliant -dmg
@@ -82,6 +86,8 @@ jobs:
           version: 5.15.2
           arch: win64_mingw81
           cached: ${{ steps.cache-qt.outputs.cache-hit }}
+      - name: Install Openssl
+        run: choco install openssl -y
       - uses: actions/checkout@v2
       - name: Build
         shell: cmd
@@ -101,9 +107,9 @@ jobs:
           make
           mkdir bin
           move build\release\effort-log.exe bin
-          copy C:\OpenSSL-Win62\libeay64.dll bin\libeay64.dll
-          copy C:\OpenSSL-Win62\libssl64.dll bin\libssl64.dll
-          copy C:\OpenSSL-Win62\ssleay64.dll bin\ssleay64.dll
+          copy C:\Program Files\OpenSSL\libeay64.dll bin\libeay64.dll
+          copy C:\Program Files\OpenSSL\libssl64.dll bin\libssl64.dll
+          copy C:\Program Files\OpenSSL\ssleay64.dll bin\ssleay64.dll
           7z a effort-log_"${GITHUB_REF}"_win64.zip bin\*
           make clean
       - name: Release
