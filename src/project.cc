@@ -158,7 +158,7 @@ bool Project::StoreLog(QString f) {
   }
   QJsonObject json;
   QJsonArray activities_array;
-  foreach (const Activity a, *activities_) {
+  for (const auto &a: *activities_) {
     QJsonObject obj;
     obj["ActivityType"] = a.GetType();
     obj["Architecture"] = a.GetArc();
@@ -223,7 +223,7 @@ bool Project::ReadLog(QString f) {
   stage_ = json["InitialProjectStage"].toString();
   stage_comment_ = json["InitialProjectStageComment"].toString();
   QJsonArray activities_array = json["LoggingEvents"].toArray();
-  foreach (const QJsonValue &v, activities_array) {
+  for (const auto &v: activities_array) {
     QJsonObject o = v.toObject();
     Activity a;
     a.SetType(o["ActivityType"].toString());
@@ -284,7 +284,7 @@ bool Project::Load(QString f) {
   stage_ = json["StageOfDevel"].toString();
   stage_comment_ = json["Comment"].toString();
   QJsonArray array = json["Contributors"].toArray();
-  foreach (const QJsonValue &cont, array) {
+  for (const QJsonValue &cont: array) {
     AddContributor(cont.toObject().value("name").toString());
   }
 
