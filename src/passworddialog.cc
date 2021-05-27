@@ -109,8 +109,7 @@ void PasswordDialog::OnPwdInput() {
 }
 
 void PasswordDialog::accept() {
-  QByteArray pwd;
-  pwd.append(pwd_prompt_->text());
+  QByteArray pwd = pwd_prompt_->text().toUtf8();
   crypt_->SetPwd(pwd);
   QDialog::accept();
 }
