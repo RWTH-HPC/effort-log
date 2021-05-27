@@ -44,8 +44,6 @@ void QuestionnaireDialog::Setup() {
   no_logged_activities_ = settings.value("noLoggedActivities").toInt();
 
   // Specify logging interval
-  QLabel *log_interval_label = new QLabel(
-      tr("How long have you been working before executing EffortLog?"));
   if (scheduler_ == 1) {
     log_interval_spin_box_ = new QSpinBox(this);
     log_interval_spin_box_->setRange(0, 1000);
@@ -314,6 +312,8 @@ void QuestionnaireDialog::Setup() {
   QGroupBox *appendix_group = new QGroupBox;
   if (scheduler_ == 1) {
     QHBoxLayout *appendix_layout = new QHBoxLayout;
+    QLabel *log_interval_label = new QLabel(
+        tr("How long have you been working before executing EffortLog?"));
     appendix_layout->addWidget(log_interval_label);
     appendix_layout->addWidget(log_interval_spin_box_);
     appendix_group->setTitle(tr("Appendix"));
@@ -399,7 +399,10 @@ void QuestionnaireDialog::Setup() {
 
   // Main layout and sizing
   scroll_layout_ = new QVBoxLayout;
-  if (scheduler_ == 1) scroll_layout_->addWidget(appendix_group);
+  if (scheduler_ == 1)
+      scroll_layout_->addWidget(appendix_group);
+  else
+      delete(appendix_group);
   scroll_layout_->addWidget(act_group);
   scroll_layout_->addWidget(perf_group_box_);
   comment_group->setFixedHeight(comment_group->contentsMargins().top() +
