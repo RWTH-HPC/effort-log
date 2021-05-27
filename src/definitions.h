@@ -22,6 +22,8 @@
 
 #define APP_NAME \
   "Effort Log" /**< Global string holding the application's name.*/
+#define APP_VERSION  \
+  "@PROJECT_VERSION@" /**< Global string holding the application's version.*/
 #define MIN_LOG_INTERVAL                      \
   1 /**< Global integer value holding the     \
          minimum logging interval whichcan be \
