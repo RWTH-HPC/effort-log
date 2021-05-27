@@ -77,9 +77,9 @@ LogView::LogView(Project *pro) : QDialog() {
     QDate date = pro->GetActivity(i).GetCurTime().date();
     if (date_list.contains(date) == false) {
       date_list.append(date);
-      QStandardItem *item = new QStandardItem(date.toString("MM-dd-yyyy"));
-      rootNode->appendRow(item);
-      current = item;
+      QStandardItem *local_item = new QStandardItem(date.toString("MM-dd-yyyy"));
+      rootNode->appendRow(local_item);
+      current = local_item;
     }
     current->appendRow(item_list);
   }
