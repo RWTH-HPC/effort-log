@@ -24,6 +24,7 @@
 
 #include <QDebug>
 #include <QDir>
+#include <QtGlobal>
 #include <QScrollBar>
 #include <QtMath>
 
@@ -460,13 +461,27 @@ void QuestionnaireDialog::CreateConnections() {
   connect(perf_box_, SIGNAL(activated(int)), this, SLOT(PerfInputChanged(int)));
   connect(threads_box_, SIGNAL(activated(int)), this,
           SLOT(ThreadsInputChanged(int)));
-  connect(perf_group_, SIGNAL(buttonClicked(int)), this,
-          SLOT(ActiveSectionsChanged()));
-  connect(ms_group_, SIGNAL(buttonClicked(int)), this,
-          SLOT(ActiveSectionsChanged()));
+  #if QT_VERSION >= 0x060000
+    connect(perf_group_, &QButtonGroup::buttonClicked, this,
+            &QuestionnaireDialog::ActiveSectionsChanged);
+    connect(ms_group_, &QButtonGroup::buttonClicked, this,
+            &QuestionnaireDialog::ActiveSectionsChanged);
 
-  connect(perf_group_, SIGNAL(buttonClicked(int)), this, SLOT(CheckInput()));
-  connect(ms_group_, SIGNAL(buttonClicked(int)), this, SLOT(CheckInput()));
+    connect(perf_group_, &QButtonGroup::buttonClicked, this,
+            &QuestionnaireDialog::CheckInput);
+    connect(ms_group_, &QButtonGroup::buttonClicked, this,
+            &QuestionnaireDialog::CheckInput);
+  #else
+    connect(perf_group_, SIGNAL(buttonClicked(int)), this,
+            SLOT(ActiveSectionsChanged()));
+    connect(ms_group_, SIGNAL(buttonClicked(int)), this,
+            SLOT(ActiveSectionsChanged()));
+    connect(perf_group_, SIGNAL(buttonClicked(int)), this,
+            SLOT(CheckInput()));
+    connect(ms_group_, SIGNAL(buttonClicked(int)), this,
+            SLOT(CheckInput()));
+  #endif
+
   connect(act_form_->line_edit_, SIGNAL(textChanged(QString)), this,
           SLOT(CheckInput()));
   connect(perf_box_, SIGNAL(currentIndexChanged(int)), this,
