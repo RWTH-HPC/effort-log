@@ -78,7 +78,7 @@ if (CRYPT)
     set(EFFORT_LOG_SOURCES ${EFFORT_LOG_SOURCES} src/crypt.cc src/passworddialog.cc)
 endif()
 
-add_executable(effort-log ${EFFORT_LOG_SOURCES})
+add_executable(effort-log WIN32 MACOSX_BUNDLE ${EFFORT_LOG_SOURCES})
 
 target_link_libraries(effort-log ${EFFORT_LOG_LIBS})
 
