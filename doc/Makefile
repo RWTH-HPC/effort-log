@@ -4,7 +4,7 @@ SRC = help.md\
 	  questionnaire.md\
 	  logfile.md\
 	  about.md
-VERSION = 0.9.4
+VERSION = 1.0.0
 FLAGS = --self-contained --toc  --section-divs
 META = --metadata=title:"EffortLog v$(VERSION)"
 HTML_OUT = doc.html

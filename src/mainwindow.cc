@@ -280,7 +280,7 @@ void MainWindow::LogViewer() {
 void MainWindow::About() {
   QString msg;
   msg.append(tr("<h1>%1 %2</h1>").arg(APP_NAME, APP_VERSION));
-  msg.append("<br/>Copyright © 2015-2018 by IT Center");
+  msg.append("<br/>Copyright © 2015-2021 by IT Center");
   msg.append("<br/>Group: High Performance Computing");
   msg.append("<br/>Division: Computational Science and Engineering");
   msg.append("<br/>RWTH Aachen University");

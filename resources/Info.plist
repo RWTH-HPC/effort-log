@@ -9,7 +9,7 @@
     <string>EffortLog</string>
 
   <key>CFBundleGetInfoString</key>
-    <string>Version 0.7 IT Center RWTH Achen University</string>
+    <string>Version 1.0 IT Center RWTH Achen University</string>
 
   <key>CFBundleIconFile</key>
     <string></string>
@@ -18,7 +18,7 @@
     <string>de.rwth-aachen.itc.effortlog</string>
 
   <key>CFBundleLongVersionString</key>
-    <string>Version 0.7 IT Center RWTH Achen University</string>
+    <string>Version 1.0 IT Center RWTH Achen University</string>
 
   <key>CFBundleName</key>
     <string>EffortLog</string>
@@ -27,13 +27,13 @@
     <string>APPL</string>
 
   <key>CFBundleShortVersionString</key>
-    <string>0.7</string>
+    <string>1.0</string>
 
   <key>CFBundleSignature</key>
     <string>EITC</string>
 
   <key>CFBundleVersion</key>
-    <string>0.7</string>
+    <string>1.0</string>
 
   <key>NSPrincipalClass</key>
     <string>NSApplication</string>
