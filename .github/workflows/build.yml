@@ -34,29 +34,37 @@ jobs:
           cd build
           cmake ..
           cmake --build .
-      - name: Build encrypted
-        if: matrix.crypt == true && matrix.os != 'macOS-latest'
+      - name: Build encrypted Linux
+        if: matrix.crypt == true && matrix.os == 'ubuntu-latest'
         run: |
           mkdir build
           cd build
           cmake -DCRYPT=ON ..
           cmake --build .
       - name: Build encrypted MacOS
-        if: matrix.crypt == true && matrix.os == 'macOS-latest'
+        if: matrix.crypt == true && matrix.os == 'macos-latest'
         run: |
           mkdir build
           cd build
           cmake -DCRYPT=ON -DOPENSSL_ROOT_DIR=/usr/local/opt/openssl ..
           cmake --build .
+      - name: Build encrypted Windows
+        if: matrix.crypt == true && matrix.os == 'windows-latest'
+        run: |
+          choco install openssl -y
+          mkdir build
+          cd build
+          cmake -DCRYPT=ON -DOPENSSL_ROOT_DIR="C:\Program Files\OpenSSL-Win64" ..
+          cmake --build .
       - name: Deploy macOS
-        if: startsWith(github.ref, 'refs/tags/') && matrix.qt_version == '6.1.0' && matrix.crypt == false && matrix.os == 'macOS-latest'
+        if: startsWith(github.ref, 'refs/tags/') && matrix.qt_version == '6.1.0' && matrix.crypt == false && matrix.os == 'macos-latest'
         run: |
           macdeployqt build/EffortLog.app -always-overwrite -verbose=3 -appstore-compliant -dmg
           otool -L build/EffortLog.app/Contents/MacOS/EffortLog
           mv build/EffortLog.dmg EffortLog_${{ steps.get_version.outputs.VERSION }}_osx.dmg
           rm -rf build
       - name: Deploy encrypted macOS
-        if: startsWith(github.ref, 'refs/tags/') && matrix.qt_version == '6.1.0' && matrix.crypt == true && matrix.os == 'macOS-latest'
+        if: startsWith(github.ref, 'refs/tags/') && matrix.qt_version == '6.1.0' && matrix.crypt == true && matrix.os == 'macos-latest'
         run: |
           macdeployqt build/EffortLog.app -always-overwrite -verbose=3 -appstore-compliant -dmg
           otool -L build/EffortLog.app/Contents/MacOS/EffortLog
@@ -90,7 +98,7 @@ jobs:
           rmdir /Q /S bin
       - name: Release macOS
         uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/') && matrix.qt_version == '6.1.0' && matrix.os == 'macOS-latest'
+        if: startsWith(github.ref, 'refs/tags/') && matrix.qt_version == '6.1.0' && matrix.os == 'macos-latest'
         with:
           files: EffortLog_*.dmg
         env:
