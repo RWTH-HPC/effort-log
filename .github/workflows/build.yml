@@ -34,10 +34,11 @@ jobs:
           cmake ..
           cmake --build .
           cd ..
+          ls build
       - name: Deploy macOS
         if: startsWith(github.ref, 'refs/tags/') && matrix.qt_version == '6.1.0' && matrix.os == 'macos-latest'
         run: |
-          mv build/effort-log build/EffortLog.app
+          mv build/effort-log.app build/EffortLog.app
           macdeployqt build/EffortLog.app -always-overwrite -verbose=3 -appstore-compliant -dmg
           otool -L build/EffortLog.app/Contents/MacOS/EffortLog
           mv build/EffortLog.dmg EffortLog_${{ steps.get_version.outputs.VERSION }}_osx.dmg
@@ -46,7 +47,6 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/') && matrix.qt_version == '6.1.0' && matrix.os == 'windows-latest'
         shell: cmd
         run: |
-          mv build/effort-log build/effort-log.exe
           mkdir bin
           windeployqt --verbose 2 --no-translations --dir .\bin .\build\effort-log.exe
           move .\build\effort-log.exe .\bin
@@ -101,6 +101,7 @@ jobs:
           cmake -DCRYPT=ON ..
           cmake --build .
           cd ..
+          ls build
       - name: Build encrypted MacOS
         if: matrix.os == 'macos-latest'
         run: |
@@ -109,6 +110,7 @@ jobs:
           cmake -DCRYPT=ON -DOPENSSL_ROOT_DIR=/usr/local/opt/openssl ..
           cmake --build .
           cd ..
+          ls build
       - name: Build encrypted Windows
         if: matrix.os == 'windows-latest'
         run: |
@@ -118,10 +120,11 @@ jobs:
           cmake -DCRYPT=ON -DOPENSSL_ROOT_DIR="C:\Program Files\OpenSSL-Win64" ..
           cmake --build .
           cd ..
+          ls build
       - name: Deploy encrypted macOS
         if: startsWith(github.ref, 'refs/tags/') && matrix.qt_version == '6.1.0' && matrix.os == 'macos-latest'
         run: |
-          mv build/effort-log build/EffortLog.app
+          mv build/effort-log.app build/EffortLog.app
           macdeployqt build/EffortLog.app -always-overwrite -verbose=3 -appstore-compliant -dmg
           otool -L build/EffortLog.app/Contents/MacOS/EffortLog
           mv build/EffortLog.dmg EffortLog_${{ steps.get_version.outputs.VERSION }}_osx_encrypted.dmg
@@ -130,7 +133,6 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/') && matrix.qt_version == '6.1.0' && matrix.os == 'windows-latest'
         shell: cmd
         run: |
-          mv build/effort-log build/effort-log.exe
           mkdir bin
           windeployqt --verbose 2 --no-translations --dir .\bin .\build\effort-log.exe
           move .\build\effort-log.exe .\bin
