@@ -185,6 +185,9 @@ For more information on how to develop and contribute to EffortLog, please conta
 
 ## Change log
 
+* 1.0.1 (October 2021):
+  * Chore:              Update to Qt 6.2
+  * Chore:              Update documentation for version 1
 * 1.0.0 (May 2021):
   * Added feature:      Support for Qt 6
   * Chore:              Switch to cmake
