@@ -6,7 +6,7 @@ jobs:
   build:
     strategy:
       matrix:
-        qt_version: [5.15.2, 6.1.0]
+        qt_version: [5.15.2, 6.2.0]
         os: ['ubuntu-latest', 'windows-latest', 'macos-latest']
       fail-fast: false
     runs-on: ${{ matrix.os }}
@@ -23,7 +23,7 @@ jobs:
           cached: ${{ steps.cache-qt.outputs.cache-hit }}
       - uses: actions/checkout@v2
       - name: Get the version
-        if: startsWith(github.ref, 'refs/tags/') && matrix.qt_version == '6.1.0'
+        if: startsWith(github.ref, 'refs/tags/') && matrix.qt_version == '6.2.0'
         id: get_version
         run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
         shell: bash
@@ -32,13 +32,13 @@ jobs:
           cmake -S . -B build
           cmake --build build --config Release
       - name: Deploy macOS
-        if: startsWith(github.ref, 'refs/tags/') && matrix.qt_version == '6.1.0' && matrix.os == 'macos-latest'
+        if: startsWith(github.ref, 'refs/tags/') && matrix.qt_version == '6.2.0' && matrix.os == 'macos-latest'
         run: |
           macdeployqt build/effort-log.app -always-overwrite -verbose=3 -appstore-compliant -dmg
           otool -L build/effort-log.app/Contents/MacOS/effort-log
           mv build/effort-log.dmg effort-log_${{ steps.get_version.outputs.VERSION }}_osx.dmg
       - name: Deploy Windows
-        if: startsWith(github.ref, 'refs/tags/') && matrix.qt_version == '6.1.0' && matrix.os == 'windows-latest'
+        if: startsWith(github.ref, 'refs/tags/') && matrix.qt_version == '6.2.0' && matrix.os == 'windows-latest'
         shell: cmd
         run: |
           mkdir bin
@@ -50,14 +50,14 @@ jobs:
           mv .\bin\effort-log_${{ steps.get_version.outputs.VERSION }}_win64.zip .\
       - name: Release macOS
         uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/') && matrix.qt_version == '6.1.0' && matrix.os == 'macos-latest'
+        if: startsWith(github.ref, 'refs/tags/') && matrix.qt_version == '6.2.0' && matrix.os == 'macos-latest'
         with:
           files: effort-log_*.dmg
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Release Windows
         uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/') && matrix.qt_version == '6.1.0' && matrix.os == 'windows-latest'
+        if: startsWith(github.ref, 'refs/tags/') && matrix.qt_version == '6.2.0' && matrix.os == 'windows-latest'
         with:
           files: effort-log_*.zip
         env:
@@ -65,7 +65,7 @@ jobs:
   build-encrypted:
     strategy:
       matrix:
-        qt_version: [5.15.2, 6.1.0]
+        qt_version: [5.15.2, 6.2.0]
         os: ['ubuntu-latest', 'windows-latest', 'macos-latest']
       fail-fast: false
     runs-on: ${{ matrix.os }}
@@ -82,7 +82,7 @@ jobs:
           cached: ${{ steps.cache-qt.outputs.cache-hit }}
       - uses: actions/checkout@v2
       - name: Get the version
-        if: startsWith(github.ref, 'refs/tags/') && matrix.qt_version == '6.1.0'
+        if: startsWith(github.ref, 'refs/tags/') && matrix.qt_version == '6.2.0'
         id: get_version
         run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
         shell: bash
@@ -103,13 +103,13 @@ jobs:
           cmake -DCRYPT=ON -DOPENSSL_ROOT_DIR="C:\Program Files\OpenSSL-Win64" -S . -B build
           cmake --build build --config Release
       - name: Deploy encrypted macOS
-        if: startsWith(github.ref, 'refs/tags/') && matrix.qt_version == '6.1.0' && matrix.os == 'macos-latest'
+        if: startsWith(github.ref, 'refs/tags/') && matrix.qt_version == '6.2.0' && matrix.os == 'macos-latest'
         run: |
           macdeployqt build/effort-log.app -always-overwrite -verbose=3 -appstore-compliant -dmg
           otool -L build/effort-log.app/Contents/MacOS/effort-log
           mv build/effort-log.dmg effort-log_${{ steps.get_version.outputs.VERSION }}_osx_encrypted.dmg
       - name: Deploy encrypted Windows
-        if: startsWith(github.ref, 'refs/tags/') && matrix.qt_version == '6.1.0' && matrix.os == 'windows-latest'
+        if: startsWith(github.ref, 'refs/tags/') && matrix.qt_version == '6.2.0' && matrix.os == 'windows-latest'
         shell: cmd
         run: |
           mkdir bin
@@ -123,14 +123,14 @@ jobs:
           mv .\bin\effort-log_${{ steps.get_version.outputs.VERSION }}_win64_encrypted.zip .\
       - name: Release macOS
         uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/') && matrix.qt_version == '6.1.0' && matrix.os == 'macos-latest'
+        if: startsWith(github.ref, 'refs/tags/') && matrix.qt_version == '6.2.0' && matrix.os == 'macos-latest'
         with:
           files: effort-log_*.dmg
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Release Windows
         uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/') && matrix.qt_version == '6.1.0' && matrix.os == 'windows-latest'
+        if: startsWith(github.ref, 'refs/tags/') && matrix.qt_version == '6.2.0' && matrix.os == 'windows-latest'
         with:
           files: effort-log_*.zip
         env:
