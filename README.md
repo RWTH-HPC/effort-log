@@ -19,7 +19,44 @@ You can download the binaries from [Github releases](https://github.com/julianmi
 
 ## Build from Source
 
-You can download the sources from [Github releases](https://github.com/julianmi/effort-log/releases). EffortLog requires Qt version 5.5.0 or later development libraries to be compiled. OS specific requirements:
+You can download the sources from [Github releases](https://github.com/julianmi/effort-log/releases). 
+
+### EffortLog >= v1.0.0
+
+EffortLog >= v1.0.0 supports Qt 5.15 and Qt6. OS specific requirements:
+
+* On Windows: MinGW with g++ 4.7 or later, [install Qt](https://www.qt.io/download-qt-installer)
+* On Mac OS X: latest Xcode, `brew install qt`
+* On Linux: [Qt for Linux/X11](https://doc.qt.io/qt-6/linux.html)
+
+Latest OpenSSL if encryption is required:
+
+* On Windows: [install OpenSSL for Windows](https://wiki.openssl.org/index.php/Binaries)
+* On Mac OS X: `brew install openssl`
+* On Ubuntu/Debian: `sudo apt install libssl-dev`
+* On OpenSUSE: `sudo zypper install libopenssl-devel`
+* On Fedora: `sudo yum install openssl-devel`
+* On Arch Linux: `sudo pacman -S openssl`
+
+You can build EffortLog with
+
+    cd $EFFORTLOG_DIRECTORY
+    cmake -S . -B build
+    cmake --build build --config Release (or --config Debug for development)
+    make (or mingw32-make on Windows)
+
+The encrypted version can be build with
+    cmake -DCRYPT=ON -DOPENSSL_ROOT_DIR=\<path to OpenSSl root directory\> -S . -B build
+    cmake --build build --config Release (or --config Debug for development)
+    make (or mingw32-make on Windows)
+
+To create the *Doxygen* documentation use
+
+    make doxygen
+
+### EffortLog < v1.0.0
+
+EffortLog < v1.0.0 provides compatibility with older versions of Qt5 down to version 5.5.0. OS specific requirements:
 
 * On Windows: MinGW with g++ 4.7 or later, [install Qt](https://www.qt.io/download-qt-installer)
 * On Mac OS X: latest Xcode, `brew install qt5`
@@ -150,6 +187,7 @@ For more information on how to develop and contribute to EffortLog, please conta
 
 * 1.0.0 (May 2021):
   * Added feature:      Support for Qt 6
+  * Chore:              Switch to cmake
 * 0.9.6 (March 2021):
   * Chore:              Updated to Qt 5.15
   * Chore:              Removed some deprecated code
