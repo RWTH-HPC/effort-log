@@ -14,8 +14,8 @@ You can download the binaries from [Github releases](https://github.com/julianmi
 
 * EffortLog_`<version>`_osx.dmg: For Mac OS X 10.7 and higher
 * EffortLog_`<version>`_osx_encrypted.dmg: For Mac OS X 10.7 and higher with enabled encryption of log files
-* EffortLog_`<version>`_win32.zip: 32-bit version for Windows
-* EffortLog_`<version>`_win32_encrypted.zip: 32-bit version for Windows with enabled encryption of log files
+* EffortLog_`<version>`_win64.zip: 64-bit version for Windows
+* EffortLog_`<version>`_win64_encrypted.zip: 64-bit version for Windows with enabled encryption of log files
 
 ## Build from Source
 
