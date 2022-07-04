@@ -1,5 +1,5 @@
 <!--
-  Copyright (c) 2015-2021 by IT Center, RWTH Aachen University
+  Copyright (c) 2015-2022 by IT Center, RWTH Aachen University
 
   This file is part of EffortLog, a tool for collecting software
   development effort.
@@ -36,6 +36,8 @@ Change log:
 
 ## Change log
 
+* 1.0.2 (July 2022):
+  * Chore:              Update to Qt 6.3
 * 1.0.1 (October 2021):
   * Chore:              Update to Qt 6.2
   * Chore:              Update documentation for version 1
@@ -111,7 +113,7 @@ systems and can be set executable by the following command:
 
 ## Licensing of EffortLog
 
-Copyright © 2015-2021 IT Center, RWTH Aachen University
+Copyright © 2015-2022 IT Center, RWTH Aachen University
 
 This project is licensed under version 3 of the [GNU General Public
 License](http://www.gnu.org/licenses/).

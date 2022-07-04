@@ -185,6 +185,8 @@ For more information on how to develop and contribute to EffortLog, please conta
 
 ## Change log
 
+* 1.0.2 (July 2022):
+  * Chore:              Update to Qt 6.3
 * 1.0.1 (October 2021):
   * Chore:              Update to Qt 6.2
   * Chore:              Update documentation for version 1
